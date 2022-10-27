@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+
+html {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 100%;
+	background: rgb(128, 255, 128);
+}
+
+
+
+h1 {
+	margin-top: 0;
+	color: green;
+}
+
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
