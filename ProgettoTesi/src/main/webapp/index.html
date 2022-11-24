@@ -1,0 +1,94 @@
+<html>
+<head>
+    <title>WebApp</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    h1 {
+	margin-top: 0;
+	color: #80ff00;
+	 font-family: Arial;
+}
+    
+.button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button1 {
+  background-color: #4CAF50; 
+  color: white;
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+ background-color: 	#8fbc8f;
+ color: white;
+}
+</style>
+</head>
+<body>
+ 	<h1>Web App Home</h1>
+ 	
+   <input  onclick="loadPage();" value="Carica pagina Web" type="button" class="button button1">
+ 	
+	<div id="webPage"></div>
+	<div id="output"></div>
+</body>
+
+<script>
+ 
+		/* 
+		 * Crea un oggetto websocket javascript utilizzando l'URL dall'endpoint del server Java	
+		 */
+		var ws = new WebSocket("ws://localhost:8080/index");
+	
+		// Funzione di callback Javascript quando viene stabilita la connessione. 
+		ws.onopen = function() {
+			console.log("On Open");
+			$("#output").append("Connessione aperta al websocket<br/>");
+			loadPage();
+		}
+ 
+		// Funzione di callback Javascript quando i messaggi vengono ricevuti dal server.
+		ws.onmessage = function(msg) {
+			console.log("On Message = " + msg);
+			$("#output").append(msg.data + "<br/>");
+			
+		}
+ 
+		// Funzione di callback Javascript quando la connessione è chiusa.
+		ws.onclose = function(msg) {
+			console.log("On Close = " + msg);
+			$("#output").append("Connessione chiusa al websocket<br/>");
+		}
+		
+		
+		//Metodo che carica una pagina web
+	    function loadPage() {
+	    	$(document).ready(function(){		   
+	    	 	  $('#webPage').load("giocoFrutta.html");
+	    		});
+	   }
+		
+		//Metodo che gestiche gli eventi della pagina web caricata
+		//ed invia informazioni al server tramite websocket
+		//Da implementare
+		function eventClick(){
+			
+		}
+ 
+	</script>
+ 
+ 
+</html>
