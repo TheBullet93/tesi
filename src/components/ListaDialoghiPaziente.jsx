@@ -1,0 +1,243 @@
+import React ,{ useState,useEffect } from "react";
+
+import { getDatabase} from "firebase/database";
+import {ref,remove,onValue} from 'firebase/database';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import { ButtonGroup } from 'react-bootstrap';
+import FormAssegnaDialogo from "./FormAssegnaDialogo";
+
+import { Card,Form} from "react-bootstrap";
+
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
+
+import robot from '../immagini/robot.png'
+import robot1 from '../immagini/robot1.jpg'
+import robot2 from '../immagini/robot2.png'
+import robot3 from '../immagini/robot3.jpg'
+import logo from '../immagini/logo.jpg'
+
+import { Link } from "react-router-dom";
+
+import {FaTrash} from "react-icons/fa"
+
+import UpdateDialoghiPaziente from "./UpdateDialoghiPaziente";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
+
+import Delete from "./Delete";
+import { Toolbar } from 'primereact/toolbar';
+
+export default function ListaDialoghiPaziente(props) {
+
+    const db = getDatabase();
+
+    const [todoData,setTodoData] = useState([]);
+
+    const [searchTipologia, setSearchTipologia] = useState('');
+
+    const tipologie = [ 
+    {label:"TIPOLOGIE"} ,
+    {label:"Ballo"} ,
+    {label:"Azione"} ,
+    {label:"Interazione Sociale"} ,
+    {label:"Foto"} ,
+    {label:"Meteo"} ,
+    {label:"Calcolatrice"} ,
+    {label:"Calendario"} ,
+    {label:"Traduzione"} ,
+  ] 
+  
+    const [showResults, setShowResults] = React.useState(false)
+    const handleClose = () => setShowResults(false)
+ 
+    useEffect(()=>{
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const uid = user.uid;
+            console.log("uid", uid)
+        
+          } else {
+            console.log("user is logged out")
+          }
+        });
+       
+  }, [])
+
+  useEffect(() => {
+    const Ref = (ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/`));
+    onValue(Ref, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setTodoData(newPosts);
+    });
+  
+  
+  },[auth?.currentUser?.uid])
+
+  const handleDelete = (item) => {
+    if (window.confirm('Sei sicuro di voler eliminare questa attività?')) {  
+
+      const dbRef = ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/${item.id}`);
+      
+      remove(dbRef);
+
+      toast.success('Dialogo eliminato');
+      }  
+    }
+
+ 
+    const renderSwitch = (param)  =>{
+      switch(param) {
+        case 'Ballo':
+          return 'Mini ama ballare ed è disposto a portare gioia a tutti con la danza';
+        case 'Azione':
+          return 'Mini può eseguire una varietà di azioni umanoidi complesse come push-up, yoga. Lascia che ti mostri cosa può fare!';
+        case 'Interazione Sociale':
+          return 'Mini può riconoscere il tuo viso e salutarti utilizzando il riconoscimento facciale per memorizzare il tuo aspetto.';
+        case 'Foto':
+          return 'Chiedi a Mini di scattarti una foto';
+        case 'Meteo':
+          return 'Mini è disposto a fornirti previsioni meteo in tempo reale e prendersi cura di te';
+        case 'Calcolatrice':
+          return 'Mini può aiutarti a capire un problema di matematica in un secondo';
+        case 'Calendario':
+          return "Mini può aiutarti a rispondere alle domande sull'ora,in qualsiasi luogo e in qualsiasi momento";
+          case 'Traduzione':
+            return "Mini è bravo in più lingue e può aiutarti a imparare l'inglese o comunicare ogni giorno";
+        default:
+          return "seleziona una tipologia";
+      }
+    }
+
+  const renderImage = (param)  =>{
+    switch(param) {
+      case 'Ballo':
+        return robot3;
+      case 'Azione':
+        return robot2;
+      case 'Interazione Sociale':
+        return robot;
+      case 'Foto':
+        return robot1;
+      case 'Meteo':
+        return robot;
+      case 'Calcolatrice':
+        return robot;
+      case 'Calendario':
+        return robot1;
+      default:
+        return logo;
+    }
+  }
+
+  const startContent = (
+    <React.Fragment>
+        <FormAssegnaDialogo
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+               />
+    </React.Fragment>
+);
+
+const endContent = (
+    <React.Fragment>
+          <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
+             {tipologie.map((option,index) =>  {
+            return(
+              <option key={index}> {option.label}</option>
+            )
+           }        
+        
+          )}   
+        </Form.Select>
+    </React.Fragment>
+);
+
+
+
+    return (
+      <>
+      
+      <div>
+       <ToastContainer 
+          autoClose={1500}
+          position="top-center"
+          theme="light"
+                       />
+        <Toolbar start={startContent} end={endContent} />
+      </div> 
+     
+     
+        <Row  xs={1} md={3} className="g-4">
+             {!todoData.length
+              ? <h2 className="noData">Nessun dialogo presente</h2>
+             :todoData
+             .filter((item) => {
+              return searchTipologia === 'TIPOLOGIE'
+                ? item
+                : item.tipologiaDialogo.includes(searchTipologia);
+            })
+             .map((item) => (
+               <Col key={item.id}>
+               <React.Fragment  >
+               <Card className="cardAttivita">
+                 <Link to={{
+                  pathname:`/dialogo/:idPaziente/:idDomanda`,
+                  search: `?idDomanda=${props.idPaziente}/?idDomanda=${item.id}`, 
+                  }} 
+                  state= { {
+                    idPaziente: props.idPaziente,
+                    idDialogo: item.id,
+
+                    nomePaziente: props.nomePaziente,
+                    cognomePaziente:props.cognomePaziente,
+                    
+                    tipologiaDialogo: item.tipologiaDialogo
+                  }}
+                 >
+                 <Card.Img className="imgEsercizio" variant="top" src={renderImage(item.tipologiaDialogo)}   alt="Immagine Esercizio" />
+                 </Link>
+                 <Card.Body>
+                     <Card.Title className="titoloDomanda">{item.titoloDialogo}</Card.Title>
+                     <Card.Text>
+                       {renderSwitch(item.tipologiaDialogo)}
+                     </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                     <div className="delCard">
+                       <UpdateDialoghiPaziente
+                         idTerapista = {auth?.currentUser?.uid}
+                         idPaziente = {props.idPaziente}
+                         item = {item.id} 
+                         titoloDialogo = {item.titoloDialogo}
+                         tipologiaDialogo = {item.tipologiaDialogo}
+
+                       />
+                      <Delete
+                       title = {item.titoloGioco}
+                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/${item.id}`}
+                       textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
+                       textToast = {'Dialogo eliminato'}
+                       />
+                       </div>   
+                  </Card.Footer>
+                </Card>
+               </React.Fragment>
+               
+        </Col>
+      ))}
+    </Row>
+
+      </> 
+  );
+}

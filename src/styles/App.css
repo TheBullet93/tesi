@@ -1,0 +1,465 @@
+body{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background: linear-gradient(90deg, rgba(240,238,238,1) 0%, rgba(255,255,255,1) 100%);
+
+}
+
+h1{
+  color:#3164F4;
+}
+
+h4{
+  text-align: center;
+  color:#3164F4;
+}
+
+.error{
+  color:#f81717;
+}
+
+
+
+
+/* Toolbar*/
+
+.btnAdd{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: medium;
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border: 2px solid #3164F4;
+  border-radius: 25px;   
+  box-shadow: 1px 1px rgb(189, 186, 186);
+  margin-left: 20px;  
+  padding: 10px 15px;
+  
+}
+
+.btnAdd:hover{
+  opacity: 0.8;
+}
+
+.btnAdd:active {
+  background-color: #3164F4;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.search-container {
+  float: right;
+
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+}
+
+
+
+input[type=text],input[type=date] {
+  padding: 6px;
+  font-size: 17px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #3164F4;
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+}
+
+input[type=checkbox], input[type=radio] {
+  padding: 10px;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #3164F4;
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+}
+
+input:focus {
+  outline: 2px solid rgb(37, 55, 219);  
+}
+
+
+
+/*Tabella*/
+
+.tabella{
+  padding: 10px;
+ 
+}
+
+thead{
+  background-color: #3164F4;
+  color: #fff;
+  text-align: center;
+
+}
+
+tbody tr{
+  color:#3164F4;
+  text-align: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: #3164F4 1px 1px ;
+}
+
+
+
+
+.noData{
+  color:#3164F4;
+  text-align: center;
+  
+}
+.statistiche, .voto{
+  color:#3164F4;
+  border-radius: 25%;
+  border: 1px solid;
+  box-shadow: 2px 2px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistiche:hover,.voto:hover{
+  opacity: 0.8;
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+  color:  #fff;
+}
+
+.statistiche:active,.voto:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+     
+
+ .elimina {
+  margin: 5px;
+  color:red;
+  width: 50%;
+  border-radius: 25%;
+  border: 1px solid;
+  box-shadow: 2px 2px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elimina:hover{
+  opacity: 0.8;
+  background: linear-gradient(90deg, rgba(236,45,45,1) 3%, rgba(253,29,29,0.7819502801120448) 59%, rgba(226,2,2,0.5494572829131652) 90%);
+  color:  #fff;
+}
+
+.elimina:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+     
+
+
+.aggiorna{
+  margin: 5px;
+  color: #2FE326;
+  width: 50%;
+  border-radius: 25%;
+  border: 1px solid;
+  box-shadow: 2px 2px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.aggiorna:hover{
+  opacity: 0.8;
+  background: linear-gradient(90deg, rgba(92,226,92,1) 47%, rgba(255,255,255,1) 100%);
+  color:  #fff;
+}
+
+.aggiorna:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+@media screen and (max-width: 380px){
+  .statistiche,.aggiorna,.elimina,.voto{
+    height: 40px;
+    width: 40px;
+
+  }
+}
+
+/*Form*/
+
+
+.headerForm, .labelForm{
+  color:#3164F4;
+}
+
+input[type=radio] {
+  
+  border: 1px solid #3164F4;
+ 
+}
+
+.selectForm{
+  color:#3164F4;
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+}
+
+p{color:#3164F4;}
+
+.labelCheckbox{
+  color:#3164F4;
+}
+
+.formAdd{
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+}
+
+.formAnnulla{
+  background: linear-gradient(90deg, rgba(236,45,45,1) 3%, rgba(253,29,29,0.7819502801120448) 59%, rgba(226,2,2,0.5494572829131652) 90%);
+}
+
+
+/*Card*/
+
+.card{
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+  box-shadow: #3164F4 2px 2px ;
+  margin: 10px;
+  width: 100%;
+ 
+}
+
+
+
+.title{
+  text-align: center;
+  color:#3164F4;
+  margin: 10px;
+}
+
+.btnGroupCard{
+  float:right;
+ 
+}
+
+.btnDomanda{
+ text-align: center;
+ padding-top: 10px;
+}
+
+.btnCard{
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+  color: white;
+  box-shadow: #3164F4 2px 2px;
+  margin: 5px;  
+}
+
+.btnCard:hover{
+  opacity: 0.8;
+}
+
+.btnCard:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+
+.linkMenu{
+  display: flex;
+  color:#3164F4;
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+  text-decoration: none;
+}
+
+
+
+
+/*Profilo*/
+
+.profilo{
+  padding: 20px;
+}
+
+.avatar{
+  text-align: center;
+}
+
+.imgAvatar{
+  height:40%;
+  width: 40%;
+}
+
+.aggProfilo{
+  float: right;
+}
+
+.datiProfilo{
+  text-align: center;
+  color: #3164F4;
+}
+
+.span{
+  color: blue;
+  font-weight: bold;
+}
+
+
+.selectFormGioco{
+  color:#3164F4;
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+  display: inline;
+  margin: 10px;
+}
+
+
+.opzioniDialoghi{
+  color:#3164F4;
+}
+
+
+.infoPaziente{
+  color:#0f2666;
+}
+
+.datiPaziente{
+  color:#3164F4;
+}
+
+.tepTitle{
+  color:#3164F4;
+
+}
+
+.delCard{
+  float: right;
+}
+
+.imgDialogo{
+  height: fit-content;
+  width: 100%;
+}
+
+.rispMini{
+  text-align: center;
+  color: #0f2666;
+}
+
+.parola{
+  text-align: center;
+  color: #0f2666;
+  font-size: 30px;
+ 
+}
+
+.parolePaziente{
+
+  text-align: center;
+  color: #0f2666;
+}
+
+.inputLettera{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inputLettera input{
+  height: 57px;
+  width: 56px;
+  margin: 4px;
+  text-transform: uppercase;
+  
+}
+
+.parolaCategorizzazione{
+  border: 2px solid #3164F4;
+  border-radius: 20px;
+  text-align: center;
+  color: #0f2666;
+}
+
+.btn-space {
+  float: left;
+ }
+.btn-space1 {
+ float: right;
+}
+
+.btn-space:active {
+  transform: translateY(4px);
+}
+
+.btn-space1:active {
+  transform: translateY(4px);
+}
+
+
+.inputForm{
+  margin: 10px;
+}
+
+.inputPazienteView{
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+  color: white;
+  box-shadow: #3164F4 2px 2px;
+  margin: 5px;  
+}
+
+.inputPazienteView:active {
+  box-shadow: 0 5px #3164F4;
+  transform: translateY(4px);
+}
+
+
+
+
+.titleStat{
+  text-align: center;
+  color:#0f2666;
+  margin: 10px;
+}
+
+.listMargin{
+  margin:5px
+}
+
+.NavBarText{
+  text-align: center;
+  color:#3164F4;
+  font-size: xx-large;
+  margin: 5px;
+}
+
+
+.audioPlayer{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+ padding:20px;
+}
+
+.cardAttivita{
+  width: 100%;
+  height: 100%;
+}
