@@ -1,17 +1,13 @@
 import React,{useState,useEffect} from 'react';
 
 import { getDatabase } from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
+import {ref,onValue} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
 
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import '../styles/SuperResponsiveTable.css';
-
-
-import {FaTrash} from "react-icons/fa"
-
 
 import { format } from "date-fns";
 
