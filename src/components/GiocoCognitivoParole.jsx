@@ -136,17 +136,7 @@ const handleErrata= () =>{
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}  
-         
-          <UpdateParolaPaziente
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-                 idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-
-                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
-                 parola = {todoData[currentQuestion].parola}
-                  /></p>
+          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
 
           <h3 className="parola"> {todoData[currentQuestion].parola.toLocaleUpperCase()}</h3>
           <Row  xs={1} md={1} className="g-4">
@@ -176,7 +166,16 @@ const handleErrata= () =>{
               </div>
               </Col>
            </Row>  
-        </Card.Text>
+        </Card.Text> 
+        <UpdateParolaPaziente
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+                 idGioco = {props.idGioco} 
+                 currentQuestion = {currentQuestion}
+
+                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
+                 parola = {todoData[currentQuestion].parola}
+                  />
       </Card.Body >
     </Card>
        </React.Fragment>

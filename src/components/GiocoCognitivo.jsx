@@ -153,21 +153,7 @@ function shuffleButtons(item1,item2,item3,item4) {
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}  
-          <UpdateDomandaPaziente
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-                 idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-
-                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
-                 rispostaCorretta = {todoData[currentQuestion].rispostaCorretta}
-                 rispostaErrata1 = {todoData[currentQuestion].rispostaErrata1}
-                 rispostaErrata2 = {todoData[currentQuestion].rispostaErrata2}
-                 rispostaErrata3 = {todoData[currentQuestion].rispostaErrata3}
-               
-
-                  /></p>
+          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
           <Row  xs={1} md={1} className="g-4">
              <Col >
                 <ButtonGroup className="quiz-button">
@@ -186,6 +172,20 @@ function shuffleButtons(item1,item2,item3,item4) {
               </Col>
            </Row>  
         </Card.Text>
+        <UpdateDomandaPaziente
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+                 idGioco = {props.idGioco} 
+                 currentQuestion = {currentQuestion}
+
+                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
+                 rispostaCorretta = {todoData[currentQuestion].rispostaCorretta}
+                 rispostaErrata1 = {todoData[currentQuestion].rispostaErrata1}
+                 rispostaErrata2 = {todoData[currentQuestion].rispostaErrata2}
+                 rispostaErrata3 = {todoData[currentQuestion].rispostaErrata3}
+               
+
+                  />
       </Card.Body >
     </Card>
        </React.Fragment>

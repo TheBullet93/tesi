@@ -114,15 +114,27 @@ const handleErrata= () =>{
        <>
        <h2 className="rispMini">Ciao {props.nomePaziente} {props.cognomePaziente}, rispondi alle seguenti domande</h2>
        <React.Fragment key={currentQuestion}>
-       <Card>
+      
+       <Card className="cardGioco">
       <Card.Body >
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
-        <Card.Text>
+        <p>Domanda {currentQuestion + 1} di {todoData.length}  </p>
+          <div className="parola"> {todoData[currentQuestion].parola.toLocaleUpperCase()}</div>
           
-         
-          <UpdateAppartenenzaPaziente
+            
+            <div className="cardNext">
+               <Form.Group className="mb-3" controlId="domanda">
+                 <Form.Control type="text" placeholder="Inserici parola" className="formGame"
+                    value={parolaPaziente}  
+                    onChange={(e) => setParola(e.target.value)}/>
+               </Form.Group>
+            </div>
+              <div className="cardNext">
+                 <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
+              </div>
+        <UpdateAppartenenzaPaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -131,23 +143,9 @@ const handleErrata= () =>{
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
                   />
-
-          <div className="parola"> {todoData[currentQuestion].parola.toLocaleUpperCase()}</div>
-          <Row  xs={1} md={1} className="g-4">
-            <Col >
-               <Form.Group className="mb-3" controlId="domanda">
-                 <Form.Control type="text" placeholder="Inserici parola" 
-                    value={parolaPaziente}  
-                    onChange={(e) => setParola(e.target.value)}/>
-               </Form.Group>
-              <div className="cardNext">
-                 <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
-              </div>
-              </Col>
-           </Row>  
-        </Card.Text>
       </Card.Body >
     </Card>
+    
        </React.Fragment>
      
        

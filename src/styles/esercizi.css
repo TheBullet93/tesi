@@ -151,11 +151,31 @@ main {
   transform: translateY(4px);
 }
 
+.cardGioco{
+  left: 25%;
+  width: 50%;
+}
+
+@media screen and (max-width: 671px) {
+  .cardGioco{
+    margin-bottom: 10px;
+  left:auto;
+  width: 100%;
+  }
+}
 
 .cardAvviso{
   left: 25%;
   top:100px;
   width: 50%;
+}
+
+@media screen and (max-width: 671px) {
+  .cardAvviso{
+    margin-bottom: 10px;
+  left:auto;
+  width: 100%;
+  }
 }
 .avviso{
   text-align: center;

@@ -2,16 +2,15 @@
 .Header{
     top: 10px;
     z-index: 1000;
-    
+    text-align: center;
   }
   @media screen and (max-width: 700px) {
   
     .Header{
         margin-top: 60px;
-        top: 60px;
+        top: 60px; 
     }
-  
-  
+ 
     .menu{
         display: none;
     }

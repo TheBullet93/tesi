@@ -43,13 +43,19 @@ const Attivita = () =>{
      
      return (
        <SideNavBar>
-            <Header
-               title={'Attività di'}
+       <Tabs
+            defaultActiveKey="giochi"
+            id="uncontrolled-tab-example"
+            className="mb-3 TabHeader"
+        >
+          
+      <Tab eventKey="giochi" title="Giochi">
+      <Header
+               title={'Giochi di'}
                nome = {state.nome}
                cognome = {state.cognome}
                />  
-            
-            <Navbar className="bg-body-tertiary justify-content-between">
+               <Navbar className="bg-body-tertiary justify-content-between">
               <Form>
                 <Link  to={{ 
                  pathname:`/terapie/:idPaziente`,
@@ -74,14 +80,7 @@ const Attivita = () =>{
                  </Link> 
                 </Col>
               </Row>
-           </Navbar>         
-           
-       <Tabs
-            defaultActiveKey="giochi"
-            id="uncontrolled-tab-example"
-            className="mb-3"
-        >
-      <Tab eventKey="giochi" title="Giochi">
+           </Navbar>    
          <div>
              <ListaEserciziPaziente
              idPaziente = {state.id}
@@ -92,6 +91,38 @@ const Attivita = () =>{
          </div>
       </Tab>
       <Tab eventKey="dialoghi" title="Dialoghi">
+      <Header
+               title={'Dialoghi di'}
+               nome = {state.nome}
+               cognome
+                = {state.cognome}
+               />  
+               <Navbar className="bg-body-tertiary justify-content-between">
+              <Form>
+                <Link  to={{ 
+                 pathname:`/terapie/:idPaziente`,
+                 search: `?idPaziente=${state.id}`,}}
+                 state= { state}
+                 activeclassname="active">
+                  <Button className="btnCard" type="submit"  >
+                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
+                  </Button>
+                 </Link> 
+              </Form>
+             <Row>
+                <Col xs="auto">
+                  <Link  to={{ 
+                   pathname:"/statistiche/:idPaziente",
+                   search: `?idAPaziente=${state.id}`,}}
+                   state= { state}
+                   activeclassname="active">
+                   <Button className="btnCard" type="submit"  >
+                      Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
+                   </Button>
+                 </Link> 
+                </Col>
+              </Row>
+           </Navbar>    
           <ListaDialoghiPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}

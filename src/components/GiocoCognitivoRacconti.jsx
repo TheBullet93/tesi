@@ -118,16 +118,7 @@ const handleErrata= () =>{
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}  
-         
-          <UpdateRaccontiAttivita
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-                 idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-
-                 argomento= {todoData[currentQuestion].argomento}
-                  /></p>
+          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
 
          
             <div className="inputLettera">
@@ -140,6 +131,14 @@ const handleErrata= () =>{
               </div>
           
         </Card.Text>
+        <UpdateRaccontiAttivita
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+                 idGioco = {props.idGioco} 
+                 currentQuestion = {currentQuestion}
+
+                 argomento= {todoData[currentQuestion].argomento}
+                  />
       </Card.Body >
     </Card>
        </React.Fragment>

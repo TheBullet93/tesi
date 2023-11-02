@@ -240,12 +240,8 @@ p{color:#3164F4;}
   border-radius: 20px;
   box-shadow: #3164F4 2px 2px ;
   margin-bottom: 10px;
-  
-  width: 100%;
-  
-
-
  
+  width: 100%;
 }
 
 
@@ -466,4 +462,20 @@ p{color:#3164F4;}
 .cardAttivita{
   width: 100%;
   height: 100%;
+}
+
+.formGame{
+  width: 100%; 
+text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  
+  .TabHeader{
+      margin-top: 60px;
+      top: 60px;
+  }
+
+
+ 
 }

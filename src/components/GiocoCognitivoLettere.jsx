@@ -150,19 +150,7 @@ const removeRandomLetter = (parola) =>{
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          Domanda {currentQuestion + 1} di {todoData.length}  
-         
-          <UpdateLetteraPaziente
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-                 idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-
-                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
-                 parola = {todoData[currentQuestion].parola}
-                  />
-
-         
+          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
             <div className="inputLettera">
              <div className="parola">  {removeRandomLetter(todoData[currentQuestion].parola.toLocaleUpperCase())}</div>
             </div>
@@ -173,6 +161,15 @@ const removeRandomLetter = (parola) =>{
               </div>
           
         </Card.Text>
+        <UpdateLetteraPaziente
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+                 idGioco = {props.idGioco} 
+                 currentQuestion = {currentQuestion}
+
+                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
+                 parola = {todoData[currentQuestion].parola}
+                  />
       </Card.Body >
     </Card>
        </React.Fragment>

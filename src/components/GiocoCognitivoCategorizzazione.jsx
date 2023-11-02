@@ -113,9 +113,31 @@ const handleNextQuestion = () =>{
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}  
-         
-          <UpdateCategorizzazionePaziente
+          <p>Domanda {currentQuestion + 1} di {todoData.length}  </p>
+
+          <Row  xs={1} md={1} className="g-4"> 
+            <Col >
+            <div className="quiz-button">
+               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola1.toLocaleUpperCase()}</div>
+               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola2.toLocaleUpperCase()}</div>
+               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola3.toLocaleUpperCase()}</div>
+               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola4.toLocaleUpperCase()}</div>
+            </div>
+            <div className="cardNext">
+               <Form.Group className="mb-3" controlId="domanda">
+                 <Form.Control type="text" placeholder="Inserici categoria"  className="formGame"
+                    value={categoriaPaziente}  
+                    onChange={(e) => setCategoria(e.target.value)}/>
+               </Form.Group>
+               </div>
+              <div className="cardNext">
+                 <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
+              </div>
+              </Col>
+           </Row>  
+        </Card.Text>
+           
+        <UpdateCategorizzazionePaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -127,27 +149,7 @@ const handleNextQuestion = () =>{
                  parola2 = {todoData[currentQuestion].parola2}
                  parola3 = {todoData[currentQuestion].parola3}
                  parola4 = {todoData[currentQuestion].parola4}
-                  /></p>
-
-          <Row  xs={1} md={1} className="g-4"> 
-            <Col >
-            <div className="quiz-button">
-               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola1.toLocaleUpperCase()}</div>
-               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola2.toLocaleUpperCase()}</div>
-               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola3.toLocaleUpperCase()}</div>
-               <div className="parolaCategorizzazione">{todoData[currentQuestion].parola4.toLocaleUpperCase()}</div>
-            </div>
-               <Form.Group className="mb-3" controlId="domanda">
-                 <Form.Control type="text" placeholder="Inserici categoria" 
-                    value={categoriaPaziente}  
-                    onChange={(e) => setCategoria(e.target.value)}/>
-               </Form.Group>
-              <div className="cardNext">
-                 <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
-              </div>
-              </Col>
-           </Row>  
-        </Card.Text>
+                  />
       </Card.Body >
     </Card>
        </React.Fragment>
