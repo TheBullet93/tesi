@@ -107,12 +107,12 @@ const endContent = (
     <Table>
     <Thead>
         <Tr>
-        <Th>Sintomo/Patologia</Th>
+        <Th>Patologia</Th>
         <Th>Farmaco</Th>
         <Th>Inizio Terapia</Th>
         <Th>Fine Terapia</Th>
-        <Th>Quante volte al giorno</Th>
-        <Th>Quando assumerlo</Th>
+        <Th>Numero volte</Th>
+        <Th>Quando </Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>
@@ -138,11 +138,11 @@ const endContent = (
                 <Tr >
                   <Td>{item.patologia}</Td>
                   <Td>{item.farmaco}</Td>
-                  {item.data ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
+                  {item.dataInizio ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
                   :<Td>Nessuna data inserita</Td>
                 }
                 
-                {item.data ? <Td>{format(new Date(item.dataFine),"dd/MM/yyyy")}</Td>
+                {item.dataFine ? <Td>{format(new Date(item.dataFine),"dd/MM/yyyy")}</Td>
                   :<Td>Nessuna data inserita</Td>
                 }
                 

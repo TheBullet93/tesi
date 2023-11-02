@@ -71,13 +71,13 @@ function TabellaTerapieIntervallari(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Sintomo/Patologia</Th>
+        <Th>Patologia</Th>
         <Th>Farmaco</Th>
         <Th>Giorni</Th>
         <Th>Inizio Terapia</Th>
         <Th>Fine Terapia</Th>
-        <Th>Quante volte al giorno</Th>
-        <Th>Quando assumerlo</Th>
+        <Th>Numero volte</Th>
+        <Th>Quando </Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>
@@ -112,11 +112,11 @@ function TabellaTerapieIntervallari(props) {
                     :<Td>Nessun giorno inserito</Td>
                   }
                 
-                {item.data ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
+                {item.dataInizio ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
                   :<Td>Nessuna data inserita</Td>
                 }
                 
-                {item.data ? <Td>{format(new Date(item.dataFine),"dd/MM/yyyy")}</Td>
+                {item.dataFine ? <Td>{format(new Date(item.dataFine),"dd/MM/yyyy")}</Td>
                   :<Td>Nessuna data inserita</Td>
                 }
                 
