@@ -21,6 +21,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
+import HeaderAttivita from '../components/HeaderAttivita';
 
 const Attivita = () =>{
 
@@ -50,7 +51,7 @@ const Attivita = () =>{
         >
           
       <Tab eventKey="giochi" title="Giochi">
-      <Header
+      <HeaderAttivita
                title={'Giochi di'}
                nome = {state.nome}
                cognome = {state.cognome}
@@ -91,7 +92,7 @@ const Attivita = () =>{
          </div>
       </Tab>
       <Tab eventKey="dialoghi" title="Dialoghi">
-      <Header
+      <HeaderAttivita
                title={'Dialoghi di'}
                nome = {state.nome}
                cognome

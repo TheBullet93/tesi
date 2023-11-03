@@ -7,7 +7,7 @@ import '../styles/Header.css';
 
 import { Toolbar } from 'primereact/toolbar';
 
-export default function Header(props){
+export default function HeaderAttivita(props){
   const startContent = (
     <React.Fragment>
       <h1>{props.title} {props.nome} {props.cognome}</h1>
@@ -21,7 +21,7 @@ export default function Header(props){
   );
     return(
       <>  
-        <Toolbar className="Header"start={startContent} end={endContent} />
+        <Toolbar start={startContent} end={endContent} />
       
       </>
         

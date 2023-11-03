@@ -2,7 +2,7 @@ import React, {useState,useEffect}from "react";
 import { Chart as ChartJS,ArcElement,Tooltip,Legend } from "chart.js";
 import { Card,Form} from "react-bootstrap";
 import { getDatabase} from "firebase/database";
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+
 import {ref,onValue,update,remove} from 'firebase/database';
 
 import { Doughnut} from "react-chartjs-2";
@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-import {FaTrash} from "react-icons/fa"
+import { Toolbar } from 'primereact/toolbar';
 
 import Container from 'react-bootstrap/Container';
 
@@ -37,7 +37,7 @@ export default function Grafico(props){
   const [searchTipologia, setSearchTipologia] = useState('');
 
   const tipologie = [ 
-  {label:"Tutte le tipologie"} ,
+  {label:"TIPOLOGIE"} ,
   {label:"Globali"},
   {label:"Appartenenza"} ,
   {label:"Categorizzazione"} ,
@@ -95,24 +95,10 @@ useEffect(()=>{
 
    
   };
-  
-  const handleDelete = (tipologia) => {
-    if (window.confirm('Sei sicuro di voler eliminare questa statistica?')) {  
-
-      const dbRef = ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${tipologia}`);
-      
-      remove(dbRef);
-      }  
-    }
-   
-  
-    return (
-      
-      <>
-       <div>
-         <ButtonToolbar className="justify-content-between" aria-label="Toolbar with Button groups">
-             
-             <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
+  const endContent = (
+    <React.Fragment>
+       
+       <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
              {tipologie.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -121,8 +107,13 @@ useEffect(()=>{
         
           )}   
         </Form.Select>
-         </ButtonToolbar>
-      </div> 
+    </React.Fragment>
+);
+  
+    return (
+      
+      <>
+      <Toolbar  end={endContent}/>
    
       <Container fluid>
       <Row xs={1} md={2}>
@@ -130,7 +121,7 @@ useEffect(()=>{
            ? <h4 className="noData" colSpan="6">Nessuna Statistica</h4>
             :todoData
             .filter((item) => {
-              return searchTipologia === 'Tutte le tipologie'
+              return searchTipologia === 'TIPOLOGIE'
                 ? item
                 : item.id.includes(searchTipologia);
             })

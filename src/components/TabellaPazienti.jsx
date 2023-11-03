@@ -89,13 +89,8 @@ const endContent = (
   
   return (
     <>
-     
-   
-            <Toolbar  start={startContent} end={endContent} />
-        
-     
- 
-   
+      <Toolbar start={startContent} end={endContent} />
+
       <Table className='tabella'>
       <Thead>
         <Tr>

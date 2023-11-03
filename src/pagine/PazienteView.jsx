@@ -52,7 +52,6 @@ console.log(state);
        <Header
                title={'Informazioni di'}
                nome = {state.nome}
-               cognome = {state.cognome}
                />              
         <Navbar className="bg-body-tertiary justify-content-between">
              <Row>
