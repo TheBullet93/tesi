@@ -90,17 +90,17 @@ const endContent = (
   return (
     <>
      
-     <div >
-            <Toolbar start={startContent} end={endContent} />
-        </div>
+   
+            <Toolbar  start={startContent} end={endContent} />
+        
      
  
    
       <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th> Nome</Th>
-        <Th> Cognome</Th>
+        <Th>Nome</Th>
+        <Th>Cognome</Th>
         <Th>Città di nascita</Th>
         <Th>Data di nascita</Th>
         <Th>Informazioni</Th>

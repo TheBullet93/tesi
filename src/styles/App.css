@@ -48,12 +48,11 @@ h4{
 }
 
 .search-container {
-  float: right;
-
-  margin-left: 20px;
-  margin-right: 20px;
   width: 100%;
+ 
 }
+
+
 
 
 
@@ -267,7 +266,10 @@ p{color:#3164F4;}
   color: white;
   box-shadow: #3164F4 2px 2px;
   margin: 5px;  
+ 
 }
+
+
 
 .btnCard:hover{
   opacity: 0.8;
@@ -328,7 +330,7 @@ p{color:#3164F4;}
   width: 100%;
   text-align: center;
   display: inline;
-  margin: 10px;
+  margin: 5px;
 }
 
 
