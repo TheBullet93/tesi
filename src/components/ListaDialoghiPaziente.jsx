@@ -2,8 +2,6 @@ import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
 import {ref,remove,onValue} from 'firebase/database';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { ButtonGroup } from 'react-bootstrap';
 import FormAssegnaDialogo from "./FormAssegnaDialogo";
 
 import { Card,Form} from "react-bootstrap";
@@ -20,8 +18,6 @@ import logo from '../immagini/logo.jpg'
 
 import { Link } from "react-router-dom";
 
-import {FaTrash} from "react-icons/fa"
-
 import UpdateDialoghiPaziente from "./UpdateDialoghiPaziente";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,6 +29,10 @@ import { auth } from '../firebase';
 import Delete from "./Delete";
 import { Toolbar } from 'primereact/toolbar';
 
+import { useLocation } from "react-router-dom";
+import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import Button from 'react-bootstrap/Button';
+
 export default function ListaDialoghiPaziente(props) {
 
     const db = getDatabase();
@@ -40,6 +40,10 @@ export default function ListaDialoghiPaziente(props) {
     const [todoData,setTodoData] = useState([]);
 
     const [searchTipologia, setSearchTipologia] = useState('');
+
+    const location = useLocation();
+    const state = location.state;
+    console.log(state);
 
     const tipologie = [ 
     {label:"TIPOLOGIE"} ,
@@ -142,16 +146,25 @@ export default function ListaDialoghiPaziente(props) {
 
   const startContent = (
     <React.Fragment>
-        <FormAssegnaDialogo
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+     <Link  to={{ 
+               pathname:`/terapie/:idPaziente`,
+               search: `?idPaziente=${state.id}`,}}
+               state= { state}
+               activeclassname="active">
+                <Button className="btnCard" type="submit"  >
+                  <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
+                </Button>
+               </Link> 
     </React.Fragment>
 );
 
-const endContent = (
-    <React.Fragment>
-          <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
+const centerContent = (
+  <React.Fragment>
+           <FormAssegnaDialogo
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+               />
+    <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
              {tipologie.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -160,7 +173,22 @@ const endContent = (
         
           )}   
         </Form.Select>
-    </React.Fragment>
+  </React.Fragment>
+);
+
+
+const endContent = (
+  <React.Fragment>
+  <Link  to={{ 
+          pathname:"/statistiche/:idPaziente",
+          search: `?idAPaziente=${state.id}`,}}
+          state= { state}
+          activeclassname="active">
+          <Button className="btnCard" type="submit"  >
+             Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
+          </Button>
+        </Link> 
+</React.Fragment>
 );
 
 
@@ -174,7 +202,7 @@ const endContent = (
           position="top-center"
           theme="light"
                        />
-        <Toolbar start={startContent} end={endContent} />
+       <Toolbar start={startContent} center={centerContent} end={endContent}  />
       </div> 
      
      

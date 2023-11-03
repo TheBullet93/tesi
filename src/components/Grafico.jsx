@@ -18,6 +18,9 @@ import Container from 'react-bootstrap/Container';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import Delete from "./Delete";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 ChartJS.register(
   ArcElement,Tooltip,Legend
 
@@ -30,7 +33,9 @@ export default function Grafico(props){
   
   const db = getDatabase();
 
- 
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
 
   const [todoData,setTodoData] = useState([]);
 
@@ -95,6 +100,21 @@ useEffect(()=>{
 
    
   };
+
+  const startContent = (
+    <React.Fragment>
+    <Link  to={{ 
+                    pathname:"/attivita/:idAttivita",
+                    search: `?idAttivita=${state.id}`,}}
+                    state= { state}
+                    activeclassname="active">
+                  <Button className="btnCard" type="submit" >
+                    <AiOutlineArrowLeft></AiOutlineArrowLeft> Attività
+                  </Button>
+                
+                  </Link>  
+    </React.Fragment>
+);
   const endContent = (
     <React.Fragment>
        
@@ -113,7 +133,7 @@ useEffect(()=>{
     return (
       
       <>
-      <Toolbar  end={endContent}/>
+      <Toolbar start={startContent} end={endContent}/>
    
       <Container fluid>
       <Row xs={1} md={2}>

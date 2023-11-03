@@ -1,10 +1,8 @@
 import React, { useEffect} from 'react';
 
-import Header from "../components/Header";
 import ListaEserciziPaziente from '../components/ListaEserciziPaziente';
 import ListaDialoghiPaziente from '../components/ListaDialoghiPaziente';
 import SideNavBar from "../components/SideNavBar";
-import SideNavBarPaziente from "../components/SideNavBarPaziente";
 
 import { useLocation } from "react-router-dom";
 
@@ -56,32 +54,7 @@ const Attivita = () =>{
                nome = {state.nome}
                cognome = {state.cognome}
                />  
-               <Navbar className="bg-body-tertiary justify-content-between">
-              <Form>
-                <Link  to={{ 
-                 pathname:`/terapie/:idPaziente`,
-                 search: `?idPaziente=${state.id}`,}}
-                 state= { state}
-                 activeclassname="active">
-                  <Button className="btnCard" type="submit"  >
-                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
-                  </Button>
-                 </Link> 
-              </Form>
-             <Row>
-                <Col xs="auto">
-                  <Link  to={{ 
-                   pathname:"/statistiche/:idPaziente",
-                   search: `?idAPaziente=${state.id}`,}}
-                   state= { state}
-                   activeclassname="active">
-                   <Button className="btnCard" type="submit"  >
-                      Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
-                   </Button>
-                 </Link> 
-                </Col>
-              </Row>
-           </Navbar>    
+             
          <div>
              <ListaEserciziPaziente
              idPaziente = {state.id}
@@ -98,32 +71,6 @@ const Attivita = () =>{
                cognome
                 = {state.cognome}
                />  
-               <Navbar className="bg-body-tertiary justify-content-between">
-              <Form>
-                <Link  to={{ 
-                 pathname:`/terapie/:idPaziente`,
-                 search: `?idPaziente=${state.id}`,}}
-                 state= { state}
-                 activeclassname="active">
-                  <Button className="btnCard" type="submit"  >
-                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
-                  </Button>
-                 </Link> 
-              </Form>
-             <Row>
-                <Col xs="auto">
-                  <Link  to={{ 
-                   pathname:"/statistiche/:idPaziente",
-                   search: `?idAPaziente=${state.id}`,}}
-                   state= { state}
-                   activeclassname="active">
-                   <Button className="btnCard" type="submit"  >
-                      Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
-                   </Button>
-                 </Link> 
-                </Col>
-              </Row>
-           </Navbar>    
           <ListaDialoghiPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}

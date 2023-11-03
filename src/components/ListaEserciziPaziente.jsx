@@ -24,8 +24,10 @@ import suoni from '../immagini/suoni.jpg'
 import attualita from '../immagini/attualità.jpeg'
 import racconti from '../immagini/racconti.jpg'
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import Button from 'react-bootstrap/Button';
 
-import {FaTrash} from "react-icons/fa"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,6 +45,10 @@ export default function ListaEserciziPaziente(props) {
     const [todoData,setTodoData] = useState([]);
 
     const [searchTipologia, setSearchTipologia] = useState('');
+
+    const location = useLocation();
+    const state = location.state;
+    console.log(state);
 
     const tipologie = [ 
     {label:"TIPOLOGIE"} ,
@@ -208,29 +214,52 @@ export default function ListaEserciziPaziente(props) {
   }
 
  
+
   const startContent = (
     <React.Fragment>
-        <FormAssegnaGioco
+     <Link  to={{ 
+               pathname:`/terapie/:idPaziente`,
+               search: `?idPaziente=${state.id}`,}}
+               state= { state}
+               activeclassname="active">
+                <Button className="btnCard" type="submit"  >
+                  <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
+                </Button>
+               </Link> 
+    </React.Fragment>
+);
+
+const centerContent = (
+  <React.Fragment>
+          <FormAssegnaGioco
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                />
-    </React.Fragment>
+      <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
+   {tipologie.map((option,index) =>  {
+        return(
+          <option key={index}> {option.label}</option>
+        )
+       }        
+    
+      )}  
+    </Form.Select>
+  </React.Fragment>
 );
 
 const endContent = (
-    <React.Fragment>
-         <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
-             {tipologie.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}    
-        </Form.Select>
-    </React.Fragment>
+<React.Fragment>
+         <Link  to={{ 
+                 pathname:"/statistiche/:idPaziente",
+                 search: `?idAPaziente=${state.id}`,}}
+                 state= { state}
+                 activeclassname="active">
+                 <Button className="btnCard" type="submit"  >
+                    Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
+                 </Button>
+               </Link> 
+</React.Fragment>
 );
-
 
 
     return (
@@ -242,7 +271,7 @@ const endContent = (
           position="top-center"
           theme="light"
                        />
-        <Toolbar start={startContent} end={endContent} />
+      <Toolbar start={startContent} center={centerContent} end={endContent}  />
       </div> 
       <div>
        

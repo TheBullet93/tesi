@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import FormTerapia from './FormTerapia';
 import UpdateTerapieGiornaliere from './UpdateTerapieGiornaliere';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { onAuthStateChanged } from "firebase/auth";
@@ -25,12 +25,21 @@ import { auth } from '../firebase';
 import Delete from './Delete';
 import { Toolbar } from 'primereact/toolbar';
 
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import Button from 'react-bootstrap/Button';
+
 function TabellaTerapieGiornaliere(props) {
 
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
   const [search, setSearch] = useState('');
+
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -64,23 +73,39 @@ function TabellaTerapieGiornaliere(props) {
 
   const startContent = (
     <React.Fragment>
-           <FormTerapia
+        <Link  to={{ 
+                     pathname:`/pazienti/:idPaziente`,
+                     search: `?idPaziente=${state.id}`,}}
+                     state= { state}
+                     activeclassname="active">
+                      <Button className="btnCard" type="submit"  >
+                         <AiOutlineArrowLeft></AiOutlineArrowLeft>  Informazioni
+                      </Button>
+                 </Link>  
+          
+    </React.Fragment>
+);
+
+const centerContent = (
+  <React.Fragment>
+       <FormTerapia
                idTerapista = {auth?.currentUser?.uid}
                 idPaziente = {props.idPaziente}
                />
-    </React.Fragment>
+  </React.Fragment>
 );
 
 const endContent = (
     <React.Fragment>
-       <Form className="search-container">
-                <InputGroup >
-                  <Form.Control
-                     onChange={(e) => setSearch(e.target.value)}
-                     placeholder='Cerca...'
-                  />
-                </InputGroup>
-             </Form>  
+             <Link  to={{ 
+                      pathname:"/attivita/:idAttivita",
+                      search: `?idAttivita=${state.id}`,}}
+                      state= { state}
+                      activeclassname="active">
+                    <Button className="btnCard"  type="submit"  >
+                       Attività <AiOutlineArrowRight></AiOutlineArrowRight>
+                    </Button>
+                  </Link>  
     </React.Fragment>
 );
 
@@ -94,12 +119,21 @@ const endContent = (
                          theme="light"
                        />
     
-            <Toolbar start={startContent} end={endContent} />
+            <Toolbar start={startContent} center={centerContent} end={endContent} />
         </div>
 
   
     <div className='tabella'>
-      <h2 className='tepTitle'>Terapie giornaliere</h2>
+      <h2 className='tepTitle'>Terapie giornaliere 
+      <Form className="search-container">
+                <InputGroup >
+                  <Form.Control
+                     onChange={(e) => setSearch(e.target.value)}
+                     placeholder='Cerca terapie giornaliere...'
+                  />
+                </InputGroup>
+             </Form>  </h2>
+      
     <Table>
     <Thead>
         <Tr>

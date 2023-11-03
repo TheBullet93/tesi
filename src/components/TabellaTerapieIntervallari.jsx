@@ -4,7 +4,8 @@ import { getDatabase } from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
-
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import '../styles/SuperResponsiveTable.css';
@@ -63,7 +64,16 @@ function TabellaTerapieIntervallari(props) {
                          theme="light"
                        />
     <div className='tabella'>
-      <h2 className='tepTitle'>Terapie intervallari</h2>
+      <h2 className='tepTitle'>Terapie intervallari
+      <Form className="search-container">
+                <InputGroup >
+                  <Form.Control
+                     onChange={(e) => setSearch(e.target.value)}
+                     placeholder='Cerca terapie intervallari...'
+                  />
+                </InputGroup>
+      </Form>
+      </h2>
     <Table>
     <Thead>
         <Tr>
