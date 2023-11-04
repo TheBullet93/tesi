@@ -226,15 +226,16 @@ export default function ListaEserciziPaziente(props) {
                   <AiOutlineArrowLeft></AiOutlineArrowLeft> <span className='btnText'> Terapie</span> 
                 </Button>
                </Link> 
+               <FormAssegnaGioco
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+               />
     </React.Fragment>
 );
 
 const centerContent = (
   <React.Fragment>
-          <FormAssegnaGioco
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+          
       <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
    {tipologie.map((option,index) =>  {
         return(

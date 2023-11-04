@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import ButtonAdd from './ButtonAdd';
+import ButtonAssegna from './ButtonAssegna';
 
 import {FaPlusCircle} from "react-icons/fa"
 
@@ -31,7 +31,7 @@ function FormAssegnaGioco(props) {
 
   return (
     <>
-       <ButtonAdd
+       <ButtonAssegna
           icon = {<FaPlusCircle/>}
           text = "  Assegna Giochi"
           onClick={handleShow}

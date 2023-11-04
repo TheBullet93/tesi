@@ -277,8 +277,27 @@ p{color:#3164F4;}
  
 }
 
+.btnAssegna{
+  background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+  color: white;
+  box-shadow: #3164F4 2px 2px;
+  margin: 5px;  
+ 
+}
+
+.selectFormGioco{
+  color:#3164F4;
+  border: 1px solid #3164F4;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+  display: inline;
+  margin: 5px;
+}
+
+
 @media screen and (max-width: 455px){
-  .btnNavPaziente{
+  .btnNavPaziente,.btnAssegna{
     height: 50px;
     width: 50px;
   }
@@ -286,6 +305,8 @@ p{color:#3164F4;}
   .btnText{
     font-size: 0;
   }
+
+
 }
 
 
@@ -342,15 +363,6 @@ p{color:#3164F4;}
 }
 
 
-.selectFormGioco{
-  color:#3164F4;
-  border: 1px solid #3164F4;
-  border-radius: 20px;
-  width: 100%;
-  text-align: center;
-  display: inline;
-  margin: 5px;
-}
 
 
 .opzioniDialoghi{
