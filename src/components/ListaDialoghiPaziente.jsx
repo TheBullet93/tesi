@@ -155,17 +155,17 @@ export default function ListaDialoghiPaziente(props) {
                   <AiOutlineArrowLeft></AiOutlineArrowLeft><span className='btnText'> Terapie</span>
                 </Button>
                </Link> 
-               <FormAssegnaDialogo
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+              
     </React.Fragment>
 );
 
 const centerContent = (
   <React.Fragment>
-       
-    <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
+        <FormAssegnaDialogo
+                 idTerapista = {auth?.currentUser?.uid}
+                 idPaziente = {props.idPaziente}
+               />
+    <Form.Select  className="selectFormAttivita" onChange={(e) => setSearchTipologia(e.target.value)}>
              {tipologie.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>

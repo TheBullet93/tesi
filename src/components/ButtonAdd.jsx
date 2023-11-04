@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 const ButtonAdd = (props) => {
         return(
            
-            <Button className='btnCard' onClick={props.onClick}>{props.icon}{props.text}</Button>
+            <Button className='btnCard' onClick={props.onClick}>{props.icon}<span className="btnCardText">{props.text}</span></Button>
            
             );
 
