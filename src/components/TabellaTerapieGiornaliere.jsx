@@ -78,8 +78,8 @@ function TabellaTerapieGiornaliere(props) {
                      search: `?idPaziente=${state.id}`,}}
                      state= { state}
                      activeclassname="active">
-                      <Button className="btnCard" type="submit"  >
-                         <AiOutlineArrowLeft></AiOutlineArrowLeft>  Informazioni
+                      <Button className="btnNavPaziente" type="submit"  >
+                         <AiOutlineArrowLeft></AiOutlineArrowLeft><span className='btnText'>Informazioni</span>
                       </Button>
                  </Link>  
           
@@ -102,8 +102,8 @@ const endContent = (
                       search: `?idAttivita=${state.id}`,}}
                       state= { state}
                       activeclassname="active">
-                    <Button className="btnCard"  type="submit"  >
-                       Attività <AiOutlineArrowRight></AiOutlineArrowRight>
+                    <Button className="btnNavPaziente"  type="submit"  >
+                    <span className='btnText'>Attività</span> <AiOutlineArrowRight></AiOutlineArrowRight>
                     </Button>
                   </Link>  
     </React.Fragment>

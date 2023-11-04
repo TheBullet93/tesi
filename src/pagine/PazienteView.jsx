@@ -8,20 +8,10 @@ import Header from "../components/Header";
 
 import SideNavBar from "../components/SideNavBar";
 import CardProfiloPaziente from "../components/CardProfiloPaziente";
-
-
-
 import { AiOutlineArrowRight} from "react-icons/ai";
-
 import { Link } from "react-router-dom";
-
-
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Toolbar } from 'primereact/toolbar';
 
 const PazienteView = () =>{
 
@@ -43,20 +33,9 @@ const location = useLocation();
 const state = location.state;
 console.log(state);
 
-
-
-
-    return (
-     
-      <SideNavBar>
-       <Header
-               title={'Informazioni di'}
-               nome = {state.nome}
-               />              
-        <Navbar className="bg-body-tertiary justify-content-between">
-             <Row>
-                <Col>
-                    <Link  to={{ 
+const startContent = (
+  <React.Fragment>
+      <Link  to={{ 
                       pathname:`/terapie/:idPaziente`,
                       search: `?idPaziente=${state.id}`, 
                       }}
@@ -66,12 +45,19 @@ console.log(state);
                           Terapie  <AiOutlineArrowRight></AiOutlineArrowRight>
                      </Button>
                     </Link>
-                </Col>
-              </Row>
-        </Navbar>
-     
+  </React.Fragment>
+);
 
- 
+
+    return (
+     
+      <SideNavBar>
+       <Header
+               title={'Informazioni di'}
+               nome = {state.nome}
+               />              
+       <Toolbar start={startContent}/>
+     
         <CardProfiloPaziente
               item = {auth?.currentUser?.uid}
               idPaziente = {state.id}
@@ -92,11 +78,7 @@ console.log(state);
 
               parenti = {state.parenti}
              />         
-
-
-
-                 
-               
+    
        </SideNavBar>
        );
   }

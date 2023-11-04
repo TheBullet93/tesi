@@ -222,8 +222,8 @@ export default function ListaEserciziPaziente(props) {
                search: `?idPaziente=${state.id}`,}}
                state= { state}
                activeclassname="active">
-                <Button className="btnCard" type="submit"  >
-                  <AiOutlineArrowLeft></AiOutlineArrowLeft>  Terapie
+                <Button className="btnNavPaziente" type="submit"  >
+                  <AiOutlineArrowLeft></AiOutlineArrowLeft> <span className='btnText'> Terapie</span> 
                 </Button>
                </Link> 
     </React.Fragment>
@@ -254,8 +254,8 @@ const endContent = (
                  search: `?idAPaziente=${state.id}`,}}
                  state= { state}
                  activeclassname="active">
-                 <Button className="btnCard" type="submit"  >
-                    Statistiche <AiOutlineArrowRight></AiOutlineArrowRight>
+                 <Button className="btnNavPaziente" type="submit"  >
+                 <span className='btnText'> Statistiche</span>  <AiOutlineArrowRight></AiOutlineArrowRight>
                  </Button>
                </Link> 
 </React.Fragment>
