@@ -21,7 +21,10 @@ export default function HeaderAttivita(props){
   );
     return(
       <>  
+      <div className='tabStyle'>
         <Toolbar start={startContent} end={endContent} />
+      </div>
+      
       
       </>
         

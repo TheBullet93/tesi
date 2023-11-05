@@ -48,14 +48,14 @@ const Attivita = () =>{
             className="mb-3 TabHeader"
         >
           
-      <Tab eventKey="giochi" title="Giochi">
+      <Tab eventKey="giochi" title="Giochi" >
       <HeaderAttivita
                title={'Giochi di'}
                nome = {state.nome}
                cognome = {state.cognome}
                />  
              
-         <div>
+         <div className='tabStyle'>
              <ListaEserciziPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
@@ -64,17 +64,20 @@ const Attivita = () =>{
            />
          </div>
       </Tab>
-      <Tab eventKey="dialoghi" title="Dialoghi">
+      <Tab eventKey="dialoghi" title="Dialoghi" className='tabStyle'>
       <HeaderAttivita
                title={'Dialoghi di'}
                nome = {state.nome}
                cognome
                 = {state.cognome}
                />  
-          <ListaDialoghiPaziente
+        <div className='tabStyle'>
+        <ListaDialoghiPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
              cognomePaziente = {state.cognome}/>
+        </div>
+         
       </Tab>
     </Tabs>                  
         </SideNavBar>

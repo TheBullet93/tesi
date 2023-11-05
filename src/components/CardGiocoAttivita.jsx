@@ -244,8 +244,8 @@ export default function CardGiocoAttivita(props) {
 <Card className='card' key={item.id}>
 <Card.Title className="title">{item.titoloGioco}</Card.Title>
   <Card.Body>
-    <p>Tipologia: {item.tipologiaGioco}</p>
-    <p>Livello: {item.difficoltaGioco}</p> 
+  <p><span className="itemCard">Tipologia:</span> {item.tipologiaGioco}</p>
+    <p><span className="itemCard">Livello:</span> {item.difficoltaGioco}</p> 
   
     {
       renderTabDomande(item.id,item.titoloGioco,item.tipologiaGioco,item.difficoltaGioco)

@@ -293,8 +293,8 @@ export default function CardGioco() {
                        />
       </ButtonGroup>
     </div>
-    <p>Tipologia: {item.tipologiaGioco}</p>
-    <p>Livello: {item.difficoltaGioco}</p> 
+    <p><span className="itemCard">Tipologia:</span> {item.tipologiaGioco}</p>
+    <p><span className="itemCard">Livello:</span> {item.difficoltaGioco}</p> 
     {
       renderTabDomande(item.tipologiaGioco,item.id)
       

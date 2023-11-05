@@ -103,7 +103,7 @@ export default function CardDialogoAttività(props) {
         <Card className='card' >
           <Card.Title className="title">{item.titoloDialogo}</Card.Title>
             <Card.Body>
-              <p>Tipologia: {item.tipologiaDialogo}</p>
+              <p><span className="itemCard">Tipologia:</span> {item.tipologiaDialogo}</p>
 
                    <TabellaDomandeMiniPaziente 
                       idTerapista={props.idTerapista}

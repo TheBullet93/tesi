@@ -134,7 +134,7 @@ export default function CardDialogo() {
                        />
       </ButtonGroup>
     </div>
-    <p>Tipologia: {item.tipologiaDialogo}</p>
+    <p><span className="itemCard">Tipologia:</span> {item.tipologiaDialogo}</p>
 
     <TabellaDomandeMini 
      item = {item.id}/>
