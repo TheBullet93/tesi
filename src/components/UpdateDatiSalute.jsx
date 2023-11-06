@@ -1,8 +1,6 @@
 import React,{ useState } from "react";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-
-import {FiDelete}  from "react-icons/fi";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const UpdateDatiSalute = (props) => {
 
@@ -29,10 +27,15 @@ const UpdateDatiSalute = (props) => {
 
         <Form.Group className="mb-3" controlId="formDieta">
           <Form.Label className="labelForm">Dieta</Form.Label>
-          <Form.Control type="text" placeholder="Inserici dieta"
-             defaultValue={props.dieta}
-             onChange={props.onChangeDieta}
-          />
+            <FloatingLabel controlId="floatingTextarea2">
+        <Form.Control
+          as="textarea"
+          placeholder="Inserisci dieta paziente"
+          style={{ height: '100px' }}
+          defaultValue={props.dieta}
+          onChange={props.onChangeDieta}
+        />
+      </FloatingLabel>
         </Form.Group>
 
       </Form>

@@ -1,19 +1,12 @@
 import React,{useState} from "react";
 import Form from 'react-bootstrap/Form';
-
-import Button from 'react-bootstrap/Button';
-import {FiDelete}  from "react-icons/fi";
-
-
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const FormDatiSalute = (props) => {
 
     return (
       <>
-       
-               
         <Form>
-     
         <Form.Group className="mb-3" controlId="formValCognitiva">
           <Form.Label className="labelForm">Valutazione Cognitiva</Form.Label>
           <Form.Control type="text" placeholder="Inserici valutazione cognitiva"
@@ -30,10 +23,15 @@ const FormDatiSalute = (props) => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formDieta">
           <Form.Label className="labelForm">Dieta</Form.Label>
-          <Form.Control type="text" placeholder="Inserici nome dieta"
-             value={props.dieta}
-             onChange={props.onChangeDieta}
-          />
+           <FloatingLabel controlId="floatingTextarea2">
+        <Form.Control
+          as="textarea"
+          placeholder="Inserisci dieta paziente"
+          style={{ height: '100px' }}
+          value={props.dieta}
+          onChange={props.onChangeDieta}
+        />
+      </FloatingLabel>
         </Form.Group>
       </Form>
       </>
