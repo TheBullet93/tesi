@@ -165,7 +165,7 @@ function shuffleButtons(item1,item2,item3,item4) {
        activeQuestion ? 
        <>
        <h2 className="rispMini">Ciao {props.nomePaziente} {props.cognomePaziente}, rispondi alle seguenti domande</h2>
-       <Card key={currentQuestion}>
+       <Card key={currentQuestion} className="cardGioco">
       <Card.Body >
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}

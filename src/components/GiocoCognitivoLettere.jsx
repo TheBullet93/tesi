@@ -144,7 +144,7 @@ const removeRandomLetter = (parola) =>{
        <>
        <h2 className="rispMini">Ciao {props.nomePaziente} {props.cognomePaziente}, rispondi alle seguenti domande</h2>
        <React.Fragment key={currentQuestion}>
-       <Card >
+       <Card className="cardGioco">
       <Card.Body >
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}

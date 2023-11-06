@@ -159,8 +159,9 @@ main {
 @media screen and (max-width: 671px) {
   .cardGioco{
     margin-bottom: 10px;
-  left:auto;
-  width: 100%;
+    left: 10%;
+   
+  width: 80%;
   }
 }
 
