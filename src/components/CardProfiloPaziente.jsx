@@ -1,25 +1,17 @@
 import React,{useState,useEffect} from 'react';
-import { getDatabase, increment } from "firebase/database";
-import {ref,onValue,remove} from 'firebase/database';
+import { getDatabase} from "firebase/database";
+import {ref,onValue} from 'firebase/database';
 
 import { Card,} from "react-bootstrap";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Tab from 'react-bootstrap/Tab';
-
 import avatarAnziano from '../immagini/avatarAnziano.jpg'
 import avatarAnziana from '../immagini/avatarAnziana.jpg'
 
 import { format } from "date-fns";
 
 import UpdatePazienti from './UpdatePazienti';
-
-import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
-import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
-
-import {FaTrash} from "react-icons/fa"
 import UpdatePatologia from './UpdatePatologia';
 import UpdateAllergia from './UpdateAllergia';
 import UpdateParente from './UpdateParente';

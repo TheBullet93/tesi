@@ -1,10 +1,7 @@
 import React, {useState,useEffect}from "react";
 import { Card,Form} from "react-bootstrap";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import FormDialoghi from '../components/FormDialoghi';
-import {FaTrash} from "react-icons/fa"
-
 
 import { getDatabase} from "firebase/database";
 import {ref,remove,onValue} from 'firebase/database';

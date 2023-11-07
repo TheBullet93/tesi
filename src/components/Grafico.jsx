@@ -3,7 +3,7 @@ import { Chart as ChartJS,ArcElement,Tooltip,Legend } from "chart.js";
 import { Card,Form} from "react-bootstrap";
 import { getDatabase} from "firebase/database";
 
-import {ref,onValue,update,remove} from 'firebase/database';
+import {ref,onValue,update} from 'firebase/database';
 
 import { Doughnut} from "react-chartjs-2";
 

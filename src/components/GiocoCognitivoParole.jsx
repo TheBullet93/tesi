@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import {MdNavigateNext} from "react-icons/md";
 import UpdateParolaPaziente from "./UpdateParolaPaziente";
 
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";

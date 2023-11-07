@@ -3,9 +3,6 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const UpdateDatiSalute = (props) => {
-
-
-
     return (
       <>
        <Form>

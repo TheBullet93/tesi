@@ -2,21 +2,14 @@ import React, { useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-
-import {FiDelete}  from "react-icons/fi";
 import Form from 'react-bootstrap/Form';
 
 
 import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { update,ref,remove} from 'firebase/database';
+import { update,ref} from 'firebase/database';
 
-import UpdateDatiAnagrafici from './UpdateDatiAnagrafici';
-import UpdateDatiSalute from './UpdateDatiSalute';
-import UpdateDatiParente from './UpdateParente';
-
-import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 
 const UpdateParente = (props) => {
 

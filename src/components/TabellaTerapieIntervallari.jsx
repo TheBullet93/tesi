@@ -14,7 +14,7 @@ import { format } from "date-fns";
 
 import UpdateTerapieIntervallari from './UpdateTerapieIntervallari';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { onAuthStateChanged } from "firebase/auth";

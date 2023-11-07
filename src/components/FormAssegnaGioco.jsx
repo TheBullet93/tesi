@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import ButtonAssegna from './ButtonAssegna';
 
 import {FaPlusCircle} from "react-icons/fa"
-
-import { getDatabase } from "firebase/database";
-import { set,push,ref } from 'firebase/database';
 
 import CardGiocoAttivita from './CardGiocoAttivita';
 

@@ -3,10 +3,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
 import { getDatabase} from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
+import {ref,onValue} from 'firebase/database';
 
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import {Button, ButtonGroup, Modal } from 'react-bootstrap';
+import {ButtonGroup, Modal } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 

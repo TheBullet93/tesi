@@ -1,15 +1,10 @@
 import React,{useState,useEffect}  from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import '../styles/SuperResponsiveTable.css';
-import {FaTrash} from "react-icons/fa"
-import { ButtonGroup } from 'react-bootstrap';
 
 import { getDatabase} from "firebase/database";
 import {ref,set,onValue} from 'firebase/database';
 import Button from 'react-bootstrap/Button';
-
-import UpdateDomandaMini from "./UpdateDomandaMini";
-
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

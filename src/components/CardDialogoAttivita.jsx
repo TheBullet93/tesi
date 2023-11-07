@@ -1,16 +1,12 @@
 import React, {useState,useEffect}from "react";
 import { Card,Form} from "react-bootstrap";
-import {  ButtonGroup } from 'react-bootstrap';
-import {FaTrash} from "react-icons/fa"
-
 
 import { getDatabase} from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
+import {ref,onValue} from 'firebase/database';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
-import DialogoPaziente from "./DialogoPaziente";
 import TabellaDomandeMiniPaziente from "./TabellaDomandeMiniPaziente";
 import { Toolbar } from 'primereact/toolbar';
 

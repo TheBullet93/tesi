@@ -2,20 +2,10 @@ import React, { useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-
-import {FiDelete}  from "react-icons/fi";
-import Form from 'react-bootstrap/Form';
-
 import {FaTrash} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { update,ref,remove} from 'firebase/database';
-
-import UpdateDatiAnagrafici from './UpdateDatiAnagrafici';
-import UpdateDatiSalute from './UpdateDatiSalute';
-import UpdateDatiParente from './UpdateParente';
-
-import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import {ref,remove} from 'firebase/database';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

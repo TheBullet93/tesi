@@ -4,14 +4,11 @@ import { getDatabase} from "firebase/database";
 import {ref,update,onValue,increment} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-
 import Form from 'react-bootstrap/Form';
 
 import {MdNavigateNext} from "react-icons/md";
 import UpdateAppartenenzaPaziente from "./UpdateAppartenenzaPaziente";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";

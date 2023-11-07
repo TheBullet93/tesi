@@ -29,7 +29,7 @@ import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
 
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { onAuthStateChanged } from "firebase/auth";
