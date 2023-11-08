@@ -84,7 +84,7 @@ export const Registrazione = () => {
 
         <div className="App"> 
         <div className="auth-form-container">
-            <h2>Registrati</h2>
+            <h2>REGISTRATI</h2>
         <Form className="register-form">
            <Row>
             <Col>
@@ -153,8 +153,8 @@ export const Registrazione = () => {
              theme="dark"
              autoClose={2500}
         />
-        <p>
-                       Hai già un account?{' '}
+        <p className="avviso">
+                       <span className="textAvviso">Hai già un account?</span>{' '}
                         <NavLink to="/" >
                             Accedi
                         </NavLink>

@@ -17,6 +17,14 @@
     text-align: center;
     
   }
+
+  .avviso{
+    margin-top: 10px;
+    
+  }
+  .textAvviso{
+    color:#0f2666;
+  }
   
   @media screen and (min-width:200px) {
     .auth-form-container {
@@ -25,6 +33,7 @@
       background-color: #fefefe;
       border-radius: 10px;
       margin: 0.5rem;
+      box-shadow: #3164F4 1px 1px ;
     }
   }
   

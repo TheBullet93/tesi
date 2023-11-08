@@ -41,7 +41,7 @@ export const Login = () => {
 
         <div className="App"> 
             <div className="auth-form-container">
-            <h2>Login</h2>
+            <h2>LOGIN</h2>
             <Form className="login-form">
             <Form.Group className="mb-3">
             <Form.Label className="labelForm">Email</Form.Label>
@@ -57,8 +57,8 @@ export const Login = () => {
             </Form.Group>
                 <button className='login-btn'  onClick={onLogin} >LOGIN</button>
             </Form>
-            <p>
-            Non hai account?{' '}
+            <p className="avviso">
+            <span className="textAvviso">Non hai account?</span>{' '}
                         <NavLink to="/registrazione" >
                         Registrati qui
                         </NavLink>
