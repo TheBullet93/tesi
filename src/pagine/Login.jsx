@@ -36,6 +36,9 @@ export const Login = () => {
        
     }
 
+    const handleReset = () =>{
+        navigate("/reset")
+    }
 
     return (
 
@@ -62,7 +65,11 @@ export const Login = () => {
                         <NavLink to="/registrazione" >
                         Registrati qui
                         </NavLink>
-            </p>  
+            </p> 
+            <p>
+            <NavLink to="/reset" className="forgotPassword">
+                      Password dimenticata?
+                        </NavLink></p> 
             <ToastContainer 
              position="bottom-center"
              theme="dark"

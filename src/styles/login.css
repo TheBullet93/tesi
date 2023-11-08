@@ -25,6 +25,10 @@
   .textAvviso{
     color:#0f2666;
   }
+
+  .forgotPassword{
+    color:#cc1818;
+  }
   
   @media screen and (min-width:200px) {
     .auth-form-container {

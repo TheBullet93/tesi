@@ -13,12 +13,14 @@ import Dieta from "./pagine/Dieta";
 import Profilo from './pagine/Profilo';
 import Statistiche from './pagine/Statistiche';
 import EserciziPaziente from "./pagine/EserciziPaziente";
+import PasswordDimenticata from "./pagine/PasswordDimenticata";
 
 import Gioco from "./pagine/Gioco";
 import Dialogo from "./pagine/Dialogo";
 
 
 import './styles/App.css';
+
 
 
 
@@ -31,6 +33,7 @@ function App() {
      <Routes>
         <Route path="/" element={<Login />}/>
         <Route path="/registrazione" element={<Registrazione />}/>
+        <Route path="/reset" element={<PasswordDimenticata />}/>
         <Route path="/pazienti" element={<Pazienti />}/>
         <Route path="/pazienti/:idPaziente" element={<PazienteView />}/>
         <Route path="/terapie/:idPaziente" element={<Terapie/>}/>
