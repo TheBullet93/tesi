@@ -55,7 +55,7 @@ export const PasswordDimenticata = () => {
             <button 
                 className="register-btn" 
                 type="submit" 
-                onClick={handleReset}>Reimposta password</button>
+                onClick={handleReset}>REIMPOSTA PASSWORD</button>
         </Form>
         <ToastContainer 
              position="bottom-center"
