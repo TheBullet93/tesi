@@ -297,7 +297,7 @@ p{color:#3164F4;}
   color: white;
   box-shadow: #3164F4 2px 2px;
   margin: 5px;  
- 
+ width: 100%;
 }
 
 .selectFormGioco{
@@ -322,7 +322,7 @@ p{color:#3164F4;}
 
 
 
-@media screen and (max-width: 820px){
+@media screen and (max-width: 841px){
   .btnNavPaziente,.btnAssegna{
     height: 40px;
     width: 50px;
