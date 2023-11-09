@@ -56,7 +56,7 @@ const startContent = (
                title={'Informazioni di'}
                nome = {state.nome}
                />              
-       <Toolbar start={startContent}/>
+       <Toolbar start={startContent} className="toolBar"/>
      
         <CardProfiloPaziente
               item = {auth?.currentUser?.uid}

@@ -133,7 +133,7 @@ useEffect(()=>{
     return (
       
       <>
-      <Toolbar start={startContent} end={endContent}/>
+      <Toolbar start={startContent} end={endContent} className="toolBar"/>
    
       <Container fluid>
       <Row xs={1} md={2}>

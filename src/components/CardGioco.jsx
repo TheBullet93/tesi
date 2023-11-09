@@ -246,7 +246,7 @@ export default function CardGioco() {
   return (
     <>
     <div >
-            <Toolbar start={startContent} end={endContent} />
+            <Toolbar start={startContent} end={endContent} className="toolBar"/>
         </div>
        
              

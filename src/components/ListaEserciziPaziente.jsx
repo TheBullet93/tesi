@@ -272,7 +272,7 @@ const endContent = (
           position="top-center"
           theme="light"
                        />
-      <Toolbar start={startContent} center={centerContent} end={endContent}  />
+      <Toolbar start={startContent} center={centerContent} end={endContent}  className="toolBar"/>
       </div> 
       <div>
        
