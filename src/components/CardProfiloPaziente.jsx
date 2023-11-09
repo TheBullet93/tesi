@@ -173,9 +173,7 @@ export default function CardProfiloPaziente(props) {
                  </ListGroup.Item>
                 </ListGroup>
              </Col>
-            </Row>
-             <Row>
-               <Col>
+             <Col>
                <AddPatologia
                       idTerapista = {props.item}
                       idPaziente ={props.idPaziente}
@@ -230,62 +228,9 @@ export default function CardProfiloPaziente(props) {
                })
                }
             </Col>
-          </Row>
+            </Row>
           <Row>
-            <Col>
-            <AddAllergia
-                   idTerapista = {props.item}
-                   idPaziente ={props.idPaziente}
-                   index = {arrayLength(props.allergie)}/>
-              {  !props.allergie 
-             ?    <>
-              
-              <ListGroup.Item className="border-primary listMargin">
-              <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>Nessuna allergia</span>
-              <span  className='btn-space1'>
-              <AddAllergia
-               idTerapista = {props.item}
-               idPaziente ={props.idPaziente}
-               index = {arrayLength(props.allergie)}/>
-              </span>
-          
-              </ListGroup.Item>
-          </>
-             :props.allergie.map((item,index) => {
-             return (
-               
-               <React.Fragment key={index}>
-               <ListGroup  className="border-primary listMargin">
-                 <ListGroup.Item className="border-primary">
-                 <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>
-                   {item.nomeAllergia}
-                  </span>
-                  <span className='btn-space1'>
-                <UpdateAllergia
-                     idTerapista = {props.item}
-                     idPaziente ={props.idPaziente}
-                     index = {index}
-                     nomeAllergia = {item.nomeAllergia}
-                    />   
-                <Delete
-                     title = {item.nomeAllergia}
-                     dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie/${index}`}
-                     textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
-                     textToast = {'Allergia eliminata'}
-                       />
-                  </span>
-                
-                 </ListGroup.Item>
-                 </ListGroup>
-               </React.Fragment>
-             
-             )
-           })
-           }
-            </Col>
-          </Row>
-          <Row>
-            <Col> 
+          <Col> 
             <AddParente
                     idTerapista = {props.item}
                     idPaziente ={props.idPaziente}
@@ -359,7 +304,58 @@ export default function CardProfiloPaziente(props) {
         
            }
              </Col>
-            </Row>
+            <Col>
+            <AddAllergia
+                   idTerapista = {props.item}
+                   idPaziente ={props.idPaziente}
+                   index = {arrayLength(props.allergie)}/>
+              {  !props.allergie 
+             ?    <>
+              
+              <ListGroup.Item className="border-primary listMargin">
+              <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>Nessuna allergia</span>
+              <span  className='btn-space1'>
+              <AddAllergia
+               idTerapista = {props.item}
+               idPaziente ={props.idPaziente}
+               index = {arrayLength(props.allergie)}/>
+              </span>
+          
+              </ListGroup.Item>
+          </>
+             :props.allergie.map((item,index) => {
+             return (
+               
+               <React.Fragment key={index}>
+               <ListGroup  className="border-primary listMargin">
+                 <ListGroup.Item className="border-primary">
+                 <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>
+                   {item.nomeAllergia}
+                  </span>
+                  <span className='btn-space1'>
+                <UpdateAllergia
+                     idTerapista = {props.item}
+                     idPaziente ={props.idPaziente}
+                     index = {index}
+                     nomeAllergia = {item.nomeAllergia}
+                    />   
+                <Delete
+                     title = {item.nomeAllergia}
+                     dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie/${index}`}
+                     textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
+                     textToast = {'Allergia eliminata'}
+                       />
+                  </span>
+                
+                 </ListGroup.Item>
+                 </ListGroup>
+               </React.Fragment>
+             
+             )
+           })
+           }
+            </Col>
+          </Row>
           </Card.Body>
      
         </Card>
