@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import Delete from './Delete';
+import DeleteDatiPaziente from './DeleteDatiPaziente';
 
 function TabellaTerapieIntervallari(props) {
 
@@ -142,8 +143,10 @@ function TabellaTerapieIntervallari(props) {
                      idPaziente ={props.idPaziente}
                      idTerapia = {item.id}
                      />
-                       <Delete
+                       <DeleteDatiPaziente
                        title = {item.patologia}
+                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                       itemValue = {'Terapia Intervallare: '+ item.patologia + ' Farmaco: ' + item.farmaco}
                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/terapie`+`/intervallari/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}

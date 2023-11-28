@@ -29,6 +29,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
+import DeleteDatiPaziente from './DeleteDatiPaziente';
 
 function TabellaTerapieGiornaliere(props) {
 
@@ -192,8 +193,10 @@ const endContent = (
                      idPaziente ={props.idPaziente}
                      idTerapia = {item.id}
                      />
-                         <Delete
+                         <DeleteDatiPaziente
                        title = {item.patologia}
+                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                       itemValue = {'Terapia Giornaliera: '+ item.patologia + ' Farmaco: ' + item.farmaco}
                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/terapie`+`/giornaliere/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}

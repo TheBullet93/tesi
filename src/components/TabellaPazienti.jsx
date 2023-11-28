@@ -5,12 +5,12 @@ import { auth } from '../firebase';
 import { getDatabase} from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 
-import {ButtonGroup, Modal } from 'react-bootstrap';
+import {ButtonGroup} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
-import {FaRegChartBar,FaPuzzlePiece,FaStethoscope} from "react-icons/fa"
+import {FaRegChartBar,FaPuzzlePiece,FaStethoscope,FaBook} from "react-icons/fa"
 import {RiHealthBookFill} from "react-icons/ri";
 
 
@@ -101,6 +101,7 @@ const endContent = (
         <Th>Terapie</Th>
         <Th>Attività</Th>
         <Th>Statistiche</Th>
+        <Th>Storico</Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>
@@ -158,6 +159,15 @@ const endContent = (
                          }} 
                         state= {item}
                        ><FaRegChartBar/></Link>
+                  </Td>
+                  <Td>
+                    <Link title='Storico' className='statistiche'
+                      to={{
+                        pathname:`/storico/:idPaziente`,
+                        search: `?idPaziente=${item.id}`, 
+                      }}
+                      state= {item}
+                    ><FaBook /></Link>
                   </Td>
                   <Td>
                   <ButtonGroup>

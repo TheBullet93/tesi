@@ -20,7 +20,7 @@ import { auth } from '../firebase';
 import Delete from "./Delete";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 ChartJS.register(
   ArcElement,Tooltip,Legend
 
@@ -108,14 +108,14 @@ useEffect(()=>{
                     search: `?idAttivita=${state.id}`,}}
                     state= { state}
                     activeclassname="active">
-                  <Button className="btnCard" type="submit" >
-                    <AiOutlineArrowLeft></AiOutlineArrowLeft> Attività
+                  <Button className="btnNavPaziente" type="submit" >
+                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  <span className='btnText'> Attività</span>
                   </Button>
                 
                   </Link>  
     </React.Fragment>
 );
-  const endContent = (
+  const centerContent = (
     <React.Fragment>
        
        <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
@@ -129,11 +129,26 @@ useEffect(()=>{
         </Form.Select>
     </React.Fragment>
 );
+
+const endContent = (
+  <React.Fragment>
+           <Link  to={{ 
+                   pathname:"/storico/:idPaziente",
+                   search: `?idPaziente=${state.id}`,}}
+                   state= { state}
+                   activeclassname="active">
+                   <Button className="btnNavPaziente" type="submit"  >
+                   <span className='btnText'> Storico</span>  <AiOutlineArrowRight></AiOutlineArrowRight>
+                   </Button>
+                 </Link> 
+  </React.Fragment>
+  );
+  
   
     return (
       
       <>
-      <Toolbar start={startContent} end={endContent} className="toolBar"/>
+      <Toolbar start={startContent} center={centerContent} end={endContent} className="toolBar"/>
    
       <Container fluid>
       <Row xs={1} md={2}>

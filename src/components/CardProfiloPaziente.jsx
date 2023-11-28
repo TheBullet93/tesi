@@ -21,6 +21,7 @@ import AddParente from './AddParente';
 
 import Image from 'react-bootstrap/Image';
 import Delete from './Delete';
+import DeleteDatiPaziente from './DeleteDatiPaziente';
 export default function CardProfiloPaziente(props) {
 
   
@@ -211,8 +212,10 @@ export default function CardProfiloPaziente(props) {
                         index = {index}
                         nomePatologia = {item.nomePatologia}/>   
                                    
-                   <Delete
+                   <DeleteDatiPaziente
                      title = {item.nomePatologia}
+                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico`}
+                     itemValue = {'Patologia/Malattia: '+item.nomePatologia}
                      dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa patologia?'}
                      textToast = {'Patologia eliminata'}
@@ -339,8 +342,10 @@ export default function CardProfiloPaziente(props) {
                      index = {index}
                      nomeAllergia = {item.nomeAllergia}
                     />   
-                <Delete
+                <DeleteDatiPaziente
                      title = {item.nomeAllergia}
+                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico`}
+                     itemValue = {'Allergia/Intolleranza: '+item.nomeAllergia}
                      dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
                      textToast = {'Allergia eliminata'}

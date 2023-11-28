@@ -2,8 +2,6 @@ import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
 import {ref,remove,onValue} from 'firebase/database';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { ButtonGroup } from 'react-bootstrap';
 import FormAssegnaGioco from "./FormAssegnaGioco";
 import UpdateGiochiPaziente from "./UpdateGiochiPaziente";
 
@@ -37,6 +35,7 @@ import { auth } from '../firebase';
 
 import Delete from "./Delete";
 import { Toolbar } from 'primereact/toolbar';
+import DeleteDatiPaziente from "./DeleteDatiPaziente";
 
 export default function ListaEserciziPaziente(props) {
 
@@ -252,7 +251,7 @@ const endContent = (
 <React.Fragment>
          <Link  to={{ 
                  pathname:"/statistiche/:idPaziente",
-                 search: `?idAPaziente=${state.id}`,}}
+                 search: `?idPaziente=${state.id}`,}}
                  state= { state}
                  activeclassname="active">
                  <Button className="btnNavPaziente" type="submit"  >
@@ -303,7 +302,6 @@ const endContent = (
                   </Card.Body>
                   <Card.Footer>
                   <div className="delCard">
-                  
                   <UpdateGiochiPaziente
                     idTerapista = {auth?.currentUser?.uid}
                     idPaziente = {props.idPaziente}
@@ -314,8 +312,10 @@ const endContent = (
                     difficoltaGioco = {item.difficoltaGioco}
 
                   />
-                     <Delete
+                     <DeleteDatiPaziente
                   title = {item.titoloGioco}
+                  dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                  itemValue = {'Gioco: '+ item.titoloGioco + ' Tipologia: ' + item.tipologiaGioco + ' Difficoltà: ' + item.difficoltaGioco}
                   dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/giochi/${item.id}`}
                   textAlert = {' Sei sicuro di voler eliminare questo gioco?'}
                   textToast = {'Gioco eliminato'}

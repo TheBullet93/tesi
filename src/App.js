@@ -12,6 +12,7 @@ import Dialoghi from './pagine/Dialoghi';
 import Dieta from "./pagine/Dieta";
 import Profilo from './pagine/Profilo';
 import Statistiche from './pagine/Statistiche';
+import Storico from "./pagine/Storico";
 import EserciziPaziente from "./pagine/EserciziPaziente";
 import PasswordDimenticata from "./pagine/PasswordDimenticata";
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/terapie/:idPaziente" element={<Terapie/>}/>
          <Route path="/attivita/:idPaziente" element={<Attivita />}/>
          <Route path="/statistiche/:idPaziente" element={<Statistiche/>}/>
+         <Route path="/storico/:idPaziente" element={<Storico/>}/>
          <Route path="/giochi" element={<Giochi />}/>
          <Route path="/dialoghi" element={<Dialoghi/>}/>
          <Route path="/dieta" element={<Dieta/>}/>

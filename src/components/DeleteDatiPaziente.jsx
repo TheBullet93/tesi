@@ -5,14 +5,14 @@ import Modal from 'react-bootstrap/Modal';
 import {FaTrash} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import {ref,remove} from 'firebase/database';
+import {ref,remove,push,set} from 'firebase/database';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Alert from 'react-bootstrap/Alert';
 
-const Delete = (props) =>{
+const DeleteDatiPaziente = (props) =>{
 
 
   const [show, setShow] = useState(false);
@@ -22,16 +22,35 @@ const Delete = (props) =>{
   const handleShow = () => setShow(true);
 
   const [dbPath] = useState(props.dbPath);
+  const [dbStoricoPath] = useState(props.dbStoricoPath);
   
   const [textAlert] = useState(props.textAlert);
   const [textToast] = useState(props.textToast);
-  const db = getDatabase();
 
+
+
+  const db = getDatabase();
+  const dbStorico= getDatabase();
+
+  
+  const addStorico = () =>{
+    const dbStoricoRef = ref(dbStorico, dbStoricoPath);
+    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let dataEliminazione = new Date().toLocaleString('it-IT', options);
+    const newPostRef = push(dbStoricoRef);
+    set(newPostRef,{
+      dato: props.itemValue,
+      giorno:  dataEliminazione,
+      stato:'Terminato'
+    });
+  }
 
   const handleDelete = () => {
-    const dbRef = ref(db, dbPath);
-      
-    remove(dbRef);
+
+    addStorico();
+
+    const dbRemoveRef = ref(db, dbPath);
+    remove(dbRemoveRef);
     toast.success(textToast);
     
       setShow(false);
@@ -68,4 +87,4 @@ const Delete = (props) =>{
   );
 }
 
-export default Delete;
+export default DeleteDatiPaziente;
