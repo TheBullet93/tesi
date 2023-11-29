@@ -16,6 +16,7 @@ import GiocoCognitivoCategorizzazione from "../components/GiocoCognitivoCategori
 import GiocoCognitivoAppartenenza from "../components/GiocoCognitivoAppartenenza";
 import GiocoCognitivoAudio from "../components/GiocoCognitivoAudio";
 import GiocoCognitivoRacconti from "../components/GiocoCognitivoRacconti";
+
 export default function Gioco (){
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -77,6 +78,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
       domande = {state.domande}
 
       nomePaziente = {state.nomePaziente}
@@ -91,6 +93,8 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
+
       domande = {state.domande}
       
       nomePaziente = {state.nomePaziente}
@@ -104,7 +108,8 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
-      
+      titolo = {state.titoloGioco}
+
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 
@@ -116,6 +121,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 
@@ -127,6 +133,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 
@@ -139,6 +146,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 
@@ -151,6 +159,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 
@@ -163,6 +172,7 @@ export default function Gioco (){
       idPaziente = {state.idPaziente}
       idGioco = {state.idGioco}
       tipologia = {state.tipologiaGioco}
+      titolo = {state.titoloGioco}
 
       nomePaziente = {state.nomePaziente}
       cognomePaziente = {state.cognomePaziente} 

@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,update,onValue,increment} from 'firebase/database';
+import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 
 import Card from 'react-bootstrap/Card';
@@ -32,6 +32,7 @@ const GiocoCognitivoRacconti = (props) => {
 
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
+    const refRispostePaziente = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
 
     const navigate = useNavigate();
 
@@ -64,7 +65,23 @@ const GiocoCognitivoRacconti = (props) => {
     });
   },[auth?.currentUser?.uid])
 
- 
+  const addRisposta = () =>{
+    const dbRispostaRef = refRispostePaziente;
+    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let dataRisposta = new Date().toLocaleString('it-IT', options);
+    const newPostRef = push(dbRispostaRef);
+    set(newPostRef,{
+      titoloGioco: props.titolo,
+      tipologiaGioco: props.tipologia,
+      domanda: todoData[currentQuestion].argomento,
+      rispostaPaziente: 'Evento raccontato',
+      giorno:  dataRisposta,
+      
+    });
+  }
+
+
+
 const handleNextQuestion = () =>{
 
 
@@ -74,7 +91,7 @@ const handleNextQuestion = () =>{
     
   }
   setCurrentQuestion(nextQuestion);
- 
+ addRisposta();
  
 }
 
@@ -89,6 +106,7 @@ const handleCorretta= () =>{
     nRisposteEsatte:increment(1),
    
   });
+
   navigate(-1)
 }
 
@@ -102,6 +120,7 @@ const handleErrata= () =>{
     nRisposteSbagliate: increment(1),
     
   });
+
   navigate(-1)
 }
 

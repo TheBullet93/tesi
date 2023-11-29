@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,update,onValue,increment} from 'firebase/database';
+import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -26,7 +26,8 @@ const GiocoCognitivoAppartenenza = (props) => {
   
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
-    
+    const refRispostePaziente = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
+
     const activeQuestion = todoData[currentQuestion];
 
     const navigate = useNavigate();
@@ -58,19 +59,36 @@ const GiocoCognitivoAppartenenza = (props) => {
   },[auth?.currentUser?.uid])
 
  
+  const addRisposta = () =>{
+    const dbRispostaRef = refRispostePaziente;
+    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let dataRisposta = new Date().toLocaleString('it-IT', options);
+    const newPostRef = push(dbRispostaRef);
+    set(newPostRef,{
+      titoloGioco: props.titolo,
+      tipologiaGioco: props.tipologia,
+      domanda: todoData[currentQuestion].titoloDomanda,
+      rispostaPaziente: parolaPaziente,
+      giorno:  dataRisposta,
+      
+    });
+  }
 
 
 
 const handleNextQuestion = () =>{
  
+  
   const nextQuestion = currentQuestion + 1;
   if(nextQuestion < todoData.length){
-    
+  
     setCurrentQuestion(nextQuestion);
     
   }
   setCurrentQuestion(nextQuestion);
   setRisposte([...risposte,{risposta:parolaPaziente }]);
+  addRisposta();
+  
 }
 
 const handleCorretta= () =>{
@@ -84,6 +102,9 @@ const handleCorretta= () =>{
     nRisposteEsatte:increment(1),
    
   });
+
+  
+
   navigate(-1)
 }
 
@@ -98,6 +119,7 @@ const handleErrata= () =>{
     nRisposteSbagliate: increment(1),
     
   });
+ 
   navigate(-1)
 }
 

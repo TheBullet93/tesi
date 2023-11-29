@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,update,onValue,increment} from 'firebase/database';
+import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -31,7 +31,8 @@ const GiocoCognitivo = (props) => {
 
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
-  
+    const refRispostePaziente = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
+
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -90,6 +91,18 @@ const activeQuestion = todoData[currentQuestion];
        
       });
     
+      const dbRispostaRef = refRispostePaziente;
+      let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+      let dataRisposta = new Date().toLocaleString('it-IT', options);
+      const newPostRef = push(dbRispostaRef);
+      set(newPostRef,{
+        titoloGioco: props.titolo,
+        tipologiaGioco: props.tipologia,
+        domanda: todoData[currentQuestion].titoloDomanda,
+        rispostaPaziente: item,
+        giorno:  dataRisposta,
+        
+      });
       
      
     }else {        
@@ -104,6 +117,19 @@ const activeQuestion = todoData[currentQuestion];
           nRisposteSbagliate: increment(1),         
         });
       
+        const dbRispostaRef = refRispostePaziente;
+        let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+        let dataRisposta = new Date().toLocaleString('it-IT', options);
+        const newPostRef = push(dbRispostaRef);
+        set(newPostRef,{
+          titoloGioco: props.titolo,
+          tipologiaGioco: props.tipologia,
+          domanda: todoData[currentQuestion].titoloDomanda,
+          rispostaPaziente: item,
+          giorno:  dataRisposta,
+          
+        });
+
         setCurrentQuestion(nextQuestion); 
          
     }

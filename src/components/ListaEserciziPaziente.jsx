@@ -161,39 +161,39 @@ export default function ListaEserciziPaziente(props) {
     }
   }
 
-  const renderLink = (item,tipologia)  =>{
+  const renderLink = (item,tipologia,titolo)  =>{
     switch(tipologia) {
       case 'Appartenenza':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Categorizzazione':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Combinazioni lettere':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Fluenze Fonologiche':
         return returnLinkDomande(item,tipologia);
       case 'Fluenze Semantiche':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Fluenze Verbali':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Attualità':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
         case 'Lettere Mancanti':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Mesi':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Musica':
-       return returnLinkDomande(item,tipologia);
+       return returnLinkDomande(item,tipologia,titolo);
       case 'Racconti':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       case 'Suoni':
-        return returnLinkDomande(item,tipologia);
+        return returnLinkDomande(item,tipologia,titolo);
       default:
         return ' seleziona una tipologia';
     }
   }
 
 
-  const returnLinkDomande = (item,tipologia) =>{
+  const returnLinkDomande = (item,tipologia,titolo) =>{
     return <Link to={{
       pathname:`/gioco/:idPaziente/:idDomanda`,
       search: `?idDomanda=${props.idPaziente}/?idDomanda=${item}`, 
@@ -205,7 +205,8 @@ export default function ListaEserciziPaziente(props) {
         nomePaziente: props.nomePaziente,
         cognomePaziente:props.cognomePaziente,
 
-        tipologiaGioco: tipologia
+        tipologiaGioco: tipologia,
+        titoloGioco: titolo
       }}
      >
      <Card.Img className="imgEsercizio" variant="top" src={renderImage(tipologia)} alt="Immagine Esercizio" />
@@ -292,7 +293,7 @@ const endContent = (
                <Col >
               
                <Card className="cardAttivita">
-                  {renderLink(item.id,item.tipologiaGioco)}
+                  {renderLink(item.id,item.tipologiaGioco,item.titoloGioco)}
                
                  <Card.Body>
                      <Card.Title className="titoloDomanda">{item.titoloGioco}</Card.Title>

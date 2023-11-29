@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,update,onValue,increment} from 'firebase/database';
+import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -34,7 +34,8 @@ const GiocoCognitivoParole = (props) => {
 
      const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
      const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
-
+     const refRispostePaziente = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
+     
     const activeQuestion = todoData[currentQuestion];
 
     const navigate = useNavigate();
@@ -65,6 +66,22 @@ const GiocoCognitivoParole = (props) => {
     });
   },[auth?.currentUser?.uid])
 
+
+  const addRisposta = () =>{
+    const dbRispostaRef = refRispostePaziente;
+    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let dataRisposta = new Date().toLocaleString('it-IT', options);
+    const newPostRef = push(dbRispostaRef);
+    set(newPostRef,{
+      titoloGioco: props.titolo,
+      tipologiaGioco: props.tipologia,
+      domanda: todoData[currentQuestion].titoloDomanda,
+      rispostaPaziente: parola1Paziente + ' ' + parola2Paziente + ' ' + parola3Paziente + ' ' + parola4Paziente,
+      giorno:  dataRisposta,
+      
+    });
+  }
+
  
 const handleNextQuestion = () =>{
 
@@ -79,6 +96,7 @@ const handleNextQuestion = () =>{
      risposta3:parola3Paziente,
      risposta4:parola4Paziente,
     }]);
+    addRisposta();
 }
 
 

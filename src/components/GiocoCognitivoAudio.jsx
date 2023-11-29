@@ -1,7 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref as ref_database,update,onValue,increment} from 'firebase/database';
+import {ref as ref_database,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
@@ -40,7 +40,8 @@ const GiocoCognitivoAudio = (props) => {
 
     const updateRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
     const updateTipologiaRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
-  
+    const refRispostePaziente = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
+    
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -84,6 +85,7 @@ const handleNextQuestion = () =>{
     setCurrentQuestion(nextQuestion);
   }
   setCurrentQuestion(nextQuestion);
+ 
 }
 
 
@@ -109,7 +111,18 @@ const activeQuestion = todoData[currentQuestion];
        
       });
     
-      
+      const dbRispostaRef = refRispostePaziente;
+      let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+      let dataRisposta = new Date().toLocaleString('it-IT', options);
+      const newPostRef = push(dbRispostaRef);
+      set(newPostRef,{
+        titoloGioco: props.titolo,
+        tipologiaGioco: props.tipologia,
+        domanda: todoData[currentQuestion].titoloDomanda,
+        rispostaPaziente: item,
+        giorno:  dataRisposta,
+        
+      });
      
     }else {        
         setRispSbagliate(rispSbagliate+1);
@@ -122,12 +135,25 @@ const activeQuestion = todoData[currentQuestion];
         update(updateTipologiaRef,{  
           nRisposteSbagliate: increment(1),         
         });
+
+        const dbRispostaRef = refRispostePaziente;
+        let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+        let dataRisposta = new Date().toLocaleString('it-IT', options);
+        const newPostRef = push(dbRispostaRef);
+        set(newPostRef,{
+          titoloGioco: props.titolo,
+          tipologiaGioco: props.tipologia,
+          domanda: todoData[currentQuestion].titoloDomanda,
+          rispostaPaziente: item,
+          giorno:  dataRisposta,
+          
+        });
       
         setCurrentQuestion(nextQuestion); 
          
     }
     setCurrentQuestion(nextQuestion); 
- 
+    
     console.log(risposte);
   }
 

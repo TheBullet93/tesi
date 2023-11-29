@@ -13,6 +13,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 import HeaderAttivita from '../components/HeaderAttivita';
+import StoricoRispostePaziente from '../components/StoricoRispostePaziente';
 
 const Attivita = () =>{
 
@@ -69,6 +70,19 @@ const Attivita = () =>{
              idPaziente = {state.id}
              nomePaziente = {state.nome}
              cognomePaziente = {state.cognome}/>
+        </div>
+         
+      </Tab>
+      <Tab eventKey="risposte" title="Risposte" className='tabStyle'>
+      <HeaderAttivita
+               title={'Risposte di'}
+               nome = {state.nome}
+               cognome = {state.cognome}
+               />  
+        <div className='tabStyle'>
+       <StoricoRispostePaziente
+       idPaziente = {state.id}
+       />
         </div>
          
       </Tab>
