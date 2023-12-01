@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +8,10 @@ import ButtonAdd from './ButtonAdd';
 import {FaPlusCircle} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { set,push,ref } from 'firebase/database';
+import { set,push,ref ,onValue} from 'firebase/database';
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
 
 function FormDialoghi() {
   const [show, setShow] = useState(false);
@@ -24,6 +27,11 @@ function FormDialoghi() {
   const [titoloDialogo,setTitoloDialogo] = useState('');
   const [tipologiaDialogo,setTipologiaDialogo] = useState('');
 
+  const db = getDatabase();
+  const [cognomeCreatore,setCognomeCreatore] = useState('');
+  const [nomeCreatore,setNomeCreatore] = useState('');
+  const nomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/nome`)
+  const cognomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/cognome`)
 
   const options = [ 
     {label:"Ballo"} ,
@@ -37,15 +45,43 @@ function FormDialoghi() {
   
   ] 
 
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          console.log("uid", uid)
+      
+        } else {
+          console.log("user is logged out")
+        }
+      });
+     
+}, [])
+
+useEffect(() => {
+  onValue(nomeRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    setNomeCreatore(data);
+  });
+},[auth?.currentUser?.uid])
+
+useEffect(() => {
+  onValue(cognomeRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    setCognomeCreatore(data);
+  });
+},[auth?.currentUser?.uid])
+
 
   const aggiungi = () => {
-    const db = getDatabase();
     const postListRef = ref(db, 'dialoghi/'); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
       titoloDialogo: titoloDialogo,
       tipologiaDialogo: tipologiaDialogo,
-      
+      creatore: cognomeCreatore + ' ' + nomeCreatore
     });
 
     setTitoloDialogo(null)

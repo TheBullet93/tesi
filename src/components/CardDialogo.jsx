@@ -19,10 +19,10 @@ export default function CardDialogo() {
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
-
+  const [terapisti,setTerapisti] = useState([]);
 
   const [searchTipologia, setSearchTipologia] = useState('');
-
+  const [searchTerapista, setSearchTerapista] = useState('');
 
 
   const tipologie = [ 
@@ -67,12 +67,20 @@ export default function CardDialogo() {
   },[])
 
 
-  const handleDelete = (item) => {
-    if (window.confirm('Sei sicuro di voler eliminare questo dialogo?')) {  
-      const dbRef = ref(db, `/dialoghi/${item.id}`);
-      remove(dbRef);
-      }  
-    }
+  useEffect(() => {
+    const Ref = ref(db, 'terapisti/');
+    onValue(Ref, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setTerapisti(newPosts);
+    });
+  
+  },[])
+
 
     const startContent = (
       <React.Fragment>
@@ -82,6 +90,16 @@ export default function CardDialogo() {
   
   const endContent = (
       <React.Fragment>
+         <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTerapista(e.target.value)}>
+         <option>TERAPISTI</option>
+         {terapisti.map((item) =>  {
+            return(
+              <option key={item.id}> {item.profilo.cognome} {item.profilo.nome}</option>
+            )
+           }        
+        
+          )} 
+         </Form.Select>
              <Form.Select  className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
                   {tipologie.map((option,index) =>  {
             return(
@@ -104,6 +122,11 @@ export default function CardDialogo() {
     {!todoData.length
           ? <h2 className="noData">Nessun Dialogo</h2>
  :todoData
+ .filter((item) => {
+  return searchTerapista === 'TERAPISTI'
+    ? item
+    : item.creatore.includes(searchTerapista);
+})
  .filter((item) => {
   return searchTipologia === 'TIPOLOGIE'
     ? item
@@ -141,6 +164,9 @@ export default function CardDialogo() {
       item = {item.id}/>
      </div>
   </Card.Body>
+  <Card.Footer>
+    <p><span className="itemCard">Creatore:</span> {item.creatore}</p> 
+  </Card.Footer>
 </Card>
       </React.Fragment>
 

@@ -32,16 +32,18 @@ import Delete from './Delete';
 import TabellaRacconti from "./TabellaRacconti";
 import { Toolbar } from 'primereact/toolbar';
 
+
+
 export default function CardGioco() {
 
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
-
+  const [terapisti,setTerapisti] = useState([]);
 
   const [searchTipologia, setSearchTipologia] = useState('');
   const [searchLivello, setSearchLivello] = useState('');
-
+  const [searchTerapista, setSearchTerapista] = useState('');
 
   const tipologie = [ 
     {label:"TIPOLOGIE"} ,
@@ -65,6 +67,8 @@ export default function CardGioco() {
     {label:"2"} ,
     {label:"3"} ,
   ]
+
+
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -94,12 +98,19 @@ export default function CardGioco() {
   
   },[])
 
-
-  const handleChange = (selectedOption) => {
-    setSearchLivello(selectedOption);
-   
-  };
-
+  useEffect(() => {
+    const Ref = ref(db, 'terapisti/');
+    onValue(Ref, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setTerapisti(newPosts);
+    });
+  
+  },[])
 
     const renderTabDomande = (param,idParam)  =>{
       switch(param) {
@@ -216,6 +227,16 @@ export default function CardGioco() {
     const startContent = (
       <React.Fragment>
          <FormGiochi/>
+         <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTerapista(e.target.value)}>
+         <option>TERAPISTI</option>
+         {terapisti.map((item) =>  {
+            return(
+              <option key={item.id}> {item.profilo.cognome} {item.profilo.nome}</option>
+            )
+           }        
+        
+          )} 
+         </Form.Select>
       </React.Fragment>
   );
 
@@ -247,12 +268,8 @@ export default function CardGioco() {
     <>
     <div >
             <Toolbar start={startContent} end={endContent} className="toolBar"/>
-        </div>
-       
-             
-     
-        
-    
+    </div>
+
     {!todoData.length
           ? <h2 className="noData">Nessun gioco</h2>
           
@@ -268,7 +285,11 @@ export default function CardGioco() {
   return searchLivello === 'LIVELLI'
     ? item
     : item.difficoltaGioco.includes(searchLivello);
- 
+})
+.filter((item) => {
+  return searchTerapista === 'TERAPISTI'
+    ? item
+    : item.creatore.includes(searchTerapista);
 })
  .map((item) =>{
   return (
@@ -304,6 +325,9 @@ export default function CardGioco() {
       
     }
   </Card.Body>
+  <Card.Footer>
+    <p><span className="itemCard">Creatore:</span> {item.creatore}</p> 
+  </Card.Footer>
 </Card>
     
     </React.Fragment>
