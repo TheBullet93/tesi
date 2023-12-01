@@ -227,6 +227,12 @@ export default function CardGioco() {
     const startContent = (
       <React.Fragment>
          <FormGiochi/>
+        
+      </React.Fragment>
+  );
+
+  const endContent = (
+      <React.Fragment>
          <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTerapista(e.target.value)}>
          <option>TERAPISTI</option>
          {terapisti.map((item) =>  {
@@ -237,11 +243,6 @@ export default function CardGioco() {
         
           )} 
          </Form.Select>
-      </React.Fragment>
-  );
-
-  const endContent = (
-      <React.Fragment>
            <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
               {tipologie.map((option,index) =>  {
             return(
