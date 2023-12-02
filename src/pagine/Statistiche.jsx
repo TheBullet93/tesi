@@ -6,7 +6,14 @@ import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import SideNavBar from "../components/SideNavBar";
 
-import Grafico from "../components/Grafico";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+
+import GraficoTorta from "../components/GraficoTorta";
+import GraficoBarre from "../components/GraficoBarre";
+import GraficoCiambella from "../components/GraficoCiambella";
+import GraficoArea from "../components/GraficoArea";
+import GraficoLinee from "../components/GraficoLinee";
 const Statistiche = () =>{
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -26,19 +33,66 @@ const Statistiche = () =>{
     console.log(state);
     return(
         <SideNavBar>
-          <Header
-               title={'Statistiche di'}
-               nome = {state.nome}
-               cognome = {state.cognome}
-               />                   
-              
-          <Grafico
-        
-              idPaziente = {state.id}
-          
-          />
-
-    
+          <Tabs
+            defaultActiveKey="ciambella"
+            id="uncontrolled-tab-example"
+            className="mb-3 TabHeader"
+          >
+            <Tab eventKey="ciambella" title="Ciambella" >
+              <Header
+                 title={'Statistiche di'}
+                 nome = {state.nome}
+                 cognome = {state.cognome}
+               />  
+           
+               <GraficoCiambella
+                 idPaziente = {state.id}
+                />
+            
+            </Tab>
+            <Tab eventKey="torta" title="Torta" >
+              <Header
+                 title={'Statistiche di'}
+                 nome = {state.nome}
+                 cognome = {state.cognome}
+               />  
+           
+               <GraficoTorta
+                 idPaziente = {state.id}
+                />
+            
+            </Tab>
+            <Tab eventKey="barre" title="Barre" >
+              <Header
+                 title={'Statistiche di'}
+                 nome = {state.nome}
+                 cognome = {state.cognome}
+               />  
+               <GraficoBarre
+               idPaziente = {state.id}
+               />
+            </Tab>
+            <Tab eventKey="area" title="Area" >
+              <Header
+                 title={'Statistiche di'}
+                 nome = {state.nome}
+                 cognome = {state.cognome}
+               />  
+               <GraficoArea
+               idPaziente = {state.id}
+               />
+            </Tab>
+            <Tab eventKey="linee" title="Linee" >
+              <Header
+                 title={'Statistiche di'}
+                 nome = {state.nome}
+                 cognome = {state.cognome}
+               />  
+               <GraficoLinee
+               idPaziente = {state.id}
+               />
+            </Tab>
+          </Tabs>
        </SideNavBar>
     );
 }

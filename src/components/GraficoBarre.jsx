@@ -1,11 +1,9 @@
 import React, {useState,useEffect}from "react";
-import { Chart as ChartJS,ArcElement,Tooltip,Legend } from "chart.js";
+
 import { Card,Form} from "react-bootstrap";
 import { getDatabase} from "firebase/database";
 
 import {ref,onValue,update} from 'firebase/database';
-
-import { Doughnut} from "react-chartjs-2";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -21,14 +19,24 @@ import Delete from "./Delete";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+
+import { Chart as ChartJS,ArcElement,Tooltip,Legend,CategoryScale,
+  LinearScale,
+  BarElement,
+  Title, } from "chart.js";
+import {Bar} from "react-chartjs-2";
 ChartJS.register(
-  ArcElement,Tooltip,Legend
+  ArcElement,Tooltip,Legend,  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+
 
 );
 
 
 
-export default function Grafico(props){
+export default function GraficoBarre(props){
 
   
   const db = getDatabase();
@@ -178,26 +186,34 @@ const endContent = (
                width: '100%',
              }
         }> 
-        <Doughnut        
-           data={{
-             labels: [
-               "RISPOSTE TOTALI: " + ' ' + (item.nRisposteEsatte+item.nRisposteSbagliate ||item.nRisposteEsatte || item.nRisposteSbagliate || 0),
-               "RISPOSTE CORRETTE: " + ' ' + (item.nRisposteEsatte || 0), 
-               "RISPOSTE ERRATE: "+ ' ' + (item.nRisposteSbagliate || 0)],
+          <Bar   data={{
+             labels: ['RISULTATI'],
              datasets: [
                {
-                 data: [(item.nRisposteEsatte+item.nRisposteSbagliate ||item.nRisposteEsatte || item.nRisposteSbagliate || 0), (item.nRisposteEsatte || 0), (item.nRisposteSbagliate || 0)],
-                 backgroundColor: ["#163fb0", "#26d626", "#f30b1e"],
-                 hoverBackgroundColor: [ "#5d82e9", "#7de87d", "#f44452"]
+                label:"RISPOSTE TOTALI: " + ' ' + (item.nRisposteEsatte+item.nRisposteSbagliate ||item.nRisposteEsatte || item.nRisposteSbagliate || 0),
+                 data: [item.nRisposteEsatte+item.nRisposteSbagliate ||item.nRisposteEsatte || item.nRisposteSbagliate || 0],
+                 backgroundColor: "#163fb0",
+                 hoverBackgroundColor:"#5d82e9",
                },
+               {
+                label: "RISPOSTE CORRETTE: " + ' ' + (item.nRisposteEsatte || 0),
+                data: [item.nRisposteEsatte || 0],
+                backgroundColor:  "#26d626",
+                hoverBackgroundColor: "#7de87d",
+              },
+              {
+                label:"RISPOSTE ERRATE: "+ ' ' + (item.nRisposteSbagliate || 0),
+                data: [item.nRisposteSbagliate || 0],
+                backgroundColor:  "#f30b1e",
+                hoverBackgroundColor: "#f44452",
+              },
              
              ]
            }}
            options={{
              responsive: true,
              maintainAspectRatio: false,   
-           }}>
-         </Doughnut>
+           }} />
                   </div>
                   <Button className="btnCard" onClick={() => azzera(item.id)}> Azzera</Button>
                   <div className='btn-space1'>
@@ -210,12 +226,8 @@ const endContent = (
                    />
 
                   </div>
-                 
-                
            </Card.Body>
-          
          </Card>
-    
          </Col>
          </React.Fragment>
               );
