@@ -98,7 +98,7 @@ const endContent = (
         <Th>Città di nascita</Th>
         <Th>Data di nascita</Th>
         <Th>Informazioni</Th>
-        <Th>Terapie</Th>
+        <Th>PDTA</Th>
         <Th>Attività</Th>
         <Th>Statistiche</Th>
         <Th>Storico</Th>
@@ -139,9 +139,9 @@ const endContent = (
                         search: `?idPaziente=${item.id}`, 
                          }} 
                     state= {item} ><RiHealthBookFill/></Link></Td>
-                  <Td><Link title="Terapie" className='statistiche'
+                  <Td><Link title="PDTA" className='statistiche'
                          to={{
-                        pathname:`/terapie/:idPaziente`,
+                        pathname:`/PDTAPaziente/:idPaziente`,
                         search: `?idPaziente=${item.id}`, 
                          }} 
                     state= {item} ><FaStethoscope/></Link></Td>

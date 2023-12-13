@@ -19,7 +19,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import Delete from './Delete';
 import DeleteDatiPaziente from './DeleteDatiPaziente';
 
 function TabellaTerapieIntervallari(props) {
@@ -28,6 +27,8 @@ function TabellaTerapieIntervallari(props) {
 
   const [todoData,setTodoData] = useState([]);
   const [search, setSearch] = useState('');
+
+
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -44,7 +45,7 @@ function TabellaTerapieIntervallari(props) {
 
 
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/terapie`+'/intervallari'));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -64,9 +65,10 @@ function TabellaTerapieIntervallari(props) {
                          position="top-center"
                          theme="light"
                        />
-    <div className='tabella'>
-      <h2 className='tepTitle'>Terapie intervallari
-      <Form className="search-container">
+
+      <h2 className='tepTitle'>
+        Terapie Intervallari
+     <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
@@ -78,7 +80,6 @@ function TabellaTerapieIntervallari(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Patologia</Th>
         <Th>Farmaco</Th>
         <Th>Giorni</Th>
         <Th>Inizio Terapia</Th>
@@ -96,8 +97,7 @@ function TabellaTerapieIntervallari(props) {
         .filter((item) => {
           return search.toLowerCase() === ''
             ? item
-            : item.patologia.toLowerCase().includes(search) ||
-            item.farmaco.toLowerCase().includes(search) ||
+            : item.farmaco.toLowerCase().includes(search) ||
             item.dataInizio.toLowerCase().includes(search) || 
             item.dataFine.toLowerCase().includes(search) ||
             item.numAssunzioni.toLowerCase().includes(search)||
@@ -108,7 +108,6 @@ function TabellaTerapieIntervallari(props) {
               return (
                 <React.Fragment key={item.id}>
                   <Tr >
-                  <Td>{item.patologia}</Td>
                   <Td>{item.farmaco}</Td>
                   
                   {
@@ -132,7 +131,7 @@ function TabellaTerapieIntervallari(props) {
                   <Td>
                   <ButtonGroup>
                       <UpdateTerapieIntervallari
-                     patologia ={item.patologia}
+                     patologia ={props.patologia}
                      farmaco ={item.farmaco}
                      dataInizio = {item.dataInizio}
                      dataFine = {item.dataFine}
@@ -144,10 +143,10 @@ function TabellaTerapieIntervallari(props) {
                      idTerapia = {item.id}
                      />
                        <DeleteDatiPaziente
-                       title = {item.patologia}
+                       title = {item.farmaco}
                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                       itemValue = {'Terapia Intervallare: '+ item.patologia + ' Farmaco: ' + item.farmaco}
-                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/terapie`+`/intervallari/${item.id}`}
+                       itemValue = {'Terapia Intervallare: '+ props.patologia + ' Farmaco: ' + item.farmaco}
+                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}
                        />
@@ -161,8 +160,7 @@ function TabellaTerapieIntervallari(props) {
             })}
       
       </Tbody>
-    </Table>   
-    </div>
+    </Table>  
     </>
   );
 }

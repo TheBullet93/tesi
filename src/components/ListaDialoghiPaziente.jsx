@@ -148,12 +148,12 @@ export default function ListaDialoghiPaziente(props) {
   const startContent = (
     <React.Fragment>
      <Link  to={{ 
-               pathname:`/terapie/:idPaziente`,
+               pathname:`/PDTAPaziente/:idPaziente`,
                search: `?idPaziente=${state.id}`,}}
                state= { state}
                activeclassname="active">
                 <Button className="btnNavPaziente" type="submit"  >
-                  <AiOutlineArrowLeft></AiOutlineArrowLeft><span className='btnText'> Terapie</span>
+                  <AiOutlineArrowLeft></AiOutlineArrowLeft><span className='btnText'> PDTA</span>
                 </Button>
                </Link> 
               

@@ -71,8 +71,7 @@ export default function CardProfiloPaziente(props) {
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
-        id:key,
-        
+        id:key,  
         ...data[key]
       }));
       

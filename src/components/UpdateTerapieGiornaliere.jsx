@@ -17,8 +17,6 @@ const UpdateTerapieGiornaliere = (props) =>{
 
   const [show, setShow] = useState(false);
 
-
-  const [patologia,setPatologia]  = useState(props.patologia);
   const [farmaco,setFarmaco] = useState(props.farmaco);
   const [dataInizio,setDataInizio] = useState(props.dataInizio);
   const [dataFine,setDataFine] = useState(props.dataFine);
@@ -38,9 +36,8 @@ const UpdateTerapieGiornaliere = (props) =>{
 
 
   const aggiorna = () => {
-    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/terapie`+`/giornaliere/${props.idTerapia}`);
+    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieGiornaliere/${props.idTerapia}`);
     update(updateRef,{
-      patologia: patologia,
       farmaco: farmaco,
       dataInizio: dataInizio,
       dataFine: dataFine,
@@ -66,12 +63,6 @@ const UpdateTerapieGiornaliere = (props) =>{
            </Modal.Header>
           <Modal.Body>
         <Form>
-        <Form.Group className="mb-3" controlId="formPatologia">
-        <Form.Label className="labelForm">Sintomo/Patologia</Form.Label>
-        <Form.Control type="text" placeholder="Inserici sintomo/patologia"
-          defaultValue={props.patologia} 
-         onChange={(e) => setPatologia(e.target.value)}/>
-        </Form.Group>
         <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <Form.Control type="text" placeholder="Inserici farmaco" 

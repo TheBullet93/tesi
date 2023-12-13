@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { Toolbar } from 'primereact/toolbar';
 
+
 const PazienteView = () =>{
 
 
@@ -35,18 +36,19 @@ console.log(state);
 
 const startContent = (
   <React.Fragment>
-      <Link  to={{ 
-                      pathname:`/terapie/:idPaziente`,
-                      search: `?idPaziente=${state.id}`, 
-                      }}
-                      state = { state}
-                      activeclassname="active">
-                     <Button className="btnCard " type="submit">
-                          Terapie  <AiOutlineArrowRight></AiOutlineArrowRight>
-                     </Button>
-                    </Link>
-  </React.Fragment>
+  <Link  to={{ 
+             pathname:`/PDTAPaziente/:idPaziente`,
+             search: `?idPaziente=${state.id}`, 
+             }}
+             state = { state}
+             activeclassname="active">
+            <Button className="btnCard " type="submit">
+                 PDTA  <AiOutlineArrowRight></AiOutlineArrowRight>
+            </Button>
+           </Link>
+</React.Fragment>
 );
+
 
 
     return (

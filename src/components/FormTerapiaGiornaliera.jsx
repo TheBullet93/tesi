@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { getDatabase } from "firebase/database";
-import { set,push,ref } from 'firebase/database';
+import { set,push,ref,onValue } from 'firebase/database';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,8 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function FormTerapiaGiornaliera(props) {
   const [show, setShow] = useState(false);
 
-
-  const [patologia,setPatologia] = useState('');
   const [farmaco,setFarmaco] = useState('');
   const [dataInizio,setDataInizio] = useState('');
   const [dataFine,setDataFine] = useState('');
@@ -21,9 +19,26 @@ function FormTerapiaGiornaliera(props) {
   const [dettagli,setDettagli] = useState('');
 
 
+  const [patologia,setPatologia] = useState('');
+  const [patologie,setPatologie] = useState([]);
+
+  const db = getDatabase();
+  const RefPatologie = (ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/patologie`));
+
+  useEffect(() => {
+    onValue(RefPatologie, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setPatologie(newPosts);
+    });
+  
+  },[])
 
   const handleClose = () =>{
-    setPatologia(null)
     setFarmaco(null)
     setDataInizio(null)
     setDataFine(null)
@@ -33,11 +48,9 @@ function FormTerapiaGiornaliera(props) {
   const handleShow = () => setShow(true);
 
   const aggiungi = () => {
-    const db = getDatabase();
-    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/`+ props.idPaziente +'/terapie'+'/giornaliere');
+    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${patologia}/terapieGiornaliere`);
     const newPostRef = push(postListRef);
     set(newPostRef, {
-        patologia: patologia,
         farmaco: farmaco,
         dataInizio: dataInizio,
         dataFine: dataFine,
@@ -47,7 +60,6 @@ function FormTerapiaGiornaliera(props) {
 
     });
     toast.success('Terapia Giornaliera inserita con successo');
-    setPatologia(null)
     setFarmaco(null)
     setDataInizio(null)
     setDataFine(null)
@@ -69,10 +81,15 @@ function FormTerapiaGiornaliera(props) {
            </Modal.Header>
           <Modal.Body>
         <Form>
-      <Form.Group className="mb-3" controlId="formPatologia">
-        <Form.Label className="labelForm">Sintomo/Patologia</Form.Label>
-        <Form.Control type="text" placeholder="Inserici sintomo/patologia" value={patologia}  onChange={(e) => setPatologia(e.target.value)}/>
-      </Form.Group>
+        <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
+                 <option>PATOLOGIE</option>
+                   {patologie.map((item,index) =>  {
+                       return(
+                           <option key={index}> {item.nomePatologia}</option>
+                              )
+                          }        
+                     )} 
+              </Form.Select>
       <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <Form.Control type="text" placeholder="Inserici farmaco" value={farmaco}  onChange={(e) => setFarmaco(e.target.value)}/>

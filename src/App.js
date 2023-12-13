@@ -21,6 +21,7 @@ import Dialogo from "./pagine/Dialogo";
 
 
 import './styles/App.css';
+import PDTA from "./pagine/PDTA";
 
 
 
@@ -46,6 +47,7 @@ function App() {
          <Route path="/dieta" element={<Dieta/>}/>
          <Route path="/profilo/:idTerapista" element={<Profilo/>}/>
      
+         <Route path="/PDTAPaziente/:idPaziente" element={<PDTA/>}></Route>
          <Route path="/eserciziPaziente/:idPaziente" element={<EserciziPaziente/>}></Route>
          <Route path="/gioco/:idPaziente/:idDomanda" element={<Gioco/>}></Route>
          <Route path="/dialogo/:idPaziente/:idDomanda" element={<Dialogo/>}></Route>  

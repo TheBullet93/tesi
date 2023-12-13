@@ -39,11 +39,9 @@ const UpdateTerapieIntervallari = (props) =>{
 
 
   const aggiorna = () => {
-    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/terapie`+`/intervallari/${props.idTerapia}`);
+    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari/${props.idTerapia}`);
     update(updateRef,{
-      patologia: patologia,
-      farmaco: farmaco,
-      
+      farmaco: farmaco,   
       giorni:
         {
           giorno:  giorni,
@@ -111,12 +109,6 @@ const UpdateTerapieIntervallari = (props) =>{
            </Modal.Header>
           <Modal.Body>
         <Form>
-        <Form.Group className="mb-3" controlId="formPatologia">
-        <Form.Label className="labelForm">Sintomo/Patologia</Form.Label>
-        <Form.Control type="text" placeholder="Inserici sintomo/patologia"
-          defaultValue={props.patologia} 
-         onChange={(e) => setPatologia(e.target.value)}/>
-        </Form.Group>
         <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <Form.Control type="text" placeholder="Inserici farmaco" 
