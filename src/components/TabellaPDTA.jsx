@@ -20,6 +20,9 @@ import TabellaTerapieIntervallari from "../components/TabellaTerapieIntervallari
 import { ButtonGroup } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Delete from './Delete';
+import UpdateBMI from './UpdateBMI';
+import UpdateDatiPDTA from './UpdateDatiPDTA';
 
 function TabellaPDTA(props) {
 
@@ -206,6 +209,7 @@ function TabellaPDTA(props) {
                 <Th>BMI</Th>
                 <Th>Circonferenza Vita</Th>
                 <Th>Data Monitoraggio</Th>
+                <Th>Opzioni</Th>
              </Tr>
             </Thead>
             <Tbody>
@@ -233,6 +237,28 @@ function TabellaPDTA(props) {
                                     <Td>{item.circonferenzaVita}</Td>
                                     {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
                                     :<Td>Nessuna data inserita</Td>}
+                                    <Td>
+                                    <ButtonGroup>
+                                      <UpdateBMI
+                                       peso ={item.peso}
+                                       altezza ={item.altezza}
+                                       circonferenza = {item.circonferenzaVita}
+                                       dataMonitoraggio = {item.dataMonitoraggio}
+
+                                       item = {auth?.currentUser?.uid}
+                                       idPaziente = {props.idPaziente}
+                                       patologia = {props.patologia}
+                                       idBMI = {item.id}
+
+                                      />
+                                      <Delete
+                                        title = {'BMI ' + format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/bmi/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
+                                      </ButtonGroup>
+                                    </Td>
                             </Tr>
                           
                           
@@ -261,6 +287,7 @@ function TabellaPDTA(props) {
                 <Th>Valore</Th> 
                 <Th>Data Monitoraggio</Th>
                 <Th>Note</Th>
+                <Th>Opzioni</Th>
              </Tr>
             </Thead>
             <Tbody>
@@ -285,6 +312,23 @@ function TabellaPDTA(props) {
                                     {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
                                     :<Td>Nessuna data inserita</Td>}
                                     <Td>{item.note}</Td>
+                                    <Td>
+                                    <ButtonGroup>
+                                      <UpdateDatiPDTA
+                                      titolo = {item.titolo}
+                                      valore = {item.valore}
+                                      dataMonitoraggio = {item.dataMonitoraggio}
+                                      note = {item.note}                                      
+                                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameLaboratorio/${item.id}`}
+                                      />
+                                      <Delete
+                                        title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameLaboratorio/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
+                                      </ButtonGroup>
+                                    </Td>
                             </Tr>
                           
                           
@@ -315,6 +359,7 @@ function TabellaPDTA(props) {
                 <Th>Valore</Th> 
                 <Th>Data Monitoraggio</Th>
                 <Th>Note</Th>
+                <Th>Opzioni</Th>
              </Tr>
             </Thead>
             <Tbody>
@@ -339,6 +384,23 @@ function TabellaPDTA(props) {
                                     {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
                                     :<Td>Nessuna data inserita</Td>}
                                     <Td>{item.note}</Td>
+                                    <Td>
+                                    <ButtonGroup>
+                                    <UpdateDatiPDTA
+                                      titolo = {item.titolo}
+                                      valore = {item.valore}
+                                      dataMonitoraggio = {item.dataMonitoraggio}
+                                      note = {item.note}                                      
+                                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameStrumentale/${item.id}`}
+                                      />
+                                      <Delete
+                                        title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameStrumentale/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
+                                      </ButtonGroup>
+                                    </Td>
                             </Tr>
                           
                           
@@ -368,6 +430,7 @@ function TabellaPDTA(props) {
                 <Th>Valore</Th> 
                 <Th>Data Monitoraggio</Th>
                 <Th>Note</Th>
+                <Th>Opzioni</Th>
              </Tr>
             </Thead>
             <Tbody>
@@ -392,6 +455,23 @@ function TabellaPDTA(props) {
                                     {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
                                     :<Td>Nessuna data inserita</Td>}
                                     <Td>{item.note}</Td>
+                                    <Td>
+                                    <ButtonGroup>
+                                    <UpdateDatiPDTA
+                                      titolo = {item.titolo}
+                                      valore = {item.valore}
+                                      dataMonitoraggio = {item.dataMonitoraggio}
+                                      note = {item.note}                                      
+                                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/visite/${item.id}`}
+                                      />
+                                      <Delete
+                                        title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/visite/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
+                                      </ButtonGroup>
+                                    </Td>
                             </Tr>
                           
                           

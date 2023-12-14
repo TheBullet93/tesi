@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -7,8 +7,8 @@ import Form from 'react-bootstrap/Form';
 
 import {FaPencilAlt} from "react-icons/fa"
 
-import { getDatabase } from "firebase/database";
-import { update,ref} from 'firebase/database';
+import { getDatabase, remove } from "firebase/database";
+import { update,ref,set,onValue} from 'firebase/database';
 
 const UpdatePatologia = (props) =>{
 
@@ -19,18 +19,40 @@ const UpdatePatologia = (props) =>{
   const handleShow = () => setShow(true);
 
   const [patologia, setPatologia] = useState(props.nomePatologia)
-
+  const [nodeData, setNodeData] = useState({});
  
 
   const db = getDatabase();
 
+  const RefPDTA = ref(db, `terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${props.nomePatologia}`);
+
+
+  useEffect(() => {
+    onValue(RefPDTA, (snapshot) => {
+      const data = snapshot.val();
+     
+      console.log(data);
+      setNodeData(data);
+    });
+  
+  },[])
+
+
+
   const aggiornaPatologia = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/patologie/${props.index}`);
+   
+
     update(updateRef,{
         nomePatologia: patologia,
       });
 
-    
+    remove(RefPDTA);
+
+    const newRefPDTA = ref(db, `terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${patologia}`);
+
+    set(newRefPDTA,nodeData);
+
       setShow(false);
   };
 
