@@ -23,6 +23,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Delete from './Delete';
 import UpdateBMI from './UpdateBMI';
 import UpdateDatiPDTA from './UpdateDatiPDTA';
+import DeleteDatiPaziente from './DeleteDatiPaziente';
+
 
 function TabellaPDTA(props) {
 
@@ -251,8 +253,10 @@ function TabellaPDTA(props) {
                                        idBMI = {item.id}
 
                                       />
-                                      <Delete
+                                      <DeleteDatiPaziente
                                         title = {'BMI ' + format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                                        itemValue = {'Patologia: '+ props.patologia + ' BMI: ' + item.bmi}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/bmi/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
@@ -321,8 +325,10 @@ function TabellaPDTA(props) {
                                       note = {item.note}                                      
                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameLaboratorio/${item.id}`}
                                       />
-                                      <Delete
+                                      <DeleteDatiPaziente
                                         title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                                        itemValue = {'Patologia: '+ props.patologia +' ' + item.titolo +' : ' + item.valore + ' - ' + item.dataMonitoraggio}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameLaboratorio/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
@@ -393,8 +399,10 @@ function TabellaPDTA(props) {
                                       note = {item.note}                                      
                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameStrumentale/${item.id}`}
                                       />
-                                      <Delete
+                                      <DeleteDatiPaziente
                                         title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                                        itemValue = {'Patologia: '+ props.patologia +' ' + item.titolo +' : ' + item.valore + ' - ' + item.dataMonitoraggio}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/esameStrumentale/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
@@ -464,8 +472,10 @@ function TabellaPDTA(props) {
                                       note = {item.note}                                      
                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/visite/${item.id}`}
                                       />
-                                      <Delete
+                                      <DeleteDatiPaziente
                                         title = {item.titolo + " "+ format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
+                                        itemValue = {'Patologia: '+ props.patologia +' ' + item.titolo +' : ' + item.valore + ' - ' + item.dataMonitoraggio}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/visite/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
