@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
-
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
 import { getDatabase} from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
@@ -10,8 +11,22 @@ const StoricoPaziente = (props) =>{
 
     const [todoData,setTodoData] = useState([]);
 
+    
+    useEffect(()=>{
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+            const uid = user.uid;
+            console.log("uid", uid)
+        
+          } else {
+            console.log("user is logged out")
+          }
+        });
+       
+  }, [])
+
     useEffect(() => {
-      const Ref = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/storico`));
+      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`));
       onValue(Ref, (snapshot) => {
         const data = snapshot.val();
         const newPosts = Object.keys(data || {}).map(key=>({
@@ -24,7 +39,7 @@ const StoricoPaziente = (props) =>{
       
       });
     
-    },[])
+    },[auth?.currentUser?.uid])
   
 
 

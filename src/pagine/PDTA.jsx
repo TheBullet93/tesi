@@ -48,7 +48,7 @@ const PDTA = () =>{
             setPatologie(newPosts);
           });
         
-        },[])
+        },[auth?.currentUser?.uid])
       
              
         const location = useLocation();

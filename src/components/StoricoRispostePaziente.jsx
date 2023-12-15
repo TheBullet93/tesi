@@ -47,7 +47,7 @@ const StoricoRispostePaziente = (props) =>{
       
       });
     
-    },[])
+    },[auth?.currentUser?.uid])
   
     const startContent = (
       <React.Fragment>

@@ -55,7 +55,7 @@ const Storico = () =>{
                />  
              <Toolbar start={startContent}  className="toolBar"/>
                <StoricoPaziente
-                 item = {auth?.currentUser?.uid}
+                
                  idPaziente = {state.id}
    
                />
