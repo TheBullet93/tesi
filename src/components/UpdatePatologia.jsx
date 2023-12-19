@@ -67,7 +67,7 @@ const UpdatePatologia = (props) =>{
      
       <Form>
         <Form.Group className="mb-3" controlId="formValCognitiva">
-          <Form.Label className="labelForm">Patologia / Malattia</Form.Label>
+          <Form.Label className="labelForm">Patologia</Form.Label>
           <Form.Control type="text" placeholder="Inserici patologia"
              defaultValue={props.nomePatologia}
              onChange={(e) => setPatologia(e.target.value)}

@@ -240,25 +240,22 @@ const handleChangeEmailParente= (index,event) => {
               2: 
               <>
               <Form>
+              <Button variant="primary" onClick={addPatologia}>Aggiungi Patologia</Button>
+              <Button variant="primary" className="inputForm" onClick={addAllergia}>Aggiungi Allergia</Button>
               {
-                !patologie.length
-                ? <Button variant="primary" className="inputForm" onClick={addPatologia}>Aggiungi Patologia/Malattia</Button>
-                 :
+               
               patologie.map((item,index) => {
              return (
                
                <div key={index}>
                <Form.Group className="mb-3" controlId="formPatologia">
-              <Form.Label className="labelForm">Patologia / Malattia</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici patologia / malattia del paziente"
+              <Form.Label className="labelForm">Patologia</Form.Label>
+               <Form.Control  type="text" placeholder="Inserici patologia del paziente"
                value={item.nomePatologia}
                onChange={(e) => handleChangePatologia(index,e) }
                />
                </Form.Group>
                <ButtonToolbar >
-                 <ButtonGroup>
-                   <Button variant="primary" onClick={addPatologia}>Aggiungi Patologia/Malattia</Button>
-                 </ButtonGroup>
                 <ButtonGroup >
                    <Button variant="danger" onClick={() => rimuoviPatologia(index)}><FiDelete/></Button>
                 </ButtonGroup>   
@@ -269,24 +266,18 @@ const handleChangeEmailParente= (index,event) => {
            })}
            
             {
-             !allergie.length
-             ? <Button variant="primary" className="inputForm" onClick={addAllergia}>Aggiungi Allergia / Intolleranza</Button>
-              :
             allergie.map((item,index) => {
              return (
              
                <div key={index}>
                <Form.Group className="mb-3" controlId="formAllergia">
-               <Form.Label className="labelForm">Allergia / Intolleranza</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici allergie/intolleranze"
+               <Form.Label className="labelForm">Allergia</Form.Label>
+               <Form.Control  type="text" placeholder="Inserici allergia"
                value={item.nomeAllergia}
                onChange={(e) => handleChangeAllergia(index,e) }
                />
                </Form.Group>
                <ButtonToolbar >
-                 <ButtonGroup>
-                  <Button variant="primary" onClick={addAllergia}>Aggiungi Allergia / Intolleranza</Button>
-                 </ButtonGroup>
                 <ButtonGroup >
                    <Button variant="danger" onClick={() => rimuoviAllergia(index)}><FiDelete/></Button>
                 </ButtonGroup>   
@@ -314,30 +305,28 @@ const handleChangeEmailParente= (index,event) => {
               
               {
                  <Form>
+                  <Button variant="primary" className="inputForm" onClick={addParente}>Aggiungi Caregiver</Button>
                  {
-                 !parenti.length
-                 ? <Button variant="primary" className="inputForm" onClick={addParente}>Aggiungi Parente/Caregiver</Button>
-                  :
                  parenti.map((item,index) => {
              return (
               
                <div key={index}>
             <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Nome Parente/Caregiver</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici nome parente/caregiver"
+               <Form.Label className="labelForm">Nome Caregiver</Form.Label>
+               <Form.Control  type="text" placeholder="Inserici nome caregiver"
                value={item.nomeParente}
                onChange={(e) => handleChangeNomeParente(index,e) }
                />
             </Form.Group>
             <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Cognome Parente/Caregiver</Form.Label>
-               <Form.Control key={index} type="text" placeholder="Inserici cognome parente/caregiver"
+               <Form.Label className="labelForm">Cognome Caregiver</Form.Label>
+               <Form.Control key={index} type="text" placeholder="Inserici cognome caregiver"
                value={item.cognomeParente}
                onChange={(e) =>handleChangeCognomeParente(index,e)}
                />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Telefono/Cellulare</Form.Label>
+               <Form.Label className="labelForm">Telefono</Form.Label>
                <Form.Control key={index} type="text" placeholder="Inserici numero di telefono"
                  value={item.telefonoParente}
                  onChange={(e) =>handleChangeTelefonoParente(index,e)}
@@ -351,9 +340,6 @@ const handleChangeEmailParente= (index,event) => {
                    onChange={(e) => handleChangeEmailParente(index,e)}/>
             </Form.Group>
             <ButtonToolbar >
-                 <ButtonGroup>
-                  <Button variant="primary" onClick={addParente}>Aggiungi Parente/Caregiver</Button>
-                 </ButtonGroup>
                 <ButtonGroup >
                   <Button variant="danger" onClick={() => rimuoviParente(index)}><FiDelete/></Button>
                 </ButtonGroup>   

@@ -60,17 +60,17 @@ function UpdateDatiPDTA(props) {
       <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Aggiorna BMI del paziente</Modal.Title>
+          <Modal.Title className='headerForm'>Aggiorna dati</Modal.Title>
              </Modal.Header>
             <Modal.Body>
               <Form>
-            <Form.Label className="labelForm">Nome </Form.Label>
-                 <Form.Control type="text" placeholder="Inserici nome" 
+            <Form.Label className="labelForm">Descrizione </Form.Label>
+                 <Form.Control type="text" placeholder="Inserici descrizione" 
                   defaultValue = {props.titolo}  
                   onChange = {(e) => setTitolo(e.target.value)}
                /> 
               <Form.Label className="labelForm">Valore</Form.Label>
-                 <Form.Control type="number" placeholder="Inserici valore"
+                 <Form.Control type="text" placeholder="Inserici valore"
                   defaultValue = {props.valore}   
                   onChange = {(e) => setValore(e.target.value)}
                /> 

@@ -53,8 +53,8 @@ const UpdateAllergia = (props) =>{
      
       <Form>
         <Form.Group className="mb-3" controlId="formValCognitiva">
-          <Form.Label className="labelForm">Allergia / Intolleranza</Form.Label>
-          <Form.Control type="text" placeholder="Inserici patologia"
+          <Form.Label className="labelForm">Allergia</Form.Label>
+          <Form.Control type="text" placeholder="Inserici allergia"
              defaultValue={props.nomeAllergia}
              onChange={(e) => setAllergia(e.target.value)}
           />

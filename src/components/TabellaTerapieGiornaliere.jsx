@@ -92,8 +92,8 @@ function TabellaTerapieGiornaliere(props) {
     <Thead>
         <Tr>
         <Th>Farmaco</Th>
-        <Th>Inizio Terapia</Th>
-        <Th>Fine Terapia</Th>
+        <Th>Inizio</Th>
+        <Th>Fine</Th>
         <Th>Numero volte</Th>
         <Th>Quando </Th>
         <Th>Opzioni</Th>

@@ -2,8 +2,8 @@ import React from 'react';
 import '../styles/SideNavBar.css';
 
 import logo from '../immagini/logo.jpg'
-import {FaAccessibleIcon,FaChess,FaRegComments,FaRegChartBar,FaPuzzlePiece,FaStethoscope} from "react-icons/fa"
-import { GiFruitBowl } from "react-icons/gi";
+import {FaChess,FaRegComments,FaRegChartBar,FaPuzzlePiece,FaStethoscope} from "react-icons/fa"
+import { ImManWoman } from "react-icons/im";
 
 import { NavLink } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const SideNavBar = ({children}) => {
         {
             path:"/pazienti",
             name:"Pazienti",
-            icon:<FaAccessibleIcon/>
+            icon:<ImManWoman />
         },
         {
             path:"/giochi",
@@ -29,8 +29,6 @@ const SideNavBar = ({children}) => {
             name:"Dialoghi",
             icon:<FaRegComments/>
         },
-        
-      //  {path:"/dieta",name:"Dieta",icon:<GiFruitBowl/>}
     ]
 
 

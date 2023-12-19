@@ -80,13 +80,13 @@ function FormVisita(props) {
                           }        
                      )} 
               </Form.Select>
-              <Form.Label className="labelForm">Nome </Form.Label>
-                 <Form.Control type="text" placeholder="Inserici nome" 
+              <Form.Label className="labelForm">Descrizione </Form.Label>
+                 <Form.Control type="text" placeholder="Inserici descrizione" 
                   value = {titolo}  
                   onChange = {(e) => setTitolo(e.target.value)}
                />
                  <Form.Label className="labelForm">Valore</Form.Label>
-                 <Form.Control type="number" placeholder="Inserici valore" 
+                 <Form.Control type="text" placeholder="Inserici valore" 
                   value = {valore}  
                   onChange = {(e) => setValore(e.target.value)}
                /> 

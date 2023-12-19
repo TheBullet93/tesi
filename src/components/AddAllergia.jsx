@@ -38,20 +38,20 @@ const AddAllergia = (props) =>{
   return (
     <>
     <ButtonGroup >
-      <Button variant="primary" className='inputPazienteView'   onClick={handleShow}>Aggiungi Allergia/Intolleranza</Button>
+      <Button variant="primary" className='inputPazienteView'   onClick={handleShow}>Aggiungi Allergia</Button>
     </ButtonGroup>
     
       
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Aggiungi Nuova Allergia/Intolleranza</Modal.Title>
+          <Modal.Title className='headerForm'>Aggiungi Nuova Allergia</Modal.Title>
        </Modal.Header>
       <Modal.Body>
      
       <Form>
         <Form.Group className="mb-3" controlId="formValCognitiva">
-          <Form.Label className="labelForm">Allergia/Intolleranza</Form.Label>
-          <Form.Control type="text" placeholder="Inserici allergia o intolleranza"
+          <Form.Label className="labelForm">Allergia</Form.Label>
+          <Form.Control type="text" placeholder="Inserici allergia"
              value={allergia}
              onChange={(e) => setAllergia(e.target.value)}
           />

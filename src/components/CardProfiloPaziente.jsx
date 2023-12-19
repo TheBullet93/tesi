@@ -184,7 +184,7 @@ export default function CardProfiloPaziente(props) {
                 
                     <ListGroup>
                        <ListGroup.Item className="border-primary listMargin">
-                         <span className='infoPaziente'>Patologie / Malattie:  </span><span className='datiPaziente'>Nessuna patologia</span>
+                         <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>Nessuna patologia</span>
                        </ListGroup.Item>
                        <span className='btn-space1'>
                        <AddPatologia
@@ -201,7 +201,7 @@ export default function CardProfiloPaziente(props) {
                         <React.Fragment key={index}>
                         <ListGroup className="border-primary listMargin">
                       <ListGroup.Item className="border-primary">
-                         <span className='infoPaziente'>Patologie / Malattie:  </span><span className='datiPaziente'>
+                         <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>
                             {item.nomePatologia}</span>
                             <span className='btn-space1'>
                          
@@ -242,16 +242,16 @@ export default function CardProfiloPaziente(props) {
              ?    <>
              <ListGroup className="border-primary listMargin ">
              <ListGroup.Item className="border-primary">
-              <span className='infoPaziente'>Nome Parente/Caregiver:  </span><span className='datiPaziente'>Nessun nome</span>
+              <span className='infoPaziente'>Nome Caregiver:  </span><span className='datiPaziente'>Nessun nome</span>
              </ListGroup.Item>
              <ListGroup.Item className="border-primary">
-              <span className='infoPaziente'>Cognome Parente/Caregiver:  </span><span className='datiPaziente'>Nessun cognome </span>
+              <span className='infoPaziente'>Cognome Caregiver:  </span><span className='datiPaziente'>Nessun cognome </span>
              </ListGroup.Item>
              <ListGroup.Item className="border-primary">
-              <span className='infoPaziente'>Telefono Parente/Caregiver:  </span><span className='datiPaziente'>Nessun numero telefonico </span>
+              <span className='infoPaziente'>Telefono Caregiver:  </span><span className='datiPaziente'>Nessun numero telefonico </span>
              </ListGroup.Item>
              <ListGroup.Item className="border-primary">
-              <span className='infoPaziente'>Email Parente/Caregiver:  </span><span className='datiPaziente'>Nessuna Email </span>
+              <span className='infoPaziente'>Email Caregiver:  </span><span className='datiPaziente'>Nessuna Email </span>
              </ListGroup.Item>
              <span className='btn-space1'>
              <AddParente
@@ -268,16 +268,16 @@ export default function CardProfiloPaziente(props) {
                <React.Fragment key={index}>
                <ListGroup  className="border-primary listMargin">
                   <ListGroup.Item className="border-primary">
-                   <span className='infoPaziente'>Nome Parente/Caregiver:  </span><span className='datiPaziente'>{item.nomeParente} </span>
+                   <span className='infoPaziente'>Nome Caregiver:  </span><span className='datiPaziente'>{item.nomeParente} </span>
                   </ListGroup.Item>
                   <ListGroup.Item className="border-primary">
-                   <span className='infoPaziente'>Cognome Parente/Caregiver:  </span><span className='datiPaziente'>{item.cognomeParente}</span>
+                   <span className='infoPaziente'>Cognome Caregiver:  </span><span className='datiPaziente'>{item.cognomeParente}</span>
                   </ListGroup.Item>
                   <ListGroup.Item className="border-primary">
-                   <span className='infoPaziente'>Telefono Parente/Caregiver:  </span><span className='datiPaziente'>{item.telefonoParente} </span>
+                   <span className='infoPaziente'>Telefono Caregiver:  </span><span className='datiPaziente'>{item.telefonoParente} </span>
                   </ListGroup.Item>
                   <ListGroup.Item className="border-primary">
-                   <span className='infoPaziente'>Email Parente/Caregiver:  </span><span className='datiPaziente'>{item.emailParente}</span>
+                   <span className='infoPaziente'>Email Caregiver:  </span><span className='datiPaziente'>{item.emailParente}</span>
                    <span className='btn-space1'>                 
                    <UpdateParente
                      idTerapista = {props.item}
@@ -315,7 +315,7 @@ export default function CardProfiloPaziente(props) {
              ?    <>
               
               <ListGroup.Item className="border-primary listMargin">
-              <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>Nessuna allergia</span>
+              <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
               <span  className='btn-space1'>
               <AddAllergia
                idTerapista = {props.item}
@@ -331,7 +331,7 @@ export default function CardProfiloPaziente(props) {
                <React.Fragment key={index}>
                <ListGroup  className="border-primary listMargin">
                  <ListGroup.Item className="border-primary">
-                 <span className='infoPaziente'>Allergie / Intolleranze:  </span><span className='datiPaziente'>
+                 <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>
                    {item.nomeAllergia}
                   </span>
                   <span className='btn-space1'>

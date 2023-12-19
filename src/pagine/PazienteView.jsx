@@ -34,7 +34,7 @@ const location = useLocation();
 const state = location.state;
 console.log(state);
 
-const startContent = (
+const endContent = (
   <React.Fragment>
   <Link  to={{ 
              pathname:`/PDTAPaziente/:idPaziente`,
@@ -58,7 +58,7 @@ const startContent = (
                title={'Informazioni di'}
                nome = {state.nome}
                />              
-       <Toolbar start={startContent} className="toolBar"/>
+       <Toolbar end={endContent} className="toolBar"/>
      
         <CardProfiloPaziente
               item = {auth?.currentUser?.uid}

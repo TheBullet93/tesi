@@ -39,19 +39,19 @@ const AddPatologia = (props) =>{
   return (
     <>
     <ButtonGroup >
-      <Button variant="primary"  className='inputPazienteView' onClick={handleShow}>Aggiungi Patologia/Malattia</Button>
+      <Button variant="primary"  className='inputPazienteView' onClick={handleShow}>Aggiungi Patologia</Button>
     </ButtonGroup>
   
       
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Aggiungi Nuova Patologia/Malattia </Modal.Title>
+          <Modal.Title className='headerForm'>Aggiungi Nuova Patologia</Modal.Title>
        </Modal.Header>
       <Modal.Body>
      
       <Form>
         <Form.Group className="mb-3" controlId="formValCognitiva">
-          <Form.Label className="labelForm">Patologia / Malattia</Form.Label>
+          <Form.Label className="labelForm">Patologia</Form.Label>
           <Form.Control type="text" placeholder="Inserici patologia"
              value={patologia}
              onChange={(e) => setPatologia(e.target.value)}
