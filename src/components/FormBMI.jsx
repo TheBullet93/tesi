@@ -9,6 +9,10 @@ import Form from 'react-bootstrap/Form';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { InputGroup } from 'react-bootstrap';
+import ButtonAdd from './ButtonAdd';
+import {FaPlus} from "react-icons/fa";
+
 
 function FormBMI(props) {
   
@@ -19,28 +23,14 @@ function FormBMI(props) {
   const [dataMonitoraggio,setDataMonitoraggio] = useState('');
   const [bmi, setBMI] = useState(null);
 
-  const [patologia,setPatologia] = useState('');
-  const [patologie,setPatologie] = useState([]);
+  const [validated, setValidated] = useState(false);
 
   const db = getDatabase();
-  const RefPatologie = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie`));
 
-  useEffect(() => {
-    onValue(RefPatologie, (snapshot) => {
-      const data = snapshot.val();
-      const newPosts = Object.keys(data || {}).map(key=>({
-        id:key,
-        ...data[key]
-      }));
-      console.log(newPosts);
-      setPatologie(newPosts);
-    });
-  
-  },[])
 
   const aggiungi = () => {
 
-    const postListRef = ref(db, `terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/${patologia}/bmi`); 
+    const postListRef = ref(db, `terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/bmi`); 
     const newPostRef = push(postListRef);
 
     if (altezza && peso) {
@@ -62,60 +52,146 @@ function FormBMI(props) {
 
     toast.success('Dati inseriti con successo');
 
-  
-
-    
   };
 
 
+  const [show, setShow] = useState(false);
+
+  
+
+  const handleClose = () =>{ setShow(false);} ;
+  
+  const handleShow = () => setShow(true);
+
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return peso !== '' && altezza !== '' && circonferenza !== '' &&  dataMonitoraggio !== '';
+  };
+
+
+  const handleChangePeso = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPeso(e.target.value)
+  }
+
+  const handleChangeAltezza = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setAltezza(e.target.value)
+  }
+
+  const handleChangeCirconferenza = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCirconferenza(e.target.value)
+  }
+
+  const handleChangeData = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDataMonitoraggio(e.target.value)
+  }
+
   return (
     <>
+       <ButtonAdd
+          icon = {<FaPlus/>}
+          text = "  Aggiungi BMI"  
+          onClick={handleShow}
+      />
       <ToastContainer 
         autoClose={1500}
        position="top-center"
         theme="light"
         />
+        <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
           <Modal.Title className='headerForm'>BMI del paziente</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-              <Form>
-              <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
-                 <option>PATOLOGIE</option>
-         {patologie.map((item,index) =>  {
-            return(
-              <option key={index}> {item.nomePatologia}</option>
-            )
-           }        
-        
-          )} 
-         </Form.Select>
+              <Form noValidate validated={validated}>
+            <Form.Group className="mb-3" controlId="formPeso">
               <Form.Label className="labelForm">Peso </Form.Label>
-                 <Form.Control type="number" placeholder="Inserici peso corporeo (Kg)" 
+              <InputGroup hasValidation>
+              <Form.Control type="number" placeholder="Inserici peso corporeo (Kg)" 
                   value = {peso}  
-                  onChange = {(e) => setPeso(e.target.value)}
+                  onChange = {handleChangePeso}
+                  required
                /> 
+              <Form.Control.Feedback type="invalid">
+                Inserire peso.
+               </Form.Control.Feedback>
+              </InputGroup>  
+            </Form.Group> 
+
+            <Form.Group className="mb-3" controlId="formAltezza">
               <Form.Label className="labelForm">Altezza</Form.Label>
-                 <Form.Control type="number" placeholder="Inserici altezza (cm)" 
+              <InputGroup hasValidation>
+              <Form.Control type="number" placeholder="Inserici altezza (cm)" 
                   value = {altezza}  
-                  onChange = {(e) => setAltezza(e.target.value)}
+                  onChange = {handleChangeAltezza}
+                  required
                /> 
+              <Form.Control.Feedback type="invalid">
+                Inserire altezza.
+               </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group> 
+
+          <Form.Group className="mb-3" controlId="formCirconferenza">  
             <Form.Label className="labelForm">Circonferenza Vita</Form.Label>
+            <InputGroup hasValidation>
             <Form.Control type="number" placeholder="Inserici valore" 
               value={circonferenza}  
-              onChange={(e) => setCirconferenza(e.target.value)} />
+              onChange={handleChangeCirconferenza} 
+              required/>
+            <Form.Control.Feedback type="invalid">
+                Inserire circonferenza vita.
+            </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+           
+          <Form.Group className="mb-3" controlId="formData">
             <Form.Label className="labelForm">Data Monitoraggio</Form.Label>
+            <InputGroup hasValidation>
             <Form.Control type="date" placeholder="Inserici data" 
               value={dataMonitoraggio}  
-              onChange={(e) => setDataMonitoraggio(e.target.value)} />
- 
-              </Form>
+              onChange={handleChangeData}
+              required />
+            <Form.Control.Feedback type="invalid">
+                Inserire data monitoraggio.
+            </Form.Control.Feedback> 
+            </InputGroup>
+          </Form.Group>
+          </Form>
     </Modal.Body>
     <Modal.Footer>
-            <Button variant="primary" className='formAdd' type="submit" onClick={aggiungi}>Aggiungi</Button>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()}  onClick={aggiungi}>Aggiungi</Button>
    
     </Modal.Footer>
-    
+    </Modal>
     </>
   );
 }

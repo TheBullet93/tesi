@@ -14,6 +14,10 @@ import AssegnaRacconti from "./AssegnaRacconti";
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
+
 export default function TabellaRaccontiAttivita(props){
 
 
@@ -66,6 +70,29 @@ export default function TabellaRaccontiAttivita(props){
 
   };
 
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
+
+
     return (
       <>
       
@@ -95,8 +122,7 @@ export default function TabellaRaccontiAttivita(props){
         <Table>
     <Thead>
       <Tr>
-        <Th>Argomento</Th>
-       
+      <Th>Argomento <IoMdArrowDropdown onClick={() => sortingASC("argomento")}/><IoMdArrowDropup onClick={() => sortingDSC("argomento")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

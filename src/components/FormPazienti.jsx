@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-
+import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
 
 import ButtonAdd from './ButtonAdd';
@@ -16,14 +16,18 @@ import { set,push,ref } from 'firebase/database';
 import {FiDelete}  from "react-icons/fi";
 import Form from 'react-bootstrap/Form';
 
-import FormDatiAnagrafici from './FormDatiAnagrafici';
 import FormDatiSalute from './FormDatiSalute';
-import FormDatiParente from './FormDatiParente';
+
 
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { InputGroup } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 function FormPazienti(props) {
   
@@ -35,19 +39,19 @@ function FormPazienti(props) {
   const [data,setData] = useState('');
   const [sesso,setSesso] = useState('');
   const [codiceFiscale,setCF] = useState('');
-
-
-
   const [valutazioneCognitiva,setValutazioneCognitiva] = useState('');
   const [capacitaFisiche,setCapacitaFisiche] = useState('');
   const [dieta,setDieta] = useState('');
 
-  
-
-
+  const [validated, setValidated] = useState(false);
 
   const [step, setStep] = useState(1);
 
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return nome !== '' && cognome !== '' && citta !== '' &&  data !== '' && sesso !== '' 
+    &&  codiceFiscale !== '' &&  valutazioneCognitiva !== '' &&  capacitaFisiche !== '' &&  dieta !== '';
+  };
 
   const nextStep = () => {
     if (step < 3) {
@@ -96,7 +100,7 @@ function FormPazienti(props) {
     const db = getDatabase();
     const postListRef = ref(db, `terapisti/${props.item}/pazienti/`); 
     const newPostRef = push(postListRef);
-   
+
     set(newPostRef, {
       nome: nome,
       cognome: cognome,
@@ -112,6 +116,8 @@ function FormPazienti(props) {
 
       parenti,
     });
+
+  
     
     toast.success('Paziente aggiunto con successo');
     setNome(null)
@@ -125,6 +131,62 @@ function FormPazienti(props) {
     
   };
 
+
+  const handleChangeNome = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setNome(e.target.value)
+  }
+
+  const handleChangeCognome = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCognome(e.target.value)
+  }
+
+  const handleChangeCitta = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCitta(e.target.value)
+  }
+
+
+  const handleChangeData = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setData(e.target.value)
+  }
+
+  const handleChangeCF = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCF(e.target.value)
+  }
 
   const addPatologia = () => {
     let newfield = { nomePatologia: ''}
@@ -223,20 +285,114 @@ const handleChangeEmailParente= (index,event) => {
 
       {
             {
-              1: <FormDatiAnagrafici 
-                  nome = {nome}
-                  onChangeNome = {(e) => setNome(e.target.value)}
-                  cognome = {cognome}
-                  onChangeCognome = {(e) => setCognome(e.target.value)}
-                  citta = {citta}
-                  onChangeCitta = {(e) => setCitta(e.target.value)}
-                  data = {data}
-                  onChangeData = {(e) => setData(e.target.value)}
-                  sesso = {sesso}
-                  onClick = {(e) => setSesso(e.target.value)}
-                  codiceFiscale = {codiceFiscale}
-                  onChangeCF = {(e) => setCF(e.target.value)}
-              />,
+              1:
+              <Form  noValidate validated={validated}> 
+              <Form.Group className="mb-3" controlId="formNome">
+                <Form.Label className="labelForm">Nome</Form.Label>
+                <InputGroup hasValidation>
+                <Form.Control type="text" placeholder="Inserici nome" 
+                value={nome}  
+                onChange={handleChangeNome}
+                required
+                />
+               <Form.Control.Feedback type="invalid">
+                Inserire nome.
+               </Form.Control.Feedback>
+              </InputGroup>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formCognome">
+                <Form.Label className="labelForm">Cognome</Form.Label>
+                <InputGroup hasValidation>
+                <Form.Control type="text" placeholder="Inserici cognome" 
+                value={cognome}  
+                onChange={handleChangeCognome}
+                required
+                />
+                <Form.Control.Feedback type="invalid">
+                Inserire cognome.
+               </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formCitta">
+                <Form.Label className="labelForm">Città di nascita</Form.Label>
+                <InputGroup hasValidation>
+                <Form.Control type="text" placeholder="Inserici città"
+                  value={citta}  
+                  onChange={handleChangeCitta}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                Inserire città di nascita.
+               </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formData">
+                <Form.Label className="labelForm">Data di nascita</Form.Label>
+                <InputGroup hasValidation>
+                <Form.Control type="date" placeholder="Inserici data"      
+                 value={data}  
+                 onChange={handleChangeData}
+                 required
+                />
+                <Form.Control.Feedback type="invalid">
+                Inserire data di nascita.
+               </Form.Control.Feedback>
+                </InputGroup>
+              
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="sesso">
+                <Form.Label className="labelForm">Sesso</Form.Label>
+                {['radio'].map((type) => (
+                <div key={`inline-${type}`} className="mb-3"  
+                value={sesso}  
+                onClick = {(e) => setSesso(e.target.value)}>
+                  <Form.Check
+                  className="labelForm"
+                    inline
+                    label="Maschio"
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-1`}
+                    value="Maschio"  
+                    required
+                    feedback="Selezionare sesso"
+                    feedbackType="invalid"
+                  />
+                  <Form.Check
+                  className="labelForm"
+                    inline
+                    label="Femmina"
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-2`}
+                    value={"Femmina" } 
+                    required
+                    feedback="Selezionare sesso"
+                    feedbackType="invalid"
+                  />
+            
+                </div>
+              ))}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formCodiceFiscale">
+                <Form.Label className="labelForm">Codice Fiscale</Form.Label>
+                <InputGroup hasValidation>
+                <Form.Control type="text" placeholder="Inserici codice fiscale" 
+                 value={codiceFiscale}  
+                 onChange={handleChangeCF}
+                 required
+                />
+                <Form.Control.Feedback type="invalid">
+                Inserire codice fiscale.
+               </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+            </Form>
+              ,
               2: 
               <>
               <Form>
@@ -246,22 +402,21 @@ const handleChangeEmailParente= (index,event) => {
                
               patologie.map((item,index) => {
              return (
-               
                <div key={index}>
-               <Form.Group className="mb-3" controlId="formPatologia">
-              <Form.Label className="labelForm">Patologia</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici patologia del paziente"
-               value={item.nomePatologia}
-               onChange={(e) => handleChangePatologia(index,e) }
-               />
-               </Form.Group>
-               <ButtonToolbar >
-                <ButtonGroup >
-                   <Button variant="danger" onClick={() => rimuoviPatologia(index)}><FiDelete/></Button>
-                </ButtonGroup>   
-               </ButtonToolbar>
+                  <Form.Group className="mb-3" controlId="formPatologia">
+                    <Form.Label className="labelForm">Patologia</Form.Label>
+                    <Row>
+                      <Col>
+                       <Form.Control  type="text" placeholder="Inserici patologia"
+                          value={item.nomePatologia}
+                          onChange={(e) => handleChangePatologia(index,e) }/>
+                       </Col>
+                      <Col>
+                       <Button variant="danger" onClick={() => rimuoviPatologia(index)}><FiDelete/></Button>
+                      </Col>
+                    </Row>
+                  </Form.Group>
                </div>
-           
              )
            })}
            
@@ -272,18 +427,17 @@ const handleChangeEmailParente= (index,event) => {
                <div key={index}>
                <Form.Group className="mb-3" controlId="formAllergia">
                <Form.Label className="labelForm">Allergia</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici allergia"
-               value={item.nomeAllergia}
-               onChange={(e) => handleChangeAllergia(index,e) }
-               />
-               </Form.Group>
-               <ButtonToolbar >
-                <ButtonGroup >
+               <Row>
+                  <Col>
+                    <Form.Control  type="text" placeholder="Inserici allergia"
+                      value={item.nomeAllergia}
+                      onChange={(e) => handleChangeAllergia(index,e)}/>
+                  </Col>
+                  <Col>
                    <Button variant="danger" onClick={() => rimuoviAllergia(index)}><FiDelete/></Button>
-                </ButtonGroup>   
-               </ButtonToolbar>
-            
-             
+                  </Col>
+               </Row>
+               </Form.Group>
                </div>
            
             
@@ -312,15 +466,23 @@ const handleChangeEmailParente= (index,event) => {
               
                <div key={index}>
             <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Nome Caregiver</Form.Label>
-               <Form.Control  type="text" placeholder="Inserici nome caregiver"
+              <Row>
+                <Col>
+                <Form.Label className="labelForm">Nome</Form.Label>
+                </Col>
+                <Col>
+                <Button  variant="danger" onClick={() => rimuoviParente(index)}><FiDelete/></Button>
+                </Col>
+              </Row>
+              
+               <Form.Control  type="text" placeholder="Inserici nome "
                value={item.nomeParente}
                onChange={(e) => handleChangeNomeParente(index,e) }
                />
             </Form.Group>
             <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Cognome Caregiver</Form.Label>
-               <Form.Control key={index} type="text" placeholder="Inserici cognome caregiver"
+               <Form.Label className="labelForm">Cognome </Form.Label>
+               <Form.Control key={index} type="text" placeholder="Inserici cognome "
                value={item.cognomeParente}
                onChange={(e) =>handleChangeCognomeParente(index,e)}
                />
@@ -339,17 +501,10 @@ const handleChangeEmailParente= (index,event) => {
                    value={item.emailParente}
                    onChange={(e) => handleChangeEmailParente(index,e)}/>
             </Form.Group>
-            <ButtonToolbar >
-                <ButtonGroup >
-                  <Button variant="danger" onClick={() => rimuoviParente(index)}><FiDelete/></Button>
-                </ButtonGroup>   
-               </ButtonToolbar>
-               </div>
-           
-               
+              <hr></hr>
+               </div>     
              )
-           })}
-           
+           })}        
          </Form>
               }
               </>
@@ -364,7 +519,7 @@ const handleChangeEmailParente= (index,event) => {
      ) : null}
      {
         step === 3 ?(
-        <Button variant="primary" className='formAdd' type="submit"  onClick={aggiungi}>
+        <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()}  onClick={aggiungi}>
             Aggiungi
         </Button>
         ) :  <Button variant="primary" className='formAdd' type="submit"  onClick={nextStep} >

@@ -2,21 +2,14 @@ import React, { useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-
-import {FiDelete}  from "react-icons/fi";
 import Form from 'react-bootstrap/Form';
 
 
 import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { update,ref,remove} from 'firebase/database';
-
-import UpdateDatiAnagrafici from './UpdateDatiAnagrafici';
-import UpdateDatiSalute from './UpdateDatiSalute';
-import UpdateDatiParente from './UpdateParente';
-
-import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import { update,ref} from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 const UpdateAllergia = (props) =>{
 
@@ -27,7 +20,7 @@ const UpdateAllergia = (props) =>{
   const handleShow = () => setShow(true);
 
   const [allergia, setAllergia] = useState(props.nomeAllergia)
-
+  const [validated, setValidated] = useState(false);
  
 
   const db = getDatabase();
@@ -42,6 +35,22 @@ const UpdateAllergia = (props) =>{
       setShow(false);
   };
 
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return allergia !== '' ;
+  };
+
+  const handleChangeAllergia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setAllergia(e.target.value)
+  }
+
   return (
     <>
           <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -51,19 +60,25 @@ const UpdateAllergia = (props) =>{
        </Modal.Header>
       <Modal.Body>
      
-      <Form>
+      <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formValCognitiva">
           <Form.Label className="labelForm">Allergia</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici allergia"
+             required
              defaultValue={props.nomeAllergia}
-             onChange={(e) => setAllergia(e.target.value)}
+             onChange={handleChangeAllergia}
           />
+          <Form.Control.Feedback type="invalid">
+                Inserire allergia
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
       </Form>
     </Modal.Body>
     <Modal.Footer>
    
-        <Button variant="primary" className='formAdd' type="submit"  onClick={aggiornaAllergia}>
+        <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiornaAllergia}>
             Aggiorna
         </Button>
 

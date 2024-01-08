@@ -20,6 +20,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import DeleteDatiPaziente from './DeleteDatiPaziente';
+import DeleteDatiTerapie from './DeleteDatiTerapie';
+
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 function TabellaTerapieIntervallari(props) {
 
@@ -28,7 +33,27 @@ function TabellaTerapieIntervallari(props) {
   const [todoData,setTodoData] = useState([]);
   const [search, setSearch] = useState('');
 
+  const [order,setOrder] = useState("ASC");
 
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -45,7 +70,7 @@ function TabellaTerapieIntervallari(props) {
 
 
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari`));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -80,12 +105,13 @@ function TabellaTerapieIntervallari(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Farmaco</Th>
-        <Th>Giorni</Th>
-        <Th>Inizio</Th>
-        <Th>Fine</Th>
-        <Th>Numero volte</Th>
-        <Th>Quando </Th>
+        <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("patologia")}/><IoMdArrowDropup onClick={() => sortingDSC("patologia")}/></Th>
+        <Th>Farmaco <IoMdArrowDropdown onClick={() => sortingASC("farmaco")}/><IoMdArrowDropup onClick={() => sortingDSC("farmaco")}/></Th>
+        <Th>Giorni <IoMdArrowDropdown onClick={() => sortingASC("giorni")}/><IoMdArrowDropup onClick={() => sortingDSC("giorni")}/></Th>
+        <Th>Inizio <IoMdArrowDropdown onClick={() => sortingASC("dataInizio")}/><IoMdArrowDropup onClick={() => sortingDSC("dataInizio")}/></Th>
+        <Th>Fine <IoMdArrowDropdown onClick={() => sortingASC("dataFine")}/><IoMdArrowDropup onClick={() => sortingDSC("dataFine")}/></Th>
+        <Th>Numero volte <IoMdArrowDropdown onClick={() => sortingASC("numAssunzioni")}/><IoMdArrowDropup onClick={() => sortingDSC("numAssunzioni")}/></Th>
+        <Th>Quando <IoMdArrowDropdown onClick={() => sortingASC("dettagli")}/><IoMdArrowDropup onClick={() => sortingDSC("dettagli")}/> </Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>
@@ -97,7 +123,8 @@ function TabellaTerapieIntervallari(props) {
         .filter((item) => {
           return search.toLowerCase() === ''
             ? item
-            : item.farmaco.toLowerCase().includes(search) ||
+            : item.patologia.toLowerCase().includes(search) ||
+            item.farmaco.toLowerCase().includes(search) ||
             item.dataInizio.toLowerCase().includes(search) || 
             item.dataFine.toLowerCase().includes(search) ||
             item.numAssunzioni.toLowerCase().includes(search)||
@@ -108,6 +135,7 @@ function TabellaTerapieIntervallari(props) {
               return (
                 <React.Fragment key={item.id}>
                   <Tr >
+                  <Td>{item.patologia}</Td>
                   <Td>{item.farmaco}</Td>
                   
                   {
@@ -131,7 +159,7 @@ function TabellaTerapieIntervallari(props) {
                   <Td>
                   <ButtonGroup>
                       <UpdateTerapieIntervallari
-                     patologia ={props.patologia}
+                     patologia ={item.patologia}
                      farmaco ={item.farmaco}
                      dataInizio = {item.dataInizio}
                      dataFine = {item.dataFine}
@@ -141,11 +169,14 @@ function TabellaTerapieIntervallari(props) {
                      idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
                      idTerapia = {item.id}
+
+                     dbPatologie = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`}
                      />
-                       <DeleteDatiPaziente
+                       <DeleteDatiTerapie
                        title = {item.farmaco}
-                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                       itemValue = {'Terapia Intervallare: '+ props.patologia + ' Farmaco: ' + item.farmaco}
+                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/terapie`}
+                       itemValue = {props.patologia}
+                       itemValue2 = {item.farmaco}
                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}

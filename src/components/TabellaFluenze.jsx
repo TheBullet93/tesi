@@ -9,6 +9,9 @@ import {ref,onValue} from 'firebase/database';
 import UpdateFluenza from "./UpdateFluenza";
 import Delete from './Delete';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 export default function TabellaFluenze(props){
 
@@ -16,6 +19,28 @@ export default function TabellaFluenze(props){
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
+
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
 
 
   useEffect(() => {
@@ -39,8 +64,8 @@ export default function TabellaFluenze(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda</Th>
-        <Th>Parola</Th>
+        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
+        <Th>Parola <IoMdArrowDropdown onClick={() => sortingASC("parola")}/><IoMdArrowDropup onClick={() => sortingDSC("parola")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

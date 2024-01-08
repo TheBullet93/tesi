@@ -9,6 +9,7 @@ import { getDatabase } from "firebase/database";
 import {set,ref} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
+import { InputGroup } from 'react-bootstrap';
 
 const AddPatologia = (props) =>{
 
@@ -21,6 +22,7 @@ const AddPatologia = (props) =>{
   const [patologia, setPatologia] = useState('');
   const [count, setCount] = useState(props.index);
  
+  const [validated, setValidated] = useState(false);
 
   const db = getDatabase();
 
@@ -36,6 +38,22 @@ const AddPatologia = (props) =>{
       setShow(false);
   };
 
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return patologia !== '' ;
+  };
+
+  const handleChangePatologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPatologia(e.target.value)
+  }
+
   return (
     <>
     <ButtonGroup >
@@ -49,19 +67,25 @@ const AddPatologia = (props) =>{
        </Modal.Header>
       <Modal.Body>
      
-      <Form>
+      <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formValCognitiva">
           <Form.Label className="labelForm">Patologia</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici patologia"
              value={patologia}
-             onChange={(e) => setPatologia(e.target.value)}
+             onChange={handleChangePatologia}
+             required
           />
+          <Form.Control.Feedback type="invalid">
+                Inserire patologia
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
       </Form>
     </Modal.Body>
     <Modal.Footer>
    
-        <Button variant="primary" className='formAdd' type="submit"  onClick={aggiungiPatologia}>
+        <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungiPatologia}>
             Aggiungi
         </Button>
 

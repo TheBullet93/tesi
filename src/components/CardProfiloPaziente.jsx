@@ -213,8 +213,8 @@ export default function CardProfiloPaziente(props) {
                                    
                    <DeleteDatiPaziente
                      title = {item.nomePatologia}
-                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico`}
-                     itemValue = {'Patologia/Malattia: '+item.nomePatologia}
+                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico/patologie`}
+                     itemValue = {item.nomePatologia}
                      dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa patologia?'}
                      textToast = {'Patologia eliminata'}
@@ -343,8 +343,8 @@ export default function CardProfiloPaziente(props) {
                     />   
                 <DeleteDatiPaziente
                      title = {item.nomeAllergia}
-                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico`}
-                     itemValue = {'Allergia/Intolleranza: '+item.nomeAllergia}
+                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico/allergie`}
+                     itemValue = {item.nomeAllergia}
                      dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
                      textToast = {'Allergia eliminata'}

@@ -7,9 +7,11 @@ import Form from 'react-bootstrap/Form';
 import { getDatabase } from "firebase/database";
 import { set,push,ref } from 'firebase/database';
 
+import { InputGroup } from 'react-bootstrap';
+
 const FormDomandaMini = (props) =>{
     const [show, setShow] = useState(false);
-
+    const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
       setTitoloDomanda(null)
@@ -35,6 +37,24 @@ const FormDomandaMini = (props) =>{
       setShow(false);
     };
 
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return titoloDomanda !== ''  ;
+    };
+  
+  
+    const handleChangeTitolo= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setTitoloDomanda(e.target.value)
+    }
+  
+
   
     return (
       <>
@@ -45,12 +65,18 @@ const FormDomandaMini = (props) =>{
                 <Modal.Title className='headerForm'>Aggiungi una domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
           <Form.Label className="labelForm">Titolo</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici la domanda" 
+          required
           value={titoloDomanda}  
-          onChange={(e) => setTitoloDomanda(e.target.value)}/>
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
+          </Form.Control.Feedback>
+          </InputGroup>      
         </Form.Group>
       </Form>
           </Modal.Body>
@@ -58,7 +84,7 @@ const FormDomandaMini = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button variant="primary" className='formAdd' type="submit" onClick={aggiungi}>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
               Aggiungi
             </Button>
           </Modal.Footer>

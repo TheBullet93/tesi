@@ -10,12 +10,38 @@ import UpdateDomanda from "./UpdateDomanda";
 
 import Delete from './Delete';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 export default function TabellaDomande(props){
 
 
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
+
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
+
 
 
   useEffect(() => {
@@ -39,11 +65,11 @@ export default function TabellaDomande(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda</Th>
-        <Th>Risp. Corretta</Th>
-        <Th>Risp. Errata 1</Th>
-        <Th>Risp. Errata 2</Th>
-        <Th>Risp. Errata 3</Th>
+        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
+        <Th>Risp. Corretta <IoMdArrowDropdown onClick={() => sortingASC("rispostaCorretta")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaCorretta")}/></Th>
+        <Th>Risp. Errata 1 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata1")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata1")}/></Th>
+        <Th>Risp. Errata 2 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata2")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata2")}/></Th>
+        <Th>Risp. Errata 3 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata3")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata3")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

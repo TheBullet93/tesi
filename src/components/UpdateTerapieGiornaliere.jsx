@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { update,ref} from 'firebase/database';
+import { update,ref,onValue} from 'firebase/database';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +23,8 @@ const UpdateTerapieGiornaliere = (props) =>{
   const [numAssunzioni,setNumAssunzioni] = useState(props.numAssunzioni);
   const [dettagli,setDettagli] = useState(props.dettagli);
 
-
+  const [patologia,setPatologia] = useState(props.patologia);
+  const [patologie,setPatologie] = useState([]);
 
 
   const handleClose = () => setShow(false);
@@ -32,12 +33,27 @@ const UpdateTerapieGiornaliere = (props) =>{
 
 
   const db = getDatabase();
+  const [dbPatologie] = useState(props.dbPatologie);
+  const RefPatologie = (ref(db, dbPatologie));
 
+  useEffect(() => {
+    onValue(RefPatologie, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setPatologie(newPosts);
+    });
+  
+  },[])
 
 
   const aggiorna = () => {
-    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieGiornaliere/${props.idTerapia}`);
+    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/terapieGiornaliere/${props.idTerapia}`);
     update(updateRef,{
+      patologia: patologia,
       farmaco: farmaco,
       dataInizio: dataInizio,
       dataFine: dataFine,
@@ -63,6 +79,16 @@ const UpdateTerapieGiornaliere = (props) =>{
            </Modal.Header>
           <Modal.Body>
         <Form>
+        <Form.Select   className="selectFormGioco" defaultValue={props.patologia} onChange={(e) => setPatologia(e.target.value)}>
+                 <option>PATOLOGIE</option>
+         {patologie.map((item,index) =>  {
+            return(
+              <option key={index}> {item.nomePatologia}</option>
+            )
+           }        
+        
+          )} 
+         </Form.Select>
         <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <Form.Control type="text" placeholder="Inserici farmaco" 

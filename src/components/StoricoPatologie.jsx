@@ -1,26 +1,18 @@
 import React,{useState,useEffect} from 'react';
-
-import { getDatabase} from "firebase/database";
-import {ref,onValue} from 'firebase/database';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-
-import { Toolbar } from 'primereact/toolbar';
+import { getDatabase} from "firebase/database";
+import {ref,onValue} from 'firebase/database';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 
-const StoricoRispostePaziente = (props) =>{
+const StoricoPatologie = (props) =>{
 
     const db = getDatabase();
 
     const [todoData,setTodoData] = useState([]);
-
-    const [search, setSearch] = useState('');
 
     const [order,setOrder] = useState("ASC");
 
@@ -46,7 +38,6 @@ const StoricoRispostePaziente = (props) =>{
      
     }
     
-
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -61,7 +52,7 @@ const StoricoRispostePaziente = (props) =>{
   }, [])
 
     useEffect(() => {
-      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`));
+      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/patologie`));
       onValue(Ref, (snapshot) => {
         const data = snapshot.val();
         const newPosts = Object.keys(data || {}).map(key=>({
@@ -76,31 +67,18 @@ const StoricoRispostePaziente = (props) =>{
     
     },[auth?.currentUser?.uid])
   
-    const startContent = (
-      <React.Fragment>
-           <Form className="search-container">
-                 <InputGroup >
-                   <Form.Control
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder='Cerca...'
-                  />
-                 </InputGroup>
-               </Form>   
-      </React.Fragment>
-  );
+
 
     return(
        
     <>
-      <Toolbar start={startContent}/>
+    
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Titolo <IoMdArrowDropdown onClick={() => sortingASC("titoloGioco")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloGioco")}/></Th>
-        <Th>Tipologia <IoMdArrowDropdown onClick={() => sortingASC("tipologiaGioco")}/><IoMdArrowDropup onClick={() => sortingDSC("tipologiaGioco")}/></Th>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("domanda")}/><IoMdArrowDropup onClick={() => sortingDSC("domanda")}/></Th>
-        <Th>Risposta <IoMdArrowDropdown onClick={() => sortingASC("rispostaPaziente")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaPaziente")}/></Th>
+        <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("dato")}/><IoMdArrowDropup onClick={() => sortingDSC("dato")}/></Th>
         <Th>Giorno <IoMdArrowDropdown onClick={() => sortingASC("giorno")}/><IoMdArrowDropup onClick={() => sortingDSC("giorno")}/></Th>
+        <Th>Stato</Th>
         </Tr>
       </Thead>
       <Tbody>
@@ -111,25 +89,15 @@ const StoricoRispostePaziente = (props) =>{
            </Tr>
            
             : todoData
-            .filter((item) => {
-              return search.toLowerCase() === ''
-                ? item
-                : item.titoloGioco.toLowerCase().includes(search)||
-                item.tipologiaGioco.toLowerCase().includes(search) || 
-                item.domanda.toLowerCase().includes(search) ||
-                item.rispostaPaziente.toLowerCase().includes(search)   ||   
-                item.giorno.toLowerCase().includes(search)   ;          
-            })
+         
              .map((item) =>{
               return (
                 
                 <React.Fragment key={item.id}>
                 <Tr >
-                  <Td>{item.titoloGioco}</Td>
-                  <Td>{item.tipologiaGioco}</Td>
-                  <Td>{item.domanda}</Td>
-                  <Td>{item.rispostaPaziente}</Td>
+                  <Td>{item.dato}</Td>
                   <Td>{item.giorno}</Td>
+                  <Td>{item.stato}</Td>
                 </Tr>
 
                 </React.Fragment>
@@ -148,4 +116,4 @@ const StoricoRispostePaziente = (props) =>{
 
 }
 
-export default StoricoRispostePaziente;
+export default StoricoPatologie;

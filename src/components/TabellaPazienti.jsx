@@ -12,7 +12,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import {FaRegChartBar,FaPuzzlePiece,FaStethoscope,FaBook} from "react-icons/fa"
 import {RiHealthBookFill} from "react-icons/ri";
-
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
@@ -34,6 +35,27 @@ function TabellaPazienti() {
 
   const [search, setSearch] = useState('');
 
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -93,13 +115,13 @@ const endContent = (
       <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Nome</Th>
-        <Th>Cognome</Th>
-        <Th>Città di nascita</Th>
-        <Th>Data di nascita</Th>
+        <Th>Nome <IoMdArrowDropdown onClick={() => sortingASC("nome")}/><IoMdArrowDropup onClick={() => sortingDSC("nome")}/></Th>
+        <Th>Cognome <IoMdArrowDropdown onClick={() => sortingASC("cognome")}/><IoMdArrowDropup onClick={() => sortingDSC("cognome")}/></Th>
+        <Th>Città di nascita <IoMdArrowDropdown onClick={() => sortingASC("citta")}/><IoMdArrowDropup onClick={() => sortingDSC("citta")}/></Th>
+        <Th>Data di nascita <IoMdArrowDropdown onClick={() => sortingASC("data")}/><IoMdArrowDropup onClick={() => sortingDSC("data")}/></Th>
         <Th>Informazioni</Th>
         <Th>PDTA</Th>
-        <Th>Attività</Th>
+        <Th>Trattamenti</Th>
         <Th>Statistiche</Th>
         <Th>Storico</Th>
         <Th>Opzioni</Th>

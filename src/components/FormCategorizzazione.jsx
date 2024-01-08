@@ -7,9 +7,11 @@ import Form from 'react-bootstrap/Form';
 import { getDatabase } from "firebase/database";
 import { set,push,ref } from 'firebase/database';
 
+import { InputGroup } from 'react-bootstrap';
+
 const FormCategorizzazione = (props) =>{
     const [show, setShow] = useState(false);
-
+    const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
       setTitoloDomanda(null)
@@ -54,6 +56,73 @@ const FormCategorizzazione = (props) =>{
       setShow(false);
     };
 
+    
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return titoloDomanda !== '' && categoria !== '' && parola1 !== ''  && parola2 !== '' && parola3 !== '' && parola4 !== '';
+    };
+  
+  
+    const handleChangeTitolo= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }  
+      setValidated(true);
+      setTitoloDomanda(e.target.value)
+    }
+
+    const handleChangeCategoria = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setCategoria(e.target.value)
+    }
+  
+    const handleChangeParola1 = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setParola1(e.target.value)
+    }
+
+    const handleChangeParola2 = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setParola2(e.target.value)
+    }
+
+    const handleChangeParola3 = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setParola3(e.target.value)
+    }
+
+    const handleChangeParola4 = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setParola4(e.target.value)
+    }
+  
   
     return (
       <>
@@ -64,43 +133,77 @@ const FormCategorizzazione = (props) =>{
                 <Modal.Title className='headerForm'>Aggiungi una domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+          <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
           <Form.Label className="labelForm">Domanda</Form.Label>
-          <Form.Control type="text" placeholder="Inserici la domanda" 
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici la domanda" required
           value={titoloDomanda}  
-          onChange={(e) => setTitoloDomanda(e.target.value)}/>
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Categoria corretta</Form.Label>
-          <Form.Control type="text" placeholder="Inserici categoria corretta"
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici categoria corretta" required
            value={categoria}  
-           onChange={(e) => setCategoria(e.target.value)}/>
+           onChange={handleChangeCategoria}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire categoria
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Prima Parola</Form.Label>
-          <Form.Control type="text" placeholder="Inserici parola"
+          <InputGroup hasValidation>
+          <Form.Control.Feedback type="invalid">
+                Inserire parola
+          </Form.Control.Feedback>
+          </InputGroup>
+          <Form.Control type="text" placeholder="Inserici parola" required
            value={parola1}  
-           onChange={(e) => setParola1(e.target.value)}/>
+           onChange={handleChangeParola1}/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Seconda Parola</Form.Label>
-          <Form.Control type="text" placeholder="Inserici parola"
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici parola" required
            value={parola2}  
-           onChange={(e) => setParola2(e.target.value)}/>
+           onChange={handleChangeParola2}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire parola
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Terza Parola</Form.Label>
-          <Form.Control type="text" placeholder="Inserici parola"
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici parola" required
            value={parola3}  
-           onChange={(e) => setParola3(e.target.value)}/>
+           onChange={handleChangeParola3}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire parola
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Quarta Parola</Form.Label>
-          <Form.Control type="text" placeholder="Inserici parola"
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici parola" required
            value={parola4}  
-           onChange={(e) => setParola4(e.target.value)}/>
+           onChange={handleChangeParola4}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire parola
+          </Form.Control.Feedback>
+          </InputGroup> 
         </Form.Group>
       
       </Form>
@@ -109,7 +212,7 @@ const FormCategorizzazione = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button variant="primary" className='formAdd' type="submit" onClick={aggiungi}>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
               Aggiungi
             </Button>
           </Modal.Footer>

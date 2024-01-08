@@ -10,6 +10,10 @@ import Select from 'react-select';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { InputGroup } from 'react-bootstrap';
+import ButtonAdd from './ButtonAdd';
+import {FaPlus} from "react-icons/fa";
+
 
 
 function FormTerapiaIntervallare(props) {
@@ -22,12 +26,13 @@ function FormTerapiaIntervallare(props) {
   const [numAssunzioni,setNumAssunzioni] = useState(0);
   const [dettagli,setDettagli] = useState('');
 
+  const [validated, setValidated] = useState(false);
 
   const [patologia,setPatologia] = useState('');
   const [patologie,setPatologie] = useState([]);
 
   const db = getDatabase();
-  const RefPatologie = (ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/patologie`));
+  const RefPatologie = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie`));
 
   useEffect(() => {
     onValue(RefPatologie, (snapshot) => {
@@ -74,8 +79,9 @@ function FormTerapiaIntervallare(props) {
    
   ];
 
-  const handleChange = (selectedOption) => {
-    setGiorni(selectedOption);
+  const handleChange = (e) => {
+    
+    setGiorni(e);
    
   };
 
@@ -91,9 +97,10 @@ function FormTerapiaIntervallare(props) {
   const handleShow = () => setShow(true);
 
   const aggiungi = () => {
-    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${patologia}/terapieIntervallari`);
+    const postListRef = ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari`);
     const newPostRef = push(postListRef);
     set(newPostRef, {
+      patologia: patologia,
       farmaco: farmaco,
       giorni:
         {
@@ -117,20 +124,87 @@ function FormTerapiaIntervallare(props) {
     setShow(false);
   };
 
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
+  };
+
+
+  const handleChangeFarmaco = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setFarmaco(e.target.value)
+  }
+
+  const handleChangeInizio = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDataInizio(e.target.value)
+  }
+
+  const handleChangeFine= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDataFine(e.target.value)
+  }
+
+  const handleChangeAssunzioni = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setNumAssunzioni(e.target.value)
+  }
+
+  const handleChangeDettagli= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDettagli(e.target.value)
+  }
+
+
 
   return (
     <>
+     <ButtonAdd
+          icon = {<FaPlus/>}
+          text = "  Aggiungi Terapia"  
+          onClick={handleShow}
+      />
         <ToastContainer 
         autoClose={1500}
        position="top-center"
         theme="light"
         />
- 
+ <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
               <Modal.Title className='headerForm'>Inserisci nuova Terapia Intervallare</Modal.Title>
            </Modal.Header>
           <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
                  <option>PATOLOGIE</option>
                    {patologie.map((item,index) =>  {
@@ -140,10 +214,47 @@ function FormTerapiaIntervallare(props) {
                           }        
                      )} 
               </Form.Select>
-      <Form.Group className="mb-3" controlId="formFarmaco">
+
+        <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
-        <Form.Control type="text" placeholder="Inserici farmaco" value={farmaco}  onChange={(e) => setFarmaco(e.target.value)}/>
-      </Form.Group>  
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici farmaco" required value={farmaco}  onChange={handleChangeFarmaco}/>
+        <Form.Control.Feedback type="invalid">Inserire farmaco</Form.Control.Feedback>
+         </InputGroup> 
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formDataInizio">
+        <Form.Label className="labelForm">Inizio Terapia</Form.Label>
+        <InputGroup hasValidation>
+        <Form.Control type="date" placeholder="Inserici data" required value={dataInizio}  onChange={handleChangeInizio} />
+        <Form.Control.Feedback type="invalid">Inserire data</Form.Control.Feedback>
+         </InputGroup> 
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formDataFine">
+        <Form.Label className="labelForm">Fine Terapia</Form.Label>
+        <InputGroup hasValidation>
+        <Form.Control type="date" placeholder="Inserici data" required value={dataFine}  onChange={handleChangeFine}/>
+        <Form.Control.Feedback type="invalid">Inserire data</Form.Control.Feedback>
+        </InputGroup> 
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formDettagli">
+        <Form.Label className="labelForm">Quante volte al giorno</Form.Label>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserisci quando assumere il farmaco" required value={numAssunzioni}  onChange={handleChangeAssunzioni}/>
+        <Form.Control.Feedback type="invalid">Inserire numero assunzioni</Form.Control.Feedback>
+        </InputGroup> 
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formDettagli">
+        <Form.Label className="labelForm">Quando Assumerlo</Form.Label>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserisci quando assumere il farmaco" required value={dettagli}  onChange={handleChangeDettagli}/>
+        <Form.Control.Feedback type="invalid">Inserire descrizione</Form.Control.Feedback>
+        </InputGroup> 
+      </Form.Group>
+      
       <Form.Group className="mb-3" controlId="formGiorni">
         <Form.Label className="labelForm">In quali giorni</Form.Label>
         <Select
@@ -153,39 +264,23 @@ function FormTerapiaIntervallare(props) {
           className="basic-multi-select"
          classNamePrefix="select"
          onChange={handleChange}
+         required
         
          />
         
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formDataInizio">
-        <Form.Label className="labelForm">Inizio Terapia</Form.Label>
-        <Form.Control type="date" placeholder="Inserici data" value={dataInizio}  onChange={(e) => setDataInizio(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formDataFine">
-        <Form.Label className="labelForm">Fine Terapia</Form.Label>
-        <Form.Control type="date" placeholder="Inserici data" value={dataFine}  onChange={(e) => setDataFine(e.target.value)}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formDettagli">
-        <Form.Label className="labelForm">Quante volte al giorno</Form.Label>
-        <Form.Control type="text" placeholder="Inserisci quando assumere il farmaco" value={numAssunzioni}  onChange={(e) => setNumAssunzioni(e.target.value)}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formDettagli">
-        <Form.Label className="labelForm">Quando Assumerlo</Form.Label>
-        <Form.Control type="text" placeholder="Inserisci quando assumere il farmaco" value={dettagli}  onChange={(e) => setDettagli(e.target.value)}/>
-      </Form.Group>
     </Form>
-
 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" className='formAnnulla' onClick={handleClose}>
            Annulla
           </Button>
-          <Button variant="primary"  className='formAdd' type="submit" onClick={aggiungi}>
+          <Button variant="primary"  className='formAdd' type="submit" disabled={!isFormValid()}  onClick={aggiungi}>
             Aggiungi
           </Button>
         </Modal.Footer>
-     
+        </Modal>  
     </>
   );
 }

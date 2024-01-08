@@ -9,6 +9,8 @@ import {ref,onValue} from 'firebase/database';
 import UpdateDomandaMini from "./UpdateDomandaMini";
 import Delete from './Delete';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 export default function TabellaDomandeMini(props){
 
@@ -33,11 +35,33 @@ export default function TabellaDomandeMini(props){
   
   },[])
 
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
+
     return (
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda</Th>
+      <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

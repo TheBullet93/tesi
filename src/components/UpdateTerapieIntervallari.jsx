@@ -7,7 +7,7 @@ import Select from 'react-select';
 import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
-import { update,ref} from 'firebase/database';
+import { update,ref,onValue} from 'firebase/database';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,6 @@ const UpdateTerapieIntervallari = (props) =>{
   const [show, setShow] = useState(false);
 
 
-  const [patologia,setPatologia]  = useState(props.patologia);
   const [farmaco,setFarmaco] = useState(props.farmaco);
   const [giorni,setGiorni] = useState(props.giorni);
   const [dataInizio,setDataInizio] = useState(props.dataInizio);
@@ -26,6 +25,8 @@ const UpdateTerapieIntervallari = (props) =>{
   const [numAssunzioni,setNumAssunzioni] = useState(props.numAssunzioni);
   const [dettagli,setDettagli] = useState(props.dettagli);
 
+  const [patologia,setPatologia] = useState(props.patologia);
+  const [patologie,setPatologie] = useState([]);
 
 
 
@@ -35,11 +36,25 @@ const UpdateTerapieIntervallari = (props) =>{
 
 
   const db = getDatabase();
+  const [dbPatologie] = useState(props.dbPatologie);
+  const RefPatologie = (ref(db, dbPatologie));
 
+  useEffect(() => {
+    onValue(RefPatologie, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data || {}).map(key=>({
+        id:key,
+        ...data[key]
+      }));
+      console.log(newPosts);
+      setPatologie(newPosts);
+    });
+  
+  },[])
 
 
   const aggiorna = () => {
-    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari/${props.idTerapia}`);
+    const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari/${props.idTerapia}`);
     update(updateRef,{
       farmaco: farmaco,   
       giorni:
@@ -109,24 +124,21 @@ const UpdateTerapieIntervallari = (props) =>{
            </Modal.Header>
           <Modal.Body>
         <Form>
+        <Form.Select   className="selectFormGioco" defaultValue={props.patologia} onChange={(e) => setPatologia(e.target.value)}>
+                 <option>PATOLOGIE</option>
+         {patologie.map((item,index) =>  {
+            return(
+              <option key={index}> {item.nomePatologia}</option>
+            )
+           }        
+        
+          )} 
+         </Form.Select>
         <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <Form.Control type="text" placeholder="Inserici farmaco" 
         defaultValue={props.farmaco} 
        onChange={(e) => setFarmaco(e.target.value)}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formGiorni">
-        <Form.Label className="labelForm">In quali giorni</Form.Label>
-        <Select
-          defaultValue={props.giorni}
-           isMulti
-          name="giorni"
-         options={options}
-          className="basic-multi-select"
-         classNamePrefix="select"
-         onChange={handleChange}
-        
-         />   
       </Form.Group>
       <Form.Group className="mb-3" controlId="formDataInizio">
         <Form.Label className="labelForm">Inizio Terapia</Form.Label>
@@ -147,6 +159,19 @@ const UpdateTerapieIntervallari = (props) =>{
       <Form.Group className="mb-3" controlId="formDettagli">
         <Form.Label className="labelForm">Quando Assumerlo</Form.Label>
         <Form.Control type="text" placeholder="Inserisci quando assumere il farmaco" defaultValue={props.dettagli}  onChange={(e) => setDettagli(e.target.value)}/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formGiorni">
+        <Form.Label className="labelForm">In quali giorni</Form.Label>
+        <Select
+          defaultValue={props.giorni}
+           isMulti
+          name="giorni"
+         options={options}
+          className="basic-multi-select"
+         classNamePrefix="select"
+         onChange={handleChange}
+        
+         />   
       </Form.Group>
     </Form>
 

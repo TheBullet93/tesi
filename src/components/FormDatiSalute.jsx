@@ -23,15 +23,12 @@ const FormDatiSalute = (props) => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formDieta">
           <Form.Label className="labelForm">Dieta</Form.Label>
-           <FloatingLabel controlId="floatingTextarea2">
         <Form.Control
-          as="textarea"
-          placeholder="Inserisci dieta paziente"
-          style={{ height: '100px' }}
+          type="text"
+          placeholder="Inserisci dieta"
           value={props.dieta}
           onChange={props.onChangeDieta}
         />
-      </FloatingLabel>
         </Form.Group>
       </Form>
       </>

@@ -177,7 +177,7 @@ const handleErrata= () =>{
                    <h2 className="avviso">Domande termiante</h2>
                </Card.Title>
                <Card.Text>
-               <div className="score">LE TUE RISPOSTE: </div>
+               <div className="score">LE TUE RISPOSTE</div>
                {risposte.map((item, index) => {
                   return(
                     <>

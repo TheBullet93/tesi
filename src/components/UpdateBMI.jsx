@@ -32,7 +32,7 @@ function UpdateBMI(props) {
 
   const aggiorna = () => {
 
-    const postListRef = ref(db, `terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/bmi/${props.idBMI}`); 
+    const postListRef = ref(db, `terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/bmi/${props.idBMI}`); 
  
 
     if (altezza && peso) {

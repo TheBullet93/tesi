@@ -10,17 +10,24 @@ import Header from "../components/Header";
 import SideNavBar from "../components/SideNavBar";
 import { Toolbar } from 'primereact/toolbar';
 
-import FormPDTA from "../components/FormPDTA";
-import TabellaPDTA from "../components/TabellaPDTA";
-
-import Form from 'react-bootstrap/Form';
-
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import TabellaBMI from '../components/TabellaBMI';
+import TabellaEsamiLaboratorio from '../components/TabellaEsamiLaboratorio';
+import TabellaEsamiStrumentali from '../components/TabellaEsamiStrumentali';
+import TabellaTerapieGiornaliere from '../components/TabellaTerapieGiornaliere';
+import TabellaTerapieIntervallari from '../components/TabellaTerapieIntervallari';
+import TabellaVisite from '../components/TabellaVisite';
+import FormBMI from '../components/FormBMI';
+import FormEsameLab from '../components/FormEsameLab';
+import FormEsameStrum from '../components/FormEsameStrum';
+import FormVisita from '../components/FormVisita';
+import FormTerapiaGiornaliera from '../components/FormTerapiaGiornaliera';
+import FormTerapiaIntervallare from '../components/FormTerapiaIntervallare';
 
 const PDTA = () =>{
 
@@ -36,31 +43,13 @@ const PDTA = () =>{
               });
              
         }, [])
-
-        useEffect(() => {
-          onValue(RefPatologie, (snapshot) => {
-            const data = snapshot.val();
-            const newPosts = Object.keys(data || {}).map(key=>({
-              id:key,
-              ...data[key]
-            }));
-            console.log(newPosts);
-            setPatologie(newPosts);
-          });
-        
-        },[auth?.currentUser?.uid])
-      
-             
+       
         const location = useLocation();
         const state = location.state;
         console.log(state);
 
-        const [patologia,setPatologia] = useState('');
-        const [patologie,setPatologie] = useState([]);
-        const [searchPatologia, setSearchPatologia] = useState('');
-
         const db = getDatabase();
-        const RefPatologie = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${state.id}/patologie`));
+      
 
         const startContent = (
           <React.Fragment>
@@ -77,9 +66,54 @@ const PDTA = () =>{
           </React.Fragment>
       );
 
-        const centerContent = (
+        const centerContentBMI = (
             <React.Fragment>
-                  <FormPDTA
+                  <FormBMI
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />           
+            </React.Fragment>
+          );
+
+          const centerContentEsLab = (
+            <React.Fragment>
+                  <FormEsameLab
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />           
+            </React.Fragment>
+          );
+
+          const centerContentEsStr= (
+            <React.Fragment>
+                  <FormEsameStrum
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />           
+            </React.Fragment>
+          );
+
+          const centerContentVisite = (
+            <React.Fragment>
+                  <FormVisita
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />           
+            </React.Fragment>
+          );
+
+          const centerContentTerGio = (
+            <React.Fragment>
+                  <FormTerapiaGiornaliera
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />           
+            </React.Fragment>
+          );
+
+          const centerContentTerInt = (
+            <React.Fragment>
+                  <FormTerapiaIntervallare
                   item = {auth?.currentUser?.uid}
                   idPaziente = {state.id}
                   />           
@@ -104,31 +138,66 @@ const PDTA = () =>{
       return (
        
         <SideNavBar>
-                 <Header
-                 title={'PDTA di ' + state.nome + ' ' + state.cognome}
+          <Tabs
+            defaultActiveKey="bmi"
+            id="uncontrolled-tab-example"
+            className="mb-3 TabHeader">
+
+          <Tab eventKey="bmi" title="BMI">
+             <Header
+                 title={'BMI di ' + state.nome + ' ' + state.cognome}
                  />  
-                  <Toolbar start={startContent}  center={centerContent}  end={endContent} className="toolBar"/>
-                 
-                  <Tabs  id="fill-tab-example" className="mb-3" fill>
-                  {patologie.map((item,index) =>  {
-            return(
-              <Tab eventKey={index} title={item.nomePatologia}>
-              <TabellaPDTA
-                  idPaziente = {state.id}
-                  patologia = {item.nomePatologia}
-                  />
+             <Toolbar start={startContent}  center={centerContentBMI}  end={endContent} className="toolBar"/>
+             <TabellaBMI
+              idPaziente = {state.id}
+              />
+          </Tab>
 
-              </Tab>
-             
-            )
-           }        
-        
-          )} 
+          <Tab eventKey="esLab" title="Esami Laboratorio">
+             <Header
+                 title={'Esami Laboratorio di ' + state.nome + ' ' + state.cognome}
+                 />  
+             <Toolbar start={startContent}  center={centerContentEsLab}  end={endContent} className="toolBar"/>
+             <TabellaEsamiLaboratorio
+               idPaziente = {state.id}/>
+          </Tab>
 
-                  </Tabs>
- 
+          <Tab eventKey="esStr" title="Esami Strumentali">
+             <Header
+                 title={'Esami Strumentali di ' + state.nome + ' ' + state.cognome}
+                 />  
+             <Toolbar start={startContent}  center={centerContentEsStr}  end={endContent} className="toolBar"/>
+             <TabellaEsamiStrumentali
+               idPaziente = {state.id}/>
+          </Tab>
 
-                
+          <Tab eventKey="visite" title="Visite">
+             <Header
+                 title={'Visite di ' + state.nome + ' ' + state.cognome}
+                 />  
+             <Toolbar start={startContent}  center={centerContentVisite}  end={endContent} className="toolBar"/>
+             <TabellaVisite
+              idPaziente = {state.id}/>
+          </Tab>
+
+          <Tab eventKey="terGio" title="Terapie Giornaliere">
+             <Header
+                 title={'Terapie Giornaliere di ' + state.nome + ' ' + state.cognome}
+                 />  
+             <Toolbar start={startContent}  center={centerContentTerGio}  end={endContent} className="toolBar"/>
+             <TabellaTerapieGiornaliere
+             idPaziente = {state.id}/>
+          </Tab>
+
+          <Tab eventKey="terInt" title="Terapie Intervallari">
+             <Header
+                 title={'Terapie Intervallari di ' + state.nome + ' ' + state.cognome}
+                 />  
+             <Toolbar start={startContent}  center={centerContentTerInt}  end={endContent} className="toolBar"/>
+             <TabellaTerapieIntervallari
+             idPaziente = {state.id}/>
+          </Tab>
+          </Tabs>
          </SideNavBar>
          );
   

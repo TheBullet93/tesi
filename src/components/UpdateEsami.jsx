@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-import { getDatabase } from "firebase/database";
+import { getDatabase, update } from "firebase/database";
 import { set,push,ref,onValue } from 'firebase/database';
 
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -12,24 +12,25 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { InputGroup } from 'react-bootstrap';
-import ButtonAdd from './ButtonAdd';
-import {FaPlus} from "react-icons/fa";
+import {FaPencilAlt} from "react-icons/fa"
 
-function FormEsameLab(props) {
+function UpdateEsami(props) {
 
-  const [titolo, setTitolo] = useState('');
-  const [valore, setValore] = useState('');
-  const [dataMonitoraggio,setDataMonitoraggio] = useState('');
-  const [note,setNote] = useState('');
+  const [titolo, setTitolo] = useState(props.titolo);
+  const [valore, setValore] = useState(props.valore);
+  const [dataMonitoraggio,setDataMonitoraggio] = useState(props.dataMonitoraggio);
+  const [note,setNote] = useState(props.note);
 
-  const [patologia,setPatologia] = useState('');
+  const [patologia,setPatologia] = useState(props.patologia);
   const [patologie,setPatologie] = useState([]);
 
   const db = getDatabase();
-  const RefPatologie = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie`));
+  const [dbPath] = useState(props.dbPath);
+  const [dbPatologie] = useState(props.dbPatologie);
+
+  const RefPatologie = (ref(db, dbPatologie));
 
   const [validated, setValidated] = useState(false);
-
 
   useEffect(() => {
     onValue(RefPatologie, (snapshot) => {
@@ -44,14 +45,12 @@ function FormEsameLab(props) {
   
   },[])
 
- 
-  const aggiungi = () => {
-    
-    const postListRef = ref(db, `terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio`); 
-    const newPostRef = push(postListRef);
 
-   
-      set(newPostRef,{
+  const aggiorna = () => {
+    
+    const postListRef = ref(db, dbPath); 
+ 
+      update(postListRef,{
         patologia: patologia,
         titolo: titolo,
         valore: valore,
@@ -60,7 +59,7 @@ function FormEsameLab(props) {
   
       });
    
-    toast.success('Dati inseriti con successo');
+    toast.success('Dati aggiornati con successo');
 
     
   };
@@ -114,23 +113,19 @@ function FormEsameLab(props) {
 
   return (
     <>
-       <ButtonAdd
-          icon = {<FaPlus/>}
-          text = "  Aggiungi Esame"  
-          onClick={handleShow}
-      />
-      <ToastContainer 
+     <ToastContainer 
         autoClose={1500}
        position="top-center"
         theme="light"
         />
+      <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Esame di laboratorio</Modal.Title>
+          <Modal.Title className='headerForm'>{props.titoloForm}</Modal.Title>
              </Modal.Header>
             <Modal.Body>
               <Form noValidate validated={validated}>
-              <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
+              <Form.Select   className="selectFormGioco" defaultValue={props.patologia} onChange={(e) => setPatologia(e.target.value)}>
                  <option>PATOLOGIE</option>
          {patologie.map((item,index) =>  {
             return(
@@ -144,7 +139,7 @@ function FormEsameLab(props) {
               <Form.Label className="labelForm">Descrizione </Form.Label>
               <InputGroup hasValidation>
                  <Form.Control type="text" placeholder="Inserici descrizione" 
-                  value = {titolo}  
+                  defaultValue = {props.titolo}  
                   onChange = {handleChangeTitolo}
                   required
                />
@@ -158,7 +153,7 @@ function FormEsameLab(props) {
             <Form.Label className="labelForm">Valore</Form.Label>
               <InputGroup hasValidation>
               <Form.Control type="text" placeholder="Inserici valore" 
-                  value = {valore}  
+                  defaultValue = {props.valore}  
                   onChange = {handleChangeValore}
                   required
                /> 
@@ -173,7 +168,7 @@ function FormEsameLab(props) {
           <Form.Label className="labelForm">Data Monitoraggio</Form.Label>
               <InputGroup hasValidation>
               <Form.Control type="date" placeholder="Inserici data" 
-              value={dataMonitoraggio}  
+              defaultValue = {props.dataMonitoraggio}  
               onChange={handleChangeData}
               required />
               <Form.Control.Feedback type="invalid">
@@ -188,13 +183,13 @@ function FormEsameLab(props) {
                  as="textarea"
                 placeholder="Inserisci note"
                   style={{ height: '100px' }}
-                   value={note}
+                   defaultValue = {props.note}
                    onChange={(e) => setNote(e.target.value)}
                  />
       </FloatingLabel>
     </Modal.Body>
     <Modal.Footer>
-            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>Aggiungi</Button>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiorna}>Aggiorna</Button>
    
     </Modal.Footer>
     </Modal>   
@@ -202,4 +197,4 @@ function FormEsameLab(props) {
   );
 }
 
-export default FormEsameLab;
+export default UpdateEsami;

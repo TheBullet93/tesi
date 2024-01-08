@@ -9,6 +9,7 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase, remove } from "firebase/database";
 import { update,ref,set,onValue} from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 const UpdatePatologia = (props) =>{
 
@@ -20,7 +21,8 @@ const UpdatePatologia = (props) =>{
 
   const [patologia, setPatologia] = useState(props.nomePatologia)
   const [nodeData, setNodeData] = useState({});
- 
+  const [validated, setValidated] = useState(false);
+
 
   const db = getDatabase();
 
@@ -56,6 +58,23 @@ const UpdatePatologia = (props) =>{
       setShow(false);
   };
 
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return patologia !== '' ;
+  };
+
+  const handleChangePatologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPatologia(e.target.value)
+  }
+
+
   return (
     <>
            <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -65,19 +84,25 @@ const UpdatePatologia = (props) =>{
        </Modal.Header>
       <Modal.Body>
      
-      <Form>
+      <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formValCognitiva">
           <Form.Label className="labelForm">Patologia</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici patologia"
              defaultValue={props.nomePatologia}
-             onChange={(e) => setPatologia(e.target.value)}
+             onChange={handleChangePatologia}
+             required
           />
+          <Form.Control.Feedback type="invalid">
+                Inserire patologia
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
       </Form>
     </Modal.Body>
     <Modal.Footer>
    
-        <Button variant="primary" className='formAdd' type="submit"  onClick={aggiornaPatologia}>
+        <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()}  onClick={aggiornaPatologia}>
             Aggiorna
         </Button>
 

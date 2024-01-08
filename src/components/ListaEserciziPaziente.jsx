@@ -35,7 +35,7 @@ import { auth } from '../firebase';
 
 import Delete from "./Delete";
 import { Toolbar } from 'primereact/toolbar';
-import DeleteDatiPaziente from "./DeleteDatiPaziente";
+import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
 
 export default function ListaEserciziPaziente(props) {
 
@@ -313,12 +313,14 @@ const endContent = (
                     difficoltaGioco = {item.difficoltaGioco}
 
                   />
-                     <DeleteDatiPaziente
+                     <DeleteDatiTrattamento
                   title = {item.titoloGioco}
-                  dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                  itemValue = {'Gioco: '+ item.titoloGioco + ' Tipologia: ' + item.tipologiaGioco + ' Difficoltà: ' + item.difficoltaGioco}
+                  dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/trattamenti`}
+                  itemValue = {item.titoloGioco}
+                  itemValue2 = {'Cognitivo'}
+                  itemValue3 = {item.tipologiaGioco}
                   dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/giochi/${item.id}`}
-                  textAlert = {' Sei sicuro di voler eliminare questo gioco?'}
+                  textAlert = {' Sei sicuro di voler eliminare questo esercizio cognitivo?'}
                   textToast = {'Gioco eliminato'}
                   />
                   </div>

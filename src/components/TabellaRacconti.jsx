@@ -10,6 +10,9 @@ import {ref,remove,onValue} from 'firebase/database';
 import Delete from './Delete';
 import UpdateRacconti from "./UpdateRacconti";
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 export default function TabellaRacconti(props){
 
@@ -34,11 +37,35 @@ export default function TabellaRacconti(props){
   
   },[])
 
+    
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
+
+
     return (
     <Table>
     <Thead>
       <Tr>
-        <Th>Argomento</Th>
+        <Th>Argomento <IoMdArrowDropdown onClick={() => sortingASC("argomento")}/><IoMdArrowDropup onClick={() => sortingDSC("argomento")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

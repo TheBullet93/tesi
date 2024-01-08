@@ -15,6 +15,9 @@ import AssegnaParoleCategoria from "./AssegnaParoleCategoria";
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 export default function TabellaCategorizzazioneAttivita(props){
 
 
@@ -31,6 +34,29 @@ export default function TabellaCategorizzazioneAttivita(props){
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+      
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
 
   useEffect(() => {
     const Ref = ref(db, `/giochi/${props.item}/parole/`);
@@ -96,12 +122,12 @@ export default function TabellaCategorizzazioneAttivita(props){
       <Table>
     <Thead>
       <Tr>
-      <Th>Domanda</Th>
-        <Th>Categoria</Th>
-        <Th>Prima Parola</Th>
-        <Th>Seconda Parola</Th>
-        <Th>Terza Parola</Th>
-        <Th>Quarta Parola</Th>
+      <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
+        <Th>Categoria <IoMdArrowDropdown onClick={() => sortingASC("categoria")}/><IoMdArrowDropup onClick={() => sortingDSC("categoria")}/></Th>
+        <Th>Parola 1<IoMdArrowDropdown onClick={() => sortingASC("parola1")}/><IoMdArrowDropup onClick={() => sortingDSC("parola1")}/></Th>
+        <Th>Parola 2 <IoMdArrowDropdown onClick={() => sortingASC("parola2")}/><IoMdArrowDropup onClick={() => sortingDSC("parola2")}/></Th>
+        <Th>Parola 3<IoMdArrowDropdown onClick={() => sortingASC("parola3")}/><IoMdArrowDropup onClick={() => sortingDSC("parola3")}/></Th>
+        <Th>Parola 4<IoMdArrowDropdown onClick={() => sortingASC("parola4")}/><IoMdArrowDropup onClick={() => sortingDSC("parola4")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

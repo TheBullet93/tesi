@@ -1,7 +1,6 @@
 body{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background: linear-gradient(90deg, rgba(240,238,238,1) 0%, rgba(255,255,255,1) 100%);
-
 }
 
 h1{
@@ -60,7 +59,7 @@ h4{
 
 
 
-input[type=text],input[type=date],input[type=email] {
+input[type=text],input[type=date],input[type=email],input[type=password] {
   padding: 6px;
   font-size: 17px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -69,7 +68,7 @@ input[type=text],input[type=date],input[type=email] {
   border-radius: 10px;
 }
 
-input[type=checkbox], input[type=radio] {
+input[type=checkbox], input[type=radio]  {
   padding: 10px;
   font-size: 20px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

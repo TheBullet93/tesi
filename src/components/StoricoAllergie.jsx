@@ -5,13 +5,39 @@ import { getDatabase} from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 
-const StoricoPaziente = (props) =>{
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
+const StoricoAllergie = (props) =>{
 
     const db = getDatabase();
 
     const [todoData,setTodoData] = useState([]);
 
+    const [order,setOrder] = useState("ASC");
+
+    const sortingASC = (col) =>{
+      if(order === "ASC"){
+        const sorted = [...todoData].sort((a,b) =>
+          a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+        );
+        setTodoData(sorted);
+        setOrder("DSC");
+      }
+
+    }
     
+    const sortingDSC = (col) =>{
+      if(order === "DSC"){
+        const sorted = [...todoData].sort((a,b) =>
+          a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+        );
+        setTodoData(sorted);
+        setOrder("ASC");
+      }
+     
+    }
+
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -26,7 +52,7 @@ const StoricoPaziente = (props) =>{
   }, [])
 
     useEffect(() => {
-      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`));
+      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/allergie`));
       onValue(Ref, (snapshot) => {
         const data = snapshot.val();
         const newPosts = Object.keys(data || {}).map(key=>({
@@ -50,8 +76,8 @@ const StoricoPaziente = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Evento</Th>
-        <Th>Giorno</Th>
+        <Th>Allergia <IoMdArrowDropdown onClick={() => sortingASC("dato")}/><IoMdArrowDropup onClick={() => sortingDSC("dato")}/></Th>
+        <Th>Giorno <IoMdArrowDropdown onClick={() => sortingASC("giorno")}/><IoMdArrowDropup onClick={() => sortingDSC("giorno")}/></Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>
@@ -90,4 +116,4 @@ const StoricoPaziente = (props) =>{
 
 }
 
-export default StoricoPaziente;
+export default StoricoAllergie;

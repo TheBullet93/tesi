@@ -22,15 +22,40 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
 import { useLocation } from "react-router-dom";
-import DeleteDatiPaziente from './DeleteDatiPaziente';
+import DeleteDatiTerapie from './DeleteDatiTerapie';
+
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 function TabellaTerapieGiornaliere(props) {
 
   const db = getDatabase();
 
+
   const [todoData,setTodoData] = useState([]);
   const [search, setSearch] = useState('');
 
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
 
   const location = useLocation();
   const state = location.state;
@@ -49,9 +74,11 @@ function TabellaTerapieGiornaliere(props) {
      
   }, [])
 
+  
+
 
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieGiornaliere`));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/terapieGiornaliere`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -91,11 +118,12 @@ function TabellaTerapieGiornaliere(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Farmaco</Th>
-        <Th>Inizio</Th>
-        <Th>Fine</Th>
-        <Th>Numero volte</Th>
-        <Th>Quando </Th>
+        <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("patologia")}/><IoMdArrowDropup onClick={() => sortingDSC("patologia")}/></Th>
+        <Th>Farmaco <IoMdArrowDropdown onClick={() => sortingASC("farmaco")}/><IoMdArrowDropup onClick={() => sortingDSC("farmaco")}/></Th>
+        <Th>Inizio <IoMdArrowDropdown onClick={() => sortingASC("dataInizio")}/><IoMdArrowDropup onClick={() => sortingDSC("dataInizio")}/></Th>
+        <Th>Fine <IoMdArrowDropdown onClick={() => sortingASC("dataFine")}/><IoMdArrowDropup onClick={() => sortingDSC("dataFine")}/></Th>
+        <Th>Numero volte <IoMdArrowDropdown onClick={() => sortingASC("numAssunzioni")}/><IoMdArrowDropup onClick={() => sortingDSC("numAssunzioni")}/></Th>
+        <Th>Quando <IoMdArrowDropdown onClick={() => sortingASC("dettagli")}/><IoMdArrowDropup onClick={() => sortingDSC("dettagli")}/> </Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>
@@ -107,7 +135,8 @@ function TabellaTerapieGiornaliere(props) {
         .filter((item) => {
           return search.toLowerCase() === ''
             ? item
-            : item.farmaco.toLowerCase().includes(search) ||
+            : item.patologia.toLowerCase().includes(search) || 
+            item.farmaco.toLowerCase().includes(search) ||
             item.dataInizio.toLowerCase().includes(search) || 
             item.dataFine.toLowerCase().includes(search) ||
             item.numAssunzioni.toLowerCase().includes(search)||
@@ -118,6 +147,7 @@ function TabellaTerapieGiornaliere(props) {
               return (
                 <React.Fragment key={item.id}>
                 <Tr >
+                <Td>{item.patologia}</Td>
                   <Td>{item.farmaco}</Td>
                   {item.dataInizio ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
                   :<Td>Nessuna data inserita</Td>
@@ -132,7 +162,7 @@ function TabellaTerapieGiornaliere(props) {
                   <Td>
                   <ButtonGroup>
                       <UpdateTerapieGiornaliere
-                     patologia ={props.patologia}
+                     patologia ={item.patologia}
                      farmaco ={item.farmaco}
                      dataInizio = {item.dataInizio}
                      dataFine = {item.dataFine}
@@ -142,11 +172,14 @@ function TabellaTerapieGiornaliere(props) {
                      idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
                      idTerapia = {item.id}
+
+                     dbPatologie = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`}
                      />
-                         <DeleteDatiPaziente
+                         <DeleteDatiTerapie
                        title = {item.farmaco}
-                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                       itemValue = {'Terapia Giornaliera: '+ props.patologia + ' Farmaco: ' + item.farmaco}
+                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/terapie`}
+                       itemValue = {props.patologia}
+                       itemValue2 = {item.farmaco}
                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieGiornaliere/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}

@@ -13,6 +13,9 @@ import AssegnaDomandeMini from "./AssegnaDomandeMini";
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 
+import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 export default function TabellaDomandeMiniPaziente(props){
 
 
@@ -65,6 +68,29 @@ export default function TabellaDomandeMiniPaziente(props){
 
   };
 
+  const [order,setOrder] = useState("ASC");
+
+  const sortingASC = (col) =>{
+    if(order === "ASC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("DSC");
+    }
+  }
+
+  const sortingDSC = (col) =>{
+    if(order === "DSC"){
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder("ASC");
+    }
+  }
+
+
     return (
       <>
       
@@ -94,7 +120,7 @@ export default function TabellaDomandeMiniPaziente(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda</Th>
+      <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>
