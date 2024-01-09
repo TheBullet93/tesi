@@ -186,12 +186,6 @@ export default function CardProfiloPaziente(props) {
                        <ListGroup.Item className="border-primary listMargin">
                          <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>Nessuna patologia</span>
                        </ListGroup.Item>
-                       <span className='btn-space1'>
-                       <AddPatologia
-                          idTerapista = {props.item}
-                          idPaziente ={props.idPaziente}
-                          index = {arrayLength(props.patologie)}/> 
-                        </span>
                     </ListGroup> 
                  </>
                  
@@ -254,12 +248,7 @@ export default function CardProfiloPaziente(props) {
               <span className='infoPaziente'>Email Caregiver:  </span><span className='datiPaziente'>Nessuna Email </span>
              </ListGroup.Item>
              <span className='btn-space1'>
-             <AddParente
-             idTerapista = {props.item}
-             idPaziente ={props.idPaziente}
-             index = {arrayLength(props.parenti)}/> 
              </span>
-            
             </ListGroup>
           </>
              :props.parenti.map((item,index) => {
@@ -313,17 +302,11 @@ export default function CardProfiloPaziente(props) {
                    index = {arrayLength(props.allergie)}/>
               {  !props.allergie 
              ?    <>
-              
+              <ListGroup>
               <ListGroup.Item className="border-primary listMargin">
               <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
-              <span  className='btn-space1'>
-              <AddAllergia
-               idTerapista = {props.item}
-               idPaziente ={props.idPaziente}
-               index = {arrayLength(props.allergie)}/>
-              </span>
-          
-              </ListGroup.Item>
+              </ListGroup.Item>      
+              </ListGroup> 
           </>
              :props.allergie.map((item,index) => {
              return (

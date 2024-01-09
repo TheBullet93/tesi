@@ -85,17 +85,17 @@ const AddParente = (props) =>{
   return (
     <>
     <ButtonGroup >
-       <Button variant="primary" className='inputPazienteView'  onClick={handleShow}>Aggiungi Parente</Button>
+       <Button variant="primary" className='inputPazienteView'  onClick={handleShow}>Aggiungi Caregiver</Button>
     </ButtonGroup>
     
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Aggiungi Nuovo Parente</Modal.Title>
+          <Modal.Title className='headerForm'>Aggiungi Caregiver</Modal.Title>
        </Modal.Header>
       <Modal.Body>
         <Form noValidate validated={validated}>
       <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Nome Caregiver</Form.Label>
+               <Form.Label className="labelForm">Nome</Form.Label>
                <InputGroup hasValidation>
                <Form.Control type="text" required placeholder="Inserici nome caregiver"
                value={nomeParente}
@@ -107,7 +107,7 @@ const AddParente = (props) =>{
                </InputGroup>             
             </Form.Group>
             <Form.Group  className="mb-3" controlId="formNomeParente">
-               <Form.Label className="labelForm">Cognome Caregiver</Form.Label>
+               <Form.Label className="labelForm">Cognome</Form.Label>
                <InputGroup hasValidation>
                <Form.Control type="text" required placeholder="Inserici cognome caregiver"
                value={cognomeParente}
