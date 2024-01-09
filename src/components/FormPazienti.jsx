@@ -404,18 +404,19 @@ const handleChangeEmailParente= (index,event) => {
              return (
                <div key={index}>
                   <Form.Group className="mb-3" controlId="formPatologia">
-                    <Form.Label className="labelForm">Patologia</Form.Label>
                     <Row>
+                    <Col>
+                        <Form.Label className="labelForm">Patologia</Form.Label>
+                      </Col>
                       <Col>
-                       <Form.Control  type="text" placeholder="Inserici patologia"
+                      <Button variant="danger" onClick={() => rimuoviPatologia(index)}><FiDelete/></Button>
+                       </Col>  
+                    </Row>
+                    <Form.Control  type="text" placeholder="Inserici patologia"
                           value={item.nomePatologia}
                           onChange={(e) => handleChangePatologia(index,e) }/>
-                       </Col>
-                      <Col>
-                       <Button variant="danger" onClick={() => rimuoviPatologia(index)}><FiDelete/></Button>
-                      </Col>
-                    </Row>
                   </Form.Group>
+                  <hr></hr>
                </div>
              )
            })}
@@ -426,18 +427,20 @@ const handleChangeEmailParente= (index,event) => {
              
                <div key={index}>
                <Form.Group className="mb-3" controlId="formAllergia">
-               <Form.Label className="labelForm">Allergia</Form.Label>
                <Row>
                   <Col>
-                    <Form.Control  type="text" placeholder="Inserici allergia"
-                      value={item.nomeAllergia}
-                      onChange={(e) => handleChangeAllergia(index,e)}/>
+                  <Form.Label className="labelForm">Allergia</Form.Label>
+                    
                   </Col>
                   <Col>
                    <Button variant="danger" onClick={() => rimuoviAllergia(index)}><FiDelete/></Button>
                   </Col>
                </Row>
+               <Form.Control  type="text" placeholder="Inserici allergia"
+                      value={item.nomeAllergia}
+                      onChange={(e) => handleChangeAllergia(index,e)}/>
                </Form.Group>
+               <hr></hr>
                </div>
            
             
