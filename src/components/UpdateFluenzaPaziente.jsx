@@ -7,9 +7,10 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
+
 import { InputGroup } from 'react-bootstrap';
 
-const UpdateLetteraPaziente = (props) =>{
+const UpdateFluenzaPaziente = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
@@ -20,23 +21,23 @@ const UpdateLetteraPaziente = (props) =>{
     
      const [titoloDomanda,setTitoloDomanda] = useState(props.titoloDomanda);
      const [parola,setParola] = useState(props.parola);
-  
+    
 
 
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.idGioco}/parole/${props.currentQuestion}`); 
+      const updateRef = ref(db, `/giochi/${props.idCard}/parole/${props.idParola}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda,
         parola: parola,
-        letteraPaziente: '',
-    
-      });
   
+      });
+
       setShow(false);
     };
+
 
     const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
@@ -68,9 +69,9 @@ const UpdateLetteraPaziente = (props) =>{
   
     return (
       <>
-       <button title="Aggiorna Domande" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
+       <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
       
-       <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>
              </Modal.Header>
@@ -116,4 +117,4 @@ const UpdateLetteraPaziente = (props) =>{
     );
 }
 
-export default UpdateLetteraPaziente;
+export default UpdateFluenzaPaziente;

@@ -7,9 +7,11 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 const UpdateDomandaMini = (props) =>{
     const [show, setShow] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -30,6 +32,24 @@ const UpdateDomandaMini = (props) =>{
       setShow(false);
     };
 
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return titoloDomanda !== ''  ;
+    };
+  
+  
+    const handleChangeTitolo= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setTitoloDomanda(e.target.value)
+    }
+  
+
   
     return (
       <>
@@ -40,12 +60,18 @@ const UpdateDomandaMini = (props) =>{
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+            <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
-          <Form.Label className="labelForm">Ehi Mini,</Form.Label>
+          <Form.Label className="labelForm">Titolo</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici la domanda" 
+          required
           defaultValue={props.titoloDomanda}  
-          onChange={(e) => setTitoloDomanda(e.target.value)}/>
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
+          </Form.Control.Feedback>
+          </InputGroup>      
         </Form.Group>
       </Form>
           </Modal.Body>
@@ -53,7 +79,7 @@ const UpdateDomandaMini = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button className='formAdd' variant="primary" type="submit" onClick={() => aggiorna()}>
+            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={() => aggiorna()}>
               Aggiorna
             </Button>
           </Modal.Footer>

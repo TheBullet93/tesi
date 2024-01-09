@@ -7,6 +7,7 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 const UpdateAppartenenza = (props) =>{
     const [show, setShow] = useState(false);
@@ -18,7 +19,7 @@ const UpdateAppartenenza = (props) =>{
     
      const [titoloDomanda,setTitoloDomanda] = useState(props.titoloDomanda);
      const [parola,setParola] = useState(props.parola);
-    
+     const [validated, setValidated] = useState(false);
 
 
      const db = getDatabase();
@@ -35,6 +36,34 @@ const UpdateAppartenenza = (props) =>{
       setShow(false);
     };
 
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return titoloDomanda !== '' && parola !== '' ;
+    };
+  
+  
+    const handleChangeTitolo= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setTitoloDomanda(e.target.value)
+    }
+  
+    const handleChangeParola = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setParola(e.target.value)
+    }
+
   
     return (
       <>
@@ -45,27 +74,39 @@ const UpdateAppartenenza = (props) =>{
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+            <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
-          <Form.Label className="labelForm">Titolo</Form.Label>
+          <Form.Label className="labelForm">Domanda</Form.Label>
+          <InputGroup hasValidation>
           <Form.Control type="text" placeholder="Inserici la domanda" 
+          required
           defaultValue={props.titoloDomanda}  
-          onChange={(e) => setTitoloDomanda(e.target.value)}/>
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
+          </Form.Control.Feedback>
+          </InputGroup>      
         </Form.Group>
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Categoria</Form.Label>
-          <Form.Control type="text" placeholder="Inserici categoria" 
-          defaultValue={props.parola}  
-          onChange={(e) => setParola(e.target.value)}/>
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici categoria"
+           required
+           defaultValue={props.parola}  
+           onChange={handleChangeParola}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire categoria
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
-  
+
       </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button className='formAdd' variant="primary" type="submit" onClick={() => aggiorna()}>
+            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={() => aggiorna()}>
               Aggiorna
             </Button>
           </Modal.Footer>

@@ -121,7 +121,7 @@ const FormDomanda = (props) =>{
         <Form.Group className="mb-3" controlId="domanda">
           <Form.Label className="labelForm">Titolo</Form.Label>
           <InputGroup hasValidation>
-          <Form.Control type="text" placeholder="Inserici la domanda" 
+          <Form.Control type="text" placeholder="Inserici la domanda" required
           value={titoloDomanda}  
           onChange={handleChangeTitolo}/>
           <Form.Control.Feedback type="invalid">

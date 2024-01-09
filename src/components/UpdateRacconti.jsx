@@ -7,9 +7,11 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 const UpdateRacconti = (props) =>{
     const [show, setShow] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -30,6 +32,23 @@ const UpdateRacconti = (props) =>{
       setShow(false);
     };
 
+
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return argomento !== '' ;
+    };
+  
+  
+    const handleChangeArgomento= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setArgomento(e.target.value)
+    }
   
     return (
       <>
@@ -40,12 +59,17 @@ const UpdateRacconti = (props) =>{
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+            <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
           <Form.Label className="labelForm">Argomento</Form.Label>
-          <Form.Control type="text" placeholder="Inserisci argomento" 
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici argomento del racconto"  required
           defaultValue={props.argomento}  
-          onChange={(e) => setArgomento(e.target.value)}/>
+          onChange={handleChangeArgomento}/>
+            <Form.Control.Feedback type="invalid">
+                Inserire argomento
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
       </Form>
           </Modal.Body>
@@ -53,7 +77,7 @@ const UpdateRacconti = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button className='formAdd' variant="primary" type="submit" onClick={() => aggiorna()}>
+            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={() => aggiorna()}>
               Aggiorna
             </Button>
           </Modal.Footer>

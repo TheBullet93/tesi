@@ -8,8 +8,11 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 
+import { InputGroup } from 'react-bootstrap';
+
 const UpdateCombinazioni = (props) =>{
     const [show, setShow] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -35,6 +38,35 @@ const UpdateCombinazioni = (props) =>{
       setShow(false);
     };
 
+
+    const isFormValid = () => {
+      // Verifica che tutti i campi siano stati inseriti
+      return titoloDomanda !== '' && lettere !== '' ;
+    };
+  
+  
+    const handleChangeTitolo= (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setTitoloDomanda(e.target.value)
+    }
+  
+    const handleChangeLettere = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+  
+      setValidated(true);
+      setLettere(e.target.value)
+    }
+  
   
     return (
       <>
@@ -45,27 +77,38 @@ const UpdateCombinazioni = (props) =>{
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-          <Form>
+            <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
           <Form.Label className="labelForm">Titolo</Form.Label>
-          <Form.Control type="text" placeholder="Inserici la domanda" 
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici la domanda" required
           defaultValue={props.titoloDomanda}  
-          onChange={(e) => setTitoloDomanda(e.target.value)}/>
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="rispostaCorretta">
           <Form.Label className="labelForm">Lettere</Form.Label>
-          <Form.Control type="text" placeholder="Inserici lettere" 
-          defaultValue={props.lettere}  
-          onChange={(e) => setLettere(e.target.value)}/>
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici lettere" required
+           defaultValue={props.lettere}  
+           onChange={handleChangeLettere}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire lettere
+          </Form.Control.Feedback>
+          </InputGroup>
         </Form.Group>
-  
+
       </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button className='formAdd' variant="primary" type="submit" onClick={() => aggiorna()}>
+            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={() => aggiorna()}>
               Aggiorna
             </Button>
           </Modal.Footer>
