@@ -85,12 +85,11 @@ const UpdatePazienti = (props) =>{
         data: data,
         sesso: sesso,
         codiceFiscale:codiceFiscale,
-        patologie,
-        allergie,
+        
         valutazioneCognitiva: valutazioneCognitiva,
         capacitaFisiche: capacitaFisiche,
         dieta: dieta,
-        parenti,
+       
 
       });
       toast.success('Dati paziente aggiornati');

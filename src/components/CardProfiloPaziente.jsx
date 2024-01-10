@@ -22,18 +22,46 @@ import AddParente from './AddParente';
 import Image from 'react-bootstrap/Image';
 import Delete from './Delete';
 import DeleteDatiPaziente from './DeleteDatiPaziente';
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
+
+import { useLocation } from "react-router-dom";
+
 export default function CardProfiloPaziente(props) {
 
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          console.log("uid", uid)
+      
+        } else {
+          console.log("user is logged out")
+        }
+      });
+     
+}, [])
+     
+const location = useLocation();
+const state = location.state;
+console.log(state);
   
   const db = getDatabase();
 
+  const [todoDataPaziente,setTodoDataPaziente] = useState([]);
   const [todoData,setTodoData] = useState([]);
-
-  
   const [todoPatologie,setTodoPatologie] = useState([]);
-
   const [todoParenti,setTodoParenti] = useState([]);
 
+  const [data] = useState(props.data);
+  const [citta] = useState(props.citta);
+  const [sesso] = useState(props.sesso);
+  const [codiceFiscale] = useState(props.codiceFiscale);
+  const [valutazioneCognitiva] = useState(props.valutazioneCognitiva);
+  const [capacitaFisiche] = useState(props.capacitaFisiche);
+  const [dieta] = useState(props.dieta);
 
 
 
@@ -46,11 +74,21 @@ export default function CardProfiloPaziente(props) {
     }
   }
 
+  useEffect(() => {
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}`));
+    onValue(Ref, (snapshot) => {
+      const data = snapshot.val();
+     
+     
+      console.log(data);
+      setTodoDataPaziente(data);
+    
+    });
   
-
+  },[auth?.currentUser?.uid])
 
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie`));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -63,11 +101,11 @@ export default function CardProfiloPaziente(props) {
     
     });
   
-  },[])
+  },[auth?.currentUser?.uid])
 
   
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie`));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -80,10 +118,10 @@ export default function CardProfiloPaziente(props) {
       
     });
   
-  },[])
+  },[auth?.currentUser?.uid])
 
   useEffect(() => {
-    const Ref = (ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/parenti`));
+    const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/parenti`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -95,7 +133,8 @@ export default function CardProfiloPaziente(props) {
 
     });
   
-  },[])
+  },[auth?.currentUser?.uid])
+
 
 
   function arrayLength(obj) {
@@ -118,7 +157,7 @@ export default function CardProfiloPaziente(props) {
             <Row>
              <Col >
              <div className="avatar">
-              <Image alt="avatar" className='imgAvatar' src={renderImage(props.sesso)} fluid style={{ width: '200px' }}/>
+              <Image alt="avatar" className='imgAvatar' src={renderImage(todoDataPaziente && todoDataPaziente.sesso)} fluid style={{ width: '200px' }}/>
              </div>
              </Col>
              </Row>
@@ -127,47 +166,39 @@ export default function CardProfiloPaziente(props) {
               <ListGroup className=" border-primary listMargin">
                 <ListGroup.Item className=" border-primary"> 
                   <span className='infoPaziente'>Data di nascita:  </span>{
-                    props.data ? <span className='datiPaziente'>{format(new Date(props.data),"dd/MM/yyyy")} </span>
+                    todoDataPaziente  && todoDataPaziente.data ? <span className='datiPaziente'>{format(new Date(todoDataPaziente  && todoDataPaziente.data),"dd/MM/yyyy")} </span>
                     :<span className='datiPaziente'>Data non inserita </span>
                   }
                  </ListGroup.Item>
               
                 <ListGroup.Item className=" border-primary"> 
-                  <span className='infoPaziente'>Città di nascita:  </span><span className='datiPaziente'>{props.citta} </span>
+                  <span className='infoPaziente'>Città di nascita:  </span><span className='datiPaziente'>{todoDataPaziente  && todoDataPaziente.citta} </span>
                  </ListGroup.Item>
                  <ListGroup.Item className=" border-primary"> 
-                  <span className='infoPaziente'>Codice Fiscale:  </span><span className='datiPaziente'>{props.codiceFiscale} </span>
+                  <span className='infoPaziente'>Codice Fiscale:  </span><span className='datiPaziente'>{todoDataPaziente  && todoDataPaziente.codiceFiscale} </span>
                  </ListGroup.Item>
                      
                  <ListGroup.Item className="border-primary">
-                  <span className='infoPaziente'>Valutazione Cognitiva:  </span><span className='datiPaziente'> {props.valutazioneCognitiva} </span>
+                  <span className='infoPaziente'>Valutazione Cognitiva:  </span><span className='datiPaziente'> {todoDataPaziente  && todoDataPaziente.valutazioneCognitiva} </span>
                  </ListGroup.Item>
                  <ListGroup.Item className="border-primary">
-                  <span className='infoPaziente'>Capacità Fisiche:  </span><span className='datiPaziente'> {props.capacitaFisiche}</span>
+                  <span className='infoPaziente'>Capacità Fisiche:  </span><span className='datiPaziente'> {todoDataPaziente  && todoDataPaziente.capacitaFisiche}</span>
                  </ListGroup.Item>
                  <ListGroup.Item className="border-primary">
-                 <span className='infoPaziente'>Dieta:  </span><span className='datiPaziente'> {props.dieta}</span>
+                 <span className='infoPaziente'>Dieta:  </span><span className='datiPaziente'> {todoDataPaziente  && todoDataPaziente.dieta}</span>
                  <span  className='btn-space1'>
                  <UpdatePazienti
-                     idTerapista = {props.item}
+                     idTerapista = {auth?.currentUser?.uid}
                      idPaziente = {props.idPaziente}
-
                      nome = {props.nome}
                      cognome = {props.cognome}
-                     citta = {props.citta}
-                     data = {props.data}
-                     sesso = {props.sesso}
-                     codiceFiscale = {props.codiceFiscale}
-
-                     patologie = {props.patologie}
-                     allergie = {props.allergie}
-
-                     valutazioneCognitiva = {props.valutazioneCognitiva}
-                     capacitaFisiche = {props.capacitaFisiche}
-                     dieta = {props.dieta}
-
-                     parenti = {props.parenti}
-                     
+                     citta = {citta}
+                     data = {data}
+                     sesso = {sesso}
+                     codiceFiscale = {codiceFiscale}
+                     valutazioneCognitiva = {valutazioneCognitiva}
+                     capacitaFisiche = {capacitaFisiche}
+                     dieta = {dieta}
                      />  
                  </span>
                  </ListGroup.Item>
@@ -175,10 +206,10 @@ export default function CardProfiloPaziente(props) {
              </Col>
              <Col>
                <AddPatologia
-                      idTerapista = {props.item}
+                      idTerapista = {auth?.currentUser?.uid}
                       idPaziente ={props.idPaziente}
                       index = {arrayLength(props.patologie)}/> 
-              {  !props.patologie
+              {  !todoPatologie
                  ?    
                  <>
                 
@@ -189,7 +220,7 @@ export default function CardProfiloPaziente(props) {
                     </ListGroup> 
                  </>
                  
-                 :props.patologie.map((item,index) => {
+                 :todoPatologie.map((item,index) => {
                     return (
                         
                         <React.Fragment key={index}>
@@ -200,16 +231,16 @@ export default function CardProfiloPaziente(props) {
                             <span className='btn-space1'>
                          
                       <UpdatePatologia
-                        idTerapista = {props.item}
+                        idTerapista = {auth?.currentUser?.uid}
                         idPaziente ={props.idPaziente}
                         index = {index}
                         nomePatologia = {item.nomePatologia}/>   
                                    
                    <DeleteDatiPaziente
                      title = {item.nomePatologia}
-                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico/patologie`}
+                     dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/patologie`}
                      itemValue = {item.nomePatologia}
-                     dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/patologie/${index}`}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa patologia?'}
                      textToast = {'Patologia eliminata'}
                        />
@@ -228,11 +259,11 @@ export default function CardProfiloPaziente(props) {
           <Row>
           <Col> 
             <AddParente
-                    idTerapista = {props.item}
+                    idTerapista = {auth?.currentUser?.uid}
                     idPaziente ={props.idPaziente}
                     index = {arrayLength(props.parenti)}/>    
              {
-             !props.parenti
+             !todoParenti
              ?    <>
              <ListGroup className="border-primary listMargin ">
              <ListGroup.Item className="border-primary">
@@ -251,7 +282,7 @@ export default function CardProfiloPaziente(props) {
              </span>
             </ListGroup>
           </>
-             :props.parenti.map((item,index) => {
+             :todoParenti.map((item,index) => {
              return (
               
                <React.Fragment key={index}>
@@ -269,7 +300,7 @@ export default function CardProfiloPaziente(props) {
                    <span className='infoPaziente'>Email Caregiver:  </span><span className='datiPaziente'>{item.emailParente}</span>
                    <span className='btn-space1'>                 
                    <UpdateParente
-                     idTerapista = {props.item}
+                     idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
                      index = {index}
                      nomeParente= {item.nomeParente}
@@ -279,7 +310,7 @@ export default function CardProfiloPaziente(props) {
                      /> 
                   <Delete
                      title = {item.nomeParente}
-                     dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/parenti/${index}`}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/parenti/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questo parente?'}
                      textToast = {'Parente eliminato'}
                        />
@@ -297,18 +328,20 @@ export default function CardProfiloPaziente(props) {
              </Col>
             <Col>
             <AddAllergia
-                   idTerapista = {props.item}
+                   idTerapista = {auth?.currentUser?.uid}
                    idPaziente ={props.idPaziente}
                    index = {arrayLength(props.allergie)}/>
-              {  !props.allergie 
+              {  !todoData
              ?    <>
               <ListGroup>
               <ListGroup.Item className="border-primary listMargin">
               <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
-              </ListGroup.Item>      
+              </ListGroup.Item>
+                    
               </ListGroup> 
+
           </>
-             :props.allergie.map((item,index) => {
+             :todoData.map((item,index) => {
              return (
                
                <React.Fragment key={index}>
@@ -319,16 +352,16 @@ export default function CardProfiloPaziente(props) {
                   </span>
                   <span className='btn-space1'>
                 <UpdateAllergia
-                     idTerapista = {props.item}
+                     idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
                      index = {index}
                      nomeAllergia = {item.nomeAllergia}
                     />   
                 <DeleteDatiPaziente
                      title = {item.nomeAllergia}
-                     dbStoricoPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/storico/allergie`}
+                     dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/allergie`}
                      itemValue = {item.nomeAllergia}
-                     dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/allergie/${index}`}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie/${index}`}
                      textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
                      textToast = {'Allergia eliminata'}
                        />

@@ -200,15 +200,9 @@ const endContent = (
                      data = {item.data}
                      sesso = {item.sesso}
                      codiceFiscale = {item.codiceFiscale}
-
-                     patologie = {item.patologie}
-                     allergie = {item.allergie}
                      valutazioneCognitiva = {item.valutazioneCognitiva}
                      capacitaFisiche = {item.capacitaFisiche}
                      dieta = {item.dieta}
-
-                     parenti = {item.parenti}
-
                      idTerapista = {auth?.currentUser?.uid}
                      idPaziente = {item.id}
                      />
