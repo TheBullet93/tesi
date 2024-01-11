@@ -29,7 +29,7 @@ const FormAppartenenza = (props) =>{
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `/giochi/${props.item}/parole/`);
+      const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda,

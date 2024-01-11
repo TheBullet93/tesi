@@ -33,7 +33,7 @@ export default function TabellaDomandeMiniPaziente(props){
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    const Ref = ref(db, `/dialoghi/${props.item}/domande/`);
+    const Ref = ref(db, `trattamenti/dialoghi/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -50,7 +50,7 @@ export default function TabellaDomandeMiniPaziente(props){
   
   const aggiungi = () => {
 
-      const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/dialoghi/${props.tipologiaDialogo}`); 
+      const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.tipologiaDialogo}`); 
      
       set(postListRef, {
         titoloDialogo: props.titoloDialogo,

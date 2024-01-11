@@ -27,7 +27,7 @@ const FormDomandaMini = (props) =>{
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `/dialoghi/${props.item}/domande/`);
+      const postListRef= ref(db, `trattamenti/dialoghi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda,

@@ -34,7 +34,7 @@ const AssegnaDomande = (props) =>{
 
   const aggiungi = () => {
     setCount(count + 1);
-    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.index}/domande/${count}`);
+    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.index}/domande/${count}`);
     
     set(postListRef, {
         

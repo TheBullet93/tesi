@@ -61,7 +61,7 @@ const StoricoRispostePaziente = (props) =>{
   }, [])
 
     useEffect(() => {
-      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`));
+      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risposte`));
       onValue(Ref, (snapshot) => {
         const data = snapshot.val();
         const newPosts = Object.keys(data || {}).map(key=>({
@@ -114,7 +114,7 @@ const StoricoRispostePaziente = (props) =>{
             .filter((item) => {
               return search.toLowerCase() === ''
                 ? item
-                : item.titoloGioco.toLowerCase().includes(search)||
+                : item.titoloGioco.toLowerCase().includes(search) ||
                 item.tipologiaGioco.toLowerCase().includes(search) || 
                 item.domanda.toLowerCase().includes(search) ||
                 item.rispostaPaziente.toLowerCase().includes(search)   ||   
@@ -125,7 +125,7 @@ const StoricoRispostePaziente = (props) =>{
                 
                 <React.Fragment key={item.id}>
                 <Tr >
-                  <Td>{item.titoloGioco}</Td>
+                  <Td>{item.titoloGioco} </Td>
                   <Td>{item.tipologiaGioco}</Td>
                   <Td>{item.domanda}</Td>
                   <Td>{item.rispostaPaziente}</Td>

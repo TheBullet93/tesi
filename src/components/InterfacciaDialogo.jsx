@@ -20,7 +20,7 @@ const InterfacciaDialogo= (props) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
     useEffect(() => {
-      const Ref = (ref(db,`/terapisti/${props.item}/pazienti/${props.idPaziente}/attivita/dialoghi/${props.idDialogo}/domande`));
+      const Ref = (ref(db,`/terapisti/${props.item}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.idDialogo}/domande`));
 
       onValue(Ref, (snapshot) => {
         const data = snapshot.val();

@@ -46,7 +46,7 @@ const FormDomandaAudio = (props) =>{
         });
       });
 
-      const postListRef= ref_database(db, `/giochi/${props.item}/domande/`);
+      const postListRef= ref_database(db, `trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda,

@@ -82,7 +82,7 @@ export default function ListaEserciziPaziente(props) {
   }, [])
 
   useEffect(() => {
-    const Ref = (ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/giochi/`));
+    const Ref = (ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -319,7 +319,7 @@ const endContent = (
                   itemValue = {item.titoloGioco}
                   itemValue2 = {'Cognitivo'}
                   itemValue3 = {item.tipologiaGioco}
-                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/giochi/${item.id}`}
+                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item.id}`}
                   textAlert = {' Sei sicuro di voler eliminare questo esercizio cognitivo?'}
                   textToast = {'Gioco eliminato'}
                   />

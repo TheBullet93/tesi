@@ -167,9 +167,9 @@ const endContent = (
                         search: `?idPaziente=${item.id}`, 
                          }} 
                     state= {item} ><FaStethoscope/></Link></Td>
-                  <Td><Link title="Attività" className='statistiche' 
+                  <Td><Link title="Trattamenti" className='statistiche' 
                      to={{
-                      pathname:`/attivita/:idAttivita`,
+                      pathname:`/trattamenti/:idPaziente`,
                       search: `?idPaziente=${item.id}`, 
                        }} 
                   state= {item} ><FaPuzzlePiece/></Link></Td>

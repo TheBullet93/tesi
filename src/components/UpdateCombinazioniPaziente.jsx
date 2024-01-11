@@ -30,7 +30,7 @@ const UpdateCombinazioniPaziente = (props) =>{
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.idGioco}/parole/${props.currentQuestion}`); 
+      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${props.currentQuestion}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda,

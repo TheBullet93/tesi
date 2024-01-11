@@ -66,7 +66,7 @@ export default function CardGiocoAttivita(props) {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'giochi/');
+    const Ref = ref(db, 'trattamenti/cognitivi');
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({

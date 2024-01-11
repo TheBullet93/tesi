@@ -53,7 +53,7 @@ export default function CardDialogo() {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'dialoghi/');
+    const Ref = ref(db, 'trattamenti/dialoghi/');
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -148,7 +148,7 @@ export default function CardDialogo() {
        />
               <Delete
                        title = {item.titoloDialogo}
-                       dbPath = {`/dialoghi/${item.id}`}
+                       dbPath = {`trattamenti/dialoghi/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
                        textToast = {'Dialogo eliminato'}
                        />

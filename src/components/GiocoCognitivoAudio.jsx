@@ -38,9 +38,9 @@ const GiocoCognitivoAudio = (props) => {
     const [risposte,setRisposte] = useState([]);
     
 
-    const updateRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/Globali`);
-    const updateTipologiaRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${props.tipologia}`);
-    const refRispostePaziente = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risposte`);
+    const updateRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/Globali`);
+    const updateTipologiaRef = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${props.tipologia}`);
+    const refRispostePaziente = ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risposte`);
     
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
@@ -56,7 +56,7 @@ const GiocoCognitivoAudio = (props) => {
   }, [])
 
     useEffect(() => {
-    const Ref = (ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/giochi/${props.idGioco}/domande`));
+    const Ref = (ref_database(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({

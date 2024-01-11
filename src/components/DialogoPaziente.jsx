@@ -20,15 +20,11 @@ function DialogoPaziente(props){
 
       if (window.confirm('Sei sicuro di voler assegnare questa domanda?')) {  
         setCount(count + 1);
-      const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/dialoghi/${props.index}/domande/${count}`); 
+      const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.index}/domande/${count}`); 
    
-      set(postListRef, {
-      
+      set(postListRef, {    
             titoloDomanda : props.titoloDomanda,
-         
 
-      
-        
       });
 
       setDisabled(true);  

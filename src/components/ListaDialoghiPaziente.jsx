@@ -75,7 +75,7 @@ export default function ListaDialoghiPaziente(props) {
   }, [])
 
   useEffect(() => {
-    const Ref = (ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/`));
+    const Ref = (ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/`));
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -92,7 +92,7 @@ export default function ListaDialoghiPaziente(props) {
   const handleDelete = (item) => {
     if (window.confirm('Sei sicuro di voler eliminare questa attività?')) {  
 
-      const dbRef = ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/${item.id}`);
+      const dbRef = ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}`);
       
       remove(dbRef);
 
@@ -257,7 +257,7 @@ const endContent = (
                        title = {item.titoloGioco}
                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
                        itemValue = {'Dialogo: '+ item.titoloDialogo + ' Tipologia: ' + item.tipologiaDialogo}
-                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/dialoghi/${item.id}`}
+                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
                        textToast = {'Dialogo eliminato'}
                        />

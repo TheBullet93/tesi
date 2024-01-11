@@ -89,7 +89,7 @@ useEffect(() => {
 
   const aggiungi = () => {
    
-    const postListRef = ref(db, `giochi/`); 
+    const postListRef = ref(db, `trattamenti/cognitivi`); 
    
     
     const newPostRef = push(postListRef);

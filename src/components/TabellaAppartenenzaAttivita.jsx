@@ -58,7 +58,7 @@ export default function TabellaAppartenenzaAttivita(props){
   }
 
   useEffect(() => {
-    const Ref = ref(db, `/giochi/${props.item}/parole/`);
+    const Ref = ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -76,7 +76,7 @@ export default function TabellaAppartenenzaAttivita(props){
 
   const aggiungi = () => {
 
-        const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.tipologiaGioco}`); 
+        const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.tipologiaGioco}`); 
      
         set(postListRef, {
           
@@ -151,7 +151,7 @@ export default function TabellaAppartenenzaAttivita(props){
 
                   disabled = {disabledDomanda}
                  
-                  indexParola = {item.id}
+                  indexDomanda = {item.id}
                   titoloDomanda = {item.titoloDomanda}
                   parola = {item.parola}
 

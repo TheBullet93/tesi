@@ -63,7 +63,10 @@ export default function GraficoBarre(props){
   {label:"Mesi"} ,
   {label:"Musica"} ,
   {label:"Racconti"} ,
-  {label:"Suoni"}
+  {label:"Suoni"},
+  {label:"Funzionali"} ,
+  {label:"Aerobici"} ,
+  {label:"Flessibilità"} ,
 ] 
 
 useEffect(()=>{
@@ -80,7 +83,7 @@ useEffect(()=>{
 }, [])
  
   useEffect(() => {
-    const  RefTipologia= ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/`);
+    const  RefTipologia= ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/`);
     onValue(RefTipologia, (snapshot) => {
       const data = snapshot.val();
       
@@ -99,7 +102,7 @@ useEffect(()=>{
  
   
   const azzera = (tipologia) => {
-    const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${tipologia}`); 
+    const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${tipologia}`); 
     
     update(updateRef, {
      nRisposteEsatte: 0,
@@ -220,7 +223,7 @@ const endContent = (
                   <Delete
                    
                    title = {item.id}
-                   dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/attivita/risultati/${item.id}`}
+                   dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${item.id}`}
                    textAlert = {' Sei sicuro di voler eliminare queste statistiche?'}
                    textToast = {'Statistiche eliminate'}
                    />

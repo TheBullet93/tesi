@@ -7,9 +7,9 @@ import Pazienti from './pagine/Pazienti';
 import PazienteView from "./pagine/PazienteView";
 import Terapie from './pagine/Terapie';
 import Attivita from './pagine/Attivita';
+import Trattamenti from "./pagine/Trattamenti";
 import Giochi from './pagine/Giochi';
 import Dialoghi from './pagine/Dialoghi';
-import Dieta from "./pagine/Dieta";
 import Profilo from './pagine/Profilo';
 import Statistiche from './pagine/Statistiche';
 import Storico from "./pagine/Storico";
@@ -22,13 +22,11 @@ import Dialogo from "./pagine/Dialogo";
 
 import './styles/App.css';
 import PDTA from "./pagine/PDTA";
-
-
-
+import Trattamento from "./pagine/Trattamento";
+import GiocoFisicoTrattamento from "./pagine/GiocoFisicoTrattamento";
 
 
 function App() {
-
 
   return (
    
@@ -40,16 +38,18 @@ function App() {
         <Route path="/pazienti/:idPaziente" element={<PazienteView />}/>
         <Route path="/terapie/:idPaziente" element={<Terapie/>}/>
          <Route path="/attivita/:idPaziente" element={<Attivita />}/>
+         <Route path="/trattamenti/:idPaziente" element={<Trattamenti />}/>
          <Route path="/statistiche/:idPaziente" element={<Statistiche/>}/>
          <Route path="/storico/:idPaziente" element={<Storico/>}/>
+         <Route path="/trattamento" element={<Trattamento />}/>
          <Route path="/giochi" element={<Giochi />}/>
          <Route path="/dialoghi" element={<Dialoghi/>}/>
-         <Route path="/dieta" element={<Dieta/>}/>
          <Route path="/profilo/:idTerapista" element={<Profilo/>}/>
      
          <Route path="/PDTAPaziente/:idPaziente" element={<PDTA/>}></Route>
          <Route path="/eserciziPaziente/:idPaziente" element={<EserciziPaziente/>}></Route>
-         <Route path="/gioco/:idPaziente/:idDomanda" element={<Gioco/>}></Route>
+         <Route path="/esFisico/:idPaziente/:idDomanda" element={<GiocoFisicoTrattamento/>}></Route>
+         <Route path="/gioco/:idPaziente/:idDomanda" element={<Gioco/>}></Route>       
          <Route path="/dialogo/:idPaziente/:idDomanda" element={<Dialogo/>}></Route>  
     </Routes>
     

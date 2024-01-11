@@ -49,7 +49,7 @@ export default function CardDialogoAttività(props) {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'dialoghi/');
+    const Ref = ref(db, 'trattamenti/dialoghi/');
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({

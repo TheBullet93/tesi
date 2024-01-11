@@ -26,7 +26,7 @@ const UpdateDomandaMiniPaziente = (props) =>{
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/dialoghi/${props.idDialogo}/domande/${props.currentQuestion}`); 
+      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.idDialogo}/domande/${props.currentQuestion}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda,

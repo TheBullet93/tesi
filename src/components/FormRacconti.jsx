@@ -27,7 +27,7 @@ const FormRacconti = (props) =>{
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `/giochi/${props.item}/domande/`);
+      const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         argomento: argomento,

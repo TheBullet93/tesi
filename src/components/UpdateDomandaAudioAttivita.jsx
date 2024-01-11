@@ -45,7 +45,7 @@ const UpdateDomandaAudioAttivita = (props) =>{
         });
       });
 
-      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.idGioco}/domande/${props.currentQuestion}`); 
+      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${props.currentQuestion}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda,

@@ -37,7 +37,7 @@ export default function TabellaDomandeAttivita(props){
 
  
   useEffect(() => {
-    const Ref = ref(db, `/giochi/${props.item}/domande/`);
+    const Ref = ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -52,7 +52,7 @@ export default function TabellaDomandeAttivita(props){
   },[])
 
   const aggiungi = () => {
-      const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/giochi/${props.tipologiaGioco}`); 
+      const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.tipologiaGioco}`); 
         set(postListRef, {
           titoloGioco : props.titoloGioco,
           tipologiaGioco : props.tipologiaGioco,

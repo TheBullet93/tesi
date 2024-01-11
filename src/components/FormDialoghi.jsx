@@ -76,7 +76,7 @@ useEffect(() => {
 
 
   const aggiungi = () => {
-    const postListRef = ref(db, 'dialoghi/'); 
+    const postListRef = ref(db, 'trattamenti/dialoghi/'); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
       titoloDialogo: titoloDialogo,

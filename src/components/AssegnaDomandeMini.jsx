@@ -33,7 +33,7 @@ const AssegnaDomandeMini = (props) =>{
 
   const aggiungi = () => {
     setCount(count + 1);
-    const postListRef = ref(db,`/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/attivita/dialoghi/${props.index}/domande/${count}`);
+    const postListRef = ref(db,`/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.index}/domande/${count}`);
     
     set(postListRef, {
         

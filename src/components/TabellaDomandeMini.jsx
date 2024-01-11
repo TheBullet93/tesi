@@ -21,7 +21,7 @@ export default function TabellaDomandeMini(props){
 
 
   useEffect(() => {
-    const Ref = ref(db, `/dialoghi/${props.item}/domande/`);
+    const Ref = ref(db, `trattamenti/dialoghi/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -83,7 +83,7 @@ export default function TabellaDomandeMini(props){
                    />
                    <Delete
                        title = {item.titoloDomanda}
-                       dbPath = {`/dialoghi/${props.item}/domande/${item.id}`}
+                       dbPath = {`trattamenti/dialoghi/${props.item}/domande/${item.id}`}
                        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                        textToast = {'Domanda eliminata'}
                        />

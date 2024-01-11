@@ -44,7 +44,7 @@ export default function TabellaFluenze(props){
 
 
   useEffect(() => {
-    const Ref = ref(db, `/giochi/${props.item}/parole/`);
+    const Ref = ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -90,7 +90,7 @@ export default function TabellaFluenze(props){
                    />
                   <Delete
                        title = {item.titoloDomanda}
-                       dbPath = {`/giochi/${props.item}/parole/${item.id}`}
+                       dbPath = {`trattamenti/cognitivi/${props.item}/parole/${item.id}`}
                        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                        textToast = {'Domanda eliminata'}
                        />

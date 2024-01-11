@@ -23,7 +23,7 @@ export default function TabellaRacconti(props){
 
 
   useEffect(() => {
-    const Ref = ref(db, `/giochi/${props.item}/domande/`);
+    const Ref = ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -87,7 +87,7 @@ export default function TabellaRacconti(props){
                    />
                    <Delete
                        title = {item.titoloDomanda}
-                       dbPath = {`/giochi/${props.item}/domande/${item.id}`}
+                       dbPath = {`trattamenti/cognitivi/${props.item}/domande/${item.id}`}
                        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                        textToast = {'Domanda eliminata'}
                        />

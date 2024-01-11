@@ -29,7 +29,7 @@ const UpdateDomanda = (props) =>{
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `/giochi/${props.idCard}/domande/${props.idDomanda}`); 
+      const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/domande/${props.idDomanda}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda,

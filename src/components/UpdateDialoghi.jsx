@@ -22,7 +22,7 @@ function UpdateDialoghi(props) {
 
   const aggiorna= () => {
    
-    const updateRef = ref(db, `/dialoghi/${props.item}`);
+    const updateRef = ref(db, `trattamenti/dialoghi/${props.item}`);
     update(updateRef, {
       titoloDialogo: titoloDialogo,
       tipologiaDialogo: tipologiaDialogo, 
@@ -78,7 +78,7 @@ function UpdateDialoghi(props) {
         <Form>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaDialogo} onChange={(e) => setTipologiaDialogo(e.target.value)}>
+        <Form.Select  className="selectForm" defaultValue={props.tipologiaDialogo} onChange={(e) => setTipologiaDialogo(e.target.value)}>
         {options.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -95,7 +95,7 @@ function UpdateDialoghi(props) {
      
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo Dialogo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  defaultValuevalue={props.titoloDialogo}  onChange={(e) => setTitoloDialogo(e.target.value)}/>
+        <Form.Control type="text" placeholder="Inserici titolo del gioco"  defaultValue={props.titoloDialogo}  onChange={(e) => setTitoloDialogo(e.target.value)}/>
       </Form.Group>
 
     </Form>

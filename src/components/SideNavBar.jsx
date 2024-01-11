@@ -2,9 +2,8 @@ import React from 'react';
 import '../styles/SideNavBar.css';
 
 import logo from '../immagini/logo.jpg'
-import {FaChess,FaRegComments,FaRegChartBar,FaPuzzlePiece,FaStethoscope} from "react-icons/fa"
+import {FaChess,FaRegComments,FaPuzzlePiece} from "react-icons/fa"
 import { ImManWoman } from "react-icons/im";
-
 import { NavLink } from "react-router-dom";
 
 import MenuSideBar from './MenuSideBar';
@@ -28,6 +27,11 @@ const SideNavBar = ({children}) => {
             path:"/dialoghi",
             name:"Dialoghi",
             icon:<FaRegComments/>
+        },
+        {
+            path:"/trattamento",
+            name:"Trattamenti",
+            icon:<FaPuzzlePiece/>
         },
     ]
 
