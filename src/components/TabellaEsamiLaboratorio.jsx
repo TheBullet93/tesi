@@ -148,9 +148,11 @@ function TabellaEsamiLaboratorio(props){
                                        dbPatologie = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`}
                                       />
                                       <DeleteDatiPaziente
-                                        title = {'BMI ' + format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
-                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                                        itemValue = {'Patologia: '+ props.patologia + ' BMI: ' + item.bmi}
+                                        title = {item.titolo}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/esami`}
+                                        itemValue = {item.patologia}
+                                        itemValue1 = {item.titolo}
+                                        itemValue2 = {item.valore}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}

@@ -175,9 +175,9 @@ function TabellaTerapieIntervallari(props) {
                        <DeleteDatiTerapie
                        title = {item.farmaco}
                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/terapie`}
-                       itemValue = {props.patologia}
+                       itemValue = {item.patologia}
                        itemValue2 = {item.farmaco}
-                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieIntervallari/${item.id}`}
+                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}
                        />

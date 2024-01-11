@@ -178,9 +178,9 @@ function TabellaTerapieGiornaliere(props) {
                          <DeleteDatiTerapie
                        title = {item.farmaco}
                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/terapie`}
-                       itemValue = {props.patologia}
+                       itemValue = {item.patologia}
                        itemValue2 = {item.farmaco}
-                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/${props.patologia}/terapieGiornaliere/${item.id}`}
+                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/terapieGiornaliere/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questa terapia?'}
                        textToast = {'Terapia eliminata'}
                        />

@@ -39,7 +39,9 @@ const DeleteDatiPaziente = (props) =>{
     let dataEliminazione = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbStoricoRef);
     set(newPostRef,{
-      dato: props.itemValue,
+      patologia: props.itemValue,
+      descrizione: props.itemValue1,
+      valore: props.itemValue2,
       giorno:  dataEliminazione,
       stato:'Terminato'
     });

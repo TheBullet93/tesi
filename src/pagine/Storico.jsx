@@ -16,6 +16,7 @@ import StoricoPatologie from '../components/StoricoPatologie';
 import StoricoAllergie from '../components/StoricoAllergie';
 import StoricoTerapie from '../components/StoricoTerapie';
 import StoricoTrattamenti from '../components/StoricoTrattamenti';
+import StoricoEsami from '../components/StoricoEsami';
 
 const Storico = () =>{
 
@@ -77,6 +78,17 @@ const Storico = () =>{
                />  
              <Toolbar start={startContent}  className="toolBar"/>
                <StoricoAllergie
+                 idPaziente = {state.id}
+               />
+            </Tab>
+            <Tab eventKey="esami" title="Esami">
+             <Header
+               title={'Storico esami di'}
+               nome = {state.nome}
+               cognome = {state.cognome}
+               />  
+             <Toolbar start={startContent}  className="toolBar"/>
+               <StoricoEsami
                  idPaziente = {state.id}
                />
             </Tab>
