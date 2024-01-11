@@ -25,14 +25,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-
-import Delete from "./Delete";
 import { Toolbar } from 'primereact/toolbar';
-
 import { useLocation } from "react-router-dom";
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
-import DeleteDatiPaziente from "./DeleteDatiPaziente";
+
+import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
 
 export default function ListaDialoghiPaziente(props) {
 
@@ -253,14 +251,16 @@ const endContent = (
                          tipologiaDialogo = {item.tipologiaDialogo}
 
                        />
-                      <DeleteDatiPaziente
-                       title = {item.titoloGioco}
-                       dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                       itemValue = {'Dialogo: '+ item.titoloDialogo + ' Tipologia: ' + item.tipologiaDialogo}
-                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}`}
-                       textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
-                       textToast = {'Dialogo eliminato'}
-                       />
+                <DeleteDatiTrattamento
+                  title = {item.titoloDialogo}
+                  dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/trattamenti`}
+                  itemValue = {item.titoloDialogo}
+                  itemValue2 = {'Dialogo'}
+                  itemValue3 = {item.tipologiaDialogo}
+                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}`}
+                  textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
+                  textToast = {'Dialogo eliminato'}
+                  />
                        </div>   
                   </Card.Footer>
                 </Card>
