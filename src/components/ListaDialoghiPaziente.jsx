@@ -1,8 +1,8 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
-import FormAssegnaDialogo from "./FormAssegnaDialogo";
+import {ref,onValue} from 'firebase/database';
+
 
 import { Card,Form} from "react-bootstrap";
 
@@ -31,6 +31,7 @@ import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
 
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
+import SelezionaEsDialogo from "./SelezionaEsDialogo";
 
 export default function ListaDialoghiPaziente(props) {
 
@@ -87,18 +88,6 @@ export default function ListaDialoghiPaziente(props) {
   
   },[auth?.currentUser?.uid])
 
-  const handleDelete = (item) => {
-    if (window.confirm('Sei sicuro di voler eliminare questa attività?')) {  
-
-      const dbRef = ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}`);
-      
-      remove(dbRef);
-
-      toast.success('Dialogo eliminato');
-      }  
-    }
-
- 
     const renderSwitch = (param)  =>{
       switch(param) {
         case 'Ballo':
@@ -160,10 +149,9 @@ export default function ListaDialoghiPaziente(props) {
 
 const centerContent = (
   <React.Fragment>
-        <FormAssegnaDialogo
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+                <SelezionaEsDialogo
+               idTerapista = {auth?.currentUser?.uid}
+               idPaziente = {props.idPaziente}/>
     <Form.Select  className="selectFormAttivita" onChange={(e) => setSearchTipologia(e.target.value)}>
              {tipologie.map((option,index) =>  {
             return(

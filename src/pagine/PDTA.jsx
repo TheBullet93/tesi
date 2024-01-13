@@ -123,12 +123,12 @@ const PDTA = () =>{
           const endContent = (
             <React.Fragment>
                      <Link  to={{ 
-                              pathname:"/attivita/:idAttivita",
-                              search: `?idAttivita=${state.id}`,}}
+                              pathname:"/trattamenti/:idPaziente",
+                              search: `?idPaziente=${state.id}`,}}
                               state= { state}
                               activeclassname="active">
                             <Button className="btnNavPaziente"  type="submit"  >
-                            <span className='btnText'>Attività</span> <AiOutlineArrowRight></AiOutlineArrowRight>
+                            <span className='btnText'>Trattamenti</span> <AiOutlineArrowRight></AiOutlineArrowRight>
                             </Button>
                           </Link>  
             </React.Fragment>

@@ -13,6 +13,7 @@ import TabellaDomandeMini from "./TabellaDomandeMini";
 import FormDomandaMini from "./FormDomandaMini";
 import { Toolbar } from 'primereact/toolbar';
 import Delete from './Delete';
+import SelezionaPazientiDialoghi from "./SelezionaPazientiDialoghi";
 
 export default function CardDialogo() {
 
@@ -141,6 +142,13 @@ export default function CardDialogo() {
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
+    <SelezionaPazientiDialoghi
+        idTerapista= {auth?.currentUser?.uid}
+        trattamento ={'dialoghi'}
+        tipologia = {item.tipologiaDialogo}
+        titolo = {item.titoloDialogo}
+        item = {item.id} 
+         />
        <UpdateDialoghi
          titoloDialogo = {item.titoloDialogo}
          tipologiaDialogo = {item.tipologiaDialogo}

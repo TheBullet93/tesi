@@ -31,6 +31,7 @@ import FormRacconti from "./FormRacconti";
 import Delete from './Delete';
 import TabellaRacconti from "./TabellaRacconti";
 import { Toolbar } from 'primereact/toolbar';
+import SelezionaPazientiEsCognitivo from "./SelezionaPazientiEsCognitivo";
 
 
 
@@ -300,6 +301,14 @@ export default function CardTrattamentoCognitivo() {
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
+    <SelezionaPazientiEsCognitivo
+        idTerapista= {auth?.currentUser?.uid}
+        trattamento ={'cognitivi'}
+        tipologia = {item.tipologiaGioco}
+        difficolta = {item.difficoltaGioco}
+        titolo = {item.titoloGioco}
+        item = {item.id}  
+         />
        <UpdateGiochi
          titoloGioco = {item.titoloGioco}
          tipologiaGioco = {item.tipologiaGioco}

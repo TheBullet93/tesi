@@ -4,17 +4,17 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 
 import { getDatabase} from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
+import {ref,onValue} from 'firebase/database';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import UpdateDialoghi from "./UpdateDialoghi";
 import { Toolbar } from 'primereact/toolbar';
 import Delete from './Delete';
 import FormEsFisici from "./FormEsFisici";
 import TabellaDomandeEsFisici from "./TabellaDomandeEsFisici";
 import FormDomandaEsFisico from "./FormDomandaEsFisico";
 import UpdateEsFisico from "./UpdateEsFisico";
+import SelezionaPazienti from "./SelezionaPazienti";
 
 export default function CardTrattamentoFisico() {
 
@@ -138,6 +138,13 @@ export default function CardTrattamentoFisico() {
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
+      <SelezionaPazienti
+        idTerapista= {auth?.currentUser?.uid}
+        trattamento ={'fisici'}
+        tipologia = {item.tipologiaEsercizio}
+        titolo = {item.titoloEsercizio}
+        item = {item.id} 
+         />
        <UpdateEsFisico
          titoloEsercizio = {item.titoloEsercizio}
          tipologiaEsercizio = {item.tipologiaEsercizio}

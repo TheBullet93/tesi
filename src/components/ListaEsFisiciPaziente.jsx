@@ -25,10 +25,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
-import Delete from "./Delete";
+
 import { Toolbar } from 'primereact/toolbar';
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
-import FormAssegnaGiocoFisico from "./FormAssegnaGiocoFisico";
+import SelezionaEsFisico from "./SelezionaEsFisico";
 
 export default function ListaEsFisiciPaziente(props) {
 
@@ -163,10 +163,9 @@ export default function ListaEsFisiciPaziente(props) {
 
 const centerContent = (
   <React.Fragment>
-             <FormAssegnaGiocoFisico
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+               <SelezionaEsFisico
+               idTerapista = {auth?.currentUser?.uid}
+               idPaziente = {props.idPaziente}/>
       <Form.Select className="selectFormAttivita" onChange={(e) => setSearchTipologia(e.target.value)}>
    {tipologie.map((option,index) =>  {
         return(

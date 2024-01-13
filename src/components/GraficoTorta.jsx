@@ -106,13 +106,13 @@ useEffect(()=>{
 
   const startContent = (
     <React.Fragment>
-    <Link  to={{ 
-                    pathname:"/attivita/:idAttivita",
-                    search: `?idAttivita=${state.id}`,}}
+      <Link  to={{ 
+                    pathname:"/trattamenti/:idPaziente",
+                    search: `?idPaziente=${state.id}`,}}
                     state= { state}
                     activeclassname="active">
                   <Button className="btnNavPaziente" type="submit" >
-                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  <span className='btnText'> Attività</span>
+                    <AiOutlineArrowLeft></AiOutlineArrowLeft>  <span className='btnText'> Trattamenti</span>
                   </Button>
                 
                   </Link>  

@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/SideNavBar.css';
 
 import logo from '../immagini/logo.jpg'
-import {FaChess,FaRegComments,FaPuzzlePiece} from "react-icons/fa"
+import {FaPuzzlePiece} from "react-icons/fa"
 import { ImManWoman } from "react-icons/im";
 import { NavLink } from "react-router-dom";
 
@@ -17,16 +17,6 @@ const SideNavBar = ({children}) => {
             path:"/pazienti",
             name:"Pazienti",
             icon:<ImManWoman />
-        },
-        {
-            path:"/giochi",
-            name:"Giochi",
-            icon:<FaChess/>
-        },
-        {
-            path:"/dialoghi",
-            name:"Dialoghi",
-            icon:<FaRegComments/>
         },
         {
             path:"/trattamento",

@@ -1,8 +1,7 @@
 import React ,{ useState,useEffect } from "react";
 
 import { getDatabase} from "firebase/database";
-import {ref,remove,onValue} from 'firebase/database';
-import FormAssegnaGioco from "./FormAssegnaGioco";
+import {ref,onValue} from 'firebase/database';
 import UpdateGiochiPaziente from "./UpdateGiochiPaziente";
 
 import { Card,Form} from "react-bootstrap";
@@ -33,9 +32,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
-import Delete from "./Delete";
 import { Toolbar } from 'primereact/toolbar';
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
+import SelezionaEsCognitivo from "./SelezionaEsCognitivo";
 
 export default function ListaEserciziPaziente(props) {
 
@@ -232,10 +231,9 @@ export default function ListaEserciziPaziente(props) {
 
 const centerContent = (
   <React.Fragment>
-             <FormAssegnaGioco
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-               />
+                  <SelezionaEsCognitivo
+               idTerapista = {auth?.currentUser?.uid}
+               idPaziente = {props.idPaziente}/>
       <Form.Select className="selectFormAttivita" onChange={(e) => setSearchTipologia(e.target.value)}>
    {tipologie.map((option,index) =>  {
         return(
