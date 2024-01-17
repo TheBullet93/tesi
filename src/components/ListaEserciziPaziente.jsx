@@ -35,6 +35,12 @@ import { auth } from '../firebase';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
 import SelezionaEsCognitivo from "./SelezionaEsCognitivo";
+import AggiungiDomanda from "./AggiungiDomanda";
+import AggiungiDomandaParola from "./AggiungiDomandaParola";
+import AggiungiDomande from "./AggiungiDomande";
+import AggiungiDomandaCombinazioni from "./AggiungiDomandaCombinazioni";
+import AggiungiDomandaCategorizzazione from "./AggiungiDomandaCategorizzazione";
+import AggiungiDomandaAudio from "./AggiungiDomandaAudio";
 
 export default function ListaEserciziPaziente(props) {
 
@@ -212,7 +218,59 @@ export default function ListaEserciziPaziente(props) {
      </Link>;
   }
 
- 
+  const renderButton = (item,tipologia)  =>{
+    switch(tipologia) {
+      case 'Appartenenza':
+        return <AggiungiDomandaParola
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+      />;
+      case 'Categorizzazione':
+        return <AggiungiDomandaCategorizzazione
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}/>;
+      case 'Combinazioni lettere':
+        return <AggiungiDomandaCombinazioni
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}/>;
+      case 'Fluenze Fonologiche':
+        return <AggiungiDomandaParola
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+      />;
+      case 'Fluenze Semantiche':
+        return <AggiungiDomandaParola
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+      />;
+      case 'Fluenze Verbali':
+        return <AggiungiDomandaParola
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+      />;
+      case 'Attualità':
+        return <AggiungiDomande
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+      />;
+      case 'Lettere Mancanti':
+        return <AggiungiDomandaParola
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+      />;
+      case 'Mesi':
+        return <AggiungiDomande
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+      />;
+      case 'Musica':
+        return <AggiungiDomande
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+      />;
+      case 'Racconti':
+        return  <AggiungiDomanda
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+      />;
+      case 'Suoni':
+        return <AggiungiDomandaAudio
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+      />;
+      default:
+        return ' seleziona una tipologia';
+    }
+  }
+
 
   const startContent = (
     <React.Fragment>
@@ -300,6 +358,7 @@ const endContent = (
                      </Card.Text>
                   </Card.Body>
                   <Card.Footer>
+                  {renderButton(item.id,item.tipologiaGioco)}
                   <div className="delCard">
                   <UpdateGiochiPaziente
                     idTerapista = {auth?.currentUser?.uid}

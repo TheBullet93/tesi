@@ -96,7 +96,7 @@ const SelezionaEsFisico = (props) =>{
              <Form>
                 {!todoData.length
                 ?
-                <h2>Nessun paziente</h2>
+                <h2>Nessun esercizio creato</h2>
                 : todoData
                      .filter((item) => {
               return search.toLowerCase() === ''

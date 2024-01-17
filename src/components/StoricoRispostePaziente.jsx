@@ -96,11 +96,11 @@ const StoricoRispostePaziente = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Titolo <IoMdArrowDropdown onClick={() => sortingASC("titoloGioco")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloGioco")}/></Th>
-        <Th>Tipologia <IoMdArrowDropdown onClick={() => sortingASC("tipologiaGioco")}/><IoMdArrowDropup onClick={() => sortingDSC("tipologiaGioco")}/></Th>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("domanda")}/><IoMdArrowDropup onClick={() => sortingDSC("domanda")}/></Th>
-        <Th>Risposta <IoMdArrowDropdown onClick={() => sortingASC("rispostaPaziente")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaPaziente")}/></Th>
-        <Th>Giorno <IoMdArrowDropdown onClick={() => sortingASC("giorno")}/><IoMdArrowDropup onClick={() => sortingDSC("giorno")}/></Th>
+        <Th>Titolo {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloGioco")}/> }</Th>
+        <Th>Tipologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("tipologiaGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("tipologiaGioco")}/> }</Th>
+        <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("domanda")}/>:<IoMdArrowDropdown className='arrow'onClick={() => sortingDSC("domanda")}/> }</Th>
+        <Th>Risposta {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaPaziente")}/>:<IoMdArrowDropdown  className='arrow' onClick={() => sortingDSC("rispostaPaziente")}/> }</Th>
+        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         </Tr>
       </Thead>
       <Tbody>

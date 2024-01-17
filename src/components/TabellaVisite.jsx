@@ -103,12 +103,12 @@ function TabellaVisite(props){
              <Table>     
              <Thead>
              <Tr>
-                <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("patologia")}/><IoMdArrowDropup onClick={() => sortingDSC("patologia")}/></Th>
-                <Th>Descrizione <IoMdArrowDropdown onClick={() => sortingASC("titolo")}/><IoMdArrowDropup onClick={() => sortingDSC("titolo")}/></Th>
-                <Th>Valore <IoMdArrowDropdown onClick={() => sortingASC("valore")}/><IoMdArrowDropup onClick={() => sortingDSC("valore")}/></Th> 
-                <Th>Data Monitoraggio <IoMdArrowDropdown onClick={() => sortingASC("dataMonitoraggio")}/><IoMdArrowDropup onClick={() => sortingDSC("dataMonitoraggio")}/></Th>
-                <Th>Note</Th>
-                <Th>Opzioni</Th>
+             <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+             <Th>Descrizione {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titolo")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titolo")}/> }</Th>
+             <Th>Valore {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("valore")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("valore")}/> }</Th>
+             <Th>Data Monitoraggio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
+             <Th>Note</Th>
+             <Th>Opzioni</Th>
              </Tr>
             </Thead>
             <Tbody>

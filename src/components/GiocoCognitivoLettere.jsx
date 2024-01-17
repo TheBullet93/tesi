@@ -69,7 +69,7 @@ const GiocoCognitivoLettere = (props) => {
 
   const addRisposta = () =>{
     const dbRispostaRef = refRispostePaziente;
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
@@ -163,16 +163,14 @@ const removeRandomLetter = (parola) =>{
        <React.Fragment key={currentQuestion}>
        <Card className="cardGioco">
       <Card.Body >
+      <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
             <div className="inputLettera">
              <div className="parola">  {removeRandomLetter(todoData[currentQuestion].parola.toLocaleUpperCase())}</div>
             </div>
-         
-         
               <div className="cardNext">
                  <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
               </div>
@@ -182,7 +180,7 @@ const removeRandomLetter = (parola) =>{
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
+                 currentQuestion = {todoData[currentQuestion].id}
 
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
@@ -201,14 +199,14 @@ const removeRandomLetter = (parola) =>{
                    <h2 className="avviso">Domande termiante</h2>
                </Card.Title>
                <Card.Text>
-               <p className="score">LE TUE LETTERE INSERITE SONO: </p>
+               <p className="score">LE TUE LETTERE INSERITE SONO </p>
              
                {risposte.map((item, index) => {
                   return(
                     <>
                     <React.Fragment key={index}>
                 
-                         <p className="score" >Domanda {index +1}: {item.risposta.toLocaleUpperCase()}</p>
+                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
                        
                     </React.Fragment>
                      

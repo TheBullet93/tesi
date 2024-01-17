@@ -115,10 +115,10 @@ const endContent = (
       <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Nome <IoMdArrowDropdown onClick={() => sortingASC("nome")}/><IoMdArrowDropup onClick={() => sortingDSC("nome")}/></Th>
-        <Th>Cognome <IoMdArrowDropdown onClick={() => sortingASC("cognome")}/><IoMdArrowDropup onClick={() => sortingDSC("cognome")}/></Th>
-        <Th>Città di nascita <IoMdArrowDropdown onClick={() => sortingASC("citta")}/><IoMdArrowDropup onClick={() => sortingDSC("citta")}/></Th>
-        <Th>Data di nascita <IoMdArrowDropdown onClick={() => sortingASC("data")}/><IoMdArrowDropup onClick={() => sortingDSC("data")}/></Th>
+        <Th>Nome {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("nome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("nome")}/> }</Th>
+        <Th>Cognome {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("cognome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("cognome")}/> }</Th>
+        <Th>Città di nascita {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("citta")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("citta")}/> }</Th>
+        <Th>Data di nascita {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("data")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("data")}/> }</Th>
         <Th>Informazioni</Th>
         <Th>PDTA</Th>
         <Th>Trattamenti</Th>

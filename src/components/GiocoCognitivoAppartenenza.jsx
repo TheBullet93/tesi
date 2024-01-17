@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 import {MdNavigateNext} from "react-icons/md";
 import UpdateAppartenenzaPaziente from "./UpdateAppartenenzaPaziente";
-import { Button} from "react-bootstrap";
+import { Button, Col, Row} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
@@ -23,6 +23,7 @@ const GiocoCognitivoAppartenenza = (props) => {
    
     const  [parolaPaziente,setParola] = useState('');
     const [risposte,setRisposte] = useState([]);
+ 
   
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${props.tipologia}`);
@@ -61,7 +62,7 @@ const GiocoCognitivoAppartenenza = (props) => {
  
   const addRisposta = () =>{
     const dbRispostaRef = refRispostePaziente;
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
@@ -136,13 +137,11 @@ const handleErrata= () =>{
       
        <Card className="cardGioco">
       <Card.Body >
+      <p>Domanda {currentQuestion + 1} di {todoData.length}  </p>
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
-        <p>Domanda {currentQuestion + 1} di {todoData.length}  </p>
           <div className="parola"> {todoData[currentQuestion].parola.toLocaleUpperCase()}</div>
-          
-            
             <div className="cardNext">
                <Form.Group className="mb-3" controlId="domanda">
                  <Form.Control type="text" placeholder="Inserici parola" className="formGame"
@@ -157,8 +156,7 @@ const handleErrata= () =>{
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-
+                 currentQuestion = {todoData[currentQuestion].id}
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
                   />
@@ -182,21 +180,22 @@ const handleErrata= () =>{
                   return(
                     <>
                     <React.Fragment key={index}>
-                      <div className="score" >Domanda {index +1}: {item.risposta.toLocaleUpperCase()}</div>
+                     <Row>
+                      <Col>
+                        <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTA</Button>
+                      </Col>
+                      <Col>
+                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</span>
+                      </Col>
+                      <Col>
+                        <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATA</Button>  
+                      </Col>
+                     </Row>
                     </React.Fragment>
-                    
-                    </>
-                    
+                    </>        
                      )
                }
-     
-                )}
-               <div>
-                 <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTA</Button>
-                 <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATA</Button>  
-              </div>
-                 
-                      
+                )}       
                </Card.Text>
           </Card.Body >
         </Card>

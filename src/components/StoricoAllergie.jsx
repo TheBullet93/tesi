@@ -76,8 +76,8 @@ const StoricoAllergie = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Allergia <IoMdArrowDropdown onClick={() => sortingASC("dato")}/><IoMdArrowDropup onClick={() => sortingDSC("dato")}/></Th>
-        <Th>Giorno <IoMdArrowDropdown onClick={() => sortingASC("giorno")}/><IoMdArrowDropup onClick={() => sortingDSC("giorno")}/></Th>
+        <Th>Allergia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dato")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dato")}/> }</Th>
+        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>

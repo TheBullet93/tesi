@@ -105,13 +105,13 @@ function TabellaTerapieIntervallari(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("patologia")}/><IoMdArrowDropup onClick={() => sortingDSC("patologia")}/></Th>
-        <Th>Farmaco <IoMdArrowDropdown onClick={() => sortingASC("farmaco")}/><IoMdArrowDropup onClick={() => sortingDSC("farmaco")}/></Th>
-        <Th>Giorni <IoMdArrowDropdown onClick={() => sortingASC("giorni")}/><IoMdArrowDropup onClick={() => sortingDSC("giorni")}/></Th>
-        <Th>Inizio <IoMdArrowDropdown onClick={() => sortingASC("dataInizio")}/><IoMdArrowDropup onClick={() => sortingDSC("dataInizio")}/></Th>
-        <Th>Fine <IoMdArrowDropdown onClick={() => sortingASC("dataFine")}/><IoMdArrowDropup onClick={() => sortingDSC("dataFine")}/></Th>
-        <Th>Numero volte <IoMdArrowDropdown onClick={() => sortingASC("numAssunzioni")}/><IoMdArrowDropup onClick={() => sortingDSC("numAssunzioni")}/></Th>
-        <Th>Quando <IoMdArrowDropdown onClick={() => sortingASC("dettagli")}/><IoMdArrowDropup onClick={() => sortingDSC("dettagli")}/> </Th>
+        <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+        <Th>Farmaco {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
+        <Th>Giorni {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorni")}/> }</Th>
+        <Th>Inizio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataInizio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataInizio")}/> }</Th>
+        <Th>Fine {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataFine")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataFine")}/> }</Th>
+        <Th>Numero volte {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("numAssunzioni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("numAssunzioni")}/> }</Th>
+        <Th>Quando {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dettagli")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dettagli")}/> }</Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>

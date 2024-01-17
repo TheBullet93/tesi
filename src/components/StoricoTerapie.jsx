@@ -76,9 +76,9 @@ const StoricoTerapie = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Patologia <IoMdArrowDropdown onClick={() => sortingASC("patologia")}/><IoMdArrowDropup onClick={() => sortingDSC("patologia")}/></Th>
-        <Th>Farmaco <IoMdArrowDropdown onClick={() => sortingASC("farmaco")}/><IoMdArrowDropup onClick={() => sortingDSC("farmaco")}/></Th>
-        <Th>Giorno <IoMdArrowDropdown onClick={() => sortingASC("giorno")}/><IoMdArrowDropup onClick={() => sortingDSC("giorno")}/></Th>
+        <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+        <Th>Farmaco{order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
+        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>

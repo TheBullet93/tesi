@@ -67,13 +67,13 @@ const GiocoCognitivoRacconti = (props) => {
 
   const addRisposta = () =>{
     const dbRispostaRef = refRispostePaziente;
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
       titoloGioco: props.titolo,
       tipologiaGioco: props.tipologia,
-      domanda: todoData[currentQuestion].argomento,
+      domanda: todoData[currentQuestion].titoloDomanda,
       rispostaPaziente: 'Evento raccontato',
       giorno:  dataRisposta,
       
@@ -133,30 +133,22 @@ const handleErrata= () =>{
        <React.Fragment key={currentQuestion}>
        <Card className="cardGioco">
       <Card.Body >
-        <Card.Title className="titoloDomanda" >
-           {todoData[currentQuestion].titoloDomanda}
-        </Card.Title>
+      <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
-
-         
             <div className="inputLettera">
-                    <h3 className="parola">  {todoData[currentQuestion].argomento}</h3>
+                    <h3 className="parola">  {todoData[currentQuestion].titoloDomanda}</h3>
             </div>
-         
-         
               <div className="cardNext">
                  <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
-              </div>
-          
+              </div>       
         </Card.Text>
         <UpdateRaccontiAttivita
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
+                 currentQuestion = {todoData[currentQuestion].id}
 
-                 argomento= {todoData[currentQuestion].argomento}
+                 argomento= {todoData[currentQuestion].titoloDomanda}
                   />
       </Card.Body >
     </Card>
@@ -179,7 +171,7 @@ const handleErrata= () =>{
                     <>
                     <React.Fragment key={index}>
                     <div>
-                         <p className="score" >Domanda {index +1}: {item.risposta.toLocaleUpperCase()}</p>
+                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
                        </div>
                     </React.Fragment>
                       
@@ -187,7 +179,6 @@ const handleErrata= () =>{
                     
                      )
                }
-     
                 )}
                <div>
                  <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>

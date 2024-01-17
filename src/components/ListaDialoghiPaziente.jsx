@@ -32,6 +32,7 @@ import Button from 'react-bootstrap/Button';
 
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
 import SelezionaEsDialogo from "./SelezionaEsDialogo";
+import AggiungiDomanda from "./AggiungiDomanda";
 
 export default function ListaDialoghiPaziente(props) {
 
@@ -230,6 +231,9 @@ const endContent = (
                      </Card.Text>
                   </Card.Body>
                   <Card.Footer>
+                  <AggiungiDomanda
+                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.tipologiaDialogo}/domande/`}
+                    />
                      <div className="delCard">
                        <UpdateDialoghiPaziente
                          idTerapista = {auth?.currentUser?.uid}

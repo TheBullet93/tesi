@@ -69,7 +69,7 @@ const GiocoCognitivoParole = (props) => {
 
   const addRisposta = () =>{
     const dbRispostaRef = refRispostePaziente;
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
@@ -150,12 +150,11 @@ const handleErrata= () =>{
        <React.Fragment key={currentQuestion}>
        <Card className="cardGioco">
       <Card.Body >
+      <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
-
           <h3 className="parola"> {todoData[currentQuestion].parola.toLocaleUpperCase()}</h3>
           <Row  xs={1} md={1} className="g-4">
             <Col >
@@ -189,7 +188,7 @@ const handleErrata= () =>{
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
+                 currentQuestion = {todoData[currentQuestion].id}
 
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
@@ -208,12 +207,12 @@ const handleErrata= () =>{
                    <h2 className="avviso">Domande termiante</h2>
                </Card.Title>
                <Card.Text>
-               <p className="score">LE TUE RISPOSTE: </p>
+               <p className="score">LE TUE RISPOSTE </p>
                {risposte.map((item, index) => {
                   return(
                     <>
                       <div key={index}>
-                        <p>Domanda {index +1}:</p>
+                        <p>Domanda {index +1}</p>
                          <p className="score" > {item.risposta1.toLocaleUpperCase()}</p>
                          <p className="score" > {item.risposta2.toLocaleUpperCase()}</p>
                          <p className="score" > {item.risposta3.toLocaleUpperCase()}</p>

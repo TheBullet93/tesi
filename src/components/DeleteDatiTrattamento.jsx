@@ -35,7 +35,7 @@ const DeleteDatiTrattamento = (props) =>{
   
   const addStorico = () =>{
     const dbStoricoRef = ref(dbStorico, dbStoricoPath);
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+    let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataEliminazione = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbStoricoRef);
     set(newPostRef,{

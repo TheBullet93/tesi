@@ -65,7 +65,7 @@ export default function TabellaRacconti(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Argomento <IoMdArrowDropdown onClick={() => sortingASC("argomento")}/><IoMdArrowDropup onClick={() => sortingDSC("argomento")}/></Th>
+      <Th>Argomento {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>
@@ -77,11 +77,11 @@ export default function TabellaRacconti(props){
                 
                 <React.Fragment key={item.id}>
                 <Tr >
-                  <Td>{item.argomento}</Td>
+                  <Td>{item.titoloDomanda}</Td>
                   <Td>
                   <ButtonGroup>
                    <UpdateRacconti              
-                    argomento = {item.argomento}
+                    argomento = {item.titoloDomanda}
                     idCard = {props.item}
                     idDomanda = {item.id}
                    />

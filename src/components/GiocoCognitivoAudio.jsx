@@ -112,7 +112,7 @@ const activeQuestion = todoData[currentQuestion];
       });
     
       const dbRispostaRef = refRispostePaziente;
-      let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+      let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
       let dataRisposta = new Date().toLocaleString('it-IT', options);
       const newPostRef = push(dbRispostaRef);
       set(newPostRef,{
@@ -137,7 +137,7 @@ const activeQuestion = todoData[currentQuestion];
         });
 
         const dbRispostaRef = refRispostePaziente;
-        let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
+        let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
         let dataRisposta = new Date().toLocaleString('it-IT', options);
         const newPostRef = push(dbRispostaRef);
         set(newPostRef,{
@@ -193,11 +193,11 @@ function shuffleButtons(item1,item2,item3,item4) {
        <h2 className="rispMini">Ciao {props.nomePaziente} {props.cognomePaziente}, rispondi alle seguenti domande</h2>
        <Card key={currentQuestion} className="cardGioco">
       <Card.Body >
+      <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
         <Card.Title className="titoloDomanda" >
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-          <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
           <Row  xs={1} md={1} className="g-4">
              <Col >
                 <ButtonGroup className="quiz-button">
@@ -229,7 +229,7 @@ function shuffleButtons(item1,item2,item3,item4) {
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
+                 currentQuestion = {todoData[currentQuestion].id}
 
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  rispostaCorretta = {todoData[currentQuestion].rispostaCorretta}
@@ -254,13 +254,13 @@ function shuffleButtons(item1,item2,item3,item4) {
                <Card.Text>
                <p className="rispEsatte">RISPOSTE ESATTE </p><p className="score">{rispEsatte}</p>
                <p className="rispErrate">RISPOSTE ERRATE</p><p className="score">{rispSbagliate}</p>
-               <p className="score">LE TUE RISPOSTE: </p>
+               <p className="score">LE TUE RISPOSTE </p>
                {risposte.map((item, index) => {
                   return(
                     <>
                     <React.Fragment key={index}>
                       <div>
-                         <p className="score" >Domanda {index +1}: {item.risposta.toLocaleUpperCase()}</p> 
+                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p> 
                        </div>
                     </React.Fragment>
                       

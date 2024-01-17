@@ -17,6 +17,7 @@ import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import AggiornaDomanda from "./AggiornaDomanda";
 
 const GiocoFisico = (props) => {
 
@@ -24,11 +25,6 @@ const GiocoFisico = (props) => {
 
     const [todoData,setTodoData] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
-   
-
-    const [risposte,setRisposte] = useState([]);
-
-    const [risposta,setRisposta] = useState('Non eseguito');
    
     const activeQuestion = todoData[currentQuestion];
 
@@ -67,34 +63,26 @@ const GiocoFisico = (props) => {
     });
   },[auth?.currentUser?.uid])
 
-  const addRisposta = () =>{
-    const dbRispostaRef = refRispostePaziente;
-    let options = {'weekday': 'long', 'month': '2-digit', 'day': '2-digit','year':'numeric','hour': '2-digit','minute': '2-digit'};
-    let dataRisposta = new Date().toLocaleString('it-IT', options);
-    const newPostRef = push(dbRispostaRef);
-    set(newPostRef,{
-      titoloGioco: props.titoloEsercizio,
-      tipologiaGioco: props.tipologiaEsercizio,
-      domanda: todoData[currentQuestion].titoloDomanda,
-      rispostaPaziente: risposta,
-      giorno:  dataRisposta,
-      
-    });
-  }
-
-
 
 const handleNextQuestion = () =>{
-
-
   const nextQuestion = currentQuestion + 1;
   if(nextQuestion < todoData.length){
     setCurrentQuestion(nextQuestion);
     
   }
   setCurrentQuestion(nextQuestion);
- addRisposta();
- 
+  const dbRispostaRef = refRispostePaziente;
+  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
+  let dataRisposta = new Date().toLocaleString('it-IT', options);
+  const newPostRef = push(dbRispostaRef);
+  set(newPostRef,{
+    titoloGioco: props.titoloEsercizio,
+    tipologiaGioco: props.tipologiaEsercizio,
+    domanda: todoData[currentQuestion].titoloDomanda,
+    rispostaPaziente: 'Non Eseguito',
+    giorno:  dataRisposta,
+  });
+
 }
 
 
@@ -109,8 +97,20 @@ const handleCorretta= () =>{
    
   });
 
-  setRisposta('Corretto')
-  navigate(-1)
+  const dbRispostaRef = refRispostePaziente;
+  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
+  let dataRisposta = new Date().toLocaleString('it-IT', options);
+  const newPostRef = push(dbRispostaRef);
+  set(newPostRef,{
+    titoloGioco: props.titoloEsercizio,
+    tipologiaGioco: props.tipologiaEsercizio,
+    domanda: todoData[currentQuestion].titoloDomanda,
+    rispostaPaziente: 'Corretto',
+    giorno:  dataRisposta,
+    
+  });
+
+ handleNextQuestion();
 }
 
 const handleErrata= () =>{
@@ -124,9 +124,22 @@ const handleErrata= () =>{
     
   });
 
-  setRisposta('Errato')
-  navigate(-1)
+  const dbRispostaRef = refRispostePaziente;
+  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
+  let dataRisposta = new Date().toLocaleString('it-IT', options);
+  const newPostRef = push(dbRispostaRef);
+  set(newPostRef,{
+    titoloGioco: props.titoloEsercizio,
+    tipologiaGioco: props.tipologiaEsercizio,
+    domanda: todoData[currentQuestion].titoloDomanda,
+    rispostaPaziente: 'Errato',
+    giorno:  dataRisposta,
+    
+  });
+   
+  handleNextQuestion();
 }
+
 
     return (
      <>
@@ -137,30 +150,28 @@ const handleErrata= () =>{
        <React.Fragment key={currentQuestion}>
        <Card className="cardGioco">
       <Card.Body >
-        <Card.Title className="titoloDomanda" >
-           {todoData[currentQuestion].titoloDomanda}
-        </Card.Title>
-        <Card.Text>
+    
           <p>Esercizio {currentQuestion + 1} di {todoData.length}</p>
-
-         
+       
+        <Card.Text>
             <div className="inputLettera">
                     <h3 className="parola">  {todoData[currentQuestion].titoloDomanda}</h3>
             </div>
          
          
               <div className="cardNext">
-                 <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
+              <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>
+              <button className="btnNext" onClick={handleNextQuestion}>Esercizio successivo <MdNavigateNext/></button>
+              <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATO</Button>
+                
               </div>
           
         </Card.Text>
-        <UpdateRaccontiAttivita
-                 idTerapista = {auth?.currentUser?.uid}
-                 idPaziente = {props.idPaziente}
-                 idGioco = {props.idGioco} 
-                 currentQuestion = {currentQuestion}
-                 titoloDomanda= {todoData[currentQuestion].titoloDomanda}
-                  />
+        <AggiornaDomanda
+        titoloDomanda= {todoData[currentQuestion].titoloDomanda}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/fisici/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
+        />
+       
       </Card.Body >
     </Card>
        </React.Fragment>
@@ -174,34 +185,6 @@ const handleErrata= () =>{
               <Card.Title>
                    <h2 className="avviso">ESERCIZIO FISICO TERMINATO</h2>
                </Card.Title>
-               <Card.Text>
-               <p className="score">Valuta l'esercizio </p>
-             
-               {risposte.map((item, index) => {
-                  return(
-                    <>
-                    <React.Fragment key={index}>
-                    <div>
-                         <p className="score" >Esercizio {index +1}</p>
-                       </div>
-                       <div>
-                 <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>
-                 <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATO</Button>  
-              </div>
-                    </React.Fragment>
-                      
-                    </>
-                    
-                     )
-               }
-     
-                )}
-               <div>
-                 <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>
-                 <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATO</Button>  
-              </div>
-                        
-               </Card.Text>
           </Card.Body >
         </Card>
     </>

@@ -64,8 +64,8 @@ export default function TabellaFluenze(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
-        <Th>Parola <IoMdArrowDropdown onClick={() => sortingASC("parola")}/><IoMdArrowDropup onClick={() => sortingDSC("parola")}/></Th>
+      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th>Parola {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

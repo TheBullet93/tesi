@@ -65,11 +65,11 @@ export default function TabellaDomande(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
-        <Th>Risp. Corretta <IoMdArrowDropdown onClick={() => sortingASC("rispostaCorretta")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaCorretta")}/></Th>
-        <Th>Risp. Errata 1 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata1")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata1")}/></Th>
-        <Th>Risp. Errata 2 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata2")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata2")}/></Th>
-        <Th>Risp. Errata 3 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata3")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata3")}/></Th>
+      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th>Risp. Corretta {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaCorretta")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaCorretta")}/> }</Th>
+      <Th>Risp. Errata 1 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata1")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata1")}/> }</Th>
+      <Th>Risp. Errata 2 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata2")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata2")}/> }</Th>
+      <Th>Risp. Errata 3 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata3")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata3")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

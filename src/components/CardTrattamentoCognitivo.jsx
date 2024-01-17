@@ -40,11 +40,11 @@ export default function CardTrattamentoCognitivo() {
   const db = getDatabase();
 
   const [todoData,setTodoData] = useState([]);
-  const [terapisti,setTerapisti] = useState([]);
+  
 
   const [searchTipologia, setSearchTipologia] = useState('');
   const [searchLivello, setSearchLivello] = useState('');
-  const [searchTerapista, setSearchTerapista] = useState('');
+ 
 
   const tipologie = [ 
     {label:"TIPOLOGIE"} ,
@@ -99,19 +99,7 @@ export default function CardTrattamentoCognitivo() {
   
   },[])
 
-  useEffect(() => {
-    const Ref = ref(db, 'terapisti/');
-    onValue(Ref, (snapshot) => {
-      const data = snapshot.val();
-      const newPosts = Object.keys(data || {}).map(key=>({
-        id:key,
-        ...data[key]
-      }));
-      console.log(newPosts);
-      setTerapisti(newPosts);
-    });
-  
-  },[])
+
 
     const renderTabDomande = (param,idParam)  =>{
       switch(param) {
@@ -234,16 +222,6 @@ export default function CardTrattamentoCognitivo() {
 
   const endContent = (
       <React.Fragment>
-         <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTerapista(e.target.value)}>
-         <option>TERAPISTI</option>
-         {terapisti.map((item) =>  {
-            return(
-              <option key={item.id}> {item.profilo.cognome} {item.profilo.nome}</option>
-            )
-           }        
-        
-          )} 
-         </Form.Select>
            <Form.Select   className="selectFormGioco" onChange={(e) => setSearchTipologia(e.target.value)}>
               {tipologie.map((option,index) =>  {
             return(
@@ -288,11 +266,6 @@ export default function CardTrattamentoCognitivo() {
     ? item
     : item.difficoltaGioco.includes(searchLivello);
 })
-.filter((item) => {
-  return searchTerapista === 'TERAPISTI'
-    ? item
-    : item.creatore.includes(searchTerapista);
-})
  .map((item) =>{
   return (
 <React.Fragment key={item.id}>
@@ -335,9 +308,6 @@ export default function CardTrattamentoCognitivo() {
       
     }
   </Card.Body>
-  <Card.Footer>
-    <p><span className="itemCard">Creatore:</span> {item.creatore}</p> 
-  </Card.Footer>
 </Card>
     
     </React.Fragment>

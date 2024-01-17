@@ -63,13 +63,13 @@ export default function TabellaCategorizzazione(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
-        <Th>Categoria <IoMdArrowDropdown onClick={() => sortingASC("categoria")}/><IoMdArrowDropup onClick={() => sortingDSC("categoria")}/></Th>
-        <Th>Parola 1<IoMdArrowDropdown onClick={() => sortingASC("parola1")}/><IoMdArrowDropup onClick={() => sortingDSC("parola1")}/></Th>
-        <Th>Parola 2 <IoMdArrowDropdown onClick={() => sortingASC("parola2")}/><IoMdArrowDropup onClick={() => sortingDSC("parola2")}/></Th>
-        <Th>Parola 3<IoMdArrowDropdown onClick={() => sortingASC("parola3")}/><IoMdArrowDropup onClick={() => sortingDSC("parola3")}/></Th>
-        <Th>Parola 4<IoMdArrowDropdown onClick={() => sortingASC("parola4")}/><IoMdArrowDropup onClick={() => sortingDSC("parola4")}/></Th>
-        <Th>Opzioni</Th>
+      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th>Categoria {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("categoria")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("categoria")}/> }</Th>
+      <Th>Parola 1 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola1")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola1")}/> }</Th>
+      <Th>Parola 2 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola2")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola2")}/> }</Th>
+      <Th>Parola 3 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola3")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola3")}/> }</Th>
+      <Th>Parola 4 {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola4")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola4")}/> }</Th>
+      <Th>Opzioni</Th>
       </Tr>
     </Thead>
     <Tbody>

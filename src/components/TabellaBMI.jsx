@@ -101,11 +101,11 @@ function TabellaBMI(props){
              <Table>     
             <Thead>
              <Tr>
-                <Th>Peso <IoMdArrowDropdown onClick={() => sortingASC("peso")}/><IoMdArrowDropup onClick={() => sortingDSC("peso")}/></Th>
-                <Th>Altezza <IoMdArrowDropdown onClick={() => sortingASC("altezza")}/><IoMdArrowDropup onClick={() => sortingDSC("altezza")}/></Th> 
-                <Th>BMI <IoMdArrowDropdown onClick={() => sortingASC("bmi")}/><IoMdArrowDropup onClick={() => sortingDSC("bmi")}/></Th>
-                <Th>Circonferenza Vita <IoMdArrowDropdown onClick={() => sortingASC("circonferenzaVita")}/><IoMdArrowDropup onClick={() => sortingDSC("circonferenzaVita")}/></Th>
-                <Th>Data Monitoraggio <IoMdArrowDropdown onClick={() => sortingASC("dataMonitoraggio")}/><IoMdArrowDropup onClick={() => sortingDSC("dataMonitoraggio")}/></Th>
+                <Th>Peso {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("peso")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("peso")}/> }</Th>
+                <Th>Altezza {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("altezza")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("altezza")}/> }</Th> 
+                <Th>BMI {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("bmi")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("bmi")}/> }</Th>
+                <Th>Circonferenza Vita{order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("circonferenzaVita")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("circonferenzaVita")}/> }</Th>
+                <Th>Data Monitoraggio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
                 <Th>Opzioni</Th>
              </Tr>
             </Thead>

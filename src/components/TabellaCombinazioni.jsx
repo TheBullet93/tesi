@@ -64,8 +64,8 @@ export default function TabellaCombinazioni(props){
     <Table>
     <Thead>
       <Tr>
-        <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
-        <Th>Lettere <IoMdArrowDropdown onClick={() => sortingASC("lettere")}/><IoMdArrowDropup onClick={() => sortingDSC("lettere")}/></Th>
+      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th>Lettere {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("lettere")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("lettere")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

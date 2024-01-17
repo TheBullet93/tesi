@@ -8,42 +8,43 @@ import { getDatabase } from "firebase/database";
 import { set,push,ref } from 'firebase/database';
 
 import { InputGroup } from 'react-bootstrap';
+import { FaPlus } from "react-icons/fa";
 
-const FormRacconti = (props) =>{
+const AggiungiDomanda= (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
-      setArgomento(null)
+      setTitoloDomanda(null)
 
       setShow(false);
     };
     const handleShow = () => setShow(true);
 
 
-     const [argomento,setArgomento] = useState('');
+     const [titoloDomanda,setTitoloDomanda] = useState('');
   
   
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
+      const postListRef= ref(db, props.dbPath);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: argomento,
+        titoloDomanda: titoloDomanda,
       });
 
-      setArgomento(null)
+      setTitoloDomanda(null)
       setShow(false);
     };
 
     const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
-      return argomento !== '' ;
+      return titoloDomanda !== ''  ;
     };
   
   
-    const handleChangeArgomento= (e)=>{
+    const handleChangeTitolo= (e)=>{
       const form = e.currentTarget;
       if (form.checkValidity() === false) {
         e.preventDefault();
@@ -51,12 +52,14 @@ const FormRacconti = (props) =>{
       }
   
       setValidated(true);
-      setArgomento(e.target.value)
+      setTitoloDomanda(e.target.value)
     }
+  
+
   
     return (
       <>
-       <Button  className='btnCard' variant="primary"  onClick={handleShow}>Aggiungi domanda</Button>
+       <Button  className='btnCard' variant="primary"  onClick={handleShow}><FaPlus /></Button>
       
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -65,15 +68,16 @@ const FormRacconti = (props) =>{
             <Modal.Body>
           <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="domanda">
-          <Form.Label className="labelForm">Argomento</Form.Label>
+          <Form.Label className="labelForm">Titolo</Form.Label>
           <InputGroup hasValidation>
-          <Form.Control type="text" placeholder="Inserici argomento del racconto"  required
-          value={argomento}  
-          onChange={handleChangeArgomento}/>
-            <Form.Control.Feedback type="invalid">
-                Inserire argomento
+          <Form.Control type="text" placeholder="Inserici la domanda" 
+          required
+          value={titoloDomanda}  
+          onChange={handleChangeTitolo}/>
+          <Form.Control.Feedback type="invalid">
+                Inserire domanda
           </Form.Control.Feedback>
-          </InputGroup>
+          </InputGroup>      
         </Form.Group>
       </Form>
           </Modal.Body>
@@ -90,4 +94,4 @@ const FormRacconti = (props) =>{
     );
 }
 
-export default FormRacconti;
+export default AggiungiDomanda;

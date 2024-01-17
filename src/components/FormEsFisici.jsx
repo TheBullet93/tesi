@@ -28,10 +28,7 @@ function FormEsFisici() {
   const [tipologiaEsercizio,setTipologiaEsercizio] = useState('');
 
   const db = getDatabase();
-  const [cognomeCreatore,setCognomeCreatore] = useState('');
-  const [nomeCreatore,setNomeCreatore] = useState('');
-  const nomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/nome`)
-  const cognomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/cognome`)
+ 
 
   const options = [ 
     {label:"TIPOLOGIE"} ,
@@ -53,21 +50,7 @@ function FormEsFisici() {
      
 }, [])
 
-useEffect(() => {
-  onValue(nomeRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    setNomeCreatore(data);
-  });
-},[auth?.currentUser?.uid])
 
-useEffect(() => {
-  onValue(cognomeRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    setCognomeCreatore(data);
-  });
-},[auth?.currentUser?.uid])
 
 
   const aggiungi = () => {
@@ -76,7 +59,6 @@ useEffect(() => {
     set(newPostRef, {
       titoloEsercizio: titoloEsercizio,
       tipologiaEsercizio: tipologiaEsercizio,
-      creatore: cognomeCreatore + ' ' + nomeCreatore
     });
 
     setTitoloEsercizio(null)

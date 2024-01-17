@@ -29,6 +29,7 @@ import { auth } from '../firebase';
 import { Toolbar } from 'primereact/toolbar';
 import DeleteDatiTrattamento from "./DeleteDatiTrattamento";
 import SelezionaEsFisico from "./SelezionaEsFisico";
+import AggiungiDomanda from "./AggiungiDomanda";
 
 export default function ListaEsFisiciPaziente(props) {
 
@@ -232,6 +233,9 @@ const endContent = (
                      </Card.Text>
                   </Card.Body>
                   <Card.Footer>
+                  <AggiungiDomanda
+                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/fisici/${item.tipologiaEsercizio}/domande/`}
+                    />
                   <div className="delCard">
                   <UpdateEsFisicoPaziente
                     idTerapista = {auth?.currentUser?.uid}

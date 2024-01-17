@@ -29,11 +29,7 @@ function FormGiochi() {
   const [titoloGioco,setTitoloGioco] = useState('');
   const [tipologiaGioco,setTipologia] = useState('');
   const [difficoltaGioco,setDifficolta] = useState('');
-  const [cognomeCreatore,setCognomeCreatore] = useState('');
-  const [nomeCreatore,setNomeCreatore] = useState('');
-  
-  const nomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/nome`)
-  const cognomeRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/profilo/cognome`)
+ 
 
   const options = [ 
     {label:"Appartenenza"} ,
@@ -71,21 +67,7 @@ function FormGiochi() {
      
 }, [])
 
-useEffect(() => {
-  onValue(nomeRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    setNomeCreatore(data);
-  });
-},[auth?.currentUser?.uid])
 
-useEffect(() => {
-  onValue(cognomeRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-    setCognomeCreatore(data);
-  });
-},[auth?.currentUser?.uid])
 
   const aggiungi = () => {
    
@@ -97,8 +79,6 @@ useEffect(() => {
       titoloGioco: titoloGioco,
       tipologiaGioco: tipologiaGioco,
       difficoltaGioco: difficoltaGioco,
-      creatore: cognomeCreatore + ' ' + nomeCreatore
-      
     });
 
     setTitoloGioco(null)

@@ -11,6 +11,7 @@ import { getStorage} from "firebase/storage";
 import { ref as ref_storage,  uploadBytes,getDownloadURL,} from "firebase/storage";
 import { v4 } from "uuid";
 
+
 import { InputGroup } from 'react-bootstrap';
 
 const FormDomandaAudio = (props) =>{
@@ -35,10 +36,11 @@ const FormDomandaAudio = (props) =>{
      
 
 
-     const aggiungi = () => {
+     const aggiungi = async () => {
 
       
-      const storageRef = ref_storage(storage, `/audio/${audio.name}`);
+      const storageRef = ref_storage(storage, `/audio/${rispostaCorretta}`);
+      
       
       uploadBytes(storageRef, audio).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
@@ -82,7 +84,8 @@ const FormDomandaAudio = (props) =>{
 
     const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
-      return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== '';
+      return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== ''
+      && audio!== null;
     };
   
   
@@ -134,6 +137,16 @@ const FormDomandaAudio = (props) =>{
       }
       setValidated(true);
       setRispErrata3(e.target.value)
+    }
+
+    const handleChangeAudio = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setAudio(e.target.files[0])
     }
 
     return (
@@ -208,7 +221,12 @@ const FormDomandaAudio = (props) =>{
 
         <Form.Group className="mb-3" controlId="typeFile">
           <Form.Label className="labelForm">Carica audio</Form.Label>
-          <Form.Control type="file"  onChange={(event) => {setAudio(event.target.files[0]); }} />
+          <InputGroup hasValidation>
+          <Form.Control type="file" required  onChange={handleChangeAudio} />
+          <Form.Control.Feedback type="invalid">
+                Inserire audio
+          </Form.Control.Feedback>
+          </InputGroup>         
         </Form.Group>
     
      

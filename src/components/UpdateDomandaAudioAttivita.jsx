@@ -29,8 +29,8 @@ const UpdateDomandaAudioAttivita = (props) =>{
      const [rispostaErrata1,setRispErrata1] = useState(props.rispostaErrata1);
      const [rispostaErrata2,setRispErrata2] = useState(props.rispostaErrata2);
      const [rispostaErrata3,setRispErrata3] = useState(props.rispostaErrata3);
-     const [audio,setAudio] = useState(props.audio);
-     const [audioUrls, setAudioUrls] = useState('');
+     const [audio,setAudio] = useState(null);
+     const [audioUrls, setAudioUrls] = useState(props.audio);
 
      const db = getDatabase();
      const storage = getStorage();
@@ -62,7 +62,8 @@ const UpdateDomandaAudioAttivita = (props) =>{
 
     const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
-      return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== '';
+      return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== ''
+      && audio!== null;
     };
   
   
@@ -114,6 +115,16 @@ const UpdateDomandaAudioAttivita = (props) =>{
       }
       setValidated(true);
       setRispErrata3(e.target.value)
+    }
+
+    const handleChangeAudio = (e)=>{
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+      setAudio(e.target.files[0])
     }
   
     return (
@@ -191,7 +202,12 @@ const UpdateDomandaAudioAttivita = (props) =>{
         </Form.Group>
         <Form.Group className="mb-3" controlId="typeFile">
           <Form.Label className="labelForm">Carica audio</Form.Label>
-          <Form.Control type="file"  onChange={(event) => {setAudio(event.target.files[0]); }} />
+          <InputGroup hasValidation>
+          <Form.Control type="file" required  onChange={handleChangeAudio} />
+          <Form.Control.Feedback type="invalid">
+                Inserire audio
+          </Form.Control.Feedback>
+          </InputGroup>         
         </Form.Group>
       </Form>
           </Modal.Body>

@@ -26,7 +26,7 @@ const UpdateRacconti = (props) =>{
       const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/domande/${props.idDomanda}`); 
       
       update(updateRef, {
-        argomento: argomento,
+        titoloDomanda: argomento,
       });
 
       setShow(false);

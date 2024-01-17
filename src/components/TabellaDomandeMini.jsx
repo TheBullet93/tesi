@@ -61,7 +61,7 @@ export default function TabellaDomandeMini(props){
     <Table>
     <Thead>
       <Tr>
-      <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
+      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

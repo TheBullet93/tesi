@@ -9,8 +9,7 @@ import Card from 'react-bootstrap/Card';
 import {MdNavigateNext} from "react-icons/md";
 
 import robot4 from '../immagini/robot4.jpg';
-
-import UpdateDomandaMiniPaziente from "./UpdateDomandaMiniPaziente";
+import AggiornaDomanda from "./AggiornaDomanda";
 
 const InterfacciaDialogo= (props) => {
 
@@ -57,26 +56,21 @@ const activeQuestion = todoData[currentQuestion];
        <>
        <h2 className="rispMini">Ciao {props.nomePaziente} {props.cognomePaziente}, cosa vuoi chiedermi?</h2>
          <React.Fragment key={currentQuestion}>
-         <Card >
+         <Card className="cardGioco">
             <Card.Body >
-               <Card.Title className="titoloDomanda" >
-                   Ehi Mini,  {todoData[currentQuestion].titoloDomanda}
-               </Card.Title>
+              <p>Domanda {currentQuestion + 1} di {todoData.length}</p>
              <Card.Text>
-             <p>
-                <UpdateDomandaMiniPaziente
-                 idTerapista = {props.item}
-                 idPaziente = {props.idPaziente}
-                 idDialogo = {props.idDialogo} 
-                 currentQuestion = {currentQuestion}
-
-                 titoloDomanda = {todoData[currentQuestion].titoloDomanda}
-                  /></p>
-                <h2 className="rispMini">Risposta Mini</h2>
-                   <div className="cardNext">
+                <div className="inputLettera">
+                    <h3 className="parola">  Ehi Mini,  {todoData[currentQuestion].titoloDomanda}</h3>
+                 </div>
+                  <div className="cardNext">
                        <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
                    </div>
              </Card.Text>
+             <AggiornaDomanda
+              titoloDomanda= {todoData[currentQuestion].titoloDomanda}
+              dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.idDialogo}/domande/${todoData[currentQuestion].id}`}
+             />
             </Card.Body >
         </Card>
          </React.Fragment>

@@ -104,6 +104,7 @@ export default function TabellaDomandeAudio(props){
                     rispostaErrata1 = {item.rispostaErrata1}
                     rispostaErrata2 = {item.rispostaErrata2}
                     rispostaErrata3 = {item.rispostaErrata3}
+                    audio = {item.audio}
                     idCard = {props.item}
                     idDomanda = {item.id}
                    />
