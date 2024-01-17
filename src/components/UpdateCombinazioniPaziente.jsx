@@ -74,12 +74,13 @@ const UpdateCombinazioniPaziente = (props) =>{
   
     return (
       <>
-       <button title="Aggiorna Domande" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
-       <ToastContainer 
+      <ToastContainer 
                       autoClose={1500}
                          position="top-center"
                          theme="light"
                        />
+       <button title="Aggiorna Domande" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
+     
        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title className='headerForm'>Aggiorna domanda</Modal.Title>

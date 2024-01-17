@@ -211,7 +211,12 @@ function shuffleButtons(item1,item2,item3,item4) {
                  rispostaErrata2 = {todoData[currentQuestion].rispostaErrata2}
                  rispostaErrata3 = {todoData[currentQuestion].rispostaErrata3}
                  />
-          
+              <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}
+                       />
       </Card.Body >
     </Card>
        </React.Fragment>

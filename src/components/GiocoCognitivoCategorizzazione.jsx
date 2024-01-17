@@ -14,6 +14,7 @@ import UpdateCategorizzazionePaziente from "./UpdateCategorizzazionePaziente";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import Delete from "./Delete";
 
 const GiocoCognitivoCategorizzazione= (props) => {
 
@@ -154,8 +155,9 @@ const handleNextQuestion = () =>{
               </Col>
            </Row>  
         </Card.Text>
-           
-        <UpdateCategorizzazionePaziente
+      </Card.Body >
+      <Card.Footer>
+      <UpdateCategorizzazionePaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -168,7 +170,13 @@ const handleNextQuestion = () =>{
                  parola3 = {todoData[currentQuestion].parola3}
                  parola4 = {todoData[currentQuestion].parola4}
                   />
-      </Card.Body >
+         <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}
+                       />
+      </Card.Footer>
     </Card>
        </React.Fragment>
        </>

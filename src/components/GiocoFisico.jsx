@@ -11,13 +11,12 @@ import { Button, ButtonGroup } from "react-bootstrap";
 
 import {MdNavigateNext} from "react-icons/md";
 
-
-import UpdateRaccontiAttivita from "./UpdateRaccontiAttivita";
 import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import AggiornaDomanda from "./AggiornaDomanda";
+import Delete from "./Delete";
 
 const GiocoFisico = (props) => {
 
@@ -167,12 +166,21 @@ const handleErrata= () =>{
               </div>
           
         </Card.Text>
-        <AggiornaDomanda
+       
+       
+      </Card.Body >
+      <Card.Footer>
+      <AggiornaDomanda
         titoloDomanda= {todoData[currentQuestion].titoloDomanda}
         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/fisici/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
         />
-       
-      </Card.Body >
+        <Delete
+        title = {todoData[currentQuestion].titoloDomanda} 
+        dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/fisici/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
+        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+         textToast = {'Domanda eliminata'}
+        />
+      </Card.Footer>
     </Card>
        </React.Fragment>
        

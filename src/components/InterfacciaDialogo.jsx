@@ -3,7 +3,7 @@ import React ,{ useState,useEffect } from "react";
 import { getDatabase} from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 
-
+import Delete from "./Delete";
 import Card from 'react-bootstrap/Card';
 
 import {MdNavigateNext} from "react-icons/md";
@@ -67,11 +67,19 @@ const activeQuestion = todoData[currentQuestion];
                        <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
                    </div>
              </Card.Text>
-             <AggiornaDomanda
+            </Card.Body >
+            <Card.Footer>
+            <AggiornaDomanda
               titoloDomanda= {todoData[currentQuestion].titoloDomanda}
               dbPath = {`/terapisti/${props.item}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.idDialogo}/domande/${todoData[currentQuestion].id}`}
              />
-            </Card.Body >
+            <Delete
+        title = {todoData[currentQuestion].titoloDomanda} 
+        dbPath = { `/terapisti/${props.item}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.idDialogo}/domande/${todoData[currentQuestion].id}`}
+        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+         textToast = {'Domanda eliminata'}
+        />
+            </Card.Footer>
         </Card>
          </React.Fragment>
         

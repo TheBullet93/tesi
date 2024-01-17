@@ -6,7 +6,7 @@ import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 
-import { Button} from "react-bootstrap";
+import { Button, Col, Row} from "react-bootstrap";
 
 
 import {MdNavigateNext} from "react-icons/md";
@@ -17,7 +17,7 @@ import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import add from "date-fns/add";
+import Delete from "./Delete";
 
 const GiocoCognitivoLettere = (props) => {
 
@@ -37,6 +37,7 @@ const GiocoCognitivoLettere = (props) => {
 
     const navigate = useNavigate();
 
+    const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
     
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
@@ -96,7 +97,7 @@ const handleNextQuestion = () =>{
 }
 
 
-const handleCorretta= () =>{
+const handleCorretta= (index) =>{
   update(updateRef,{
     nRisposteEsatte:increment(1),
    
@@ -106,10 +107,10 @@ const handleCorretta= () =>{
     nRisposteEsatte:increment(1),
    
   });
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
 
-const handleErrata= () =>{
+const handleErrata= (index) =>{
   update(updateRef,{
     nRisposteSbagliate: increment(1),
    
@@ -119,8 +120,12 @@ const handleErrata= () =>{
     nRisposteSbagliate: increment(1),
     
   });
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
+
+const isPulsanteDisabilitato = (index) => {
+  return pulsantiCliccati.includes(index);
+};
 
 
  
@@ -176,7 +181,9 @@ const removeRandomLetter = (parola) =>{
               </div>
           
         </Card.Text>
-        <UpdateLetteraPaziente
+      </Card.Body >
+      <Card.Footer>
+      <UpdateLetteraPaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -185,7 +192,13 @@ const removeRandomLetter = (parola) =>{
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
                   />
-      </Card.Body >
+          <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}
+                       />
+      </Card.Footer>
     </Card>
        </React.Fragment>
        
@@ -204,10 +217,22 @@ const removeRandomLetter = (parola) =>{
                {risposte.map((item, index) => {
                   return(
                     <>
-                    <React.Fragment key={index}>
-                
-                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
-                       
+                     <React.Fragment key={index}>
+                     <Row style={{ marginBottom: '12px' }}>
+                      <Col>
+                        <Button className = "btn btn-success btn-space"
+                         disabled={isPulsanteDisabilitato(index)}
+                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
+                      </Col>
+                      <Col>
+                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</span>
+                      </Col>
+                      <Col>
+                        <Button className = "btn btn-danger btn-space1" 
+                        disabled={isPulsanteDisabilitato(index)}
+                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
+                      </Col>
+                     </Row>
                     </React.Fragment>
                      
                     </>
@@ -215,12 +240,7 @@ const removeRandomLetter = (parola) =>{
                      )
                }
      
-                )}
-               <div>
-                 <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTA</Button>
-                 <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATA</Button>  
-              </div>
-                        
+                )}                  
                </Card.Text>
           </Card.Body >
         </Card>

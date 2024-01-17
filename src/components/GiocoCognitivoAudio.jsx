@@ -18,7 +18,7 @@ import { auth } from '../firebase';
 import {ref as ref_storage, getDownloadURL, listAll, getStorage,} from "firebase/storage";
 import UpdateDomandaAudioAttivita from "./UpdateDomandaAudioAttivita";
 import { AudioPlayer } from 'react-audio-play';
-
+import Delete from "./Delete";
 
 const GiocoCognitivoAudio = (props) => {
 
@@ -225,7 +225,9 @@ function shuffleButtons(item1,item2,item3,item4) {
               </Col>
            </Row>  
         </Card.Text>
-        <UpdateDomandaAudioAttivita
+      </Card.Body >
+      <Card.Footer>
+      <UpdateDomandaAudioAttivita
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -237,10 +239,13 @@ function shuffleButtons(item1,item2,item3,item4) {
                  rispostaErrata2 = {todoData[currentQuestion].rispostaErrata2}
                  rispostaErrata3 = {todoData[currentQuestion].rispostaErrata3}
                  audio = {todoData[currentQuestion].audio}
-               
-
                   />
-      </Card.Body >
+        <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}/>
+      </Card.Footer>
     </Card>
        
        </>

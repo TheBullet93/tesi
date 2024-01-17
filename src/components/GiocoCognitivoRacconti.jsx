@@ -6,7 +6,7 @@ import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 import Card from 'react-bootstrap/Card';
 
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, Col, Row} from "react-bootstrap";
 
 
 import {MdNavigateNext} from "react-icons/md";
@@ -17,6 +17,7 @@ import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import Delete from "./Delete";
 
 const GiocoCognitivoRacconti = (props) => {
 
@@ -24,7 +25,7 @@ const GiocoCognitivoRacconti = (props) => {
 
     const [todoData,setTodoData] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
-   
+    const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
 
     const [risposte,setRisposte] = useState([]);
    
@@ -91,12 +92,13 @@ const handleNextQuestion = () =>{
     
   }
   setCurrentQuestion(nextQuestion);
+  setRisposte([...risposte,{risposta:'Evento raccontato' }]);
  addRisposta();
  
 }
 
 
-const handleCorretta= () =>{
+const handleCorretta= (index) =>{
   update(updateRef,{
     nRisposteEsatte:increment(1),
    
@@ -107,10 +109,10 @@ const handleCorretta= () =>{
    
   });
 
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
 
-const handleErrata= () =>{
+const handleErrata= (index) =>{
   update(updateRef,{
     nRisposteSbagliate: increment(1),
    
@@ -121,8 +123,12 @@ const handleErrata= () =>{
     
   });
 
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
+
+const isPulsanteDisabilitato = (index) => {
+  return pulsantiCliccati.includes(index);
+};
 
     return (
      <>
@@ -142,7 +148,9 @@ const handleErrata= () =>{
                  <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
               </div>       
         </Card.Text>
-        <UpdateRaccontiAttivita
+      </Card.Body >
+      <Card.Footer>
+      <UpdateRaccontiAttivita
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -150,7 +158,13 @@ const handleErrata= () =>{
 
                  argomento= {todoData[currentQuestion].titoloDomanda}
                   />
-      </Card.Body >
+        <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}
+                       />
+      </Card.Footer>
     </Card>
        </React.Fragment>
        
@@ -169,24 +183,32 @@ const handleErrata= () =>{
                {risposte.map((item, index) => {
                   return(
                     <>
-                    <React.Fragment key={index}>
-                    <div>
-                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
-                       </div>
+                      <React.Fragment key={index}>
+                     <Row style={{ marginBottom: '12px' }}>
+                      <Col>
+                        <Button className = "btn btn-success btn-space"
+                         disabled={isPulsanteDisabilitato(index)}
+                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
+                      </Col>
+                      <Col>
+                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</span>
+                      </Col>
+                      <Col>
+                        <Button className = "btn btn-danger btn-space1" 
+                        disabled={isPulsanteDisabilitato(index)}
+                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
+                      </Col>
+                     </Row>
                     </React.Fragment>
                       
                     </>
                     
                      )
                }
-                )}
-               <div>
-                 <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>
-                 <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATO</Button>  
-              </div>
-                        
+                )}        
                </Card.Text>
           </Card.Body >
+        
         </Card>
     </>
   

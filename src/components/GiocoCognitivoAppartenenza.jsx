@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 import {MdNavigateNext} from "react-icons/md";
 import UpdateAppartenenzaPaziente from "./UpdateAppartenenzaPaziente";
+import Delete from "./Delete";
 import { Button, Col, Row} from "react-bootstrap";
 import {useNavigate} from 'react-router-dom';
 
@@ -20,6 +21,7 @@ const GiocoCognitivoAppartenenza = (props) => {
 
     const [todoData,setTodoData] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
    
     const  [parolaPaziente,setParola] = useState('');
     const [risposte,setRisposte] = useState([]);
@@ -92,7 +94,7 @@ const handleNextQuestion = () =>{
   
 }
 
-const handleCorretta= () =>{
+const handleCorretta= (index) =>{
   
   update(updateRef,{
     nRisposteEsatte:increment(1),
@@ -104,12 +106,10 @@ const handleCorretta= () =>{
    
   });
 
-  
-
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
 
-const handleErrata= () =>{
+const handleErrata= (index) =>{
 
   update(updateRef,{
     nRisposteSbagliate: increment(1),
@@ -120,12 +120,13 @@ const handleErrata= () =>{
     nRisposteSbagliate: increment(1),
     
   });
- 
-  navigate(-1)
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
 
   
-
+const isPulsanteDisabilitato = (index) => {
+  return pulsantiCliccati.includes(index);
+};
 
     return (
      <>
@@ -152,7 +153,10 @@ const handleErrata= () =>{
               <div className="cardNext">
                  <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
               </div>
-        <UpdateAppartenenzaPaziente
+   
+      </Card.Body >
+      <Card.Footer>
+      <UpdateAppartenenzaPaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -160,7 +164,13 @@ const handleErrata= () =>{
                  titoloDomanda = {todoData[currentQuestion].titoloDomanda}
                  parola = {todoData[currentQuestion].parola}
                   />
-      </Card.Body >
+            <Delete
+              title = {todoData[currentQuestion].titoloDomanda} 
+              dbPath = { `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${todoData[currentQuestion].id}`}
+              textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
+               textToast = {'Domanda eliminata'}
+                       />
+      </Card.Footer>
     </Card>
     
        </React.Fragment>
@@ -180,15 +190,19 @@ const handleErrata= () =>{
                   return(
                     <>
                     <React.Fragment key={index}>
-                     <Row>
+                     <Row style={{ marginBottom: '12px' }}>
                       <Col>
-                        <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTA</Button>
+                        <Button className = "btn btn-success btn-space"
+                         disabled={isPulsanteDisabilitato(index)}
+                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
                       </Col>
                       <Col>
                         <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</span>
                       </Col>
                       <Col>
-                        <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATA</Button>  
+                        <Button className = "btn btn-danger btn-space1" 
+                        disabled={isPulsanteDisabilitato(index)}
+                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
                       </Col>
                      </Row>
                     </React.Fragment>
