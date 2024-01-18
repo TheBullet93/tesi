@@ -64,26 +64,36 @@ function TabellaBMI(props){
 
     },[auth?.currentUser?.uid])
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      peso: 'ASC',
+      altezza: 'ASC',
+      bmi: 'ASC',
+      circonferenzaVita: 'ASC',
+      dataMonitoraggio: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
+      
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("DSC");
-      }
+        setOrder({ ...order, [col]: 'DSC' });
+      setActiveColumn(col);
+      
     }
   
     const sortingDSC = (col) =>{
-      if(order === "DSC"){
+      
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("ASC");
-      }
+        setOrder({ ...order, [col]: 'ASC' });
+      setActiveColumn(col);
+      
     }
 
     return(
@@ -101,11 +111,11 @@ function TabellaBMI(props){
              <Table>     
             <Thead>
              <Tr>
-                <Th>Peso {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("peso")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("peso")}/> }</Th>
-                <Th>Altezza {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("altezza")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("altezza")}/> }</Th> 
-                <Th>BMI {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("bmi")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("bmi")}/> }</Th>
-                <Th>Circonferenza Vita{order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("circonferenzaVita")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("circonferenzaVita")}/> }</Th>
-                <Th>Data Monitoraggio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
+                <Th className={activeColumn === 'peso' ? 'activeColumn' : ''}>Peso {order.peso === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("peso")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("peso")}/> }</Th>
+                <Th className={activeColumn === 'altezza' ? 'activeColumn' : ''}>Altezza {order.altezza === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("altezza")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("altezza")}/> }</Th> 
+                <Th className={activeColumn === 'bmi' ? 'activeColumn' : ''}>BMI {order.bmi === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("bmi")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("bmi")}/> }</Th>
+                <Th className={activeColumn === 'circonferenzaVita' ? 'activeColumn' : ''}>Circonferenza Vita{order.circonferenzaVita === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("circonferenzaVita")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("circonferenzaVita")}/> }</Th>
+                <Th className={activeColumn === 'dataMonitoraggio' ? 'activeColumn' : ''}>Data Monitoraggio {order.dataMonitoraggio === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
                 <Th>Opzioni</Th>
              </Tr>
             </Thead>

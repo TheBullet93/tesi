@@ -22,27 +22,37 @@ const StoricoRispostePaziente = (props) =>{
 
     const [search, setSearch] = useState('');
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      titoloGioco: 'ASC',
+      tipologiaGioco: 'ASC',
+      domanda: 'ASC',
+      rispostaPaziente: 'ASC',
+      giorno: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
+    
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("DSC");
-      }
+        setOrder({ ...order, [col]: 'DSC' });
+        setActiveColumn(col);
+      
 
     }
     
     const sortingDSC = (col) =>{
-      if(order === "DSC"){
+     
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("ASC");
-      }
+        setOrder({ ...order, [col]: 'ASC' });
+        setActiveColumn(col);
+      
      
     }
     
@@ -96,11 +106,11 @@ const StoricoRispostePaziente = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Titolo {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloGioco")}/> }</Th>
-        <Th>Tipologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("tipologiaGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("tipologiaGioco")}/> }</Th>
-        <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("domanda")}/>:<IoMdArrowDropdown className='arrow'onClick={() => sortingDSC("domanda")}/> }</Th>
-        <Th>Risposta {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaPaziente")}/>:<IoMdArrowDropdown  className='arrow' onClick={() => sortingDSC("rispostaPaziente")}/> }</Th>
-        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
+        <Th className={activeColumn === 'titoloGioco' ? 'activeColumn' : ''}>Titolo {order.titoloGioco === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloGioco")}/> }</Th>
+        <Th className={activeColumn === 'tipologiaGioco' ? 'activeColumn' : ''}>Tipologia {order.tipologiaGioco === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("tipologiaGioco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("tipologiaGioco")}/> }</Th>
+        <Th className={activeColumn === 'domanda' ? 'activeColumn' : ''}>Domanda {order.domanda === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("domanda")}/>:<IoMdArrowDropdown className='arrow'onClick={() => sortingDSC("domanda")}/> }</Th>
+        <Th className={activeColumn === 'rispostaPaziente' ? 'activeColumn' : ''}>Risposta {order.rispostaPaziente === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaPaziente")}/>:<IoMdArrowDropdown  className='arrow' onClick={() => sortingDSC("rispostaPaziente")}/> }</Th>
+        <Th className={activeColumn === 'giorno' ? 'activeColumn' : ''}>Giorno {order.giorno === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         </Tr>
       </Thead>
       <Tbody>

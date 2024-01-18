@@ -14,27 +14,32 @@ const StoricoTerapie = (props) =>{
 
     const [todoData,setTodoData] = useState([]);
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      patologia: 'ASC',
+      farmaco: 'ASC',
+      giorno: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("DSC");
-      }
+        setOrder({ ...order, [col]: 'DSC' });
+        setActiveColumn(col);
+      
 
     }
     
     const sortingDSC = (col) =>{
-      if(order === "DSC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("ASC");
-      }
+        setOrder({ ...order, [col]: 'ASC' });
+        setActiveColumn(col);
      
     }
     
@@ -76,9 +81,9 @@ const StoricoTerapie = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
-        <Th>Farmaco{order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
-        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
+        <Th className={activeColumn === 'patologia' ? 'activeColumn' : ''}>Patologia {order.patologia === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+        <Th className={activeColumn === 'farmaco' ? 'activeColumn' : ''}>Farmaco{order.farmaco === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
+        <Th className={activeColumn === 'giorno' ? 'activeColumn' : ''}>Giorno {order.giorno === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>

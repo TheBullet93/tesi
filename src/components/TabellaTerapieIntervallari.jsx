@@ -33,27 +33,38 @@ function TabellaTerapieIntervallari(props) {
   const [todoData,setTodoData] = useState([]);
   const [search, setSearch] = useState('');
 
-  const [order,setOrder] = useState("ASC");
+  const [activeColumn, setActiveColumn] = useState(null);
+  
+  const [order,setOrder] = useState({
+    patologia: 'ASC',
+    farmaco: 'ASC',
+    giorni: 'ASC',
+    dataInizio: 'ASC',
+    dataFine: 'ASC',
+    numAssunzioni: 'ASC',
+    dettagli: 'ASC',
+  });
 
   const sortingASC = (col) =>{
-    if(order === "ASC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("DSC");
-    }
-  }
+    const sorted = [...todoData].sort((a,b) =>
+      a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+    );
+    setTodoData(sorted);
+    setOrder({ ...order, [col]: 'DSC' });
+    setActiveColumn(col);
+  
 
-  const sortingDSC = (col) =>{
-    if(order === "DSC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("ASC");
-    }
-  }
+}
+
+const sortingDSC = (col) =>{
+    const sorted = [...todoData].sort((a,b) =>
+      a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+    );
+    setTodoData(sorted);
+    setOrder({ ...order, [col]: 'ASC' });
+    setActiveColumn(col);
+ 
+}
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -105,13 +116,13 @@ function TabellaTerapieIntervallari(props) {
     <Table>
     <Thead>
         <Tr>
-        <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
-        <Th>Farmaco {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
-        <Th>Giorni {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorni")}/> }</Th>
-        <Th>Inizio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataInizio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataInizio")}/> }</Th>
-        <Th>Fine {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataFine")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataFine")}/> }</Th>
-        <Th>Numero volte {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("numAssunzioni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("numAssunzioni")}/> }</Th>
-        <Th>Quando {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dettagli")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dettagli")}/> }</Th>
+        <Th className={activeColumn === 'patologia' ? 'activeColumn' : ''}>Patologia {order.patologia === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+        <Th className={activeColumn === 'farmaco' ? 'activeColumn' : ''}>Farmaco {order.farmaco === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("farmaco")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("farmaco")}/> }</Th>
+        <Th className={activeColumn === 'giorni' ? 'activeColumn' : ''}>Giorni {order.giorni === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorni")}/> }</Th>
+        <Th className={activeColumn === 'dataInizio' ? 'activeColumn' : ''}>Inizio {order.dataInizio === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataInizio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataInizio")}/> }</Th>
+        <Th className={activeColumn === 'dataFine' ? 'activeColumn' : ''}>Fine {order.dataFine === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataFine")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataFine")}/> }</Th>
+        <Th className={activeColumn === 'numAssunzioni' ? 'activeColumn' : ''}>Numero volte {order.numAssunzioni === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("numAssunzioni")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("numAssunzioni")}/> }</Th>
+        <Th className={activeColumn === 'dettagli' ? 'activeColumn' : ''}>Quando {order.dettagli === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dettagli")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dettagli")}/> }</Th>
         <Th>Opzioni</Th>
         </Tr>
       </Thead>

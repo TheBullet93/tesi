@@ -66,28 +66,36 @@ function TabellaVisite(props){
     },[auth?.currentUser?.uid])
 
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      patologia: 'ASC',
+      titolo: 'ASC',
+      valore: 'ASC',
+      dataMonitoraggio: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
-        const sorted = [...todoData].sort((a,b) =>
-          a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
-        );
-        setTodoData(sorted);
-        setOrder("DSC");
-      }
-    }
-  
-    const sortingDSC = (col) =>{
-      if(order === "DSC"){
-        const sorted = [...todoData].sort((a,b) =>
-          a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
-        );
-        setTodoData(sorted);
-        setOrder("ASC");
-      }
-    }
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder({ ...order, [col]: 'DSC' });
+      setActiveColumn(col);
+    
 
+  }
+  
+  const sortingDSC = (col) =>{
+      const sorted = [...todoData].sort((a,b) =>
+        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+      );
+      setTodoData(sorted);
+      setOrder({ ...order, [col]: 'ASC' });
+      setActiveColumn(col);
+   
+  }
+  
     return(
         <>
         <div className='tabella'>
@@ -103,10 +111,10 @@ function TabellaVisite(props){
              <Table>     
              <Thead>
              <Tr>
-             <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
-             <Th>Descrizione {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titolo")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titolo")}/> }</Th>
-             <Th>Valore {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("valore")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("valore")}/> }</Th>
-             <Th>Data Monitoraggio {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
+             <Th className={activeColumn === 'patologia' ? 'activeColumn' : ''}>Patologia {order.patologia === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+             <Th className={activeColumn === 'titolo' ? 'activeColumn' : ''}>Descrizione {order.titolo === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titolo")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titolo")}/> }</Th>
+             <Th className={activeColumn === 'valore' ? 'activeColumn' : ''}>Valore {order.valore === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("valore")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("valore")}/> }</Th>
+             <Th className={activeColumn === 'dataMonitoraggio' ? 'activeColumn' : ''}>Data Monitoraggio {order.dataMonitoraggio === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dataMonitoraggio")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dataMonitoraggio")}/> }</Th>
              <Th>Note</Th>
              <Th>Opzioni</Th>
              </Tr>

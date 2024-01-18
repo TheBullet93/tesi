@@ -14,27 +14,33 @@ const StoricoEsami = (props) =>{
 
     const [todoData,setTodoData] = useState([]);
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      patologia: 'ASC',
+      descrizione: 'ASC',
+      valore: 'ASC',
+      giorno: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("DSC");
-      }
+        setOrder({ ...order, [col]: 'DSC' });
+        setActiveColumn(col);
+      
 
     }
     
     const sortingDSC = (col) =>{
-      if(order === "DSC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("ASC");
-      }
+        setOrder({ ...order, [col]: 'ASC' });
+        setActiveColumn(col);
      
     }
     
@@ -76,10 +82,10 @@ const StoricoEsami = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Patologia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
-        <Th>Descrizione {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("descrizione")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("descrizione")}/> }</Th>
-        <Th>Valore {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("valore")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("valore")}/> }</Th>
-        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
+        <Th className={activeColumn === 'patologia' ? 'activeColumn' : ''}>Patologia {order.patologia === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("patologia")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("patologia")}/> }</Th>
+        <Th className={activeColumn === 'descrizione' ? 'activeColumn' : ''}>Descrizione {order.descrizione === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("descrizione")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("descrizione")}/> }</Th>
+        <Th className={activeColumn === 'valore' ? 'activeColumn' : ''}>Valore {order.valore === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("valore")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("valore")}/> }</Th>
+        <Th className={activeColumn === 'giorno' ? 'activeColumn' : ''}>Giorno {order.giorno === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>

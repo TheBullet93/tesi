@@ -20,26 +20,33 @@ export default function TabellaFluenze(props){
 
   const [todoData,setTodoData] = useState([]);
 
-  const [order,setOrder] = useState("ASC");
+  const [activeColumn, setActiveColumn] = useState(null);
+  
+  const [order,setOrder] = useState({
+    titoloDomanda: 'ASC',
+    parola: 'ASC',
+  });
 
   const sortingASC = (col) =>{
-    if(order === "ASC"){
+   
       const sorted = [...todoData].sort((a,b) =>
         a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
       );
       setTodoData(sorted);
-      setOrder("DSC");
-    }
+      setOrder({ ...order, [col]: 'DSC' });
+      setActiveColumn(col);
+   
   }
 
   const sortingDSC = (col) =>{
-    if(order === "DSC"){
+   
       const sorted = [...todoData].sort((a,b) =>
         a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
       );
       setTodoData(sorted);
-      setOrder("ASC");
-    }
+      setOrder({ ...order, [col]: 'ASC' });
+      setActiveColumn(col);
+    
   }
 
 
@@ -64,8 +71,8 @@ export default function TabellaFluenze(props){
     <Table>
     <Thead>
       <Tr>
-      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
-      <Th>Parola {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola")}/> }</Th>
+      <Th className={activeColumn === 'titoloDomanda' ? 'activeColumn' : ''}>Domanda {order.titoloDomanda === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th className={activeColumn === 'parola' ? 'activeColumn' : ''}>Parola {order.parola === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("parola")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("parola")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

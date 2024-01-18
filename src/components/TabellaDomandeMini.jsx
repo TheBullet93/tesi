@@ -35,33 +35,35 @@ export default function TabellaDomandeMini(props){
   
   },[])
 
-  const [order,setOrder] = useState("ASC");
+  const [activeColumn, setActiveColumn] = useState(null);
+  
+  const [order,setOrder] = useState({
+    titoloDomanda: 'ASC',
+  });
 
   const sortingASC = (col) =>{
-    if(order === "ASC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("DSC");
-    }
-  }
+    const sorted = [...todoData].sort((a,b) =>
+      a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+    );
+    setTodoData(sorted);
+    setOrder({ ...order, [col]: 'DSC' });
+    setActiveColumn(col);
+}
 
-  const sortingDSC = (col) =>{
-    if(order === "DSC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("ASC");
-    }
-  }
+const sortingDSC = (col) =>{
+    const sorted = [...todoData].sort((a,b) =>
+      a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+    );
+    setTodoData(sorted);
+    setOrder({ ...order, [col]: 'ASC' });
+    setActiveColumn(col);
+}
 
     return (
     <Table>
     <Thead>
       <Tr>
-      <Th>Domanda {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
+      <Th className={activeColumn === 'titoloDomanda' ? 'activeColumn' : ''}>Domanda {order.titoloDomanda === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

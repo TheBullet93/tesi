@@ -42,38 +42,48 @@ export default function TabellaDomandeAudio(props){
 
   },[])
 
-  const [order,setOrder] = useState("ASC");
+  const [activeColumn, setActiveColumn] = useState(null);
+  
+  const [order,setOrder] = useState({
+    titoloDomanda: 'ASC',
+    rispostaCorretta: 'ASC',
+    rispostaErrata1: 'ASC',
+    rispostaErrata2: 'ASC',
+    rispostaErrata3: 'ASC',
+  });
 
   const sortingASC = (col) =>{
-    if(order === "ASC"){
+   
       const sorted = [...todoData].sort((a,b) =>
         a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
       );
       setTodoData(sorted);
-      setOrder("DSC");
-    }
+      setOrder({ ...order, [col]: 'DSC' });
+      setActiveColumn(col);
+    
   }
 
   const sortingDSC = (col) =>{
-    if(order === "DSC"){
+   
       const sorted = [...todoData].sort((a,b) =>
         a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
       );
       setTodoData(sorted);
-      setOrder("ASC");
-    }
+      setOrder({ ...order, [col]: 'ASC' });
+      setActiveColumn(col);
+    
   }
 
     return (
     <Table>
     <Thead>
       <Tr>
-      <Th>Domanda <IoMdArrowDropdown onClick={() => sortingASC("titoloDomanda")}/><IoMdArrowDropup onClick={() => sortingDSC("titoloDomanda")}/></Th>
+      <Th className={activeColumn === 'titoloDomanda' ? 'activeColumn' : ''}>Domanda {order.titoloDomanda === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("titoloDomanda")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("titoloDomanda")}/> }</Th>
         <Th>Audio</Th>
-        <Th>Risp. Corretta <IoMdArrowDropdown onClick={() => sortingASC("rispostaCorretta")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaCorretta")}/></Th>
-        <Th>Risp. Errata 1 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata1")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata1")}/></Th>
-        <Th>Risp. Errata 2 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata2")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata2")}/></Th>
-        <Th>Risp. Errata 3 <IoMdArrowDropdown onClick={() => sortingASC("rispostaErrata3")}/><IoMdArrowDropup onClick={() => sortingDSC("rispostaErrata3")}/></Th>
+        <Th className={activeColumn === 'rispostaCorretta' ? 'activeColumn' : ''}>Risp. Corretta {order.rispostaCorretta === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaCorretta")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaCorretta")}/> }</Th>
+      <Th className={activeColumn === 'rispostaErrata1' ? 'activeColumn' : ''}>Risp. Errata 1 {order.rispostaErrata1 === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata1")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata1")}/> }</Th>
+      <Th className={activeColumn === 'rispostaErrata2' ? 'activeColumn' : ''}>Risp. Errata 2 {order.rispostaErrata2 === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata2")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata2")}/> }</Th>
+      <Th className={activeColumn === 'rispostaErrata3' ? 'activeColumn' : ''}>Risp. Errata 3 {order.rispostaErrata3 === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("rispostaErrata3")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("rispostaErrata3")}/> }</Th>
         <Th>Opzioni</Th>
       </Tr>
     </Thead>

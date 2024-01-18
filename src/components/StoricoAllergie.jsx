@@ -14,27 +14,31 @@ const StoricoAllergie = (props) =>{
 
     const [todoData,setTodoData] = useState([]);
 
-    const [order,setOrder] = useState("ASC");
+    const [activeColumn, setActiveColumn] = useState(null);
+  
+    const [order,setOrder] = useState({
+      dato: 'ASC',
+      giorno: 'ASC',
+    });
 
     const sortingASC = (col) =>{
-      if(order === "ASC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("DSC");
-      }
+        setOrder({ ...order, [col]: 'DSC' });
+        setActiveColumn(col);
+      
 
     }
     
     const sortingDSC = (col) =>{
-      if(order === "DSC"){
         const sorted = [...todoData].sort((a,b) =>
           a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
         );
         setTodoData(sorted);
-        setOrder("ASC");
-      }
+        setOrder({ ...order, [col]: 'ASC' });
+        setActiveColumn(col);
      
     }
 
@@ -76,8 +80,8 @@ const StoricoAllergie = (props) =>{
     <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Allergia {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dato")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dato")}/> }</Th>
-        <Th>Giorno {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
+        <Th className={activeColumn === 'dato' ? 'activeColumn' : ''}>Allergia {order.dato === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("dato")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("dato")}/> }</Th>
+        <Th className={activeColumn === 'giorno' ? 'activeColumn' : ''}>Giorno {order.giorno === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("giorno")}/> }</Th>
         <Th>Stato</Th>
         </Tr>
       </Thead>
