@@ -35,26 +35,31 @@ function TabellaPazienti() {
 
   const [search, setSearch] = useState('');
 
-  const [order,setOrder] = useState("ASC");
+  const [activeColumn, setActiveColumn] = useState(null);
+
+  const [sortOrders, setSortOrders] = useState({
+    nome: 'ASC',
+    cognome: 'ASC',
+    citta: 'ASC',
+    data: 'ASC',
+  });
 
   const sortingASC = (col) =>{
-    if(order === "ASC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("DSC");
-    }
+       const sorted = [...todoData].sort((a, b) =>
+      a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1
+    );
+    setTodoData(sorted);
+    setSortOrders({ ...sortOrders, [col]: 'DSC' });
+    setActiveColumn(col);
   }
 
   const sortingDSC = (col) =>{
-    if(order === "DSC"){
-      const sorted = [...todoData].sort((a,b) =>
-        a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
-      );
-      setTodoData(sorted);
-      setOrder("ASC");
-    }
+    const sorted = [...todoData].sort((a, b) =>
+    a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1
+  );
+  setTodoData(sorted);
+  setSortOrders({ ...sortOrders, [col]: 'ASC' });
+  setActiveColumn(col);
   }
 
   useEffect(()=>{
@@ -115,10 +120,10 @@ const endContent = (
       <Table className='tabella'>
       <Thead>
         <Tr>
-        <Th>Nome {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("nome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("nome")}/> }</Th>
-        <Th>Cognome {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("cognome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("cognome")}/> }</Th>
-        <Th>Città di nascita {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("citta")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("citta")}/> }</Th>
-        <Th>Data di nascita {order === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("data")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("data")}/> }</Th>
+        <Th className={activeColumn === 'nome' ? 'activeColumn' : ''}>Nome {sortOrders.nome=== 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("nome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("nome")}/> }</Th>
+        <Th className={activeColumn === 'cognome' ? 'activeColumn' : ''}>Cognome {sortOrders.cognome === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("cognome")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("cognome")}/> }</Th>
+        <Th className={activeColumn === 'citta' ? 'activeColumn' : ''}>Città di nascita {sortOrders.citta === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("citta")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("citta")}/> }</Th>
+        <Th className={activeColumn === 'data' ? 'activeColumn' : ''}>Data di nascita {sortOrders.data === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingASC("data")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingDSC("data")}/> }</Th>
         <Th>Informazioni</Th>
         <Th>PDTA</Th>
         <Th>Trattamenti</Th>
@@ -226,12 +231,6 @@ const endContent = (
           }
       </Tbody>
     </Table>
-  
-   
-
-
-
-
     </>
   );
 }

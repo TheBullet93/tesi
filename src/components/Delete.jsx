@@ -50,9 +50,9 @@ const Delete = (props) =>{
         />
      
          <Modal show={show}  onHide={handleClose}>
-         <Alert variant="danger">
-            <Alert.Heading>Elimina:  {props.titolo}</Alert.Heading>
-           <p>{textAlert}</p>
+         <Alert variant='light'>
+            <Alert.Heading style={{color:'black'}}>Elimina:  {props.title}</Alert.Heading>
+           <p style={{fontSize:'25px'}}>{textAlert}</p>
         <hr />
         <div className="d-flex justify-content-end">
         <Button variant="secondary" onClick={() => setShow(false)}>

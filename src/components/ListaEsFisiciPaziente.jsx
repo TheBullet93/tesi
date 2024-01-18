@@ -224,6 +224,9 @@ const endContent = (
                <Col >
               
                <Card className="cardAttivita">
+               <Card.Header>
+               {item.tipologiaEsercizio}
+               </Card.Header>
                   {renderLink(item.id,item.tipologiaEsercizio,item.titoloEsercizio)}
                
                  <Card.Body>

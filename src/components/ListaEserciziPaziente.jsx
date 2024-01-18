@@ -346,11 +346,12 @@ const endContent = (
              .map((item) => (
 
               <React.Fragment key={item.id}>
-               <Col >
-              
+               <Col >  
                <Card className="cardAttivita">
+               <Card.Header>
+               {item.tipologiaGioco}
+               </Card.Header>
                   {renderLink(item.id,item.tipologiaGioco,item.titoloGioco)}
-               
                  <Card.Body>
                      <Card.Title className="titoloDomanda">{item.titoloGioco}</Card.Title>
                      <Card.Text>

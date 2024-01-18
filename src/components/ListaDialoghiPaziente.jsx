@@ -208,6 +208,9 @@ const endContent = (
                <Col key={item.id}>
                <React.Fragment  >
                <Card className="cardAttivita">
+               <Card.Header>
+               {item.tipologiaDialogo}
+               </Card.Header>
                  <Link to={{
                   pathname:`/dialogo/:idPaziente/:idDomanda`,
                   search: `?idDomanda=${props.idPaziente}/?idDomanda=${item.id}`, 

@@ -18,6 +18,7 @@ import {useNavigate} from 'react-router-dom';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import Delete from "./Delete";
+import Form from 'react-bootstrap/Form';
 
 const GiocoCognitivoLettere = (props) => {
 
@@ -28,6 +29,10 @@ const GiocoCognitivoLettere = (props) => {
    
     const  [letteraPaziente,setLettera] = useState('');
     const [risposte,setRisposte] = useState([]);
+
+    const [randomPosition, setRandomPosition] = useState(
+      Math.floor(Math.random() * todoData[currentQuestion]?.parola.length)
+    );
    
     const activeQuestion = todoData[currentQuestion];
 
@@ -38,6 +43,7 @@ const GiocoCognitivoLettere = (props) => {
     const navigate = useNavigate();
 
     const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
+
     
     useEffect(()=>{
       onAuthStateChanged(auth, (user) => {
@@ -67,6 +73,12 @@ const GiocoCognitivoLettere = (props) => {
     });
   },[auth?.currentUser?.uid])
 
+  useEffect(() => {
+    setRandomPosition(
+      Math.floor(Math.random() * todoData[currentQuestion]?.parola.length)
+    );
+  }, [currentQuestion, todoData]);
+
 
   const addRisposta = () =>{
     const dbRispostaRef = refRispostePaziente;
@@ -84,16 +96,14 @@ const GiocoCognitivoLettere = (props) => {
   }
  
 const handleNextQuestion = () =>{
-
-
   const nextQuestion = currentQuestion + 1;
   if(nextQuestion < todoData.length){
     setCurrentQuestion(nextQuestion);
-    
   }
   setCurrentQuestion(nextQuestion);
-  aggiungi();
+  setRisposte([...risposte,{risposta:letteraPaziente}]);
   addRisposta();
+  setLettera('');
 }
 
 
@@ -128,35 +138,25 @@ const isPulsanteDisabilitato = (index) => {
 };
 
 
- 
 
-  const aggiungi = () => {
-   
-   
-    var input  = document.getElementById("input");
-    setLettera(input.value);
-    setRisposte([...risposte,{risposta:input.value}]);
-    
-  }
-  
-const removeRandomLetter = (parola) =>{
+const RenderInputWithRandomLetter = ({ parola, randomPosition, setLettera }) => {
+  const parte1 = parola.substring(0, randomPosition);
+  const parte2 = parola.substring(randomPosition + 1);
 
-  var pos = Math.floor(Math.random()*parola.length);
-
-  var parte1 = parola.substring(0, pos);
-  var parte2 = parola.substring(pos+1);
-
-
-  return   <> 
-      <div className="inputLettera">
-          <label>{parte1}</label>
-           <input id="input" type="text" placeholder="________" maxLength="1" ></input>
-          <label>{parte2}</label>
-      </div>
-     </> 
-
-    
-}
+  return (
+    <Form.Group className="inputLettera">
+      <Form.Label style={{fontSize: '40px'}}>{parte1}</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="________"
+        maxLength="1"
+        value={letteraPaziente}
+        onChange={(e) => setLettera(e.target.value)}
+      />
+      <Form.Label style={{fontSize: '40px'}}>{parte2}</Form.Label>
+    </Form.Group>
+  );
+};
 
 
     return (
@@ -173,12 +173,14 @@ const removeRandomLetter = (parola) =>{
            {todoData[currentQuestion].titoloDomanda}
         </Card.Title>
         <Card.Text>
-            <div className="inputLettera">
-             <div className="parola">  {removeRandomLetter(todoData[currentQuestion].parola.toLocaleUpperCase())}</div>
-            </div>
-              <div className="cardNext">
+        <RenderInputWithRandomLetter
+            parola={todoData[currentQuestion]?.parola.toLocaleUpperCase()}
+            randomPosition={randomPosition}
+            setLettera={setLettera}
+          />
+           <div className="cardNext">
                  <button className="btnNext" onClick={handleNextQuestion}>Domanda successiva <MdNavigateNext/></button>
-              </div>
+            </div>
           
         </Card.Text>
       </Card.Body >

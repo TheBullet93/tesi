@@ -80,8 +80,6 @@ const GiocoCognitivoAppartenenza = (props) => {
 
 
 const handleNextQuestion = () =>{
- 
-  
   const nextQuestion = currentQuestion + 1;
   if(nextQuestion < todoData.length){
   
@@ -91,7 +89,7 @@ const handleNextQuestion = () =>{
   setCurrentQuestion(nextQuestion);
   setRisposte([...risposte,{risposta:parolaPaziente }]);
   addRisposta();
-  
+  setParola('');
 }
 
 const handleCorretta= (index) =>{

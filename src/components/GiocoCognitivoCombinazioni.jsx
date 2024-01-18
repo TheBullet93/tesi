@@ -97,6 +97,11 @@ const handleNextQuestion = () =>{
      risposta4:parola4Paziente,
     }]);
     addRisposta();
+
+    setParola1('');
+    setParola2('');
+    setParola3('');
+    setParola4('');
 }
 
 const handleCorretta= (index) =>{
