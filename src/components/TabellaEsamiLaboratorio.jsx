@@ -99,7 +99,6 @@ function TabellaEsamiLaboratorio(props){
     return(
         <>
         <div className='tabella'>
-          <h2 className='tepTitle'>Esami di laboratorio
             <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -107,7 +106,7 @@ function TabellaEsamiLaboratorio(props){
                      placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form></h2>
+             </Form>
              <Table>     
              <Thead>
              <Tr>

@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     width: 200px;
-    background: linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%);
+    background: linear-gradient(90deg, rgba(0,123,255,1) 24%, rgba(0,122,253,1) 86%);
     position: fixed;
     height: 100vh;
     overflow: auto;
@@ -37,12 +37,12 @@
   }
   .link:hover{
     background:#fff;
-    color:#3164F4;
+    color:#007bff;
     transition: all 0.5s;
   }
   .active{
     background: #fff;
-    color: #3164F4;
+    color: #007bff;
   }
   .icon, .link_text{
     font-size: 20px;

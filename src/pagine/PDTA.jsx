@@ -3,8 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useLocation } from "react-router-dom";
 
-import { getDatabase } from "firebase/database";
-import { ref,onValue } from 'firebase/database';
+import { useMediaQuery } from 'react-responsive';
 
 import Header from "../components/Header";
 import SideNavBar from "../components/SideNavBar";
@@ -47,9 +46,7 @@ const PDTA = () =>{
         const location = useLocation();
         const state = location.state;
         console.log(state);
-
-        const db = getDatabase();
-      
+        const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
         const startContent = (
           <React.Fragment>
@@ -141,9 +138,11 @@ const PDTA = () =>{
           <Tabs
             defaultActiveKey="bmi"
             id="uncontrolled-tab-example"
-            className="mb-3 TabHeader">
+            className={`mb-3 TabHeader ${isMobile ? 'd-flex flex-row flex-nowrap overflow-auto' : ''}`}
+            fill>
 
-          <Tab eventKey="bmi" title="BMI">
+          <Tab eventKey="bmi" title="BMI" >
+          <div className="sfondo"> 
              <Header
                  title={'BMI di ' + state.nome + ' ' + state.cognome}
                  />  
@@ -151,51 +150,62 @@ const PDTA = () =>{
              <TabellaBMI
               idPaziente = {state.id}
               />
+            </div>
           </Tab>
 
           <Tab eventKey="esLab" title="Esami Laboratorio">
+          <div className="sfondo"> 
              <Header
                  title={'Esami Laboratorio di ' + state.nome + ' ' + state.cognome}
                  />  
              <Toolbar start={startContent}  center={centerContentEsLab}  end={endContent} className="toolBar"/>
              <TabellaEsamiLaboratorio
                idPaziente = {state.id}/>
+               </div>
           </Tab>
 
           <Tab eventKey="esStr" title="Esami Strumentali">
+          <div className="sfondo"> 
              <Header
                  title={'Esami Strumentali di ' + state.nome + ' ' + state.cognome}
                  />  
              <Toolbar start={startContent}  center={centerContentEsStr}  end={endContent} className="toolBar"/>
              <TabellaEsamiStrumentali
                idPaziente = {state.id}/>
+               </div>
           </Tab>
 
           <Tab eventKey="visite" title="Visite">
+          <div className="sfondo"> 
              <Header
                  title={'Visite di ' + state.nome + ' ' + state.cognome}
                  />  
              <Toolbar start={startContent}  center={centerContentVisite}  end={endContent} className="toolBar"/>
              <TabellaVisite
               idPaziente = {state.id}/>
+              </div>
           </Tab>
 
           <Tab eventKey="terGio" title="Terapie Giornaliere">
+          <div className="sfondo"> 
              <Header
                  title={'Terapie Giornaliere di ' + state.nome + ' ' + state.cognome}
                  />  
              <Toolbar start={startContent}  center={centerContentTerGio}  end={endContent} className="toolBar"/>
              <TabellaTerapieGiornaliere
              idPaziente = {state.id}/>
+             </div>
           </Tab>
 
           <Tab eventKey="terInt" title="Terapie Intervallari">
+          <div className="sfondo"> 
              <Header
                  title={'Terapie Intervallari di ' + state.nome + ' ' + state.cognome}
                  />  
              <Toolbar start={startContent}  center={centerContentTerInt}  end={endContent} className="toolBar"/>
              <TabellaTerapieIntervallari
              idPaziente = {state.id}/>
+             </div>
           </Tab>
           </Tabs>
          </SideNavBar>

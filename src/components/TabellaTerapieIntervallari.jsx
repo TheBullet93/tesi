@@ -101,9 +101,6 @@ const sortingDSC = (col) =>{
                          position="top-center"
                          theme="light"
                        />
-
-      <h2 className='tepTitle'>
-        Terapie Intervallari
      <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -112,7 +109,6 @@ const sortingDSC = (col) =>{
                   />
                 </InputGroup>
       </Form>
-      </h2>
     <Table>
     <Thead>
         <Tr>

@@ -17,12 +17,14 @@ import StoricoAllergie from '../components/StoricoAllergie';
 import StoricoTerapie from '../components/StoricoTerapie';
 import StoricoTrattamenti from '../components/StoricoTrattamenti';
 import StoricoEsami from '../components/StoricoEsami';
+import { useMediaQuery } from 'react-responsive';
 
 const Storico = () =>{
 
     const location = useLocation();
     const state = location.state;
     console.log(state);
+    const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -56,9 +58,10 @@ const Storico = () =>{
           <Tabs
            defaultActiveKey="patologie"
            id="uncontrolled-tab-example"
-           className="mb-3 TabHeader"
-          >
+           className={`mb-3 TabHeader ${isMobile ? 'd-flex flex-row flex-nowrap overflow-auto' : ''}`}
+          fill>
             <Tab eventKey="patologie" title="Patologie">
+            <div className="sfondo"> 
              <Header
                title={'Storico patologie di'}
                nome = {state.nome}
@@ -69,8 +72,10 @@ const Storico = () =>{
                  idPaziente = {state.id}
    
                />
+               </div>
             </Tab>
             <Tab eventKey="allergie" title="Allergie">
+            <div className="sfondo"> 
              <Header
                title={'Storico allergie di'}
                nome = {state.nome}
@@ -80,8 +85,10 @@ const Storico = () =>{
                <StoricoAllergie
                  idPaziente = {state.id}
                />
+               </div>
             </Tab>
             <Tab eventKey="esami" title="Esami">
+            <div className="sfondo"> 
              <Header
                title={'Storico esami di'}
                nome = {state.nome}
@@ -91,8 +98,10 @@ const Storico = () =>{
                <StoricoEsami
                  idPaziente = {state.id}
                />
+               </div>
             </Tab>
             <Tab eventKey="terapie" title="Terapie">
+            <div className="sfondo"> 
              <Header
                title={'Storico terapie di'}
                nome = {state.nome}
@@ -102,8 +111,10 @@ const Storico = () =>{
                <StoricoTerapie
                  idPaziente = {state.id}
                />
+               </div>
             </Tab>
             <Tab eventKey="trattamenti" title="Trattamenti">
+            <div className="sfondo"> 
              <Header
                title={'Storico trattamenti di'}
                nome = {state.nome}
@@ -114,6 +125,7 @@ const Storico = () =>{
                  idPaziente = {state.id}
    
                />
+               </div>
             </Tab>
           </Tabs>
       

@@ -199,7 +199,8 @@ function shuffleButtons(item1,item2,item3,item4) {
               </Col>
            </Row>  
         </Card.Text>
-        <UpdateDomandaPaziente
+        <Card.Footer>
+            <UpdateDomandaPaziente
                  idTerapista = {auth?.currentUser?.uid}
                  idPaziente = {props.idPaziente}
                  idGioco = {props.idGioco} 
@@ -217,6 +218,7 @@ function shuffleButtons(item1,item2,item3,item4) {
               textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                textToast = {'Domanda eliminata'}
                        />
+        </Card.Footer>
       </Card.Body >
     </Card>
        </React.Fragment>

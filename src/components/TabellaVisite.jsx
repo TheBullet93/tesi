@@ -99,7 +99,6 @@ function TabellaVisite(props){
     return(
         <>
         <div className='tabella'>
-          <h2 className='tepTitle'>Visite
             <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -107,7 +106,7 @@ function TabellaVisite(props){
                      placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form></h2>
+             </Form>
              <Table>     
              <Thead>
              <Tr>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -8,37 +8,38 @@ import SideNavBar from "../components/SideNavBar";
 import CardDialogo from '../components/CardDialogo';
 import CardTrattamentoFisico from '../components/CardTrattamentoFisico';
 import CardTrattamentoCognitivo from '../components/CardTrattamentoCognitivo';
+import { useMediaQuery } from 'react-responsive';
 
-class Trattamento extends React.Component {
+const Trattamento = () => {
+
+   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
 
-    render() {
-     
      return (
        <SideNavBar>
          <Tabs
             defaultActiveKey="fisici"
             id="uncontrolled-tab-example"
-            className="mb-3 TabHeader"
-        >      
-      <Tab eventKey="fisici" title="Fisici" >
+            className={`mb-3 TabHeader ${isMobile ? 'd-flex flex-row flex-nowrap overflow-auto' : ''}`}
+        fill>      
+      <Tab eventKey="fisici" title="Fisici">
+      <div className="sfondo"> 
       <Header
                title={'Trattamenti fisici'}/>  
-        <div>
             <CardTrattamentoFisico/>
         </div>
       </Tab>
-      <Tab eventKey="cognitivi" title="Cognitivi" >
+      <Tab eventKey="cognitivi" title="Cognitivi">
+      <div className="sfondo"> 
       <Header
         title={'Trattamenti cognitivi'}/>  
-        <div>
             <CardTrattamentoCognitivo/>
           </div>
       </Tab>
-      <Tab eventKey="dialoghi" title="Dialoghi" className='tabStyle'>
+      <Tab eventKey="dialoghi" title="Dialoghi">
+      <div className="sfondo"> 
       <Header
          title={'Dialoghi'}/>  
-           <div>
             <CardDialogo/>
           </div>
       </Tab>
@@ -46,7 +47,7 @@ class Trattamento extends React.Component {
     </SideNavBar>
  
      );
-   }
+   
  }
 
 export default Trattamento;

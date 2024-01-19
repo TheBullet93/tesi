@@ -213,9 +213,9 @@ function shuffleButtons(item1,item2,item3,item4) {
                  <AudioPlayer
                     src={todoData[currentQuestion].audio} 
                     type="audio/mpeg"    
-                    color="#0f2666"
-	                  sliderColor="#0f2666"
-				            style={{ background: 'linear-gradient(90deg, rgba(73,119,247,0.773546918767507) 0%, rgba(49,100,244,1) 0%, rgba(148,173,244,1) 100%)', borderRadius: '15px', padding: '30px' }}                  
+                    color="#fff"
+	                  sliderColor="#fff"
+				            style={{ background: 'linear-gradient(90deg, rgba(0,123,255,0.9780287114845938) 24%, rgba(0,122,253,0.6334908963585435) 86%)', borderRadius: '15px', padding: '30px' }}                  
                     controls/>
                 </div>
               

@@ -14,6 +14,8 @@ import GraficoBarre from "../components/GraficoBarre";
 import GraficoCiambella from "../components/GraficoCiambella";
 import GraficoArea from "../components/GraficoArea";
 import GraficoLinee from "../components/GraficoLinee";
+import { useMediaQuery } from 'react-responsive';
+
 const Statistiche = () =>{
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -31,26 +33,30 @@ const Statistiche = () =>{
     const location = useLocation();
     const state = location.state;
     console.log(state);
+    const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
     return(
         <SideNavBar>
           <Tabs
             defaultActiveKey="ciambella"
             id="uncontrolled-tab-example"
-            className="mb-3 TabHeader"
-          >
+            className={`mb-3 TabHeader ${isMobile ? 'd-flex flex-row flex-nowrap overflow-auto' : ''}`}
+          fill>
             <Tab eventKey="ciambella" title="Ciambella" >
+            <div className="sfondo"> 
               <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
                />  
            
-               <GraficoCiambella
+           <GraficoCiambella
                  idPaziente = {state.id}
                 />
-            
+       
+               </div>
             </Tab>
             <Tab eventKey="torta" title="Torta" >
+            <div className="sfondo"> 
               <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
@@ -60,9 +66,10 @@ const Statistiche = () =>{
                <GraficoTorta
                  idPaziente = {state.id}
                 />
-            
+            </div>
             </Tab>
             <Tab eventKey="barre" title="Barre" >
+            <div className="sfondo"> 
               <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
@@ -71,8 +78,10 @@ const Statistiche = () =>{
                <GraficoBarre
                idPaziente = {state.id}
                />
+               </div>
             </Tab>
             <Tab eventKey="area" title="Area" >
+            <div className="sfondo"> 
               <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
@@ -81,8 +90,10 @@ const Statistiche = () =>{
                <GraficoArea
                idPaziente = {state.id}
                />
+               </div>
             </Tab>
             <Tab eventKey="linee" title="Linee" >
+            <div className="sfondo"> 
               <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
@@ -91,6 +102,7 @@ const Statistiche = () =>{
                <GraficoLinee
                idPaziente = {state.id}
                />
+               </div>
             </Tab>
           </Tabs>
        </SideNavBar>

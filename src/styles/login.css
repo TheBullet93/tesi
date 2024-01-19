@@ -1,12 +1,12 @@
 
 
 .App {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-family: 'Roboto', sans-serif;
     display: flex;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    color: #3164F4;
+    color:#6C757D;
     background: linear-gradient(90deg, rgb(112, 105, 240) 0%, rgba(49,100,244,1) 35%, rgba(0,212,255,1) 100%);
   }
   
@@ -33,11 +33,11 @@
   @media screen and (min-width:200px) {
     .auth-form-container {
       padding: 5rem;
-      border: 2px solid #3164F4;
+      border: 2px solid #007bff;
       background-color: #fefefe;
       border-radius: 10px;
       margin: 0.5rem;
-      box-shadow: #3164F4 1px 1px ;
+      box-shadow: #007bff 1px 1px ;
     }
   }
   
@@ -52,7 +52,7 @@
 
     .auth-form-container {
       padding: 2rem;
-      border: 2px solid #3164F4;
+      border: 2px solid #007bff;
       background-color: #fefefe;
       border-radius: 10px;
       margin: 0.5rem;
@@ -68,7 +68,7 @@
   input {
     margin: 0.5rem 0;
     padding: 1rem;
-    border: 1px solid #3164F4;
+    border: 1px solid #007bff;
     border-radius: 25px;  
   }
   input:focus {
@@ -77,10 +77,10 @@
   
   .login-btn, .register-btn{
     padding: 20px;
-    border: 1px solid #3164F4;
+    border: 1px solid #007bff;
     border-radius: 25px;    
     cursor: pointer;
-    background: linear-gradient(90deg, rgba(49,100,244,1) 0%, rgba(254,254,254,1) 100%);
+    background: linear-gradient(90deg, rgba(0,123,255,0.9780287114845938) 24%, rgba(0,122,253,0.6334908963585435) 86%);
     color: white;
     box-shadow: #3164F4 2px 2px;
   }
@@ -100,7 +100,7 @@
   }   
   .link-btn {
     background: none;
-    color:  #3164F4;
+    color:  #007bff;
     padding: 20px;
     border:none;
     text-decoration: underline;

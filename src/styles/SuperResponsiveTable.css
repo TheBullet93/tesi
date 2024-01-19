@@ -10,7 +10,7 @@
 
   .responsiveTable tr:hover td, .responsiveTable tbody tr:hover th {
     background-color: #dee4f5;
-    color:rgb(38, 141, 182)
+    color:#007bff;
   }
   
   @media screen and (max-width: 1000px) {
@@ -34,7 +34,7 @@
     }
   
     .responsiveTable tbody tr {
-      border: 1px solid #3164F4;
+      border: 1px solid #007bff;
       padding: .25em;
     }
   

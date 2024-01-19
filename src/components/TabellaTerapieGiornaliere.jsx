@@ -113,9 +113,6 @@ const sortingDSC = (col) =>{
                        />
   
         </div>
-
-      <h2 className='tepTitle'>
-        Terapie Giornaliere
       <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -123,8 +120,7 @@ const sortingDSC = (col) =>{
                      placeholder='Cerca terapie giornaliere...'
                   />
                 </InputGroup>
-             </Form> </h2>
-      
+             </Form> 
     <Table>
     <Thead>
         <Tr>
