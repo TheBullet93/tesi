@@ -102,17 +102,17 @@ function FormPazienti(props) {
     const newPostRef = push(postListRef);
 
     set(newPostRef, {
-      nome: nome,
-      cognome: cognome,
-      citta: citta,
-      data: data,
-      sesso: sesso,
-      codiceFiscale:codiceFiscale,
+      nome: nome || 'Nessun dato',
+      cognome: cognome || 'Nessun dato',
+      citta: citta || 'Nessun dato',
+      data: data || 'Nessun dato',
+      sesso: sesso || 'Nessun dato',
+      codiceFiscale:codiceFiscale || 'Nessun dato',
       patologie,
       allergie,
-      valutazioneCognitiva: valutazioneCognitiva,
-      capacitaFisiche: capacitaFisiche,
-      dieta: dieta,
+      valutazioneCognitiva: valutazioneCognitiva || 'Nessun dato',
+      capacitaFisiche: capacitaFisiche || 'Nessun dato',
+      dieta: dieta || 'Nessun dato',
 
       parenti,
     });

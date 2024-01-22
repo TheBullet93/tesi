@@ -30,7 +30,7 @@ const FormDomandaEsFisico= (props) =>{
       const postListRef= ref(db, `trattamenti/fisici/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
       });
 
       setTitoloDomanda(null)

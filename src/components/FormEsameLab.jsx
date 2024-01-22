@@ -52,11 +52,11 @@ function FormEsameLab(props) {
 
    
       set(newPostRef,{
-        patologia: patologia,
-        titolo: titolo,
-        valore: valore,
-        note: note,
-        dataMonitoraggio: dataMonitoraggio
+        patologia: patologia || 'Nessun dato',
+        titolo: titolo || 'Nessun dato',
+        valore: valore || 'Nessun dato',
+        note: note || 'Nessun dato',
+        dataMonitoraggio: dataMonitoraggio || 'Nessun dato'
   
       });
    

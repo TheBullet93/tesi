@@ -27,8 +27,8 @@ function UpdateDialoghiPaziente(props) {
    
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${props.item}`);
     update(updateRef, {
-      titoloDialogo: titoloDialogo,
-      tipologiaDialogo: tipologiaDialogo, 
+      titoloDialogo: titoloDialogo || 'Nessun dato',
+      tipologiaDialogo: tipologiaDialogo || 'Nessun dato', 
     });
 
     setShow(false);

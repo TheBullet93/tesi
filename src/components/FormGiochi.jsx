@@ -76,9 +76,9 @@ function FormGiochi() {
     
     const newPostRef = push(postListRef);
     set(newPostRef, {
-      titoloGioco: titoloGioco,
-      tipologiaGioco: tipologiaGioco,
-      difficoltaGioco: difficoltaGioco,
+      titoloGioco: titoloGioco || 'Nessun dato',
+      tipologiaGioco: tipologiaGioco || 'Nessun dato',
+      difficoltaGioco: difficoltaGioco || 'Nessun dato',
     });
 
     setTitoloGioco(null)

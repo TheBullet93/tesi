@@ -35,11 +35,11 @@ const UpdateDomandaPaziente = (props) =>{
       const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${props.currentQuestion}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        rispostaCorretta: rispostaCorretta,
-        rispostaErrata1: rispostaErrata1,
-        rispostaErrata2: rispostaErrata2,
-        rispostaErrata3: rispostaErrata3,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        rispostaCorretta: rispostaCorretta || 'Nessun dato',
+        rispostaErrata1: rispostaErrata1 || 'Nessun dato',
+        rispostaErrata2: rispostaErrata2 || 'Nessun dato',
+        rispostaErrata3: rispostaErrata3 || 'Nessun dato',
        
       });
   

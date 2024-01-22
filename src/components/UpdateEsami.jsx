@@ -51,11 +51,11 @@ function UpdateEsami(props) {
     const postListRef = ref(db, dbPath); 
  
       update(postListRef,{
-        patologia: patologia,
-        titolo: titolo,
-        valore: valore,
-        note: note,
-        dataMonitoraggio: dataMonitoraggio
+        patologia: patologia || 'Nessun dato',
+        titolo: titolo || 'Nessun dato',
+        valore: valore || 'Nessun dato',
+        note: note || 'Nessun dato',
+        dataMonitoraggio: dataMonitoraggio || 'Nessun dato'
   
       });
    

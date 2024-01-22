@@ -56,16 +56,16 @@ const UpdateTerapieIntervallari = (props) =>{
   const aggiorna = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari/${props.idTerapia}`);
     update(updateRef,{
-      farmaco: farmaco,   
+      farmaco: farmaco || 'Nessun dato',   
       giorni:
         {
-          giorno:  giorni,
+          giorno:  giorni || 'Nessun dato',
         }
          ,
-      dataInizio: dataInizio,
-      dataFine: dataFine,
-      numAssunzioni: numAssunzioni,
-      dettagli: dettagli
+      dataInizio: dataInizio || 'Nessun dato',
+      dataFine: dataFine || 'Nessun dato',
+      numAssunzioni: numAssunzioni || 'Nessun dato',
+      dettagli: dettagli || 'Nessun dato'
       });
     
       toast.success('Terapia Intervallare aggiornata');

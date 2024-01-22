@@ -28,7 +28,7 @@ const UpdateAllergia = (props) =>{
   const aggiornaAllergia = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/allergie/${props.index}`);
     update(updateRef,{
-        nomeAllergia: allergia,
+        nomeAllergia: allergia || 'Nessun dato',
       });
 
     

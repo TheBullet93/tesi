@@ -45,13 +45,13 @@ const UpdateDatiTerapista= (props) => {
     const updateRef = ref(db, `/terapisti/${props.item}/profilo`);
  
     update(updateRef, {
-      nome: nome,
-      cognome:cognome,
-      telefono: telefono,
-      citta: citta,
-      indirizzo: indirizzo,
-      email: email,
-      password: password,
+      nome: nome || 'Nessun dato',
+      cognome:cognome || 'Nessun dato',
+      telefono: telefono || 'Nessun dato',
+      citta: citta || 'Nessun dato',
+      indirizzo: indirizzo || 'Nessun dato',
+      email: email || 'Nessun dato',
+      password: password || 'Nessun dato',
       
     });
 

@@ -39,11 +39,11 @@ function FormBMI(props) {
       setBMI(bmiValue);
 
       set(newPostRef,{
-        peso: peso,
-        altezza: altezza,
-        bmi: bmiValue,
-        circonferenzaVita: circonferenza,
-        dataMonitoraggio: dataMonitoraggio
+        peso: peso || 'Nessun dato',
+        altezza: altezza || 'Nessun dato',
+        bmi: bmiValue || 'Nessun dato',
+        circonferenzaVita: circonferenza || 'Nessun dato',
+        dataMonitoraggio: dataMonitoraggio || 'Nessun dato'
   
       });
     } else {

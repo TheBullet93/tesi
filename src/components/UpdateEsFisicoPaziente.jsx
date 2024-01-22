@@ -30,8 +30,8 @@ const  UpdateEsFisicoPaziente = (props) => {
    
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/fisici/${props.item}`);
     update(updateRef, {
-      titoloEsercizio: titoloEsercizio,
-      tipologiaEsercizio: tipologiaEsercizio,
+      titoloEsercizio: titoloEsercizio || 'Nessun dato',
+      tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato',
       
     });
 

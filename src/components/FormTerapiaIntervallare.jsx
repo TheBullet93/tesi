@@ -100,17 +100,17 @@ function FormTerapiaIntervallare(props) {
     const postListRef = ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari`);
     const newPostRef = push(postListRef);
     set(newPostRef, {
-      patologia: patologia,
-      farmaco: farmaco,
+      patologia: patologia || 'Nessun dato',
+      farmaco: farmaco || 'Nessun dato', 
       giorni:
         {
-          giorno:  giorni,
+          giorno:  giorni || 'Nessun dato',
         }
          ,
-      dataInizio: dataInizio,
-      dataFine: dataFine,
-      numAssunzioni: numAssunzioni,
-      dettagli: dettagli
+      dataInizio: dataInizio || 'Nessun dato',
+      dataFine: dataFine || 'Nessun dato',
+      numAssunzioni: numAssunzioni || 'Nessun dato',
+      dettagli: dettagli || 'Nessun dato'
 
     });
 

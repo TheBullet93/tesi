@@ -36,11 +36,11 @@ const FormDomanda = (props) =>{
       const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
-        rispostaCorretta: rispostaCorretta,
-        rispostaErrata1: rispostaErrata1,
-        rispostaErrata2: rispostaErrata2,
-        rispostaErrata3: rispostaErrata3,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        rispostaCorretta: rispostaCorretta || 'Nessun dato',
+        rispostaErrata1: rispostaErrata1 || 'Nessun dato',
+        rispostaErrata2: rispostaErrata2 || 'Nessun dato',
+        rispostaErrata3: rispostaErrata3 || 'Nessun dato',
 
       });
 

@@ -53,12 +53,12 @@ const UpdateTerapieGiornaliere = (props) =>{
   const aggiorna = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/terapieGiornaliere/${props.idTerapia}`);
     update(updateRef,{
-      patologia: patologia,
-      farmaco: farmaco,
-      dataInizio: dataInizio,
-      dataFine: dataFine,
-      numAssunzioni: numAssunzioni,
-      dettagli: dettagli
+      patologia: patologia || 'Nessun dato',
+      farmaco: farmaco || 'Nessun dato',
+      dataInizio: dataInizio || 'Nessun dato',
+      dataFine: dataFine || 'Nessun dato',
+      numAssunzioni: numAssunzioni || 'Nessun dato',
+      dettagli: dettagli || 'Nessun dato'
       });
       toast.success('Terapia Giornaliera aggiornata');
       setShow(false);

@@ -30,7 +30,7 @@ const FormRacconti = (props) =>{
       const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: argomento,
+        titoloDomanda: argomento || 'Nessun dato',
       });
 
       setArgomento(null)

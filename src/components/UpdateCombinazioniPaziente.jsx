@@ -33,8 +33,8 @@ const UpdateCombinazioniPaziente = (props) =>{
       const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${props.currentQuestion}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        lettere: lettere,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        lettere: lettere || 'Nessun dato',
       });
   
       setShow(false);

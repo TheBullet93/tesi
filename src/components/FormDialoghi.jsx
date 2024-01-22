@@ -59,8 +59,8 @@ function FormDialoghi() {
     const postListRef = ref(db, 'trattamenti/dialoghi/'); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
-      titoloDialogo: titoloDialogo,
-      tipologiaDialogo: tipologiaDialogo,
+      titoloDialogo: titoloDialogo || 'Nessun dato' ,
+      tipologiaDialogo: tipologiaDialogo || 'Nessun dato',
     });
 
     setTitoloDialogo(null)

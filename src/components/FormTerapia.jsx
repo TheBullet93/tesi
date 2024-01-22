@@ -40,11 +40,11 @@ function FormTerapia(props) {
     const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/`+ props.idPaziente +'/terapie');
     const newPostRef = push(postListRef);
     set(newPostRef, {
-        patologia: patologia,
-        farmaco: farmaco,
-        dataInizio: dataInizio,
-        dataFine: dataFine,
-        dettagli: dettagli
+        patologia: patologia || 'Nessun dato',
+        farmaco: farmaco || 'Nessun dato',
+        dataInizio: dataInizio || 'Nessun dato',
+        dataFine: dataFine || 'Nessun dato',
+        dettagli: dettagli || 'Nessun dato'
 
     });
     setPatologia(null)

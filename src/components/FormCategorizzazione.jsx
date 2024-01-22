@@ -39,12 +39,12 @@ const FormCategorizzazione = (props) =>{
       const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
-        categoria: categoria,
-        parola1: parola1,
-        parola2: parola2,
-        parola3: parola3,
-        parola4: parola4,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        categoria: categoria || 'Nessun dato',
+        parola1: parola1 || 'Nessun dato',
+        parola2: parola2 || 'Nessun dato',
+        parola3: parola3 || 'Nessun dato',
+        parola4: parola4 || 'Nessun dato',
       });
 
       setTitoloDomanda(null)

@@ -32,8 +32,8 @@ const FormFluenze = (props) =>{
       const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
-        parola: parola,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        parola: parola || 'Nessun dato',
       });
 
       setTitoloDomanda(null)

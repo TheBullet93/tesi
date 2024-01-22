@@ -30,7 +30,7 @@ const FormDomandaMini = (props) =>{
       const postListRef= ref(db, `trattamenti/dialoghi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
       });
 
       setTitoloDomanda(null)

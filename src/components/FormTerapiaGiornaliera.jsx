@@ -56,12 +56,12 @@ function FormTerapiaGiornaliera(props) {
     const postListRef = ref(db, `/terapisti/${props.item}/pazienti/${props.idPaziente}/PDTA/terapieGiornaliere`);
     const newPostRef = push(postListRef);
     set(newPostRef, {
-        patologia: patologia,
-        farmaco: farmaco,
-        dataInizio: dataInizio,
-        dataFine: dataFine,
-        numAssunzioni: numAssunzioni,
-        dettagli: dettagli
+        patologia: patologia || 'Nessun dato',
+        farmaco: farmaco || 'Nessun dato',
+        dataInizio: dataInizio || 'Nessun dato',
+        dataFine: dataFine || 'Nessun dato',
+        numAssunzioni: numAssunzioni || 'Nessun dato',
+        dettagli: dettagli || 'Nessun dato'
     });
     toast.success('Terapia Giornaliera inserita con successo');
     setFarmaco(null)

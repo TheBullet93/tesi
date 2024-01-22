@@ -24,8 +24,8 @@ function UpdateDialoghi(props) {
    
     const updateRef = ref(db, `trattamenti/dialoghi/${props.item}`);
     update(updateRef, {
-      titoloDialogo: titoloDialogo,
-      tipologiaDialogo: tipologiaDialogo, 
+      titoloDialogo: titoloDialogo || 'Nessun dato',
+      tipologiaDialogo: tipologiaDialogo || 'Nessun dato', 
     });
 
     setShow(false);

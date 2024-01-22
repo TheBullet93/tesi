@@ -26,7 +26,7 @@ const UpdateDomandaMini = (props) =>{
       const updateRef = ref(db, `trattamenti/dialoghi/${props.idCard}/domande/${props.idDomanda}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
       });
 
       setShow(false);

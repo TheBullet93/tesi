@@ -30,8 +30,8 @@ const UpdateCombinazioni = (props) =>{
       const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/parole/${props.idParola}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        lettere: lettere,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        lettere: lettere || 'Nessun dato',
   
       });
 

@@ -38,13 +38,12 @@ const UpdateCategorizzazionePaziente = (props) =>{
       const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${props.currentQuestion}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        categoria: categoria,
-       
-        parola1: parola1,
-        parola2: parola2,
-        parola3: parola3,
-        parola4: parola4,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        categoria: categoria || 'Nessun dato', 
+        parola1: parola1 || 'Nessun dato',
+        parola2: parola2 || 'Nessun dato',
+        parola3: parola3 || 'Nessun dato',
+        parola4: parola4 || 'Nessun dato',
       });
 
       setShow(false);

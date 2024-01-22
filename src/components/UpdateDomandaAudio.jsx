@@ -47,12 +47,12 @@ const UpdateDomandaAudio = (props) =>{
       const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/domande/${props.idDomanda}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        rispostaCorretta: rispostaCorretta,
-        rispostaErrata1: rispostaErrata1,
-        rispostaErrata2: rispostaErrata2,
-        rispostaErrata3: rispostaErrata3,
-        audio: audioUrls,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        rispostaCorretta: rispostaCorretta || 'Nessun dato',
+        rispostaErrata1: rispostaErrata1 || 'Nessun dato',
+        rispostaErrata2: rispostaErrata2 || 'Nessun dato',
+        rispostaErrata3: rispostaErrata3 || 'Nessun dato',
+        audio: audioUrls || 'Nessun dato',
       });
 
       setShow(false);

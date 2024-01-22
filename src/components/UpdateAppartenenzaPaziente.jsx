@@ -31,8 +31,8 @@ const UpdateAppartenenzaPaziente = (props) =>{
       const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/parole/${props.currentQuestion}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        parola: parola,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        parola: parola || 'Nessun dato',
         
       });
   

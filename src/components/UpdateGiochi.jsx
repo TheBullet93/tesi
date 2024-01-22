@@ -29,9 +29,9 @@ const  UpdateGiochi = (props) => {
    
     const updateRef = ref(db, `trattamenti/cognitivi/${props.item}`);
     update(updateRef, {
-      titoloGioco: titoloGioco,
-      tipologiaGioco: tipologiaGioco,
-      difficoltaGioco: difficoltaGioco
+      titoloGioco: titoloGioco || 'Nessun dato',
+      tipologiaGioco: tipologiaGioco || 'Nessun dato',
+      difficoltaGioco: difficoltaGioco || 'Nessun dato'
       
     });
 

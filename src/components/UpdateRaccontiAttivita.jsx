@@ -27,7 +27,7 @@ const UpdateRaccontiAttivita = (props) =>{
       const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${props.currentQuestion}`); 
       
       update(updateRef, {
-        argomento: argomento,
+        argomento: argomento || 'Nessun dato',
       });
 
       setShow(false);

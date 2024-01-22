@@ -30,8 +30,8 @@ const UpdateFluenza = (props) =>{
       const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/parole/${props.idParola}`); 
       
       update(updateRef, {
-        titoloDomanda: titoloDomanda,
-        parola: parola,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        parola: parola || 'Nessun dato',
   
       });
 

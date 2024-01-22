@@ -31,10 +31,10 @@ const UpdateParente = (props) => {
   const aggiornaParente = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/parenti/${props.index}`);
     update(updateRef,{
-        nomeParente: nomeParente,
-        cognomeParente: cognomeParente,
-        telefonoParente: telefonoParente,
-        emailParente: emailParente,
+        nomeParente: nomeParente || 'Nessun dato',
+        cognomeParente: cognomeParente || 'Nessun dato',
+        telefonoParente: telefonoParente || 'Nessun dato',
+        emailParente: emailParente || 'Nessun dato',
       });
 
     

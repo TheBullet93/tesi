@@ -46,7 +46,7 @@ const UpdatePatologia = (props) =>{
    
 
     update(updateRef,{
-        nomePatologia: patologia,
+        nomePatologia: patologia || 'Nessun dato',
       });
 
     remove(RefPDTA);

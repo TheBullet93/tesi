@@ -79,16 +79,16 @@ const UpdatePazienti = (props) =>{
   const aggiorna = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}`);
     update(updateRef,{
-        nome: nome,
-        cognome: cognome,
-        citta: citta,
-        data: data,
-        sesso: sesso,
-        codiceFiscale:codiceFiscale,
+        nome: nome || 'Nessun dato',
+        cognome: cognome || 'Nessun dato',
+        citta: citta || 'Nessun dato',
+        data: data || 'Nessun dato',
+        sesso: sesso || 'Nessun dato',
+        codiceFiscale:codiceFiscale || 'Nessun dato',
         
-        valutazioneCognitiva: valutazioneCognitiva,
-        capacitaFisiche: capacitaFisiche,
-        dieta: dieta,
+        valutazioneCognitiva: valutazioneCognitiva || 'Nessun dato',
+        capacitaFisiche: capacitaFisiche || 'Nessun dato',
+        dieta: dieta || 'Nessun dato',
        
 
       });

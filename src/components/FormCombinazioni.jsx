@@ -33,8 +33,8 @@ const FormCombinazioni = (props) =>{
       const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloDomanda: titoloDomanda,
-        lettere: lettere,
+        titoloDomanda: titoloDomanda || 'Nessun dato',
+        lettere: lettere || 'Nessun dato',
       });
 
       setTitoloDomanda(null)

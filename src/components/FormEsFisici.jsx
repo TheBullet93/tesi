@@ -57,8 +57,8 @@ function FormEsFisici() {
     const postListRef = ref(db, 'trattamenti/fisici'); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
-      titoloEsercizio: titoloEsercizio,
-      tipologiaEsercizio: tipologiaEsercizio,
+      titoloEsercizio: titoloEsercizio || 'Nessun dato',
+      tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato',
     });
 
     setTitoloEsercizio(null)

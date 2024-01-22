@@ -24,8 +24,8 @@ function UpdateEsFisico(props) {
    
     const updateRef = ref(db, `trattamenti/fisici/${props.item}`);
     update(updateRef, {
-      titoloEsercizio: titoloEsercizio,
-      tipologiaEsercizio: tipologiaEsercizio, 
+      titoloEsercizio: titoloEsercizio || 'Nessun dato',
+      tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato', 
     });
 
     setShow(false);
