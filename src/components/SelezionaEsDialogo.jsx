@@ -106,9 +106,9 @@ const SelezionaEsDialogo= (props) =>{
                     type={'checkbox'}
                     label={
                       <div>
-                      <span>Titolo: {item.titoloDialogo}</span>
+                      <span className="itemCard">Titolo: <span className="cardText">{item.titoloDialogo}</span></span>
                       <br />
-                      <span>Tipologia: {item.tipologiaDialogo}</span>
+                      <span className="itemCard">Tipologia: <span className="cardText">{item.tipologiaDialogo}</span></span>
                     </div>}
                     checked={selezionati.some((selezionato) => selezionato.id === item.id)}
                     onChange={() => gestisciSelezione(item.id)}

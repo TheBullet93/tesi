@@ -255,9 +255,7 @@ const UpdatePazienti = (props) =>{
               <Form.Group className="mb-3" controlId="sesso">
                 <Form.Label className="labelForm">Sesso</Form.Label>
                 {['radio'].map((type) => (
-                <div key={`inline-${type}`} className="mb-3"  
-                defaultValue={sesso}  
-                onClick = {(e) => setSesso(e.target.value)}>
+                <div key={`inline-${type}`} className="mb-3">
                   <Form.Check
                   className="labelForm"
                     inline
@@ -266,6 +264,8 @@ const UpdatePazienti = (props) =>{
                     type={type}
                     id={`inline-${type}-1`}
                     value="Maschio"  
+                    checked={sesso === "Maschio"}
+                    onChange={handleChangeSesso}
                     required
                     feedback="Selezionare sesso"
                     feedbackType="invalid"
@@ -278,6 +278,8 @@ const UpdatePazienti = (props) =>{
                     type={type}
                     id={`inline-${type}-2`}
                     value={"Femmina" } 
+                    checked={sesso === "Femmina"}
+                    onChange={handleChangeSesso}
                     required
                     feedback="Selezionare sesso"
                     feedbackType="invalid"

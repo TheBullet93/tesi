@@ -152,19 +152,19 @@ console.log(state);
 
     return (
       <>
-        <Card className='card'>
-          <Card.Body>
-            <Row>
+        <div className="container mt-4">
+        <Card className="mb-4">
+        <Card.Body>
+          <Card.Title className="cardTitle">Informazioni personali</Card.Title>
+          <ListGroup variant="flush">
+          <Row>
              <Col >
              <div className="avatar">
               <Image alt="avatar" className='imgAvatar' src={renderImage(todoDataPaziente && todoDataPaziente.sesso)} fluid style={{ width: '200px' }}/>
              </div>
              </Col>
-             </Row>
-             <Row>
-             <Col>
-              <ListGroup className=" border-primary listMargin">
-                <ListGroup.Item className=" border-primary"> 
+        </Row>
+          <ListGroup.Item className=" border-primary"> 
                   <span className='infoPaziente'>Data di nascita:  </span>{
                     todoDataPaziente  && todoDataPaziente.data ? <span className='datiPaziente'>{format(new Date(todoDataPaziente  && todoDataPaziente.data),"dd/MM/yyyy")} </span>
                     :<span className='datiPaziente'>Data non inserita </span>
@@ -202,29 +202,39 @@ console.log(state);
                      />  
                  </span>
                  </ListGroup.Item>
-                </ListGroup>
-             </Col>
-             <Col>
-               <AddPatologia
+          </ListGroup>
+        </Card.Body>
+      </Card>
+
+      <Card className="mb-4">
+        <Card.Body>
+          <Card.Title className="cardTitle">Patologie e Allergie</Card.Title>
+          <Card.Text  style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+          <AddPatologia
                       idTerapista = {auth?.currentUser?.uid}
                       idPaziente ={props.idPaziente}
                       index = {arrayLength(props.patologie)}/> 
-              {  !todoPatologie
+          <AddAllergia
+                   idTerapista = {auth?.currentUser?.uid}
+                   idPaziente ={props.idPaziente}
+                   index = {arrayLength(props.allergie)}/>
+          </Card.Text>
+          <ListGroup variant="flush">
+            {  !todoPatologie
                  ?    
                  <>
                 
-                    <ListGroup>
+                  
                        <ListGroup.Item className="border-primary listMargin">
                          <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>Nessuna patologia</span>
                        </ListGroup.Item>
-                    </ListGroup> 
+                    
                  </>
                  
                  :todoPatologie.map((item,index) => {
                     return (
                         
-                        <React.Fragment key={index}>
-                        <ListGroup className="border-primary listMargin">
+                   <React.Fragment key={index}>         
                       <ListGroup.Item className="border-primary">
                          <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>
                             {item.nomePatologia}</span>
@@ -245,27 +255,67 @@ console.log(state);
                      textToast = {'Patologia eliminata'}
                        />
                             </span>
-
                        </ListGroup.Item>
-                   </ListGroup>
                         </React.Fragment>             
                  
                
                  )
                })
                }
-            </Col>
-            </Row>
-          <Row>
-          <Col> 
-            <AddParente
+               
+            {  !todoData
+             ?    <>
+              
+              <ListGroup.Item className="border-primary listMargin">
+              <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
+              </ListGroup.Item>
+
+          </>
+             :todoData.map((item,index) => {
+             return (
+               <React.Fragment key={index}>
+                 <ListGroup.Item className="border-primary">
+                 <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>
+                   {item.nomeAllergia}
+                  </span>
+                  <span className='btn-space1'>
+                <UpdateAllergia
+                     idTerapista = {auth?.currentUser?.uid}
+                     idPaziente ={props.idPaziente}
+                     index = {index}
+                     nomeAllergia = {item.nomeAllergia}
+                    />   
+                <DeleteDatiPaziente
+                     title = {item.nomeAllergia}
+                     dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/allergie`}
+                     itemValue = {item.nomeAllergia}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie/${index}`}
+                     textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
+                     textToast = {'Allergia eliminata'}
+                       />
+                  </span>
+                 </ListGroup.Item>
+               </React.Fragment>      
+             )
+           })
+           }
+          </ListGroup>
+        </Card.Body>
+      </Card>
+      
+      <Card className="mb-4">
+        <Card.Body>
+          <Card.Title className="cardTitle">Contatti</Card.Title>
+          <Card.Text style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+          <AddParente
                     idTerapista = {auth?.currentUser?.uid}
                     idPaziente ={props.idPaziente}
                     index = {arrayLength(props.parenti)}/>    
-             {
+          </Card.Text>
+          <ListGroup variant="flush">
+          {
              !todoParenti
              ?    <>
-             <ListGroup className="border-primary listMargin ">
              <ListGroup.Item className="border-primary">
               <span className='infoPaziente'>Nome Caregiver:  </span><span className='datiPaziente'>Nessun nome</span>
              </ListGroup.Item>
@@ -280,13 +330,11 @@ console.log(state);
              </ListGroup.Item>
              <span className='btn-space1'>
              </span>
-            </ListGroup>
           </>
              :todoParenti.map((item,index) => {
              return (
               
                <React.Fragment key={index}>
-               <ListGroup  className="border-primary listMargin">
                   <ListGroup.Item className="border-primary">
                    <span className='infoPaziente'>Nome Caregiver:  </span><span className='datiPaziente'>{item.nomeParente} </span>
                   </ListGroup.Item>
@@ -317,7 +365,6 @@ console.log(state);
                    </span>
                   
                  </ListGroup.Item>               
-                 </ListGroup>
                </React.Fragment>      
               
                
@@ -325,60 +372,10 @@ console.log(state);
            })
         
            }
-             </Col>
-            <Col>
-            <AddAllergia
-                   idTerapista = {auth?.currentUser?.uid}
-                   idPaziente ={props.idPaziente}
-                   index = {arrayLength(props.allergie)}/>
-              {  !todoData
-             ?    <>
-              <ListGroup>
-              <ListGroup.Item className="border-primary listMargin">
-              <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
-              </ListGroup.Item>
-                    
-              </ListGroup> 
-
-          </>
-             :todoData.map((item,index) => {
-             return (
-               
-               <React.Fragment key={index}>
-               <ListGroup  className="border-primary listMargin">
-                 <ListGroup.Item className="border-primary">
-                 <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>
-                   {item.nomeAllergia}
-                  </span>
-                  <span className='btn-space1'>
-                <UpdateAllergia
-                     idTerapista = {auth?.currentUser?.uid}
-                     idPaziente ={props.idPaziente}
-                     index = {index}
-                     nomeAllergia = {item.nomeAllergia}
-                    />   
-                <DeleteDatiPaziente
-                     title = {item.nomeAllergia}
-                     dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/allergie`}
-                     itemValue = {item.nomeAllergia}
-                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie/${index}`}
-                     textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
-                     textToast = {'Allergia eliminata'}
-                       />
-                  </span>
-                
-                 </ListGroup.Item>
-                 </ListGroup>
-               </React.Fragment>
-             
-             )
-           })
-           }
-            </Col>
-          </Row>
-          </Card.Body>
-     
-        </Card>
+          </ListGroup>
+        </Card.Body>
+      </Card>
+          </div>
 
         </>
       );

@@ -8,6 +8,7 @@ import { getDatabase } from "firebase/database";
 import {set,ref} from 'firebase/database';
 import { ButtonGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
+import { FaPlusCircle } from "react-icons/fa";
 
 const AddParente = (props) =>{
 
@@ -34,10 +35,10 @@ const AddParente = (props) =>{
       
     set(newPostRef,
        {
-        nomeParente: nomeParente,
-        cognomeParente:cognomeParente,
-        telefonoParente:telefonoParente,
-        emailParente:emailParente,
+        nomeParente: nomeParente || 'Nessun dato',
+        cognomeParente:cognomeParente || 'Nessun dato',
+        telefonoParente:telefonoParente || 'Nessun dato',
+        emailParente:emailParente || 'Nessun dato',
     }
     );
    
@@ -85,7 +86,7 @@ const AddParente = (props) =>{
   return (
     <>
     <ButtonGroup >
-       <Button variant="primary" className='inputPazienteView'  onClick={handleShow}>Aggiungi Caregiver</Button>
+       <Button variant="primary" className='inputPazienteView'  onClick={handleShow}><FaPlusCircle /> Caregiver</Button>
     </ButtonGroup>
     
          <Modal show={show} onHide={handleClose}>

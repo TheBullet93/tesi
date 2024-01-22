@@ -127,11 +127,11 @@ const SelezionaEsCognitivo = (props) =>{
                     type={'checkbox'}
                     label={
                       <div>
-                      <span>Titolo: {item.titoloGioco}</span>
+                      <span className="itemCard">Titolo: <span className="cardText">{item.titoloGioco}</span></span>
                       <br />
-                      <span>Tipologia: {item.tipologiaGioco}</span>
+                      <span className="itemCard">Tipologia: <span className="cardText">{item.tipologiaGioco}</span></span>
                       <br />
-                      <span>Difficoltà: {item.difficoltaGioco}</span>
+                      <span className="itemCard">Difficoltà: <span className="cardText">{item.difficoltaGioco}</span></span>
                     </div>}
                     checked={selezionati.some((selezionato) => selezionato.id === item.id)}
                     onChange={() => gestisciSelezione(item.id)}

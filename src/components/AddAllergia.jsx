@@ -9,7 +9,7 @@ import {set,ref} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
-
+import { FaPlusCircle } from "react-icons/fa";
 
 const AddAllergia = (props) =>{
 
@@ -30,7 +30,7 @@ const AddAllergia = (props) =>{
     const newPostRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/allergie/${count}`);
       
     set(newPostRef,
-       {nomeAllergia: allergia,
+       {nomeAllergia: allergia || 'Nessun dato',
     }
     );
    
@@ -56,7 +56,7 @@ const AddAllergia = (props) =>{
   return (
     <>
     <ButtonGroup >
-      <Button variant="primary" className='inputPazienteView'   onClick={handleShow}>Aggiungi Allergia</Button>
+      <Button variant="primary" className='inputPazienteView'   onClick={handleShow}><FaPlusCircle /> Allergia</Button>
     </ButtonGroup>
     
       

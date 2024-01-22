@@ -113,6 +113,7 @@ const SelezionaPazientiDialoghi = (props) =>{
                .map((item)=>{
                 return(
                     <Form.Check
+                    className="cardText"
                     key={item.id} 
                     type={'checkbox'}
                     label={item.nome + ' ' + item.cognome}

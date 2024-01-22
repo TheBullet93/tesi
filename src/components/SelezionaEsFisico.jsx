@@ -111,9 +111,9 @@ const SelezionaEsFisico = (props) =>{
                     type={'checkbox'}
                     label={
                       <div>
-                      <span>Titolo: {item.titoloEsercizio}</span>
+                      <span className="itemCard">Titolo: <span className="cardText">{item.titoloEsercizio}</span></span>
                       <br />
-                      <span>Tipologia: {item.tipologiaEsercizio}</span>
+                      <span className="itemCard">Tipologia: <span className="cardText">{item.tipologiaEsercizio}</span></span>
                     </div>}
               
                     checked={selezionati.some((selezionato) => selezionato.id === item.id)}
