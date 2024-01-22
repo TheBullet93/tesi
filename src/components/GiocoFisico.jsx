@@ -5,8 +5,7 @@ import {ref,update,onValue,increment,push,set} from 'firebase/database';
 
 
 import Card from 'react-bootstrap/Card';
-
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, Col, Row} from "react-bootstrap";
 
 
 import {MdNavigateNext} from "react-icons/md";
@@ -156,16 +155,14 @@ const handleErrata= () =>{
             <div className="inputLettera">
                     <h3 className="parola">  {todoData[currentQuestion].titoloDomanda}</h3>
             </div>
-         
-         
-              <div className="cardNext">
-              <Button className = "btn btn-success btn-space" onClick={handleCorretta}>CORRETTO</Button>
-              <button className="btnNext" onClick={handleNextQuestion}>Esercizio successivo <MdNavigateNext/></button>
-              <Button className = "btn btn-danger btn-space1" onClick={handleErrata}>ERRATO</Button>
-                
-              </div>
+       </Card.Text> 
+         <Row>
+          <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} variant="success" block onClick={handleCorretta}>CORRETTO</Button></Col>
+          <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} className="Next" block onClick={handleNextQuestion}>Es. successivo <MdNavigateNext/></Button></Col>
+          <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} variant="danger" block onClick={handleErrata}>ERRATO</Button></Col>
+         </Row>
           
-        </Card.Text>
+      
        
        
       </Card.Body >

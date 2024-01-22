@@ -54,6 +54,7 @@ export default function MenuSideBar() {
       }).catch((error) => {
       });
   }
+   // <MenuItem><Link className="linkMenu"to={'/profilo'}><FiUser/>Profilo</Link></MenuItem>
 
   return (
     <>
@@ -78,9 +79,8 @@ export default function MenuSideBar() {
         }}
       >
         <MenuItem onClick={handleConnessione}><div className="linkMenu"><FaRobot/>Connetti MINI</div></MenuItem>
-        <MenuItem><Link className="linkMenu"
-              to={'/profilo'}><FiUser/>Profilo</Link></MenuItem>
-        <MenuItem><Link className="linkMenu"  onClick={handleLogout}><FiLogOut/>Logout</Link></MenuItem>
+      
+       <MenuItem><Link className="linkMenu"  onClick={handleLogout}><FiLogOut/>Logout</Link></MenuItem>
       </Menu>
 
     </div>

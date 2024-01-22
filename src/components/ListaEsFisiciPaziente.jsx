@@ -205,9 +205,6 @@ const endContent = (
                        />
       <Toolbar start={startContent} center={centerContent} end={endContent}  className="toolBar"/>
       </div> 
-      <div>
-       
-      </div>
         <Row  xs={1} md={3} className="g-4">
        
              {!todoData.length

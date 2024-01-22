@@ -74,7 +74,7 @@ const SelezionaEsDialogo= (props) =>{
 
     return(
         <>
-        <Button  className='btnCard' variant="primary"  onClick={handleShow}>Assegna Dialogo</Button>
+        <Button  className='btnCard' variant="primary"  onClick={handleShow}>Aggiungi</Button>
         <Modal show={show} onHide={handleClose}>
              <Modal.Header closeButton>
                 <Modal.Title className='headerForm'>Seleziona Dialoghi</Modal.Title>

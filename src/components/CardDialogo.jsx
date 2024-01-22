@@ -108,6 +108,9 @@ export default function CardDialogo() {
       <React.Fragment key={item.id}>
           <Card className='card' >
 <Card.Title className="title">{item.titoloDialogo}</Card.Title>
+<Card.Text className="cardText">
+<span className="itemCard">Tipologia:</span> {item.tipologiaDialogo}
+</Card.Text>
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
@@ -131,8 +134,6 @@ export default function CardDialogo() {
                        />
       </ButtonGroup>
     </div>
-    <p><span className="itemCard">Tipologia:</span> {item.tipologiaDialogo}</p>
-
     <TabellaDomandeMini 
      item = {item.id}/>
 

@@ -108,6 +108,7 @@ export default function CardTrattamentoFisico() {
       <React.Fragment key={item.id}>
           <Card className='card' >
 <Card.Title className="title">{item.titoloEsercizio}</Card.Title>
+<Card.Text className="cardText"><span className="itemCard">Tipologia:</span> {item.tipologiaEsercizio} </Card.Text>
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
@@ -123,7 +124,7 @@ export default function CardTrattamentoFisico() {
          tipologiaEsercizio = {item.tipologiaEsercizio}
          item = {item.id}  
        />
-              <Delete
+       <Delete
                        title = {item.titoloEsercizio}
                        dbPath = {`trattamenti/fisici/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questo esercizio?'}
@@ -131,8 +132,6 @@ export default function CardTrattamentoFisico() {
                        />
       </ButtonGroup>
     </div>
-    <p><span className="itemCard">Tipologia:</span> {item.tipologiaEsercizio}</p>
-
     <TabellaDomandeEsFisici
      item = {item.id}/>
 

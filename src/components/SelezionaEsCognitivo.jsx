@@ -94,7 +94,7 @@ const SelezionaEsCognitivo = (props) =>{
 
     return(
         <>
-        <Button  className='btnCard' variant="primary"  onClick={handleShow}>Assegna Esercizio</Button>
+        <Button  className='btnCard' variant="primary"  onClick={handleShow}>Aggiungi</Button>
         <Modal show={show} onHide={handleClose}>
              <Modal.Header closeButton>
                 <Modal.Title className='headerForm'>Seleziona Esercizi</Modal.Title>

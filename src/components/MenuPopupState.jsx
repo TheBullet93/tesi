@@ -74,6 +74,7 @@ export default function MenuPopupState() {
       });
   }
 
+  // <MenuItem><Link className="linkMenu" to={{ pathname:`/profilo/:idTerapista`,search: `?idTerapista=${auth?.currentUser?.uid}`,}}state= { state}activeclassname="active"><FiUser/>Profilo</Link></MenuItem>
   return (
     <>
  <div className="float-end menu">
@@ -97,12 +98,6 @@ export default function MenuPopupState() {
         }}
       >
         <MenuItem onClick={handleConnessione}><div className="linkMenu"><FaRobot/>Connetti MINI</div></MenuItem>
-        <MenuItem><Link className="linkMenu"
-            to={{ 
-              pathname:`/profilo/:idTerapista`,
-              search: `?idTerapista=${auth?.currentUser?.uid}`,}}
-              state= { state}
-              activeclassname="active"><FiUser/>Profilo</Link></MenuItem>
         <MenuItem><Link className="linkMenu"  onClick={handleLogout}><FiLogOut/>Logout</Link></MenuItem>
       </Menu>
     </div>

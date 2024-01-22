@@ -257,7 +257,9 @@ p{color:#007bff;}
   width: 100%;
 }
 
-
+.cardText{
+  color:#6C757D
+}
 
 .title{
   text-align: center;
@@ -269,11 +271,12 @@ p{color:#007bff;}
 .itemCard{
   color:#007bff;
   font-weight: bold;
+  margin-left: 10px;
 }
 
 .btnGroupCard{
   float:right;
- 
+  margin-bottom: 5px;
 }
 
 .btnDomanda{

@@ -204,3 +204,23 @@ main {
 .activeColumn {
   background-color: #085fbd; 
 }
+
+
+.Next{
+  border-radius: 25px;
+  border: 1px solid ;
+  color: #495057;
+  background: #fff;
+}
+
+.Next:hover{
+  background:  white;
+  color:  #007bff;
+
+}
+
+.Next:active {
+  background-color: white;
+  box-shadow: 0 3px #495057;
+  transform: translateY(4px);
+}

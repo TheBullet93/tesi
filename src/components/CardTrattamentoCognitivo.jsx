@@ -271,6 +271,10 @@ export default function CardTrattamentoCognitivo() {
 <React.Fragment key={item.id}>
  <Card className='card' >
 <Card.Title className="title">{item.titoloGioco}</Card.Title>
+<Card.Text className="cardText">
+  <span className="itemCard">Tipologia:</span> {item.tipologiaGioco}
+  <span className="itemCard">Livello:</span> {item.difficoltaGioco}
+</Card.Text>
   <Card.Body>
   <div className='btnGroupCard'>
     <ButtonGroup>
@@ -297,8 +301,7 @@ export default function CardTrattamentoCognitivo() {
                        />
       </ButtonGroup>
     </div>
-    <p><span className="itemCard">Tipologia:</span> {item.tipologiaGioco}</p>
-    <p><span className="itemCard">Livello:</span> {item.difficoltaGioco}</p> 
+   
     {
       renderTabDomande(item.tipologiaGioco,item.id)
       
