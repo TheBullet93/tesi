@@ -74,11 +74,11 @@ const GiocoCognitivoCombinazioni = (props) => {
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
-      titoloGioco: props.titolo,
-      tipologiaGioco: props.tipologia,
-      domanda: todoData[currentQuestion].titoloDomanda,
-      rispostaPaziente: parola1Paziente + ' ' + parola2Paziente + ' ' + parola3Paziente + ' ' + parola4Paziente,
-      giorno:  dataRisposta,
+      titoloGioco: props.titolo || 'Nessun dato',
+      tipologiaGioco: props.tipologia || 'Nessun dato',
+      domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+      rispostaPaziente: parola1Paziente + ' ' + parola2Paziente + ' ' + parola3Paziente + ' ' + parola4Paziente || 'Nessun dato',
+      giorno:  dataRisposta || 'Nessun dato',
       
     });
   }
@@ -224,10 +224,10 @@ const isPulsanteDisabilitato = (index) => {
                       </Col>
                       <Col>
                         <p className="score">Domanda {index +1}</p>
-                        <p className="score" > {item.risposta1.toLocaleUpperCase()}</p>
-                         <p className="score" > {item.risposta2.toLocaleUpperCase()}</p>
-                         <p className="score" > {item.risposta3.toLocaleUpperCase()}</p>
-                         <p className="score" > {item.risposta4.toLocaleUpperCase()}</p>
+                        <p className="score" > {item.risposta1.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
+                         <p className="score" > {item.risposta2.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
+                         <p className="score" > {item.risposta3.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
+                         <p className="score" > {item.risposta4.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
                       </Col>
                       <Col>
                         <Button className = "btn btn-danger btn-space1" 

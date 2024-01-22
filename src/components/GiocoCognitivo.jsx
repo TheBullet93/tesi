@@ -97,11 +97,11 @@ const activeQuestion = todoData[currentQuestion];
       let dataRisposta = new Date().toLocaleString('it-IT', options);
       const newPostRef = push(dbRispostaRef);
       set(newPostRef,{
-        titoloGioco: props.titolo,
-        tipologiaGioco: props.tipologia,
-        domanda: todoData[currentQuestion].titoloDomanda,
-        rispostaPaziente: item,
-        giorno:  dataRisposta,
+        titoloGioco: props.titolo || 'Nessun dato',
+        tipologiaGioco: props.tipologia || 'Nessun dato',
+        domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+        rispostaPaziente: item || 'Nessun dato',
+        giorno:  dataRisposta || 'Nessun dato',
         
       });
       
@@ -123,11 +123,11 @@ const activeQuestion = todoData[currentQuestion];
         let dataRisposta = new Date().toLocaleString('it-IT', options);
         const newPostRef = push(dbRispostaRef);
         set(newPostRef,{
-          titoloGioco: props.titolo,
-          tipologiaGioco: props.tipologia,
-          domanda: todoData[currentQuestion].titoloDomanda,
-          rispostaPaziente: item,
-          giorno:  dataRisposta,
+          titoloGioco: props.titolo || 'Nessun dato',
+          tipologiaGioco: props.tipologia || 'Nessun dato',
+          domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+          rispostaPaziente: item || 'Nessun dato',
+          giorno:  dataRisposta || 'Nessun dato',
           
         });
 
@@ -241,7 +241,7 @@ function shuffleButtons(item1,item2,item3,item4) {
                    
                     <React.Fragment key={index}>
                     <div >
-                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
+                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
                        </div>
                     </React.Fragment>
                      

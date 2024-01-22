@@ -16,9 +16,9 @@ function GiocoPaziente(props){
       const postListRef = ref(db, `/terapisti/${props. idTerapista}/pazienti/`+props.idPaziente+'/attivita'+'/giochi'); 
       const newPostRef = push(postListRef);
       set(newPostRef, {
-        titoloGioco: props.titoloGioco,
-        tipologiaGioco: props.tipologiaGioco,
-        difficoltaGioco: props.difficoltaGioco,
+        titoloGioco: props.titoloGioco || 'Nessun dato',
+        tipologiaGioco: props.tipologiaGioco || 'Nessun dato',
+        difficoltaGioco: props.difficoltaGioco || 'Nessun dato',
         
       });
 

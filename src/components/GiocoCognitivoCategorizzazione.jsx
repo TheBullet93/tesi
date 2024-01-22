@@ -67,11 +67,11 @@ const GiocoCognitivoCategorizzazione= (props) => {
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
-      titoloGioco: props.titolo,
-      tipologiaGioco: props.tipologia,
-      domanda: todoData[currentQuestion].titoloDomanda,
-      rispostaPaziente: categoriaPaziente,
-      giorno:  dataRisposta,
+      titoloGioco: props.titolo || 'Nessun dato',
+      tipologiaGioco: props.tipologia || 'Nessun dato',
+      domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+      rispostaPaziente: categoriaPaziente || 'Nessun dato',
+      giorno:  dataRisposta || 'Nessun dato',
       
     });
   }
@@ -194,7 +194,7 @@ const handleNextQuestion = () =>{
                     <>
                     <React.Fragment key={index}>
                        <div>
-                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</p>
+                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
                        </div>
                     </React.Fragment>
                      

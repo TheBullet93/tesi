@@ -127,11 +127,11 @@ const handleErrata= () =>{
   let dataRisposta = new Date().toLocaleString('it-IT', options);
   const newPostRef = push(dbRispostaRef);
   set(newPostRef,{
-    titoloGioco: props.titoloEsercizio,
-    tipologiaGioco: props.tipologiaEsercizio,
-    domanda: todoData[currentQuestion].titoloDomanda,
+    titoloGioco: props.titoloEsercizio || 'Nessun dato',
+    tipologiaGioco: props.tipologiaEsercizio || 'Nessun dato',
+    domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
     rispostaPaziente: 'Errato',
-    giorno:  dataRisposta,
+    giorno:  dataRisposta || 'Nessun dato',
     
   });
    

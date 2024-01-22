@@ -68,11 +68,11 @@ const GiocoCognitivoAppartenenza = (props) => {
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
     set(newPostRef,{
-      titoloGioco: props.titolo,
-      tipologiaGioco: props.tipologia,
-      domanda: todoData[currentQuestion].titoloDomanda,
-      rispostaPaziente: parolaPaziente,
-      giorno:  dataRisposta,
+      titoloGioco: props.titolo || 'Nessun dato',
+      tipologiaGioco: props.tipologia || 'Nessun dato',
+      domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+      rispostaPaziente: parolaPaziente || 'Nessun dato',
+      giorno:  dataRisposta || 'Nessun dato',
       
     });
   }
@@ -195,7 +195,7 @@ const isPulsanteDisabilitato = (index) => {
                          onClick={()=>handleCorretta(index)}>CORRETTA</Button>
                       </Col>
                       <Col>
-                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase()}</span>
+                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</span>
                       </Col>
                       <Col>
                         <Button className = "btn btn-danger btn-space1" 
