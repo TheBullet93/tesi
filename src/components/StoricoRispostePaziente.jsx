@@ -13,6 +13,10 @@ import { Toolbar } from 'primereact/toolbar';
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
+import Button from 'react-bootstrap/Button';
+import { useLocation } from "react-router-dom";
 
 const StoricoRispostePaziente = (props) =>{
 
@@ -23,6 +27,9 @@ const StoricoRispostePaziente = (props) =>{
     const [search, setSearch] = useState('');
 
     const [activeColumn, setActiveColumn] = useState(null);
+
+    const location = useLocation();
+    const state = location.state;
   
     const [order,setOrder] = useState({
       titoloGioco: 'ASC',
@@ -85,8 +92,23 @@ const StoricoRispostePaziente = (props) =>{
       });
     
     },[auth?.currentUser?.uid])
-  
+
     const startContent = (
+      <React.Fragment>
+       <Link  to={{ 
+                 pathname:`/PDTAPaziente/:idPaziente`,
+                 search: `?idPaziente=${state.id}`,}}
+                 state= { state}
+                 activeclassname="active">
+                  <Button className="btnNavPaziente" type="submit"  >
+                    <AiOutlineArrowLeft></AiOutlineArrowLeft><span className='btnText'> PDTA</span>
+                  </Button>
+                 </Link> 
+                
+      </React.Fragment>
+  );
+  
+    const centerContent = (
       <React.Fragment>
            <Form className="search-container">
                  <InputGroup >
@@ -99,10 +121,24 @@ const StoricoRispostePaziente = (props) =>{
       </React.Fragment>
   );
 
+  const endContent = (
+    <React.Fragment>
+    <Link  to={{ 
+            pathname:"/statistiche/:idPaziente",
+            search: `?idAPaziente=${state.id}`,}}
+            state= { state}
+            activeclassname="active">
+            <Button className="btnNavPaziente" type="submit"  >
+            <span className='btnText'> Statistiche</span><AiOutlineArrowRight></AiOutlineArrowRight>
+            </Button>
+          </Link> 
+  </React.Fragment>
+  );
+
     return(
        
     <>
-      <Toolbar start={startContent}/>
+      <Toolbar start={startContent} center={centerContent} end={endContent} className="toolBar"/>
     <Table className='tabella'>
       <Thead>
         <Tr>

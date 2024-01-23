@@ -18,6 +18,13 @@
     
   }
 
+  
+  
+  .formFeedback{
+    min-width: 5px;
+    text-align: center;
+  }
+
   .avviso{
     margin-top: 10px;
     
@@ -76,9 +83,9 @@
   }
   
   .login-btn, .register-btn{
-    padding: 20px;
+    padding: 10px 15px;
     border: 1px solid #007bff;
-    border-radius: 25px;    
+    border-radius: 15px;    
     cursor: pointer;
     background: linear-gradient(90deg, rgba(0,123,255,0.9780287114845938) 24%, rgba(0,122,253,0.6334908963585435) 86%);
     color: white;

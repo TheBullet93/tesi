@@ -10,24 +10,28 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Form from 'react-bootstrap/Form';
 import { Row,Col } from "react-bootstrap";
-
+import { InputGroup } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 
 export const Registrazione = () => {
     
         const navigate = useNavigate();
 
-        const text = 'Password [6 caratteri minimo]'
+        const text = 'Inserire Password [6 caratteri minimo]'
  
-        const [nome, setNome] = useState('')
+      /*  const [nome, setNome] = useState('')
         const [cognome, setCognome] = useState('');
         const [citta, setCitta] = useState('')
         const [indirizzo, setIndirizzo] = useState('');
-        const [telefono,setTelefono] = useState('');
+        const [telefono,setTelefono] = useState(''); */
+
         const [email, setEmail] = useState('')
         const [password, setPassword] = useState('');
 
         const [changed, setChanged] = useState(false);
+
+        const [validated, setValidated] = useState(false);
      
         const onSubmit = async (e) => {
             setChanged(false);
@@ -49,6 +53,7 @@ export const Registrazione = () => {
                     
             })
             
+            /*
             .then(()=>{
                 const db = getDatabase();
                 const postListRef = ref(db, 'terapisti/' + auth.currentUser.uid +'/profilo'); 
@@ -64,7 +69,7 @@ export const Registrazione = () => {
                        
                      });
              
-            } )
+            } ) */
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -80,29 +85,67 @@ export const Registrazione = () => {
           }, 3500);  
         }
 
+        const isFormValid = () => {
+          // Verifica che tutti i campi siano stati inseriti
+          return email !== '' && password!== '' ;
+        };
+      
+      
+        const handleChangeEmail = (e)=>{
+          const form = e.currentTarget;
+          if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+      
+          setValidated(true);
+          setEmail(e.target.value)
+        }
+      
+        const handleChangePassword = (e)=>{
+          const form = e.currentTarget;
+          if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+      
+          setValidated(true);
+          setPassword(e.target.value)
+        }
+
     return (
 
         <div className="App"> 
         <div className="auth-form-container">
             <h2>REGISTRATI</h2>
-        <Form className="register-form">
-           <Row>
-            <Col>
+        <Form className="register-form" noValidate validated={validated}>
+        <Form.Group className="mb-3" controlId="formPeso">
                 <Form.Label className="labelForm">Email</Form.Label>
-                   <Form.Control type="email" placeholder="email@gmail.com"
+                <InputGroup hasValidation>
+                <Form.Control type="email" placeholder="email@gmail.com"
                      value={email}  
-                     onChange={(e)=>{setChanged(true);setEmail(e.target.value)}} 
+                     onChange={handleChangeEmail} 
                      required/>
-            </Col>
-            <Col>
+                <Form.Control.Feedback type="invalid" className="formFeedback">
+                Inserire email
+               </Form.Control.Feedback>
+                </InputGroup>
+                </Form.Group>      
+         
+                <Form.Group className="mb-3" controlId="formPeso">
                 <Form.Label className="labelForm">Password</Form.Label>
-                  <Form.Control type="password" placeholder="********"
+                <InputGroup hasValidation>
+                <Form.Control type="password" placeholder="********"
                      value={password}  
-                     onChange={(e)=>{setChanged(true);setPassword(e.target.value)}} 
+                     onChange={handleChangePassword} 
                      required/>
-            </Col>
-           </Row>
-           <Row>
+                <Form.Control.Feedback type="invalid" className="formFeedback">
+                {text}
+               </Form.Control.Feedback>
+                </InputGroup>
+          </Form.Group>   
+          
+        { /*  <Row>
             <Col>
                 <Form.Label className="labelForm">Nome</Form.Label>
                   <Form.Control type="text" placeholder="Nome" 
@@ -142,11 +185,12 @@ export const Registrazione = () => {
                      onChange={(e)=>{setChanged(true);setTelefono(e.target.value)}} 
                      required/>   
             </Col>
-           </Row>
-            <button 
+    </Row> */}
+            <Button 
+            disabled={!isFormValid()}
                 className="register-btn" 
                 type="submit" 
-                onClick={onSubmit}>REGISTRATI</button>
+                onClick={onSubmit}>REGISTRATI</Button>
         </Form>
         <ToastContainer 
              position="bottom-center"

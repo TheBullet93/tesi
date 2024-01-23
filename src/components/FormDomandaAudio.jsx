@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -22,9 +22,6 @@ const FormDomandaAudio = (props) =>{
     const db = getDatabase();
     const storage = getStorage();
 
- 
-
-
      const [titoloDomanda,setTitoloDomanda] = useState('');
      const [rispostaCorretta,setRispCorretta] = useState('');
      const [rispostaErrata1,setRispErrata1] = useState('');
@@ -36,17 +33,21 @@ const FormDomandaAudio = (props) =>{
      
 
 
-     const aggiungi = async () => {
-
-      
+     const aggiungiFile = () => {
       const storageRef = ref_storage(storage, `/audio/${rispostaCorretta}`);
-      
-      
-      uploadBytes(storageRef, audio).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          setAudioUrls(url+v4());
+    
+      uploadBytes(storageRef, audio)
+        .then((snapshot) => getDownloadURL(snapshot.ref))
+        .then((url) => {
+          setAudioUrls(url + v4());
+        })
+        .catch((error) => {
+          console.error('Error uploading file:', error);
         });
-      });
+    };
+
+    useEffect(() => {
+      if (audioUrls) {
 
       const postListRef= ref_database(db, `trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
@@ -67,8 +68,16 @@ const FormDomandaAudio = (props) =>{
       setRispErrata3(null)
       setAudio(null)
       setAudioUrls(null)
-      setShow(false);
+      setShow(false);    }
+    }, [audioUrls]);
+  
+    const handleFileUpload = () => {
+      aggiungiFile();
     };
+  
+
+
+
 
     const handleClose = () =>{
       setTitoloDomanda(null)
@@ -236,7 +245,7 @@ const FormDomandaAudio = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={handleFileUpload}>
               Aggiungi
             </Button>
           </Modal.Footer>

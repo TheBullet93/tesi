@@ -25,12 +25,19 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 function TabellaEsamiStrumentali(props){
-
-    const db = getDatabase();
+  const db = getDatabase();
     const Ref= (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali`));
+    const RefFile= (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali`));
 
     const [todoData,setTodoData] = useState([]);
+    const [todoDataFile,setTodoDataFile] = useState([]);
     const [search, setSearch] = useState('');
+
+    const [useFile, setUseFile] = useState(false);
+
+    const handleToggle = () => {
+      setUseFile(!useFile);
+    };
 
     const location = useLocation();
     const state = location.state;
@@ -60,6 +67,18 @@ function TabellaEsamiStrumentali(props){
          
             console.log(newPosts);
             setTodoData(newPosts);
+            
+          });
+
+          onValue(RefFile, (snapshot) => {
+            const data = snapshot.val();
+            const newPosts = Object.keys(data || {}).map(key=>({
+              id:key,
+              ...data[key]
+            }));
+         
+            console.log(newPosts);
+            setTodoDataFile(newPosts);
             
           });
       
@@ -98,7 +117,71 @@ function TabellaEsamiStrumentali(props){
 
     return(
         <>
-        <div className='tabella'>
+        <Form.Check
+               type="switch"
+               id="custom-switch"
+               label="Visualizza Tabella File"
+               checked={useFile}
+               onChange={handleToggle}
+               className="mb-3"/>
+          
+          {useFile ?  (
+          <>
+            <div className='tabella'>
+                     <Form className="search-container">
+                <InputGroup >
+                  <Form.Control
+                     onChange={(e) => setSearch(e.target.value)}
+                     placeholder='Cerca...'
+                  />
+                </InputGroup>
+             </Form>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Nome File</Th>
+                <Th>Data Inserimento</Th>
+                <Th>File</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+                {
+                    !todoDataFile.length
+                    ? <Tr><Td className="noData" colSpan="5">Nessun file presente</Td></Tr>
+                    :todoDataFile
+                    .filter((item) => {
+                      return search.toLowerCase() === ''
+                        ? item
+                        :item.nomeFile.toLowerCase().includes(search) ||
+                        item.dataInserimento.toLowerCase().includes(search);                
+                    })
+                    .map((item) =>{
+                      return(
+                          <React.Fragment key={item.id}>
+                              <Tr>
+                              <Td>{item.nomeFile}</Td>
+                              {item.dataInserimento ? <Td>{format(new Date(item.dataInserimento),"dd/MM/yyyy")}</Td>
+                                    :<Td>Nessuna data inserita</Td>}
+                              <Td>
+                                   {item.file ? (
+                                     <a href={item.file} target="_blank" rel="noopener noreferrer">
+                                       Apri
+                                       </a>
+                                     ) : (
+                                        <span>File non presente</span>
+                                    )}
+                                  </Td>
+                              </Tr>
+                          </React.Fragment>
+                      );
+                   })
+                  }
+            </Tbody>
+          </Table>
+        </div>
+          </>): (
+          <>
+<div className='tabella'>
             <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -126,7 +209,7 @@ function TabellaEsamiStrumentali(props){
                  .filter((item) => {
                   return search.toLowerCase() === ''
                     ? item
-                    :item.patologia.toLowerCase().includes(search) ||
+                    : item.patologia.toLowerCase().includes(search) ||
                     item.titolo.toLowerCase().includes(search) ||
                     item.valore.toLowerCase().includes(search) || 
                     item.note.toLowerCase().includes(search) ||
@@ -136,7 +219,7 @@ function TabellaEsamiStrumentali(props){
                     return(
                         <React.Fragment key={item.id}>
                             <Tr>
-                            <Td>{item.patologia}</Td>
+                              <Td>{item.patologia}</Td>
                                    <Td>{item.titolo}</Td>
                                     <Td>{item.valore}</Td>
                                     {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
@@ -144,14 +227,14 @@ function TabellaEsamiStrumentali(props){
                                     <Td>{item.note}</Td>
                                     <Td>
                                     <ButtonGroup>
-                                    <UpdateEsami
+                                      <UpdateEsami
                                        patologia ={item.patologia}
                                        titolo = {item.titolo}
                                        valore = {item.valore}
                                        dataMonitoraggio = {item.dataMonitoraggio}
                                        note = {item.note}
-                                       titoloForm = {'Esami Strumentali'}
-                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali/${item.id}`}
+                                       titoloForm = {'Esami di laboratorio'}
+                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio/${item.id}`}
                                        dbPatologie = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`}
                                       />
                                       <DeleteDatiPaziente
@@ -160,7 +243,7 @@ function TabellaEsamiStrumentali(props){
                                         itemValue = {item.patologia}
                                         itemValue1 = {item.titolo}
                                         itemValue2 = {item.valore}
-                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali/${item.id}`}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
                                       />
@@ -176,6 +259,9 @@ function TabellaEsamiStrumentali(props){
             </Tbody>
           </Table>
         </div>
+          </>)}
+
+        
         </>
 
     );
