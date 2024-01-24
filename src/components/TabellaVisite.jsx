@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useLocation } from "react-router-dom";
 
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import {Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import '../styles/SuperResponsiveTable.css';
 
 import { getDatabase } from "firebase/database";
@@ -72,20 +72,24 @@ function TabellaVisite(props){
             setTodoData(newPosts);
             
           });
-      
-          onValue(RefFile, (snapshot) => {
-            const data = snapshot.val();
-            const newPosts = Object.keys(data || {}).map(key=>({
-              id:key,
-              ...data[key]
-            }));
-         
-            console.log(newPosts);
-            setTodoDataFile(newPosts);
-            
-          });
 
     },[auth?.currentUser?.uid])
+
+    useEffect(()=>{
+    
+        onValue(RefFile, (snapshot) => {
+          const data = snapshot.val();
+          const newPosts = Object.keys(data || {}).map(key=>({
+            id:key,
+            ...data[key]
+          }));
+       
+          console.log(newPosts);
+          setTodoDataFile(newPosts);
+          
+        });
+
+  },[auth?.currentUser?.uid])
 
 
     const [activeColumn, setActiveColumn] = useState(null);
@@ -117,7 +121,35 @@ function TabellaVisite(props){
       setActiveColumn(col);
    
   }
+
+  const [activeFileColumn, setActiveFileColumn] = useState(null);
+
+  const [orderFile,setOrderFile] = useState({
+    nomeFile: 'ASC',
+    dataInserimento: 'ASC',
+  });
+
+  const sortingFileASC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'DSC' });
+    setActiveFileColumn(col);
   
+
+}
+
+const sortingFileDSC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'ASC' });
+    setActiveFileColumn(col);
+ 
+}
+
     return(
         <>
         <Form.Check
@@ -129,7 +161,7 @@ function TabellaVisite(props){
                className="mb-3"/>
                {useFile ?  (
                 <>
-                  <div className='tabella'>
+                  <div>
                      <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -138,65 +170,66 @@ function TabellaVisite(props){
                   />
                 </InputGroup>
              </Form>
+             <Table></Table>
           <Table>
             <Thead>
               <Tr>
-                <Th>Nome File</Th>
-                <Th>Data Inserimento</Th>
+              <Th className={activeFileColumn === 'nomeFile' ? 'activeColumn' : ''}>Nome File {orderFile.nomeFile === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("nomeFile")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("nomeFile")}/> }</Th>
+                <Th className={activeFileColumn === 'dataInserimento' ? 'activeColumn' : ''}>Data Inserimento {orderFile.dataInserimento === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("dataInserimento")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("dataInserimento")}/> }</Th>
                 <Th>File</Th>
                 <Th>Opzioni</Th>
               </Tr>
+              
             </Thead>
             <Tbody>
-                {
-                    !todoDataFile.length
-                    ? <Tr><Td className="noData" colSpan="5">Nessun file presente</Td></Tr>
-                    :todoDataFile
-                    .filter((item) => {
-                      return search.toLowerCase() === ''
-                        ? item
-                        :item.nomeFile.toLowerCase().includes(search) ||
-                        item.dataInserimento.toLowerCase().includes(search);                
-                    })
-                    .map((item) =>{
-                      return(
-                          <React.Fragment key={item.id}>
-                              <Tr>
-                              <Td>{item.nomeFile}</Td>
-                              {item.dataInserimento ? <Td>{format(new Date(item.dataInserimento),"dd/MM/yyyy")}</Td>
-                                    :<Td>Nessuna data inserita</Td>}
-                              <Td>
-                                   {item.file ? (
-                                     <a href={item.file} target="_blank" rel="noopener noreferrer">
-                                       Apri
-                                       </a>
-                                     ) : (
-                                        <span>File non presente</span>
-                                    )}
-                                  </Td>
-                              <Td>
-                                <ButtonGroup>
-                                <AggiornaFile
-                                  titolo = {'Aggiorna ' + item.nomeFile}
-                                  tipoEsame = {'visite'}
-                                  nomeFile = {item.nomeFile}
-                                  dataInserimento = {item.dataInserimento}
-                                  dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
-                                  />
-                                <Delete
-                                  title = {item.nomeFile}
-                                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
-                                  textAlert = {' Sei sicuro di voler eliminare questo file?'}
-                                  textToast = {'File eliminato'}
-                       />
-                                </ButtonGroup>
-                        
-                              </Td>
-                              </Tr>
-                          </React.Fragment>
-                      );
-                   })
-                  }
+              {
+                !todoDataFile.length
+                ? <Tr><Td className="noData" colSpan="5">Nessun file presente</Td></Tr>
+                :todoDataFile
+                .filter((item) => {
+                  return search.toLowerCase() === ''
+                    ? item
+                    :item.nomeFile.toLowerCase().includes(search) ||
+                    item.dataInserimento.toLowerCase().includes(search);                
+                })
+              .map((item) =>{
+                return(
+                  <React.Fragment key={item.id}>
+                  <Tr>
+                  <Td>{item.nomeFile}</Td>
+                  {item.dataInserimento ? <Td>{format(new Date(item.dataInserimento),"dd/MM/yyyy")}</Td>
+                        :<Td>Nessuna data inserita</Td>}
+                  <Td>
+                       {item.file ? (
+                         <a href={item.file} target="_blank" rel="noopener noreferrer">
+                           Apri
+                           </a>
+                         ) : (
+                            <span>File non presente</span>
+                        )}
+                      </Td>
+                  <Td>
+                    <ButtonGroup>
+                    <AggiornaFile
+                      titolo = {'Aggiorna ' + item.nomeFile}
+                      tipoEsame = {'visite'}
+                      nomeFile = {item.nomeFile}
+                      dataInserimento = {item.dataInserimento}
+                      dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
+                      />
+                    <Delete
+                      title = {item.nomeFile}
+                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
+                      textAlert = {' Sei sicuro di voler eliminare questo file?'}
+                      textToast = {'File eliminato'}
+           />
+                    </ButtonGroup>
+            
+                  </Td>
+                  </Tr>
+              </React.Fragment>
+                );
+             })}
             </Tbody>
           </Table>
         </div>

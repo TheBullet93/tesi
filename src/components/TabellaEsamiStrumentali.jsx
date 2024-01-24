@@ -118,6 +118,34 @@ function TabellaEsamiStrumentali(props){
    
   }
 
+  const [activeFileColumn, setActiveFileColumn] = useState(null);
+
+  const [orderFile,setOrderFile] = useState({
+    nomeFile: 'ASC',
+    dataInserimento: 'ASC',
+  });
+
+  const sortingFileASC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'DSC' });
+    setActiveFileColumn(col);
+  
+
+}
+
+const sortingFileDSC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'ASC' });
+    setActiveFileColumn(col);
+ 
+}
+
     return(
         <>
         <Form.Check
@@ -130,7 +158,7 @@ function TabellaEsamiStrumentali(props){
           
           {useFile ?  (
           <>
-            <div className='tabella'>
+            <div>
                      <Form className="search-container">
                 <InputGroup >
                   <Form.Control
@@ -139,11 +167,12 @@ function TabellaEsamiStrumentali(props){
                   />
                 </InputGroup>
              </Form>
+             <Table></Table>
           <Table>
             <Thead>
               <Tr>
-                <Th>Nome File</Th>
-                <Th>Data Inserimento</Th>
+              <Th className={activeFileColumn === 'nomeFile' ? 'activeColumn' : ''}>Nome File {orderFile.nomeFile === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("nomeFile")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("nomeFile")}/> }</Th>
+                <Th className={activeFileColumn === 'dataInserimento' ? 'activeColumn' : ''}>Data Inserimento {orderFile.dataInserimento === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("dataInserimento")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("dataInserimento")}/> }</Th>
                 <Th>File</Th>
                 <Th>Opzioni</Th>
               </Tr>
