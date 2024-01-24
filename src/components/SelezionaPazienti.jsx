@@ -71,9 +71,10 @@ const SelezionaPazienti = (props) =>{
     
         selezionati.forEach((idPaziente) =>{
             const db = getDatabase();
-            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}/${props.tipologia}`);
-       
-            set(postListRef, {
+            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}/`);
+            const newPostRef = push(postListRef);
+
+            set(newPostRef, {
               titoloEsercizio: props.titolo,
               tipologiaEsercizio: props.tipologia,
               domande: domande

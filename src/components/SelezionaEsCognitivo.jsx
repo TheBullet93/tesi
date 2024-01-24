@@ -62,11 +62,12 @@ const SelezionaEsCognitivo = (props) =>{
     
         selezionati.forEach((id) =>{
             const db = getDatabase();
-            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${id.tipologiaGioco}`);
-            const postListRef1= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${id.tipologiaGioco}`);
+            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/`);
+            const postListRef1= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/`);
           
             if(id.parole){
-              set(postListRef, {
+              const newPostRef = push(postListRef);
+              set(newPostRef , {
                 titoloGioco: id.titoloGioco,
                 tipologiaGioco: id.tipologiaGioco,
                 difficoltaGioco: id.difficoltaGioco,
@@ -75,7 +76,8 @@ const SelezionaEsCognitivo = (props) =>{
                
               });
             }else{
-              set(postListRef1, {
+              const newPostRef1 = push(postListRef1);
+              set(newPostRef1, {
                 titoloGioco: id.titoloGioco,
                 tipologiaGioco: id.tipologiaGioco,
                 difficoltaGioco: id.difficoltaGioco,

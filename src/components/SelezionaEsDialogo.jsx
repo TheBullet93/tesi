@@ -58,9 +58,10 @@ const SelezionaEsDialogo= (props) =>{
     
         selezionati.forEach((id) =>{
             const db = getDatabase();
-            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${id.tipologiaDialogo}`);
-       
-            set(postListRef, {
+            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/dialoghi/`);
+            const newPostRef = push(postListRef);
+
+            set(newPostRef, {
               titoloDialogo: id.titoloDialogo,
               tipologiaDialogo: id.tipologiaDialogo,
               domande: id.domande,

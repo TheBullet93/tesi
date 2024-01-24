@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +8,7 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 import { getStorage} from "firebase/storage";
-import { ref as ref_storage,  uploadBytes,getDownloadURL,} from "firebase/storage";
+import { ref as ref_storage,  uploadBytes,getDownloadURL,deleteObject} from "firebase/storage";
 import { v4 } from "uuid";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,17 +35,46 @@ const UpdateDomandaAudioAttivita = (props) =>{
      const db = getDatabase();
      const storage = getStorage();
 
-     const aggiorna = () => {
-
+    const aggiungiFile = () => {
       const storageRef = ref_storage(storage, `/audio/${audio.name}`);
-      
-      uploadBytes(storageRef, audio).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
-          setAudioUrls(url+v4());
+    
+      uploadBytes(storageRef, audio)
+        .then((snapshot) => getDownloadURL(snapshot.ref))
+        .then((url) => {
+          setAudioUrls(url + v4());
+        })
+        .catch((error) => {
+          console.error('Error uploading file:', error);
         });
-      });
+    };
 
-      const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${props.currentQuestion}`); 
+
+     const aggiornaFileAudio = () => {
+      // Verifica se è presente un file audio esistente da eliminare
+      if (audioUrls) {
+        // Ottieni il riferimento al vecchio file audio nel Cloud Storage
+        const oldAudioRef = ref_storage(storage, `/audio/${audio.name}`);
+        
+        // Elimina il vecchio file audio
+        deleteObject(oldAudioRef)
+          .then(() => {
+            // Carica il nuovo file audio
+            aggiungiFile();
+          })
+          .catch((error) => {
+            console.error('Error deleting old audio file:', error);
+          });
+      } else {
+        // Se non c'è un file audio esistente, carica semplicemente il nuovo file
+        aggiungiFile();
+      }
+    };
+
+
+    useEffect(() => {
+      if (audioUrls) {
+
+        const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${props.idGioco}/domande/${props.currentQuestion}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda || 'Nessun dato',
@@ -55,10 +84,15 @@ const UpdateDomandaAudioAttivita = (props) =>{
         rispostaErrata3: rispostaErrata3 || 'Nessun dato',
         audio: audioUrls || 'Nessun dato',
       });
+
+      setShow(false);    }
+    }, [audioUrls]);
   
-      setShow(false);
-      toast.success('Domanda aggiornata');
+    const handleFileUpload = () => {
+      aggiornaFileAudio();
     };
+
+
 
     const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
@@ -215,7 +249,7 @@ const UpdateDomandaAudioAttivita = (props) =>{
             <Button variant="danger" className='formAnnulla' onClick={handleClose}>
              Annulla
             </Button>
-            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={() => aggiorna()}>
+            <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={handleFileUpload}>
               Aggiorna
             </Button>
           </Modal.Footer>

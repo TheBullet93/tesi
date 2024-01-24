@@ -208,7 +208,7 @@ const endContent = (
         <Row  xs={1} md={3} className="g-4">
        
              {!todoData.length
-              ? <h2 className="noData">Nessun gioco presente</h2>
+              ? <h2 className="noData">Nessun esercizio presente</h2>
               :todoData
               .filter((item) => {
                 return searchTipologia === 'TIPOLOGIE'

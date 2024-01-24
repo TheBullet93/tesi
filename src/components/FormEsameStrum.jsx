@@ -229,7 +229,7 @@ function FormEsameStrum(props) {
               <>
                   <Form noValidate validated={validated}>
                 <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label className="labelForm">Carica file PDF</Form.Label>
+                  <Form.Label className="labelForm">Carica file</Form.Label>
                   <InputGroup hasValidation>
                   <Form.Control type="file"  required onChange={handleChangeFile} />
                   <Form.Control.Feedback type="invalid">

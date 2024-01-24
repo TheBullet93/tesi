@@ -86,8 +86,9 @@ const SelezionaPazientiEsCognitivo = (props) =>{
         selezionati.forEach((idPaziente) =>{
             const db = getDatabase();
             const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}/${props.tipologia}`);
-       
-            set(postListRef, {
+            const newPostRef = push(postListRef);
+
+            set(newPostRef, {
               titoloGioco: props.titolo,
               tipologiaGioco: props.tipologia,
               difficoltaGioco: props.difficolta,

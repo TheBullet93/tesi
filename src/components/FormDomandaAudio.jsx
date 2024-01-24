@@ -34,7 +34,7 @@ const FormDomandaAudio = (props) =>{
 
 
      const aggiungiFile = () => {
-      const storageRef = ref_storage(storage, `/audio/${rispostaCorretta}`);
+      const storageRef = ref_storage(storage, `/audio/${audio.name}`);
     
       uploadBytes(storageRef, audio)
         .then((snapshot) => getDownloadURL(snapshot.ref))

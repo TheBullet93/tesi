@@ -24,6 +24,9 @@ import { ButtonGroup } from 'react-bootstrap';
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 
+import Delete from './Delete';
+import AggiornaFile from './AggiornaFile';
+
 function TabellaEsamiStrumentali(props){
   const db = getDatabase();
     const Ref= (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali`));
@@ -142,6 +145,7 @@ function TabellaEsamiStrumentali(props){
                 <Th>Nome File</Th>
                 <Th>Data Inserimento</Th>
                 <Th>File</Th>
+                <Th>Opzioni</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -170,6 +174,23 @@ function TabellaEsamiStrumentali(props){
                                      ) : (
                                         <span>File non presente</span>
                                     )}
+                                  </Td>
+                                  <Td>
+                                    <ButtonGroup>
+                                    <AggiornaFile
+                                  titolo = {'Aggiorna ' + item.nomeFile}
+                                  tipoEsame = {'esamiStrumentali'}
+                                  nomeFile = {item.nomeFile}
+                                  dataInserimento = {item.dataInserimento}
+                                  dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
+                                  />
+                                    <Delete
+                                  title = {item.nomeFile}
+                                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
+                                  textAlert = {' Sei sicuro di voler eliminare questo file?'}
+                                  textToast = {'File eliminato'} />
+                                    </ButtonGroup>
+                          
                                   </Td>
                               </Tr>
                           </React.Fragment>
