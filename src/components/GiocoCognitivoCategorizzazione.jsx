@@ -70,7 +70,7 @@ const GiocoCognitivoCategorizzazione= (props) => {
       titoloGioco: props.titolo || 'Nessun dato',
       tipologiaGioco: props.tipologia || 'Nessun dato',
       domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-      rispostaPaziente: categoriaPaziente || 'Nessun dato',
+      rispostaPaziente: categoriaPaziente || 'Nessuna risposta',
       giorno:  dataRisposta || 'Nessun dato',
       
     });

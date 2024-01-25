@@ -85,6 +85,19 @@ const handleNextQuestion = () =>{
     setCurrentQuestion(nextQuestion);
   }
   setCurrentQuestion(nextQuestion);
+
+  const dbRispostaRef = refRispostePaziente;
+  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
+  let dataRisposta = new Date().toLocaleString('it-IT', options);
+  const newPostRef = push(dbRispostaRef);
+  set(newPostRef,{
+    titoloGioco: props.titolo || 'Nessun dato',
+    tipologiaGioco: props.tipologia || 'Nessun dato',
+    domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
+    rispostaPaziente:  'Nessun Risposta',
+    giorno:  dataRisposta || 'Nessun dato',
+    
+  });
  
 }
 
@@ -119,7 +132,7 @@ const activeQuestion = todoData[currentQuestion];
         titoloGioco: props.titolo || 'Nessun dato',
         tipologiaGioco: props.tipologia || 'Nessun dato',
         domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-        rispostaPaziente: item || 'Nessun dato',
+        rispostaPaziente: item || 'Nessuna Risposta',
         giorno:  dataRisposta || 'Nessun dato',
         
       });
@@ -144,7 +157,7 @@ const activeQuestion = todoData[currentQuestion];
           titoloGioco: props.titolo || 'Nessun dato',
           tipologiaGioco: props.tipologia || 'Nessun dato',
           domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-          rispostaPaziente: item || 'Nessun dato',
+          rispostaPaziente: item || 'Nessun Risposta',
           giorno:  dataRisposta || 'Nessun dato',
           
         });

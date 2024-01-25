@@ -108,7 +108,12 @@ const handleCorretta= () =>{
     
   });
 
- handleNextQuestion();
+  const nextQuestion = currentQuestion + 1;
+  if(nextQuestion < todoData.length){
+    setCurrentQuestion(nextQuestion);
+    
+  }
+  setCurrentQuestion(nextQuestion);
 }
 
 const handleErrata= () =>{
@@ -135,7 +140,12 @@ const handleErrata= () =>{
     
   });
    
-  handleNextQuestion();
+  const nextQuestion = currentQuestion + 1;
+  if(nextQuestion < todoData.length){
+    setCurrentQuestion(nextQuestion);
+    
+  }
+  setCurrentQuestion(nextQuestion);
 }
 
 

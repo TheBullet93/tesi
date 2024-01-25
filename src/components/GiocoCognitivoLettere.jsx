@@ -89,7 +89,7 @@ const GiocoCognitivoLettere = (props) => {
       titoloGioco: props.titolo || 'Nessun dato',
       tipologiaGioco: props.tipologia || 'Nessun dato',
       domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-      rispostaPaziente: letteraPaziente || 'Nessun dato',
+      rispostaPaziente: letteraPaziente || 'Nessuna risposta',
       giorno:  dataRisposta || 'Nessun dato',
       
     });

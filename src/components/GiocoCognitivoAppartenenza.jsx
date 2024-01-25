@@ -71,7 +71,7 @@ const GiocoCognitivoAppartenenza = (props) => {
       titoloGioco: props.titolo || 'Nessun dato',
       tipologiaGioco: props.tipologia || 'Nessun dato',
       domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-      rispostaPaziente: parolaPaziente || 'Nessun dato',
+      rispostaPaziente: parolaPaziente || 'Nessuna Risposta',
       giorno:  dataRisposta || 'Nessun dato',
       
     });

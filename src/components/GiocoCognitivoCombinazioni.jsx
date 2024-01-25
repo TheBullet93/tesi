@@ -73,11 +73,18 @@ const GiocoCognitivoCombinazioni = (props) => {
     let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
     let dataRisposta = new Date().toLocaleString('it-IT', options);
     const newPostRef = push(dbRispostaRef);
+
+    const isAnyFormControlNotEmpty = parola1Paziente || parola2Paziente || parola3Paziente || parola4Paziente;
+    const rispostaPazienteValue = isAnyFormControlNotEmpty
+    ? `${parola1Paziente} ${parola2Paziente} ${parola3Paziente} ${parola4Paziente}`
+    : 'Nessuna risposta';
+
+
     set(newPostRef,{
       titoloGioco: props.titolo || 'Nessun dato',
       tipologiaGioco: props.tipologia || 'Nessun dato',
       domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-      rispostaPaziente: parola1Paziente + ' ' + parola2Paziente + ' ' + parola3Paziente + ' ' + parola4Paziente || 'Nessun dato',
+      rispostaPaziente: rispostaPazienteValue,
       giorno:  dataRisposta || 'Nessun dato',
       
     });
