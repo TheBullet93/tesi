@@ -235,7 +235,7 @@ const endContent = (
                   </Card.Body>
                   <Card.Footer>
                   <AggiungiDomanda
-                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.tipologiaDialogo}/domande/`}
+                      dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/dialoghi/${item.id}/domande/`}
                     />
                      <div className="delCard">
                        <UpdateDialoghiPaziente

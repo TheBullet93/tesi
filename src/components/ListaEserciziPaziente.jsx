@@ -222,49 +222,49 @@ export default function ListaEserciziPaziente(props) {
     switch(tipologia) {
       case 'Appartenenza':
         return <AggiungiDomandaParola
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
       case 'Categorizzazione':
         return <AggiungiDomandaCategorizzazione
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}/>;
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}/>;
       case 'Combinazioni lettere':
         return <AggiungiDomandaCombinazioni
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}/>;
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}/>;
       case 'Fluenze Fonologiche':
         return <AggiungiDomandaParola
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
       case 'Fluenze Semantiche':
         return <AggiungiDomandaParola
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
       case 'Fluenze Verbali':
         return <AggiungiDomandaParola
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
       case 'Attualità':
         return <AggiungiDomande
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;
       case 'Lettere Mancanti':
         return <AggiungiDomandaParola
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/parole/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
       case 'Mesi':
         return <AggiungiDomande
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;
       case 'Musica':
         return <AggiungiDomande
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;
       case 'Racconti':
         return  <AggiungiDomanda
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;
       case 'Suoni':
         return <AggiungiDomandaAudio
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${tipologia}/domande/`}
+        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;
       default:
         return ' seleziona una tipologia';
