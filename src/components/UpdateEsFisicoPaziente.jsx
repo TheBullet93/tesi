@@ -60,16 +60,7 @@ const  UpdateEsFisicoPaziente = (props) => {
           <Modal.Body>
         
         <Form>
-        <Form.Group className="mb-3" controlId="formTipologiaGioco">
-        <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select className="selectForm" 
-        defaultValue={props.tipologiaEsercizio} 
-        onChange={(e) => setTipologiaEsercizio(e.target.value)}>
-             <option>Funzionali</option>
-            <option>Aerobici</option>
-            <option>Flessibilità</option>
-        </Form.Select>
-      </Form.Group>
+        <Form.Label className="labelForm">Tipologia: {props.tipologiaEsercizio} </Form.Label>
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo</Form.Label>
         <Form.Control type="text" placeholder="Inserici titolo del gioco"  

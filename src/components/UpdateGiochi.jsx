@@ -41,9 +41,9 @@ const  UpdateGiochi = (props) => {
   const renderSwitch = (param)  =>{
     switch(param) {
       case 'Appartenenza':
-        return ' Inserisci a quale categoria appartengono le parole date ';
+        return ' Inserisci una parola in base alla categoria mostrata';
       case 'Categorizzazione':
-        return ' Inserisici le parole in base alla categoria specificata';
+        return ' Inserisici la categoria in base alle parole mostrate';
       case 'Combinazioni lettere':
         return ' Forma delle parole con le lettere indicate';
       case 'Fluenze Fonologiche':
@@ -52,14 +52,10 @@ const  UpdateGiochi = (props) => {
           return ' Insersici parole che possono associarsi alla parola indicata';
       case 'Fluenze Verbali':
             return ' Insersici parole che possono associarsi verbalmente alla parola indicata';
-      case 'Attualità':
-        return ' Inserisci parole riguardanti domande di attualità';
       case 'Lettere Mancanti':
           return ' Inserisici la lettera mancante alla parola specificata';
-      case 'Mesi':
-        return ' Inserisci parole riguardanti i mesi come argomento';
-      case 'Musica':
-        return ' Inserisci parole riguardanti la musica come argomento';
+      case 'Quiz':
+        return ' Quiz su argomenti di interesse ';
       case 'Racconti':
           return ' Racconta una storia';
       case 'Suoni':
@@ -89,10 +85,8 @@ const  UpdateGiochi = (props) => {
             <option>Fluenze Fonologiche</option>
             <option>Fluenze Semantiche</option>
             <option>Fluenze Verbali</option>
-            <option>Attualità</option>
             <option>Lettere Mancanti</option>
-            <option>Mesi</option>
-            <option>Musica</option>
+            <option>Quiz</option>
             <option>Racconti</option>
             <option>Suoni</option>
         </Form.Select>

@@ -55,13 +55,9 @@ export default function Gioco (){
           return returnGiocoParole();
         case 'Fluenze Verbali':
           return returnGiocoParole();
-        case 'Attualità':
-          return returnGiocoDomande();
           case 'Lettere Mancanti':
           return returnGiocoLettere();
-        case 'Mesi':
-          return returnGiocoDomande();
-        case 'Musica':
+        case 'Quiz':
           return returnGiocoDomande();
         case 'Racconti':
           return returnGiocoRacconti();

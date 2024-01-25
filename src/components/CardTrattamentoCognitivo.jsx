@@ -54,10 +54,8 @@ export default function CardTrattamentoCognitivo() {
     {label:"Fluenze Fonologiche"} ,
     {label:"Fluenze Semantiche"} ,
     {label:"Fluenze Verbali"} ,
-    {label:"Attualità"} ,
     {label:"Lettere Mancanti"} ,
-    {label:"Mesi"} ,
-    {label:"Musica"} ,
+    {label:"Quiz"} ,
     {label:"Racconti"} ,
     {label:"Suoni"}
   ] 
@@ -126,19 +124,13 @@ export default function CardTrattamentoCognitivo() {
         return <TabellaFluenze
                    item = {idParam}
                />;
-      case 'Attualità':
-        return <TabellaDomande
-        item = {idParam}/>;
       case 'Lettere Mancanti':
         return <TabellaFluenze
         item = {idParam}
     />;
-      case 'Mesi':
-        return <TabellaDomande
-            item = {idParam}/>;
-      case 'Musica':
-        return <TabellaDomande
-            item = {idParam}/>;
+      case 'Quiz':
+              return <TabellaDomande
+                  item = {idParam}/>;
       case 'Racconti':
         return <TabellaRacconti
             item = {idParam}/>;
@@ -177,26 +169,16 @@ export default function CardTrattamentoCognitivo() {
           <FormFluenze
              item = {idParam}/>
           </div>;
-        case 'Attualità':
-          return <div className='btnDomanda'>
-                  <FormDomanda
-                     item = {idParam}/>
-                </div>;
         case 'Lettere Mancanti':
           return <div className='btnDomanda'>
           <FormFluenze
              item = {idParam}/>
           </div>;
-        case 'Mesi':
+        case 'Quiz':
           return <div className='btnDomanda'>
                  <FormDomanda
                     item = {idParam}/>
                  </div>;
-        case 'Musica':
-          return <div className='btnDomanda'>
-                  <FormDomanda
-                     item = {idParam}/>
-                </div>;
         case 'Racconti':
           return <div className='btnDomanda'>
                <FormRacconti

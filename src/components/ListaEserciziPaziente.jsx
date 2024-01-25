@@ -19,6 +19,7 @@ import immaginiParole from '../immagini/immaginiParole.jpg'
 import fluenze from '../immagini/fluenze.jpg'
 import suoni from '../immagini/suoni.jpg'
 import attualita from '../immagini/attualità.jpeg'
+import quiz from '../immagini/quiz.jpg'
 import racconti from '../immagini/racconti.jpg'
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -55,19 +56,17 @@ export default function ListaEserciziPaziente(props) {
     console.log(state);
 
     const tipologie = [ 
-    {label:"TIPOLOGIE"} ,
-    {label:"Appartenenza"} ,
-    {label:"Categorizzazione"} ,
-    {label:"Combinazioni lettere"} ,
-    {label:"Fluenze Fonologiche"} ,
-    {label:"Fluenze Semantiche"} ,
-    {label:"Fluenze Verbali"} ,
-    {label:"Attualità"} ,
-    {label:"Lettere Mancanti"} ,
-    {label:"Mesi"} ,
-    {label:"Musica"} ,
-    {label:"Racconti"} ,
-    {label:"Suoni"}
+      {label:"TIPOLOGIE"} ,
+      {label:"Appartenenza"} ,
+      {label:"Categorizzazione"} ,
+      {label:"Combinazioni lettere"} ,
+      {label:"Fluenze Fonologiche"} ,
+      {label:"Fluenze Semantiche"} ,
+      {label:"Fluenze Verbali"} ,
+      {label:"Lettere Mancanti"} ,
+      {label:"Quiz"} ,
+      {label:"Racconti"} ,
+      {label:"Suoni"}
   ] 
   
     const [showResults, setShowResults] = React.useState(false)
@@ -118,14 +117,10 @@ export default function ListaEserciziPaziente(props) {
           return ' Insersici parole che possono associarsi alla parola indicata';
       case 'Fluenze Verbali':
             return ' Insersici parole che possono associarsi verbalmente alla parola indicata';
-      case 'Attualità':
-        return ' Inserisci parole riguardanti domande di attualità';
       case 'Lettere Mancanti':
           return ' Inserisici la lettera mancante alla parola specificata';
-      case 'Mesi':
-        return ' Inserisci parole riguardanti i mesi come argomento';
-      case 'Musica':
-        return ' Inserisci parole riguardanti la musica come argomento';
+      case 'Quiz':
+        return ' Quiz su argomenti di interesse ';
       case 'Racconti':
           return ' Racconta una storia';
       case 'Suoni':
@@ -149,14 +144,10 @@ export default function ListaEserciziPaziente(props) {
         return fluenze;
       case 'Fluenze Verbali':
         return fluenze;
-      case 'Attualità':
-        return attualita;
       case 'Lettere Mancanti':
           return lettere;
-      case 'Mesi':
-        return mesi;
-      case 'Musica':
-        return musica;
+      case 'Quiz':
+        return quiz;
       case 'Racconti':
         return racconti;
       case 'Suoni':
@@ -180,14 +171,10 @@ export default function ListaEserciziPaziente(props) {
         return returnLinkDomande(item,tipologia,titolo);
       case 'Fluenze Verbali':
         return returnLinkDomande(item,tipologia,titolo);
-      case 'Attualità':
-        return returnLinkDomande(item,tipologia,titolo);
         case 'Lettere Mancanti':
         return returnLinkDomande(item,tipologia,titolo);
-      case 'Mesi':
+      case 'Quiz':
         return returnLinkDomande(item,tipologia,titolo);
-      case 'Musica':
-       return returnLinkDomande(item,tipologia,titolo);
       case 'Racconti':
         return returnLinkDomande(item,tipologia,titolo);
       case 'Suoni':
@@ -242,19 +229,11 @@ export default function ListaEserciziPaziente(props) {
         return <AggiungiDomandaParola
         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
-      case 'Attualità':
-        return <AggiungiDomande
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
-      />;
       case 'Lettere Mancanti':
         return <AggiungiDomandaParola
         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/parole/`}
       />;
-      case 'Mesi':
-        return <AggiungiDomande
-        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
-      />;
-      case 'Musica':
+      case 'Quiz':
         return <AggiungiDomande
         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/cognitivi/${item}/domande/`}
       />;

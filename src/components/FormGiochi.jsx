@@ -32,16 +32,15 @@ function FormGiochi() {
  
 
   const options = [ 
+    {label:"TIPOLOGIE"} ,
     {label:"Appartenenza"} ,
     {label:"Categorizzazione"} ,
     {label:"Combinazioni lettere"} ,
     {label:"Fluenze Fonologiche"} ,
     {label:"Fluenze Semantiche"} ,
     {label:"Fluenze Verbali"} ,
-    {label:"Attualità"} ,
     {label:"Lettere Mancanti"} ,
-    {label:"Mesi"} ,
-    {label:"Musica"} ,
+    {label:"Quiz"} ,
     {label:"Racconti"} ,
     {label:"Suoni"}
   
@@ -104,14 +103,10 @@ function FormGiochi() {
           return ' Insersici parole che possono associarsi alla parola indicata';
       case 'Fluenze Verbali':
             return ' Insersici parole che possono associarsi verbalmente alla parola indicata';
-      case 'Attualità':
-        return ' Inserisci parole riguardanti domande di attualità';
       case 'Lettere Mancanti':
           return ' Inserisici la lettera mancante alla parola specificata';
-      case 'Mesi':
-        return ' Inserisci parole riguardanti i mesi come argomento';
-      case 'Musica':
-        return ' Inserisci parole riguardanti la musica come argomento';
+      case 'Quiz':
+        return ' Quiz su argomenti di interesse ';
       case 'Racconti':
           return ' Racconta una storia';
       case 'Suoni':

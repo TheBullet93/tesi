@@ -72,8 +72,8 @@ const DeleteDatiTrattamento = (props) =>{
      
          <Modal show={show}  onHide={handleClose}>
          <Alert variant='light'>
-            <Alert.Heading style={{color:'black'}}>Elimina:  {props.title}</Alert.Heading>
-           <p style={{fontSize:'25px'}}>{textAlert}</p>
+         <Alert.Heading style={{color:'#007bff'}}>Elimina:  {props.title}</Alert.Heading>
+           <p style={{fontSize:'25px',color:'#6C757D'}}>{textAlert}</p>
         <hr />
         <div className="d-flex justify-content-end">
         <Button variant="secondary" onClick={() => setShow(false)}>

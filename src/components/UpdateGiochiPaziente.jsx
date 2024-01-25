@@ -61,26 +61,8 @@ const  UpdateGiochiPaziente = (props) => {
           <Modal.Body>
         
         <Form>
-        <Form.Group className="mb-3" controlId="formTipologiaGioco">
-        <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select className="selectForm" 
-        defaultValue={props.tipologiaGioco} 
-        onChange={(e) => setTipologia(e.target.value)}>
-             <option>Appartenenza</option>
-            <option>Categorizzazione</option>
-            <option>Combinazioni lettere</option>
-            <option>Fluenze Fonologiche</option>
-            <option>Fluenze Semantiche</option>
-            <option>Fluenze Verbali</option>
-            <option>Attualità</option>
-            <option>Lettere Mancanti</option>
-            <option>Mesi</option>
-            <option>Musica</option>
-            <option>Racconti</option>
-            <option>Suoni</option>
-        </Form.Select>
-      </Form.Group>
-      <p>Descrizione esercizio</p>
+        <Form.Label className="labelForm">Tipologia: {props.tipologiaGioco} </Form.Label>
+     
       <Form.Group className="mb-3" controlId="formDifficoltaGioco">
         <Form.Label className="labelForm">Livello di difficoltà</Form.Label>
         <Form.Select className="selectForm" 

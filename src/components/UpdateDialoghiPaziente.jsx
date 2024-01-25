@@ -86,16 +86,8 @@ function UpdateDialoghiPaziente(props) {
           <Modal.Body>
         <Form>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
-        <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" defaultValue={props.tipologiaDialogo} onChange={(e) => setTipologiaDialogo(e.target.value)}>
-        {options.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}    
-        </Form.Select>
+        <Form.Label className="labelForm">Tipologia: {props.tipologiaDialogo}</Form.Label>
+  
       </Form.Group>
        
             <Form.Label className="labelForm">
