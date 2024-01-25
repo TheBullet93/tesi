@@ -155,7 +155,7 @@ console.log(state);
         <div className="container mt-4">
         <Card className="mb-4">
         <Card.Body>
-          <Card.Title className="cardTitle">Informazioni personali</Card.Title>
+          <Card.Title className="cardTitle">Quadro Personale: Anagrafica, Salute e Alimentazione</Card.Title>
           <ListGroup variant="flush">
           <Row>
              <Col >

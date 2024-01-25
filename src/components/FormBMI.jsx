@@ -51,7 +51,7 @@ function FormBMI(props) {
     }
 
     toast.success('Dati inseriti con successo');
-
+    setShow(false);
   };
 
 

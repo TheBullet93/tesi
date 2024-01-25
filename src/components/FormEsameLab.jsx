@@ -80,6 +80,11 @@ function FormEsameLab(props) {
       });
    
     toast.success('Dati inseriti con successo');
+    setPatologia(null);
+    setTitolo(null);
+    setValore(null);
+    setDataMonitoraggio(null);
+    setNote(null);
     setShow(false); 
     
   };
@@ -109,6 +114,7 @@ function FormEsameLab(props) {
       });
   
       toast.success('Dati inseriti con successo');
+  
       setShow(false);
     }
   }, [fileUrls]);
@@ -121,7 +127,8 @@ function FormEsameLab(props) {
 
   
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ 
+    setShow(false);} ;
   
   const handleShow = () => setShow(true);
 
