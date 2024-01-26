@@ -51,13 +51,14 @@
     
       position: absolute;
       display: block;
-      color:#0f2666;
+      color:#007bff;
       left: 1rem;
-      width: calc(50% - 20px);
+      width: calc(55% - 20px);
       white-space: pre-wrap;
       overflow-wrap: break-word;
       text-align: left !important;
       font-weight: 600;
+      
     }
 
     .arrow{

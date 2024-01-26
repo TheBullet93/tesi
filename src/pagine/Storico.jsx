@@ -18,6 +18,7 @@ import StoricoTerapie from '../components/StoricoTerapie';
 import StoricoTrattamenti from '../components/StoricoTrattamenti';
 import StoricoEsami from '../components/StoricoEsami';
 import { useMediaQuery } from 'react-responsive';
+import StoricoBMI from '../components/StoricoBMI';
 
 const Storico = () =>{
 
@@ -83,6 +84,19 @@ const Storico = () =>{
                />  
              <Toolbar start={startContent}  className="toolBar"/>
                <StoricoAllergie
+                 idPaziente = {state.id}
+               />
+               </div>
+            </Tab>
+            <Tab eventKey="bmi" title="BMI">
+            <div className="sfondo"> 
+             <Header
+               title={'Storico BMI di'}
+               nome = {state.nome}
+               cognome = {state.cognome}
+               />  
+             <Toolbar start={startContent}  className="toolBar"/>
+               <StoricoBMI
                  idPaziente = {state.id}
                />
                </div>

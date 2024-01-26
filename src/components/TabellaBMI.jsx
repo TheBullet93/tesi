@@ -21,6 +21,7 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 import { ButtonGroup } from 'react-bootstrap';
+import DeleteDatiBMI from './DeleteDatiBMI';
 
 function TabellaBMI(props){
 
@@ -156,10 +157,13 @@ function TabellaBMI(props){
                                        idBMI = {item.id}
 
                                       />
-                                      <DeleteDatiPaziente
+                                      <DeleteDatiBMI
                                         title = {'BMI ' + format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
-                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico`}
-                                        itemValue = {'Patologia: '+ props.patologia + ' BMI: ' + item.bmi}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/bmi`}
+                                        itemValue ={item.peso}
+                                        itemValue1={item.altezza}
+                                        itemValue2 = {item.circonferenzaVita}
+                                        itemValue3 = {item.bmi}
                                         dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/bmi/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
