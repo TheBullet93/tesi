@@ -6,9 +6,6 @@ import { getDatabase} from "firebase/database";
 import {set,ref,push} from 'firebase/database';
 
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 
 function LettereGiocoPaziente(props){
 
@@ -32,17 +29,13 @@ function LettereGiocoPaziente(props){
       });
 
     }  
-    toast.success('Domanda inserita');
+ 
     };
   
     return (
       <>
         <Button className='btnCard' disabled={props.disabled} variant="primary" onClick={aggLettera}>Assegna Domanda</Button>
-        <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
+     
     
       </>
     );

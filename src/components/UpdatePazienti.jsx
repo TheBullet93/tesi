@@ -13,8 +13,7 @@ import UpdateDatiSalute from './UpdateDatiSalute';
 
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { InputGroup } from 'react-bootstrap';
 
 const UpdatePazienti = (props) =>{
@@ -92,7 +91,7 @@ const UpdatePazienti = (props) =>{
        
 
       });
-      toast.success('Dati paziente aggiornati');
+      
     
       setShow(false);
   };
@@ -177,13 +176,7 @@ const UpdatePazienti = (props) =>{
   return (
     <>
          <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
-       
-        <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
-     
+
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
           <Modal.Title className='headerForm'>Aggiorna dati del paziente</Modal.Title>

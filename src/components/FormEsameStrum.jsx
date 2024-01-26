@@ -13,9 +13,6 @@ import { v4 } from "uuid";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
 import {FaPlus} from "react-icons/fa";
@@ -79,7 +76,6 @@ function FormEsameStrum(props) {
   
       });
    
-    toast.success('Dati inseriti con successo');
     setShow(false); 
     
   };
@@ -108,7 +104,6 @@ function FormEsameStrum(props) {
         dataInserimento: dataInserimento || 'Nessun dato'
       });
   
-      toast.success('Dati inseriti con successo');
       setShow(false);
     }
   }, [fileUrls]);
@@ -208,11 +203,6 @@ function FormEsameStrum(props) {
           text = "  Aggiungi Esame"  
           onClick={handleShow}
       />
-      <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
           <Modal.Title className='headerForm'>Esame di laboratorio</Modal.Title>

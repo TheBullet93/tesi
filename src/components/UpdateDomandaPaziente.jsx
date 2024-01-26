@@ -8,9 +8,6 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { InputGroup } from 'react-bootstrap';
 
 const UpdateDomandaPaziente = (props) =>{
@@ -44,7 +41,7 @@ const UpdateDomandaPaziente = (props) =>{
       });
   
       setShow(false);
-      toast.success('Domanda aggiornata');
+    
     };const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
       return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== '';
@@ -105,12 +102,6 @@ const UpdateDomandaPaziente = (props) =>{
   
     return (
       <>
-      
-       <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
         <button title="Aggiorna Domande" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
        <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

@@ -5,9 +5,6 @@ import Form from 'react-bootstrap/Form';
 import { getDatabase } from "firebase/database";
 import { set,push,ref,onValue } from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
 import {FaPlus} from "react-icons/fa";
@@ -63,7 +60,7 @@ function FormTerapiaGiornaliera(props) {
         numAssunzioni: numAssunzioni || 'Nessun dato',
         dettagli: dettagli || 'Nessun dato'
     });
-    toast.success('Terapia Giornaliera inserita con successo');
+  
     setFarmaco(null)
     setDataInizio(null)
     setDataFine(null)
@@ -142,11 +139,6 @@ function FormTerapiaGiornaliera(props) {
           text = "  Aggiungi Terapia"  
           onClick={handleShow}
       />
-         <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
     <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
               <Modal.Title className='headerForm'>Inserisci nuova Terapia Giornaliera</Modal.Title>

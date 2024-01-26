@@ -11,8 +11,6 @@ import { getStorage} from "firebase/storage";
 import { ref as ref_storage,  uploadBytes,getDownloadURL,deleteObject} from "firebase/storage";
 import { v4 } from "uuid";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { InputGroup } from 'react-bootstrap';
 
 const UpdateDomandaAudioAttivita = (props) =>{
@@ -163,11 +161,6 @@ const UpdateDomandaAudioAttivita = (props) =>{
   
     return (
       <>
-         <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
        <button title="Aggiorna Domande" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

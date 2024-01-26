@@ -9,8 +9,6 @@ import Form from 'react-bootstrap/Form';
 
 import {FaPencilAlt} from "react-icons/fa"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const  UpdateGiochiPaziente = (props) => {
   const [show, setShow] = useState(false);
@@ -37,7 +35,7 @@ const  UpdateGiochiPaziente = (props) => {
     });
 
     setShow(false);
-    toast.success('Gioco aggiornato');
+   
   };
 
 
@@ -46,11 +44,6 @@ const  UpdateGiochiPaziente = (props) => {
 
   return (
     <>
-     <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
       <button title="Aggiorna Gioco" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
      
       <Modal show={show} onHide={handleClose}>

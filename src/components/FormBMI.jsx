@@ -6,8 +6,6 @@ import { getDatabase } from "firebase/database";
 import { set,push,ref,onValue } from 'firebase/database';
 
 import Form from 'react-bootstrap/Form';
-
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
@@ -49,8 +47,6 @@ function FormBMI(props) {
     } else {
       setBMI(null);
     }
-
-    toast.success('Dati inseriti con successo');
     setShow(false);
   };
 
@@ -121,11 +117,6 @@ function FormBMI(props) {
           text = "  Aggiungi BMI"  
           onClick={handleShow}
       />
-      <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
         <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
           <Modal.Title className='headerForm'>BMI del paziente</Modal.Title>

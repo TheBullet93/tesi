@@ -7,9 +7,6 @@ import {FaTrash} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import {ref,remove,push,set} from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import Alert from 'react-bootstrap/Alert';
 
 const DeleteDatiBMI = (props) =>{
@@ -54,8 +51,6 @@ const DeleteDatiBMI = (props) =>{
 
     const dbRemoveRef = ref(db, dbPath);
     remove(dbRemoveRef);
-    toast.success(textToast);
-    
       setShow(false);
   };
 
@@ -64,13 +59,7 @@ const DeleteDatiBMI = (props) =>{
   return (
     <>
          <button title="Elimina" className='elimina' onClick={handleShow}><FaTrash/></button>
-       
-        <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
-     
+ 
          <Modal show={show}  onHide={handleClose}>
          <Alert variant='light'>
          <Alert.Heading style={{color:'#007bff'}}>Elimina:  {props.title}</Alert.Heading>

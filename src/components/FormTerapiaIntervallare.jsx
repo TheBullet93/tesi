@@ -7,9 +7,6 @@ import { getDatabase } from "firebase/database";
 import { set,push,ref,onValue } from 'firebase/database';
 
 import Select from 'react-select';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
 import {FaPlus} from "react-icons/fa";
@@ -113,9 +110,6 @@ function FormTerapiaIntervallare(props) {
       dettagli: dettagli || 'Nessun dato'
 
     });
-
-    toast.success('Terapia Intervallare inserita con successo');
-
     setPatologia(null)
     setFarmaco(null)
     setDataInizio(null)
@@ -194,11 +188,6 @@ function FormTerapiaIntervallare(props) {
           text = "  Aggiungi Terapia"  
           onClick={handleShow}
       />
-        <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
  <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
               <Modal.Title className='headerForm'>Inserisci nuova Terapia Intervallare</Modal.Title>

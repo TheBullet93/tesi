@@ -21,8 +21,7 @@ import FormDatiSalute from './FormDatiSalute';
 
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { InputGroup } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -117,9 +116,6 @@ function FormPazienti(props) {
       parenti,
     });
 
-  
-    
-    toast.success('Paziente aggiunto con successo');
     setNome(null)
     setCognome(null)
     setCitta(null)
@@ -270,13 +266,6 @@ const handleChangeEmailParente= (index,event) => {
           text = "  Aggiungi Paziente"  
           onClick={handleShow}
       />
-      <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
-       
-    
       <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
           <Modal.Title className='headerForm'>Inserisci dati del paziente</Modal.Title>

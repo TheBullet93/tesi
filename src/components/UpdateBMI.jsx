@@ -8,8 +8,6 @@ import { set,push,ref,onValue } from 'firebase/database';
 import Form from 'react-bootstrap/Form';
 import {FaPencilAlt} from "react-icons/fa"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function UpdateBMI(props) {
   
@@ -52,21 +50,12 @@ function UpdateBMI(props) {
       setBMI(null);
     }
 
-    toast.success('Dati inseriti con successo');
-
-  
-
     
   };
 
 
   return (
     <>
-      <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
       <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

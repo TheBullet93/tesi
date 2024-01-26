@@ -9,8 +9,7 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref,onValue} from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const UpdateTerapieGiornaliere = (props) =>{
 
@@ -60,19 +59,14 @@ const UpdateTerapieGiornaliere = (props) =>{
       numAssunzioni: numAssunzioni || 'Nessun dato',
       dettagli: dettagli || 'Nessun dato'
       });
-      toast.success('Terapia Giornaliera aggiornata');
+      
       setShow(false);
   };
 
   return (
     <>
          <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
-         <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
- 
+
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
               <Modal.Title className='headerForm'>Aggiorna dati della terapia</Modal.Title>

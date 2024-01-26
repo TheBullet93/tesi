@@ -8,8 +8,6 @@ import { set,push,ref,onValue } from 'firebase/database';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { InputGroup } from 'react-bootstrap';
 import {FaPencilAlt} from "react-icons/fa"
@@ -59,7 +57,6 @@ function UpdateEsami(props) {
   
       });
    
-    toast.success('Dati aggiornati con successo');
 
     
   };
@@ -113,11 +110,6 @@ function UpdateEsami(props) {
 
   return (
     <>
-     <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
       <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

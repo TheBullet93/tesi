@@ -9,8 +9,7 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref,onValue} from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const UpdateTerapieIntervallari = (props) =>{
 
@@ -68,7 +67,6 @@ const UpdateTerapieIntervallari = (props) =>{
       dettagli: dettagli || 'Nessun dato'
       });
     
-      toast.success('Terapia Intervallare aggiornata');
 
       setShow(false);
   };
@@ -112,11 +110,7 @@ const UpdateTerapieIntervallari = (props) =>{
   return (
     <>
          <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
-         <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
+
  
          <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

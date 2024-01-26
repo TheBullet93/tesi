@@ -8,8 +8,6 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { InputGroup } from 'react-bootstrap';
 
 
@@ -48,7 +46,6 @@ const UpdateCategorizzazionePaziente = (props) =>{
 
       setShow(false);
 
-      toast.success('Domanda aggiornata');
     };
 
 
@@ -120,11 +117,6 @@ const UpdateCategorizzazionePaziente = (props) =>{
   
     return (
       <>
-      <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />   
        <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
 
         <Modal show={show} onHide={handleClose}>

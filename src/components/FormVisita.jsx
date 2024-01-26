@@ -15,8 +15,6 @@ import { v4 } from "uuid";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
@@ -80,7 +78,7 @@ function FormVisita(props) {
   
       });
    
-    toast.success('Dati inseriti con successo');
+   
     setShow(false); 
     
   };
@@ -107,8 +105,7 @@ function FormVisita(props) {
         file: fileUrls || 'Nessun dato',
         dataInserimento: dataInserimento || 'Nessun dato'
       });
-  
-      toast.success('Dati inseriti con successo');
+
       setShow(false);
     }
   }, [fileUrls]);
@@ -210,11 +207,6 @@ function FormVisita(props) {
           text = "  Aggiungi Visita"  
           onClick={handleShow}
       />
-      <ToastContainer 
-        autoClose={1500}
-       position="top-center"
-        theme="light"
-        />
         <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
           <Modal.Title className='headerForm'>Visita</Modal.Title>

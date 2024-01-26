@@ -20,8 +20,7 @@ import { Link } from "react-router-dom";
 
 import UpdateDialoghiPaziente from "./UpdateDialoghiPaziente";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
@@ -186,11 +185,6 @@ const endContent = (
       <>
       
       <div>
-       <ToastContainer 
-          autoClose={1500}
-          position="top-center"
-          theme="light"
-                       />
        <Toolbar start={startContent} center={centerContent} end={endContent} className="toolBar" />
       </div> 
      

@@ -18,10 +18,6 @@ import { useLocation } from "react-router-dom";
 import { AiOutlineArrowLeft , AiOutlineArrowRight} from "react-icons/ai";
 import Button from 'react-bootstrap/Button';
 
-
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
@@ -198,11 +194,6 @@ const endContent = (
       <>
          
        <div>
-       <ToastContainer 
-          autoClose={1500}
-          position="top-center"
-          theme="light"
-                       />
       <Toolbar start={startContent} center={centerContent} end={endContent}  className="toolBar"/>
       </div> 
         <Row  xs={1} md={3} className="g-4">

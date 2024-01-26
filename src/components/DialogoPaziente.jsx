@@ -5,8 +5,6 @@ import Button from 'react-bootstrap/Button';
 import { getDatabase} from "firebase/database";
 import {set,push,ref} from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function DialogoPaziente(props){
 
@@ -28,7 +26,7 @@ function DialogoPaziente(props){
       });
 
       setDisabled(true);  
-      toast.success('Domanda inserita');
+     
     }  
 
     };

@@ -9,8 +9,6 @@ import Form from 'react-bootstrap/Form';
 
 import {FaPencilAlt} from "react-icons/fa"
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const  UpdateEsFisicoPaziente = (props) => {
   const [show, setShow] = useState(false);
@@ -36,7 +34,7 @@ const  UpdateEsFisicoPaziente = (props) => {
     });
 
     setShow(false);
-    toast.success('Esercizio aggiornato');
+ 
   };
 
 
@@ -45,11 +43,6 @@ const  UpdateEsFisicoPaziente = (props) => {
 
   return (
     <>
-     <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
       <button title="Aggiorna Esercizio" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
      
       <Modal show={show} onHide={handleClose}>

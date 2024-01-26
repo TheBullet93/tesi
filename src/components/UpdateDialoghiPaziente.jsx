@@ -8,8 +8,6 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function UpdateDialoghiPaziente(props) {
   const [show, setShow] = useState(false);
@@ -32,7 +30,6 @@ function UpdateDialoghiPaziente(props) {
     });
 
     setShow(false);
-    toast.success('Dialogo aggiornata');
   };
 
 
@@ -73,10 +70,6 @@ function UpdateDialoghiPaziente(props) {
   }
   return (
     <>
-      <ToastContainer 
-        autoClose={1500}
-        position="top-center"
-        theme="light"/>
      <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
    
       <Modal show={show} onHide={handleClose}>
