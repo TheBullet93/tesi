@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { getDatabase} from "firebase/database";
+import { getDatabase, increment} from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 
 import { Card,} from "react-bootstrap";
@@ -22,6 +22,7 @@ import AddParente from './AddParente';
 import Image from 'react-bootstrap/Image';
 import Delete from './Delete';
 import DeleteDatiPaziente from './DeleteDatiPaziente';
+import DeleteInfoPaziente from './DeleteInfoPaziente';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
@@ -135,21 +136,6 @@ console.log(state);
   
   },[auth?.currentUser?.uid])
 
-
-
-  function arrayLength(obj) {
-    var result = 0;
-    for(var prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-      // or Object.prototype.hasOwnProperty.call(obj, prop)
-        result++;
-      }
-    }
-    return result;
-  }
-
-
-
     return (
       <>
         <div className="container mt-4">
@@ -213,11 +199,11 @@ console.log(state);
           <AddPatologia
                       idTerapista = {auth?.currentUser?.uid}
                       idPaziente ={props.idPaziente}
-                      index = {arrayLength(props.patologie)}/> 
+                      /> 
           <AddAllergia
                    idTerapista = {auth?.currentUser?.uid}
                    idPaziente ={props.idPaziente}
-                   index = {arrayLength(props.allergie)}/>
+                 />
           </Card.Text>
           <ListGroup variant="flush">
             {  !todoPatologie
@@ -243,16 +229,17 @@ console.log(state);
                       <UpdatePatologia
                         idTerapista = {auth?.currentUser?.uid}
                         idPaziente ={props.idPaziente}
-                        index = {index}
+                        index = {item.id}
                         nomePatologia = {item.nomePatologia}/>   
                                    
-                   <DeleteDatiPaziente
+                   <DeleteInfoPaziente
                      title = {item.nomePatologia}
                      dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/patologie`}
+                     infoDato = {'patologia'}
                      itemValue = {item.nomePatologia}
-                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie/${index}`}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie/${item.id}`}
                      textAlert = {' Sei sicuro di voler eliminare questa patologia?'}
-                     textToast = {'Patologia eliminata'}
+                   
                        />
                             </span>
                        </ListGroup.Item>
@@ -282,16 +269,16 @@ console.log(state);
                 <UpdateAllergia
                      idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
-                     index = {index}
+                     index = {item.id}
                      nomeAllergia = {item.nomeAllergia}
                     />   
-                <DeleteDatiPaziente
+                <DeleteInfoPaziente
                      title = {item.nomeAllergia}
                      dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/allergie`}
                      itemValue = {item.nomeAllergia}
-                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie/${index}`}
+                     infoDato = {'allergia'}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/allergie/${item.id}`}
                      textAlert = {' Sei sicuro di voler eliminare questa allergia?'}
-                     textToast = {'Allergia eliminata'}
                        />
                   </span>
                  </ListGroup.Item>
@@ -310,7 +297,7 @@ console.log(state);
           <AddParente
                     idTerapista = {auth?.currentUser?.uid}
                     idPaziente ={props.idPaziente}
-                    index = {arrayLength(props.parenti)}/>    
+                    />    
           </Card.Text>
           <ListGroup variant="flush">
           {
@@ -350,7 +337,7 @@ console.log(state);
                    <UpdateParente
                      idTerapista = {auth?.currentUser?.uid}
                      idPaziente ={props.idPaziente}
-                     index = {index}
+                     index = {item.id}
                      nomeParente= {item.nomeParente}
                      cognomeParente ={item.cognomeParente}
                      telefonoParente = {item.telefonoParente}
@@ -358,7 +345,7 @@ console.log(state);
                      /> 
                   <Delete
                      title = {item.nomeParente}
-                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/parenti/${index}`}
+                     dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/parenti/${item.id}`}
                      textAlert = {' Sei sicuro di voler eliminare questo parente?'}
                      textToast = {'Parente eliminato'}
                        />

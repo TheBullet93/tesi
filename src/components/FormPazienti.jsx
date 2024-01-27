@@ -97,31 +97,54 @@ function FormPazienti(props) {
 
   const aggiungi = () => {
     const db = getDatabase();
-    const postListRef = ref(db, `terapisti/${props.item}/pazienti/`); 
+    const postListRef = ref(db, `terapisti/${props.item}/pazienti/`);
     const newPostRef = push(postListRef);
-
-    set(newPostRef, {
+  
+    const postData = {
       nome: nome || 'Nessun dato',
       cognome: cognome || 'Nessun dato',
       citta: citta || 'Nessun dato',
       data: data || 'Nessun dato',
       sesso: sesso || 'Nessun dato',
-      codiceFiscale:codiceFiscale || 'Nessun dato',
-      patologie,
-      allergie,
+      codiceFiscale: codiceFiscale || 'Nessun dato',
       valutazioneCognitiva: valutazioneCognitiva || 'Nessun dato',
       capacitaFisiche: capacitaFisiche || 'Nessun dato',
       dieta: dieta || 'Nessun dato',
-
-      parenti,
-    });
-
-    setNome(null)
-    setCognome(null)
-    setCitta(null)
-    setData(null)
-    setSesso(null)
-    setCF(null)
+    };
+  
+    // Convert patologie, allergie, and parenti arrays to objects with Firebase-generated IDs
+    postData.patologie = patologie.reduce((acc, patologia) => {
+      const newPatologiaRef = push(ref(db, `terapisti/${props.item}/patologie/`));
+      acc[newPatologiaRef.key] = { nomePatologia: patologia.nomePatologia || 'Nessun dato' };
+      return acc;
+    }, {});
+  
+    postData.allergie = allergie.reduce((acc, allergia) => {
+      const newAllergiaRef = push(ref(db, `terapisti/${props.item}/allergie/`));
+      acc[newAllergiaRef.key] = { nomeAllergia: allergia.nomeAllergia || 'Nessun dato' };
+      return acc;
+    }, {});
+  
+    postData.parenti = parenti.reduce((acc, parente) => {
+      const newParenteRef = push(ref(db, `terapisti/${props.item}/parenti/`));
+      acc[newParenteRef.key] = {
+        nomeParente: parente.nomeParente || 'Nessun dato',
+        cognomeParente: parente.cognomeParente || 'Nessun dato',
+        telefonoParente: parente.telefonoParente || 'Nessun dato',
+        emailParente: parente.emailParente || 'Nessun dato',
+      };
+      return acc;
+    }, {});
+  
+    set(newPostRef, postData);
+  
+    // Reset state
+    setNome(null);
+    setCognome(null);
+    setCitta(null);
+    setData(null);
+    setSesso(null);
+    setCF(null);
     setShow(false);
 
     

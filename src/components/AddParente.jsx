@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 import { getDatabase } from "firebase/database";
-import {set,ref} from 'firebase/database';
+import {set,ref,push} from 'firebase/database';
 import { ButtonGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
 import { FaPlusCircle } from "react-icons/fa";
@@ -22,7 +22,6 @@ const AddParente = (props) =>{
   const [cognomeParente, setCognomeParente] = useState('');
   const [telefonoParente, setTelefonoParente] = useState('');
   const [emailParente, setEmailParente] = useState('');
-  const [count, setCount] = useState(props.index);
 
   const [validated, setValidated] = useState(false);
  
@@ -30,9 +29,9 @@ const AddParente = (props) =>{
   const db = getDatabase();
 
   const aggiungiParente = () => {
-    setCount(count + 1);
-    const newPostRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/parenti/${count}`);
-      
+  
+    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/parenti/`);
+    const newPostRef = push(postListRef);  
     set(newPostRef,
        {
         nomeParente: nomeParente || 'Nessun dato',

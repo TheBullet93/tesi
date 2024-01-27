@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 import { getDatabase } from "firebase/database";
-import {set,ref} from 'firebase/database';
+import {set,ref,push} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
@@ -20,15 +20,13 @@ const AddAllergia = (props) =>{
   const handleShow = () => setShow(true);
 
   const [allergia, setAllergia] = useState('');
-  const [count, setCount] = useState(props.index);
   const [validated, setValidated] = useState(false);
 
   const db = getDatabase();
 
   const aggiungiAllergia = () => {
-    setCount(count + 1);
-    const newPostRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/allergie/${count}`);
-      
+    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/allergie/`);
+    const newPostRef = push(postListRef);  
     set(newPostRef,
        {nomeAllergia: allergia || 'Nessun dato',
     }

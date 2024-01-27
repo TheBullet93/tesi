@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 
 
 import { getDatabase } from "firebase/database";
-import {set,ref} from 'firebase/database';
+import {set,ref,push} from 'firebase/database';
 
 import { ButtonGroup } from 'react-bootstrap';
 import { InputGroup } from 'react-bootstrap';
@@ -22,16 +22,14 @@ const AddPatologia = (props) =>{
   const handleShow = () => setShow(true);
 
   const [patologia, setPatologia] = useState('');
-  const [count, setCount] = useState(props.index);
- 
   const [validated, setValidated] = useState(false);
 
   const db = getDatabase();
 
   const aggiungiPatologia = () => {
-    setCount(count + 1);
-    const newPostRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/patologie/${count}`);
-      
+  
+    const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/patologie/`);
+    const newPostRef = push(postListRef);  
     set(newPostRef,
        {nomePatologia: patologia || 'Nessun dato',
     }

@@ -101,7 +101,7 @@ const StoricoPatologie = (props) =>{
                 
                 <React.Fragment key={item.id}>
                 <Tr >
-                  <Td>{item.dato}</Td>
+                  <Td>{item.patologia}</Td>
                   <Td>{item.giorno}</Td>
                   <Td>{item.stato}</Td>
                 </Tr>
