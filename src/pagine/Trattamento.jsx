@@ -17,6 +17,8 @@ const Trattamento = () => {
 
      return (
        <SideNavBar>
+         <Header
+               title={'Trattamenti'}/>  
          <Tabs
             defaultActiveKey="fisici"
             id="uncontrolled-tab-example"
@@ -24,22 +26,16 @@ const Trattamento = () => {
         fill>      
       <Tab eventKey="fisici" title="Fisici">
       <div className="sfondo"> 
-      <Header
-               title={'Trattamenti fisici'}/>  
             <CardTrattamentoFisico/>
         </div>
       </Tab>
       <Tab eventKey="cognitivi" title="Cognitivi">
       <div className="sfondo"> 
-      <Header
-        title={'Trattamenti cognitivi'}/>  
             <CardTrattamentoCognitivo/>
           </div>
       </Tab>
       <Tab eventKey="dialoghi" title="Dialoghi">
       <div className="sfondo"> 
-      <Header
-         title={'Dialoghi'}/>  
             <CardDialogo/>
           </div>
       </Tab>

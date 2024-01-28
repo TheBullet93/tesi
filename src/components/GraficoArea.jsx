@@ -156,7 +156,7 @@ const endContent = (
     return (
       
       <>
-      <Toolbar start={startContent} center={centerContent} end={endContent} className="toolBar"/>
+      <Toolbar center={centerContent}  className="toolBar"/>
    
       <Container fluid>
       <Row xs={1} md={2}>

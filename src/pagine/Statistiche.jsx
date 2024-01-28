@@ -15,7 +15,7 @@ import GraficoCiambella from "../components/GraficoCiambella";
 import GraficoArea from "../components/GraficoArea";
 import GraficoLinee from "../components/GraficoLinee";
 import { useMediaQuery } from 'react-responsive';
-
+import NavigationBar from '../components/NavigationBar';
 const Statistiche = () =>{
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -36,6 +36,7 @@ const Statistiche = () =>{
     const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
     return(
         <SideNavBar>
+           <NavigationBar/>
           <Tabs
             defaultActiveKey="ciambella"
             id="uncontrolled-tab-example"
@@ -43,11 +44,12 @@ const Statistiche = () =>{
           fill>
             <Tab eventKey="ciambella" title="Ciambella" >
             <div className="sfondo"> 
-              <Header
+            <h1>Statistiche di {state.nome}</h1>
+             {/* <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
-               />  
+               />  */} 
            
            <GraficoCiambella
                  idPaziente = {state.id}
@@ -57,11 +59,12 @@ const Statistiche = () =>{
             </Tab>
             <Tab eventKey="torta" title="Torta" >
             <div className="sfondo"> 
-              <Header
+            <h1>Statistiche di {state.nome}</h1>
+              {/* <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
-               />  
+               />  */} 
            
                <GraficoTorta
                  idPaziente = {state.id}
@@ -70,11 +73,12 @@ const Statistiche = () =>{
             </Tab>
             <Tab eventKey="barre" title="Barre" >
             <div className="sfondo"> 
-              <Header
+            <h1>Statistiche di {state.nome}</h1>
+            {/* <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
-               />  
+               />  */} 
                <GraficoBarre
                idPaziente = {state.id}
                />
@@ -82,11 +86,12 @@ const Statistiche = () =>{
             </Tab>
             <Tab eventKey="area" title="Area" >
             <div className="sfondo"> 
-              <Header
+            <h1>Statistiche di {state.nome}</h1>
+             {/* <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
-               />  
+               />  */} 
                <GraficoArea
                idPaziente = {state.id}
                />
@@ -94,11 +99,12 @@ const Statistiche = () =>{
             </Tab>
             <Tab eventKey="linee" title="Linee" >
             <div className="sfondo"> 
-              <Header
+            <h1>Statistiche di {state.nome}</h1>
+            {/* <Header
                  title={'Statistiche di'}
                  nome = {state.nome}
                  cognome = {state.cognome}
-               />  
+               />  */} 
                <GraficoLinee
                idPaziente = {state.id}
                />

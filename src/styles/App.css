@@ -22,6 +22,48 @@ div.sfondo{
   background: linear-gradient(90deg, rgba(240,238,238,1) 0%, rgba(255,255,255,1) 100%);
 }
 
+/*Navbar*/
+.selected-page {
+  background-color:  #fff;
+  color: #007bff; 
+}
+.page{
+  color: #fff;
+}
+
+@media screen and (max-width: 767px){
+  .selected-page {
+    background-color:  #007bff; 
+    color:  #fff;
+  }
+  .page{
+    color: #007bff; 
+  }
+}
+
+.nav-items-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-items-container .nav-link {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+#dropdown-basic::after {
+  display: none !important;
+}
+
+.toggle-button:focus {
+  box-shadow: none;
+  border-color: #007bff;
+  outline: none; /* Remove the default focus outline if desired */
+}
 
 /* Toolbar*/
 
@@ -552,16 +594,14 @@ text-align: center;
 }
 
 
+.TabHeader{
+  margin-top: 10px; 
+}
 
 @media screen and (max-width: 700px) {
-  
   .TabHeader{
-      margin-top: 50px;
-      top: 50px;
+      margin-top: 10px;  
   }
-
-
- 
 }
 
 .cardTitle{

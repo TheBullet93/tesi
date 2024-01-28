@@ -299,7 +299,7 @@ const endContent = (
       <>
          
        <div>
-      <Toolbar start={startContent} center={centerContent} end={endContent}  className="toolBar"/>
+      <Toolbar center={centerContent}   className="toolBar"/>
       </div> 
       <div>
        

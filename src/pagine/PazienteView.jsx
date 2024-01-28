@@ -12,6 +12,7 @@ import { AiOutlineArrowRight} from "react-icons/ai";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { Toolbar } from 'primereact/toolbar';
+import NavigationBar from "../components/NavigationBar";
 
 
 const PazienteView = () =>{
@@ -54,12 +55,14 @@ const endContent = (
     return (
      
       <SideNavBar>
-       <Header
+      <NavigationBar/>  
+      <h1>Informazioni di {state.nome}</h1>
+      {/*<Header
                title={'Informazioni di'}
                nome = {state.nome}
-               />              
-       <Toolbar end={endContent} className="toolBar"/>
-     
+               />       
+                    
+       <Toolbar end={endContent} className="toolBar"/> */} 
         <CardProfiloPaziente
               item = {auth?.currentUser?.uid}
               idPaziente = {state.id}

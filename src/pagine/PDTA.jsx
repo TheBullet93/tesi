@@ -27,6 +27,7 @@ import FormEsameStrum from '../components/FormEsameStrum';
 import FormVisita from '../components/FormVisita';
 import FormTerapiaGiornaliera from '../components/FormTerapiaGiornaliera';
 import FormTerapiaIntervallare from '../components/FormTerapiaIntervallare';
+import NavigationBar from '../components/NavigationBar';
 
 const PDTA = () =>{
 
@@ -135,6 +136,7 @@ const PDTA = () =>{
       return (
        
         <SideNavBar>
+          <NavigationBar/>
           <Tabs
             defaultActiveKey="bmi"
             id="uncontrolled-tab-example"
@@ -143,10 +145,10 @@ const PDTA = () =>{
 
           <Tab eventKey="bmi" title="BMI" >
           <div className="sfondo"> 
-             <Header
+             {/*<Header
                  title={'BMI di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentBMI}  end={endContent} className="toolBar"/>
+                 />  */}
+             <Toolbar start={<h1>BMI di {state.nome}</h1>}  end={centerContentBMI}   className="toolBar"/>
              <TabellaBMI
               idPaziente = {state.id}
               />
@@ -155,10 +157,10 @@ const PDTA = () =>{
 
           <Tab eventKey="esLab" title="Esami Laboratorio">
           <div className="sfondo"> 
-             <Header
+               {/*<Header
                  title={'Esami Laboratorio di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentEsLab}  end={endContent} className="toolBar"/>
+                 />  */}
+             <Toolbar start={<h1>Esami Laboratorio di {state.nome}</h1>} end={centerContentEsLab} className="toolBar"/>
              <TabellaEsamiLaboratorio
                idPaziente = {state.id}/>
                </div>
@@ -166,10 +168,10 @@ const PDTA = () =>{
 
           <Tab eventKey="esStr" title="Esami Strumentali">
           <div className="sfondo"> 
-             <Header
+             {/*<Header
                  title={'Esami Strumentali di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentEsStr}  end={endContent} className="toolBar"/>
+                 /> */} 
+             <Toolbar  start={<h1>Esami Strumentali di {state.nome}</h1>} end={centerContentEsStr}   className="toolBar"/>
              <TabellaEsamiStrumentali
                idPaziente = {state.id}/>
                </div>
@@ -177,21 +179,21 @@ const PDTA = () =>{
 
           <Tab eventKey="visite" title="Visite">
           <div className="sfondo"> 
-             <Header
+             {/* <Header
                  title={'Visite di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentVisite}  end={endContent} className="toolBar"/>
+                 />  */} 
+             <Toolbar start={<h1>Visite di {state.nome}</h1>} end={centerContentVisite}   className="toolBar"/>
              <TabellaVisite
               idPaziente = {state.id}/>
               </div>
           </Tab>
 
           <Tab eventKey="terGio" title="Terapie Giornaliere">
-          <div className="sfondo"> 
-             <Header
+          <div className="sfondo">
+            {/*  <Header
                  title={'Terapie Giornaliere di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentTerGio}  end={endContent} className="toolBar"/>
+                 />  */} 
+             <Toolbar start={<h1>Terapie Giornaliere di {state.nome}</h1>} end={centerContentTerGio}  className="toolBar"/>
              <TabellaTerapieGiornaliere
              idPaziente = {state.id}/>
              </div>
@@ -199,10 +201,10 @@ const PDTA = () =>{
 
           <Tab eventKey="terInt" title="Terapie Intervallari">
           <div className="sfondo"> 
-             <Header
+            {/*  <Header
                  title={'Terapie Intervallari di ' + state.nome + ' ' + state.cognome}
-                 />  
-             <Toolbar start={startContent}  center={centerContentTerInt}  end={endContent} className="toolBar"/>
+                 />  */} 
+             <Toolbar start={<h1>Terapie Intervallari di {state.nome}</h1>}  end={centerContentTerInt}   className="toolBar"/>
              <TabellaTerapieIntervallari
              idPaziente = {state.id}/>
              </div>

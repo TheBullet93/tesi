@@ -19,7 +19,7 @@ import StoricoTrattamenti from '../components/StoricoTrattamenti';
 import StoricoEsami from '../components/StoricoEsami';
 import { useMediaQuery } from 'react-responsive';
 import StoricoBMI from '../components/StoricoBMI';
-
+import NavigationBar from '../components/NavigationBar';
 const Storico = () =>{
 
     const location = useLocation();
@@ -56,6 +56,7 @@ const Storico = () =>{
   );
     return(
         <SideNavBar>
+           <NavigationBar/>
           <Tabs
            defaultActiveKey="patologie"
            id="uncontrolled-tab-example"
@@ -63,12 +64,13 @@ const Storico = () =>{
           fill>
             <Tab eventKey="patologie" title="Patologie">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico Patologie di {state.nome}</h1>
+              {/* <Header
                title={'Storico patologie di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+               />  */}
+            
                <StoricoPatologie
                  idPaziente = {state.id}
    
@@ -77,12 +79,13 @@ const Storico = () =>{
             </Tab>
             <Tab eventKey="allergie" title="Allergie">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico Allergie di {state.nome}</h1>
+              {/* <Header
                title={'Storico allergie di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+               />  */}
+             
                <StoricoAllergie
                  idPaziente = {state.id}
                />
@@ -90,12 +93,13 @@ const Storico = () =>{
             </Tab>
             <Tab eventKey="bmi" title="BMI">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico BMI di {state.nome}</h1>
+              {/* <Header
                title={'Storico BMI di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+               />  */}
+            
                <StoricoBMI
                  idPaziente = {state.id}
                />
@@ -103,12 +107,13 @@ const Storico = () =>{
             </Tab>
             <Tab eventKey="esami" title="Esami">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico Esami e Visite di {state.nome}</h1>
+              {/* <Header
                title={'Storico esami di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+               />  */}
+            
                <StoricoEsami
                  idPaziente = {state.id}
                />
@@ -116,12 +121,13 @@ const Storico = () =>{
             </Tab>
             <Tab eventKey="terapie" title="Terapie">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico Terapie di {state.nome}</h1>
+              {/* <Header
                title={'Storico terapie di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+               />  */}
+           
                <StoricoTerapie
                  idPaziente = {state.id}
                />
@@ -129,12 +135,13 @@ const Storico = () =>{
             </Tab>
             <Tab eventKey="trattamenti" title="Trattamenti">
             <div className="sfondo"> 
-             <Header
+            <h1>Storico Trattamenti di {state.nome}</h1>
+            {/* <Header
                title={'Storico trattamenti di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
-             <Toolbar start={startContent}  className="toolBar"/>
+                />  */}
+           
                <StoricoTrattamenti
                  idPaziente = {state.id}
    

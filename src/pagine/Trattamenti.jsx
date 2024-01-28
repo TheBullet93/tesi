@@ -18,6 +18,7 @@ import ListaEserciziPaziente from '../components/ListaEserciziPaziente';
 import ListaEsFisiciPaziente from '../components/ListaEsFisiciPaziente';
 
 import { useMediaQuery } from 'react-responsive';
+import NavigationBar from '../components/NavigationBar';
 const Trattamenti = () =>{
 
    useEffect(()=>{
@@ -39,6 +40,7 @@ const Trattamenti = () =>{
   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
      return (
        <SideNavBar>
+         <NavigationBar/>
        <Tabs
             defaultActiveKey="fisici"
             id="uncontrolled-tab-example"
@@ -47,11 +49,12 @@ const Trattamenti = () =>{
           
       <Tab eventKey="fisici" title="Fisici" >
       <div className="sfondo"> 
-      <HeaderAttivita
+      <h1>Trattamenti Fisici di {state.nome}</h1>
+       {/*<HeaderAttivita
                title={'Trattamenti fisici di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
+               /> */} 
           <ListaEsFisiciPaziente
           idPaziente = {state.id}
           nomePaziente = {state.nome}
@@ -61,11 +64,12 @@ const Trattamenti = () =>{
       </Tab>
       <Tab eventKey="cognitivi" title="Cognitivi" >
       <div className="sfondo"> 
-      <HeaderAttivita
+      <h1>Trattamenti Cognitivi di {state.nome}</h1>
+       {/*<HeaderAttivita
                title={'Trattamenti cognitivi di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
+               /> */} 
              <ListaEserciziPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
@@ -76,12 +80,13 @@ const Trattamenti = () =>{
       </Tab>
       <Tab eventKey="dialoghi" title="Dialoghi" className='tabStyle'>
       <div className="sfondo"> 
-      <HeaderAttivita
+      <h1>Dialoghi di {state.nome}</h1>
+       {/*<HeaderAttivita
                title={'Dialoghi di'}
                nome = {state.nome}
                cognome
                 = {state.cognome}
-               />  
+               />*/}  
         <ListaDialoghiPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
@@ -91,14 +96,15 @@ const Trattamenti = () =>{
       </Tab>
       <Tab eventKey="risposte" title="Risposte" className='tabStyle'>
       <div className="sfondo"> 
-      <HeaderAttivita
+      <h1>Risposte di {state.nome}</h1>
+      {/*<HeaderAttivita
                title={'Risposte di'}
                nome = {state.nome}
                cognome = {state.cognome}
-               />  
+               />  */}
        <StoricoRispostePaziente
        idPaziente = {state.id}
-       />
+     />
         </div>
          
       </Tab>
