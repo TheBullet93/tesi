@@ -42,9 +42,7 @@ const SideNavBar = ({children}) => {
                 )
             }
 
-            <div className="bot_section">
-                <MenuSideBar/>
-            </div>
+          
 
            
           </div>
