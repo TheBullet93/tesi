@@ -205,7 +205,7 @@ function FormEsameStrum(props) {
       />
       <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-          <Modal.Title className='headerForm'>Esame di laboratorio</Modal.Title>
+          <Modal.Title className='headerForm'>Esame Strumentale</Modal.Title>
              </Modal.Header>
             <Modal.Body>
             <Form.Check

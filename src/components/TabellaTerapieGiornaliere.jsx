@@ -26,7 +26,8 @@ import DeleteDatiTerapie from './DeleteDatiTerapie';
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
-
+import FormTerapiaGiornaliera from './FormTerapiaGiornaliera';
+import { Toolbar } from 'primereact/toolbar';
 function TabellaTerapieGiornaliere(props) {
 
   const db = getDatabase();
@@ -105,22 +106,19 @@ const sortingDSC = (col) =>{
 
   return (
     <>
-         <div>
-         <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
-  
-        </div>
-      <Form className="search-container">
+         <div className='tabella'>
+         <Toolbar start={ <FormTerapiaGiornaliera
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />  }  
+        end={  <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
-                     placeholder='Cerca terapie giornaliere...'
+                     placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form> 
+             </Form>}   className="toolBar"/>
     <Table>
     <Thead>
         <Tr>
@@ -200,7 +198,8 @@ const sortingDSC = (col) =>{
             })}
       
       </Tbody>
-    </Table>   
+    </Table>
+    </div>
     </>
   );
 }

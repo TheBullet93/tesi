@@ -24,7 +24,9 @@ import DeleteDatiTerapie from './DeleteDatiTerapie';
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
-
+import FormTerapiaIntervallare from './FormTerapiaIntervallare';
+import { Toolbar } from 'primereact/toolbar';
+import { useLocation } from "react-router-dom";
 
 function TabellaTerapieIntervallari(props) {
 
@@ -94,21 +96,25 @@ const sortingDSC = (col) =>{
   
   },[auth?.currentUser?.uid])
    
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
+
   return (
     <>
-      <ToastContainer 
-                      autoClose={1500}
-                         position="top-center"
-                         theme="light"
-                       />
-     <Form className="search-container">
+       <div className='tabella'>
+         <Toolbar start={ <FormTerapiaIntervallare
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />  }  
+        end={  <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
-                     placeholder='Cerca terapie intervallari...'
+                     placeholder='Cerca...'
                   />
                 </InputGroup>
-      </Form>
+             </Form>}   className="toolBar"/>
     <Table>
     <Thead>
         <Tr>
@@ -198,7 +204,8 @@ const sortingDSC = (col) =>{
             })}
       
       </Tbody>
-    </Table>  
+    </Table> 
+    </div> 
     </>
   );
 }

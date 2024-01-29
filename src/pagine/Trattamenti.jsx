@@ -12,7 +12,6 @@ import { auth } from '../firebase';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-import HeaderAttivita from '../components/HeaderAttivita';
 import StoricoRispostePaziente from '../components/StoricoRispostePaziente';
 import ListaEserciziPaziente from '../components/ListaEserciziPaziente';
 import ListaEsFisiciPaziente from '../components/ListaEsFisiciPaziente';
@@ -50,11 +49,6 @@ const Trattamenti = () =>{
       <Tab eventKey="fisici" title="Fisici" >
       <div className="sfondo"> 
       <h1>Trattamenti Fisici di {state.nome}</h1>
-       {/*<HeaderAttivita
-               title={'Trattamenti fisici di'}
-               nome = {state.nome}
-               cognome = {state.cognome}
-               /> */} 
           <ListaEsFisiciPaziente
           idPaziente = {state.id}
           nomePaziente = {state.nome}
@@ -65,11 +59,6 @@ const Trattamenti = () =>{
       <Tab eventKey="cognitivi" title="Cognitivi" >
       <div className="sfondo"> 
       <h1>Trattamenti Cognitivi di {state.nome}</h1>
-       {/*<HeaderAttivita
-               title={'Trattamenti cognitivi di'}
-               nome = {state.nome}
-               cognome = {state.cognome}
-               /> */} 
              <ListaEserciziPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
@@ -81,12 +70,6 @@ const Trattamenti = () =>{
       <Tab eventKey="dialoghi" title="Dialoghi" className='tabStyle'>
       <div className="sfondo"> 
       <h1>Dialoghi di {state.nome}</h1>
-       {/*<HeaderAttivita
-               title={'Dialoghi di'}
-               nome = {state.nome}
-               cognome
-                = {state.cognome}
-               />*/}  
         <ListaDialoghiPaziente
              idPaziente = {state.id}
              nomePaziente = {state.nome}
@@ -97,11 +80,6 @@ const Trattamenti = () =>{
       <Tab eventKey="risposte" title="Risposte" className='tabStyle'>
       <div className="sfondo"> 
       <h1>Risposte di {state.nome}</h1>
-      {/*<HeaderAttivita
-               title={'Risposte di'}
-               nome = {state.nome}
-               cognome = {state.cognome}
-               />  */}
        <StoricoRispostePaziente
        idPaziente = {state.id}
      />

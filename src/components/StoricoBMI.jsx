@@ -7,13 +7,16 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { Toolbar } from 'primereact/toolbar';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const StoricoBMI = (props) =>{
 
     const db = getDatabase();
 
     const [todoData,setTodoData] = useState([]);
-
+    const [search, setSearch] = useState('');
     const [activeColumn, setActiveColumn] = useState(null);
   
     const [order,setOrder] = useState({
@@ -74,12 +77,24 @@ const StoricoBMI = (props) =>{
     
     },[auth?.currentUser?.uid])
   
+    const centerContent = (
+      <React.Fragment>
+           <Form className="search-container">
+                 <InputGroup >
+                   <Form.Control
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder='Cerca...'
+                  />
+                 </InputGroup>
+               </Form>   
+      </React.Fragment>
+  );
 
 
     return(
        
     <>
-    
+     <Toolbar center={centerContent}  className="toolBar"/>
     <Table className='tabella'>
       <Thead>
         <Tr>
@@ -99,7 +114,15 @@ const StoricoBMI = (props) =>{
            </Tr>
            
             : todoData
-         
+            .filter((item) => {
+              return search.toLowerCase() === ''
+                ? item
+                : item.peso.toLowerCase().includes(search) ||
+                item.altezza.toLowerCase().includes(search) ||
+                item.bmi.toLowerCase().includes(search) ||
+                item.circonferenzaVita.toLowerCase().includes(search) ||
+                item.giorno.toLowerCase().includes(search);            
+            })
              .map((item) =>{
               return (
                 

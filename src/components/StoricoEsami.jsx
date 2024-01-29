@@ -7,13 +7,15 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
-
+import { Toolbar } from 'primereact/toolbar';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 const StoricoEsami = (props) =>{
 
     const db = getDatabase();
 
     const [todoData,setTodoData] = useState([]);
-
+    const [search, setSearch] = useState('');
     const [activeColumn, setActiveColumn] = useState(null);
   
     const [order,setOrder] = useState({
@@ -73,12 +75,25 @@ const StoricoEsami = (props) =>{
     
     },[auth?.currentUser?.uid])
   
+    const centerContent = (
+      <React.Fragment>
+           <Form className="search-container">
+                 <InputGroup >
+                   <Form.Control
+                      onChange={(e) => setSearch(e.target.value)}
+                      placeholder='Cerca...'
+                  />
+                 </InputGroup>
+               </Form>   
+      </React.Fragment>
+  );
+
 
 
     return(
        
     <>
-    
+     <Toolbar center={centerContent}  className="toolBar"/>
     <Table className='tabella'>
       <Thead>
         <Tr>
@@ -97,7 +112,14 @@ const StoricoEsami = (props) =>{
            </Tr>
            
             : todoData
-         
+            .filter((item) => {
+              return search.toLowerCase() === ''
+                ? item
+                : item.patologia.toLowerCase().includes(search) ||
+                item.descrizione.toLowerCase().includes(search) ||
+                item.valore.toLowerCase().includes(search) ||
+                item.giorno.toLowerCase().includes(search);            
+            })
              .map((item) =>{
               return (
                 

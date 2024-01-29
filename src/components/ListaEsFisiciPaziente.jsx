@@ -142,22 +142,6 @@ export default function ListaEsFisiciPaziente(props) {
   }
 
  
-
-  const startContent = (
-    <React.Fragment>
-     <Link  to={{ 
-               pathname:`/PDTAPaziente/:idPaziente`,
-               search: `?idPaziente=${state.id}`,}}
-               state= { state}
-               activeclassname="active">
-                <Button className="btnNavPaziente" type="submit"  >
-                  <AiOutlineArrowLeft></AiOutlineArrowLeft> <span className='btnText'> PDTA</span> 
-                </Button>
-               </Link> 
-            
-    </React.Fragment>
-);
-
 const centerContent = (
   <React.Fragment>
                <SelezionaEsFisico
@@ -174,21 +158,6 @@ const centerContent = (
     </Form.Select>
   </React.Fragment>
 );
-
-const endContent = (
-<React.Fragment>
-         <Link  to={{ 
-                 pathname:"/statistiche/:idPaziente",
-                 search: `?idPaziente=${state.id}`,}}
-                 state= { state}
-                 activeclassname="active">
-                 <Button className="btnNavPaziente" type="submit"  >
-                 <span className='btnText'> Statistiche</span>  <AiOutlineArrowRight></AiOutlineArrowRight>
-                 </Button>
-               </Link> 
-</React.Fragment>
-);
-
 
     return (
       <>

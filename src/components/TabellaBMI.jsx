@@ -22,6 +22,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 import { ButtonGroup } from 'react-bootstrap';
 import DeleteDatiBMI from './DeleteDatiBMI';
+import { Toolbar } from 'primereact/toolbar';
+import FormBMI from '../components/FormBMI';
 
 function TabellaBMI(props){
 
@@ -100,14 +102,18 @@ function TabellaBMI(props){
     return(
         <>
         <div className='tabella'>
-            <Form className="search-container">
+        <Toolbar start={ <FormBMI
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />  }  
+        end={  <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
                      placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form>
+             </Form>}   className="toolBar"/>
              <Table>     
             <Thead>
              <Tr>

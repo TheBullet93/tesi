@@ -26,7 +26,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 import Delete from './Delete';
 import AggiornaFile from './AggiornaFile';
-
+import { Toolbar } from 'primereact/toolbar';
+import FormEsameLab from './FormEsameLab';
 function TabellaEsamiLaboratorio(props){
 
     const db = getDatabase();
@@ -159,14 +160,18 @@ const sortingFileDSC = (col) =>{
           {useFile ?  (
           <>
             <div>
-                     <Form className="search-container">
+            <Toolbar start={ <FormEsameLab
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />  }  
+        end={  <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
                      placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form>
+             </Form>}   className="toolBar"/>
              <Table></Table>
           <Table>
             <Thead>
@@ -232,14 +237,18 @@ const sortingFileDSC = (col) =>{
           </>): (
           <>
 <div className='tabella'>
-            <Form className="search-container">
+<Toolbar start={ <FormEsameLab
+                  item = {auth?.currentUser?.uid}
+                  idPaziente = {state.id}
+                  />  }  
+        end={  <Form className="search-container">
                 <InputGroup >
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
                      placeholder='Cerca...'
                   />
                 </InputGroup>
-             </Form>
+             </Form>}   className="toolBar"/>
              <Table>     
              <Thead>
              <Tr>

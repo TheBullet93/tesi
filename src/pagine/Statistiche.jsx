@@ -3,7 +3,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
 import { useLocation } from "react-router-dom";
-import Header from "../components/Header";
 import SideNavBar from "../components/SideNavBar";
 
 import Tab from 'react-bootstrap/Tab';
@@ -45,12 +44,6 @@ const Statistiche = () =>{
             <Tab eventKey="ciambella" title="Ciambella" >
             <div className="sfondo"> 
             <h1>Statistiche di {state.nome}</h1>
-             {/* <Header
-                 title={'Statistiche di'}
-                 nome = {state.nome}
-                 cognome = {state.cognome}
-               />  */} 
-           
            <GraficoCiambella
                  idPaziente = {state.id}
                 />
@@ -60,12 +53,6 @@ const Statistiche = () =>{
             <Tab eventKey="torta" title="Torta" >
             <div className="sfondo"> 
             <h1>Statistiche di {state.nome}</h1>
-              {/* <Header
-                 title={'Statistiche di'}
-                 nome = {state.nome}
-                 cognome = {state.cognome}
-               />  */} 
-           
                <GraficoTorta
                  idPaziente = {state.id}
                 />
@@ -74,11 +61,6 @@ const Statistiche = () =>{
             <Tab eventKey="barre" title="Barre" >
             <div className="sfondo"> 
             <h1>Statistiche di {state.nome}</h1>
-            {/* <Header
-                 title={'Statistiche di'}
-                 nome = {state.nome}
-                 cognome = {state.cognome}
-               />  */} 
                <GraficoBarre
                idPaziente = {state.id}
                />
@@ -87,11 +69,6 @@ const Statistiche = () =>{
             <Tab eventKey="area" title="Area" >
             <div className="sfondo"> 
             <h1>Statistiche di {state.nome}</h1>
-             {/* <Header
-                 title={'Statistiche di'}
-                 nome = {state.nome}
-                 cognome = {state.cognome}
-               />  */} 
                <GraficoArea
                idPaziente = {state.id}
                />
@@ -100,11 +77,6 @@ const Statistiche = () =>{
             <Tab eventKey="linee" title="Linee" >
             <div className="sfondo"> 
             <h1>Statistiche di {state.nome}</h1>
-            {/* <Header
-                 title={'Statistiche di'}
-                 nome = {state.nome}
-                 cognome = {state.cognome}
-               />  */} 
                <GraficoLinee
                idPaziente = {state.id}
                />

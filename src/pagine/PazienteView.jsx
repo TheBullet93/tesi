@@ -4,14 +4,9 @@ import { auth } from '../firebase';
 
 import { useLocation } from "react-router-dom";
 
-import Header from "../components/Header";
-
 import SideNavBar from "../components/SideNavBar";
 import CardProfiloPaziente from "../components/CardProfiloPaziente";
-import { AiOutlineArrowRight} from "react-icons/ai";
-import { Link } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import { Toolbar } from 'primereact/toolbar';
+
 import NavigationBar from "../components/NavigationBar";
 
 
@@ -35,34 +30,11 @@ const location = useLocation();
 const state = location.state;
 console.log(state);
 
-const endContent = (
-  <React.Fragment>
-  <Link  to={{ 
-             pathname:`/PDTAPaziente/:idPaziente`,
-             search: `?idPaziente=${state.id}`, 
-             }}
-             state = { state}
-             activeclassname="active">
-            <Button className="btnCard " type="submit">
-                 PDTA  <AiOutlineArrowRight></AiOutlineArrowRight>
-            </Button>
-           </Link>
-</React.Fragment>
-);
-
-
-
     return (
      
       <SideNavBar>
       <NavigationBar/>  
       <h1>Informazioni di {state.nome}</h1>
-      {/*<Header
-               title={'Informazioni di'}
-               nome = {state.nome}
-               />       
-                    
-       <Toolbar end={endContent} className="toolBar"/> */} 
         <CardProfiloPaziente
               item = {auth?.currentUser?.uid}
               idPaziente = {state.id}
