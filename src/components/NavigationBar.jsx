@@ -2,8 +2,7 @@ import React, {useState,useEffect} from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import {  signOut } from "firebase/auth";
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container,Dropdown} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {FaRegChartBar,FaPuzzlePiece,FaStethoscope,FaBook} from "react-icons/fa"
@@ -13,7 +12,7 @@ import { FiLogOut} from "react-icons/fi";
 import { FaBookMedical } from "react-icons/fa";
 
 const NavigationBar = () => {
-  
+  const navigate = useNavigate();
 
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -32,6 +31,16 @@ const NavigationBar = () => {
     const location = useLocation();
     const state = location.state;
     console.log(state);
+
+    const handleLogout = async () =>{
+      try{
+        await signOut(auth);
+        navigate("/");
+      } catch (error) {
+      console.error("Error logging out", error);
+    }
+    }
+
   return (
     <Navbar expand="md"     className={`navigation-bar ${window.innerWidth <= 767 ? 'mobile' : ''}`}
     style={{ 
