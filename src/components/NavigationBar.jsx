@@ -26,7 +26,15 @@ const NavigationBar = () => {
           });
          
     }, [])
-
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          // Redirect to the login page if the user is not authenticated
+          navigate("/");
+        }
+      });
+    }, [navigate]);
+  
   
     const location = useLocation();
     const state = location.state;
@@ -100,13 +108,11 @@ const NavigationBar = () => {
              activeclassname="active">
             <FaBook /> Storico
           </Nav.Link>
-          <Nav.Link as={Link}  to={{ 
-             pathname:`/`,
-             
-             }}
+          <Nav.Link as={Link} 
              state = { state}
              className={location.pathname === "/" ? "selected-page" : "page"}
-             activeclassname="active">
+             activeclassname="active"
+             onClick={handleLogout} >
             <FiLogOut/>Logout
           </Nav.Link>
         </Nav>
