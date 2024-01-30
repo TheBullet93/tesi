@@ -14,7 +14,7 @@ const FormRacconti = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
-      setArgomento(null)
+      setArgomento('')
       setValidated(false)
       setShow(false);
     };
@@ -33,7 +33,7 @@ const FormRacconti = (props) =>{
         titoloDomanda: argomento || 'Nessun dato',
       });
 
-      setArgomento(null)
+      setArgomento('')
       setValidated(false)
       setShow(false);
     };

@@ -61,13 +61,13 @@ const FormDomandaAudio = (props) =>{
       });
 
 
-      setTitoloDomanda(null)
-      setRispCorretta(null)
-      setRispErrata1(null)
-      setRispErrata2(null)
-      setRispErrata3(null)
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
       setAudio(null)
-      setAudioUrls(null)
+      setAudioUrls('')
       setShow(false);  
       setValidated(false)  }
     }, [audioUrls]);
@@ -81,13 +81,13 @@ const FormDomandaAudio = (props) =>{
 
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setRispCorretta(null)
-      setRispErrata1(null)
-      setRispErrata2(null)
-      setRispErrata3(null)
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
       setAudio(null)
-      setAudioUrls(null)
+      setAudioUrls('')
       setShow(false);
       setValidated(false)
     };

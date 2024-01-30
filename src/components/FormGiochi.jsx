@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import ButtonAdd from './ButtonAdd';
-
+import { InputGroup } from 'react-bootstrap';
 
 import {FaPlusCircle} from "react-icons/fa"
 
@@ -15,13 +15,16 @@ import { auth } from '../firebase';
 
 function FormGiochi() {
   const [show, setShow] = useState(false);
+  const [validated, setValidated] = useState(false);
   const db = getDatabase();
   
   const handleClose = () =>{
-    setTitoloGioco(null)
-    setTipologia(null)
-    setDifficolta(null)
     setShow(false);
+    setTitoloGioco('')
+    setTipologia('')
+    setDifficolta('')
+    
+    setValidated(false)
   };
   const handleShow = () => setShow(true);
  
@@ -48,6 +51,7 @@ function FormGiochi() {
 
   
   const livelli = [ 
+    {label:"LIVELLI"} ,
     {label:"1"} ,
     {label:"2"} ,
     {label:"3"} ,
@@ -80,10 +84,11 @@ function FormGiochi() {
       difficoltaGioco: difficoltaGioco || 'Nessun dato',
     });
 
-    setTitoloGioco(null)
-    setTipologia(null)
-    setDifficolta(null)
+    setTitoloGioco('')
+    setTipologia('')
+    setDifficolta('')
     setShow(false);
+    setValidated(false)
   };
 
  
@@ -115,6 +120,43 @@ function FormGiochi() {
         return ' seleziona una tipologia';
     }
   }
+
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloGioco(e.target.value)
+  }
+
+  const handleChangeTipologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setTipologia(e.target.value)
+  }
+
+  const handleChangeLivello = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setDifficolta(e.target.value)
+  }
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloGioco !== '' && tipologiaGioco !== '' && difficoltaGioco !== '';
+  };
+
+
   return (
     <>
 
@@ -130,10 +172,11 @@ function FormGiochi() {
               <Modal.Title className='headerForm'>Crea un nuovo gioco</Modal.Title>
            </Modal.Header>
           <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaGioco">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" value={tipologiaGioco} onChange={(e) => setTipologia(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select  className="selectForm" required value={tipologiaGioco} onChange={handleChangeTipologia}>
            {options.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -142,6 +185,10 @@ function FormGiochi() {
         
           )}    
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+                Scegliere Tipologia
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm"><p>Descrizione esercizio:</p>
@@ -150,7 +197,8 @@ function FormGiochi() {
      
       <Form.Group className="mb-3" controlId="formDifficoltaGioco">
         <Form.Label className="labelForm">Livello di difficoltà</Form.Label>
-        <Form.Select className="selectForm" value={difficoltaGioco} onChange={(e) => setDifficolta(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select className="selectForm" required value={difficoltaGioco} onChange={handleChangeLivello}>
         {livelli.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -159,10 +207,19 @@ function FormGiochi() {
         
           )}   
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+                Inserire titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  value={titoloGioco}  onChange={(e) => setTitoloGioco(e.target.value)}/>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo del gioco" required value={titoloGioco}  onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Scegliere difficoltà
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
 
     </Form>
@@ -171,7 +228,7 @@ function FormGiochi() {
           <Button variant="danger" onClick={handleClose}>
            Annulla
           </Button>
-          <Button variant="primary"  className='formAdd' type="submit" onClick={aggiungi}>
+          <Button variant="primary"  className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
             Crea
           </Button>
         </Modal.Footer>

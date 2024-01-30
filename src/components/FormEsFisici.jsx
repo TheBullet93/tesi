@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import ButtonAdd from './ButtonAdd';
-
+import { InputGroup } from 'react-bootstrap';
 
 import {FaPlusCircle} from "react-icons/fa"
 
@@ -15,11 +15,12 @@ import { auth } from '../firebase';
 
 function FormEsFisici() {
   const [show, setShow] = useState(false);
-
+  const [validated, setValidated] = useState(false);
   const handleClose = () =>{
-    setTitoloEsercizio(null)
-    setTipologiaEsercizio(null)
     setShow(false);
+    setTitoloEsercizio('')
+    setTipologiaEsercizio('')
+    setValidated(false)
   };
   const handleShow = () => setShow(true);
  
@@ -61,9 +62,10 @@ function FormEsFisici() {
       tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato',
     });
 
-    setTitoloEsercizio(null)
-    setTipologiaEsercizio(null)
+    setTitoloEsercizio('')
+    setTipologiaEsercizio('')
     setShow(false);
+    setValidated(false)
   };
 
   const renderSwitch = (param)  =>{
@@ -78,6 +80,32 @@ function FormEsFisici() {
         return ' seleziona una tipologia';
     }
   }
+
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloEsercizio(e.target.value)
+  }
+
+  const handleChangeTipologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setTipologiaEsercizio(e.target.value)
+  }
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloEsercizio !== '' && tipologiaEsercizio !== '';
+  };
+
   return (
     <>
 
@@ -93,10 +121,11 @@ function FormEsFisici() {
               <Modal.Title className='headerForm'>Crea un nuovo Esercizio</Modal.Title>
            </Modal.Header>
           <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" value={tipologiaEsercizio} onChange={(e) => setTipologiaEsercizio(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select  className="selectForm" value={tipologiaEsercizio} required onChange={handleChangeTipologia}>
         {options.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -105,6 +134,10 @@ function FormEsFisici() {
         
           )} 
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+                Scegliere Tipologia
+          </Form.Control.Feedback>
+          </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm">
@@ -113,7 +146,12 @@ function FormEsFisici() {
      
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  value={titoloEsercizio}  onChange={(e) => setTitoloEsercizio(e.target.value)}/>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo del gioco"  value={titoloEsercizio} required onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Inserire titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
 
     </Form>
@@ -122,7 +160,7 @@ function FormEsFisici() {
           <Button variant="danger" onClick={handleClose}>
            Annulla
           </Button>
-          <Button variant="primary"  className='formAdd' type="submit" onClick={aggiungi}>
+          <Button variant="primary"  className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
             Crea
           </Button>
         </Modal.Footer>

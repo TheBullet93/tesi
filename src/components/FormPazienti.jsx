@@ -66,12 +66,12 @@ function FormPazienti(props) {
 
  
   const handleClose = () =>{
-    setNome(null)
-    setCognome(null)
-    setCitta(null)
-    setData(null)
-    setSesso(null)
-    setCF(null)
+    setNome('')
+    setCognome('')
+    setCitta('')
+    setData('')
+    setSesso('')
+    setCF('')
     setValidated(false)
     setShow(false);
   
@@ -140,12 +140,12 @@ function FormPazienti(props) {
     set(newPostRef, postData);
   
     // Reset state
-    setNome(null);
-    setCognome(null);
-    setCitta(null);
-    setData(null);
-    setSesso(null);
-    setCF(null);
+    setNome('');
+    setCognome('');
+    setCitta('');
+    setData('');
+    setSesso('');
+    setCF('');
     setShow(false);
     setValidated(false)
     

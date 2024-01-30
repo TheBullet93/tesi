@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import ButtonAdd from './ButtonAdd';
-
+import { InputGroup } from 'react-bootstrap';
 
 import {FaPlusCircle} from "react-icons/fa"
 
@@ -15,11 +15,14 @@ import { auth } from '../firebase';
 
 function FormDialoghi() {
   const [show, setShow] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handleClose = () =>{
-    setTitoloDialogo(null)
-    setTipologiaDialogo(null)
     setShow(false);
+    setTitoloDialogo('')
+    setTipologiaDialogo('')
+    setValidated(false)
+    
   };
   const handleShow = () => setShow(true);
  
@@ -30,6 +33,7 @@ function FormDialoghi() {
   const db = getDatabase();
 
   const options = [ 
+    {label:"TIPOLOGIE"} ,
     {label:"Ballo"} ,
     {label:"Azione"} ,
     {label:"Interazione Sociale"} ,
@@ -63,9 +67,10 @@ function FormDialoghi() {
       tipologiaDialogo: tipologiaDialogo || 'Nessun dato',
     });
 
-    setTitoloDialogo(null)
-    setTipologiaDialogo(null)
+    setTitoloDialogo('')
+    setTipologiaDialogo('')
     setShow(false);
+    setValidated(false)
   };
 
   const renderSwitch = (param)  =>{
@@ -91,6 +96,32 @@ function FormDialoghi() {
         return ' seleziona una tipologia';
     }
   }
+
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloDialogo(e.target.value)
+  }
+
+  const handleChangeTipologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setTipologiaDialogo(e.target.value)
+  }
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloDialogo !== '' && tipologiaDialogo !== '';
+  };
+
   return (
     <>
 
@@ -106,10 +137,11 @@ function FormDialoghi() {
               <Modal.Title className='headerForm'>Crea un nuovo dialogo</Modal.Title>
            </Modal.Header>
           <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" value={tipologiaDialogo} onChange={(e) => setTipologiaDialogo(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select  className="selectForm" value={tipologiaDialogo} required onChange={handleChangeTipologia}>
         {options.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -118,6 +150,10 @@ function FormDialoghi() {
         
           )} 
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+                Scegliere Tipologia
+          </Form.Control.Feedback>
+          </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm">
@@ -126,7 +162,12 @@ function FormDialoghi() {
      
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo Dialogo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  value={titoloDialogo}  onChange={(e) => setTitoloDialogo(e.target.value)}/>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo del gioco" required value={titoloDialogo}  onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Inserire titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
 
     </Form>
@@ -135,7 +176,7 @@ function FormDialoghi() {
           <Button variant="danger" onClick={handleClose}>
            Annulla
           </Button>
-          <Button variant="primary"  className='formAdd' type="submit" onClick={aggiungi}>
+          <Button variant="primary"  className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiungi}>
             Crea
           </Button>
         </Modal.Footer>

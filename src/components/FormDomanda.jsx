@@ -14,11 +14,11 @@ const FormDomanda = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setRispCorretta(null)
-      setRispErrata1(null)
-      setRispErrata2(null)
-      setRispErrata3(null)
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
       setShow(false);
       setValidated(false)
     };
@@ -45,11 +45,11 @@ const FormDomanda = (props) =>{
 
       });
 
-      setTitoloDomanda(null)
-      setRispCorretta(null)
-      setRispErrata1(null)
-      setRispErrata2(null)
-      setRispErrata3(null)
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
       setShow(false);
       setValidated(false)
     };

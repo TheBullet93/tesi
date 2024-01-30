@@ -15,8 +15,8 @@ const FormCombinazioni = (props) =>{
 
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setLettere(null)
+      setTitoloDomanda('')
+      setLettere('')
       setValidated(false)
       setShow(false);
     };
@@ -37,8 +37,8 @@ const FormCombinazioni = (props) =>{
         lettere: lettere || 'Nessun dato',
       });
 
-      setTitoloDomanda(null)
-      setLettere(null)
+      setTitoloDomanda('')
+      setLettere('')
       setShow(false);
       setValidated(false)
     };

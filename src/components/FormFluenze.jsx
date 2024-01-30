@@ -14,8 +14,8 @@ const FormFluenze = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setParola(null)
+      setTitoloDomanda('')
+      setParola('')
       setValidated(false)
       setShow(false);
     };
@@ -36,8 +36,8 @@ const FormFluenze = (props) =>{
         parola: parola || 'Nessun dato',
       });
 
-      setTitoloDomanda(null)
-      setParola(null)
+      setTitoloDomanda('')
+      setParola('')
       setValidated(false)
       setShow(false);
     };

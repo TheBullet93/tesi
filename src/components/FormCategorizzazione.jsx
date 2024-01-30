@@ -14,12 +14,12 @@ const FormCategorizzazione = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setCategoria(null)
-      setParola1(null)
-      setParola2(null)
-      setParola3(null)
-      setParola4(null)
+      setTitoloDomanda('')
+      setCategoria('')
+      setParola1('')
+      setParola2('')
+      setParola3('')
+      setParola4('')
       setShow(false);
       setValidated(false)
     };
@@ -48,12 +48,12 @@ const FormCategorizzazione = (props) =>{
         parola4: parola4 || 'Nessun dato',
       });
 
-      setTitoloDomanda(null)
-      setCategoria(null)
-      setParola1(null)
-      setParola2(null)
-      setParola3(null)
-      setParola4(null)
+      setTitoloDomanda('')
+      setCategoria('')
+      setParola1('')
+      setParola2('')
+      setParola3('')
+      setParola4('')
       setValidated(false)
       setShow(false);
     };

@@ -14,8 +14,8 @@ const FormAppartenenza = (props) =>{
 
 
     const handleClose = () =>{
-      setTitoloDomanda(null)
-      setParola(null)
+      setTitoloDomanda('')
+      setParola('')
       setValidated(false)
       setShow(false);
     };
@@ -36,8 +36,8 @@ const FormAppartenenza = (props) =>{
         parola: parola || 'Nessun dato',
       });
 
-      setTitoloDomanda(null)
-      setParola(null)
+      setTitoloDomanda('')
+      setParola('')
       setShow(false);
       setValidated(false)
     };
