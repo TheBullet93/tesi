@@ -16,7 +16,9 @@ const UpdateAllergia = (props) =>{
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {setShow(false);
+    setAllergia('');
+    setValidated(false);}
   const handleShow = () => setShow(true);
 
   const [allergia, setAllergia] = useState(props.nomeAllergia)
@@ -30,9 +32,9 @@ const UpdateAllergia = (props) =>{
     update(updateRef,{
         nomeAllergia: allergia || 'Nessun dato',
       });
-
-    
       setShow(false);
+      setAllergia('');
+      setValidated(false);
   };
 
   const isFormValid = () => {

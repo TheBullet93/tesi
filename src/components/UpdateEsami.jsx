@@ -56,8 +56,14 @@ function UpdateEsami(props) {
         dataMonitoraggio: dataMonitoraggio || 'Nessun dato'
   
       });
-   
-
+      setShow(false)
+      setPatologia('')
+      setTitolo('')
+      setValore('')
+      setNote('')
+      setDataMonitoraggio('')
+      setValidated(false)
+    
     
   };
 
@@ -65,7 +71,14 @@ function UpdateEsami(props) {
 
   
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ setShow(false);
+    setPatologia('')
+    setTitolo('')
+    setValore('')
+    setNote('')
+    setDataMonitoraggio('')
+    setValidated(false)
+  } ;
   
   const handleShow = () => setShow(true);
 

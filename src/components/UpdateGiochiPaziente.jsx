@@ -8,12 +8,18 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 import {FaPencilAlt} from "react-icons/fa"
-
+import { InputGroup } from 'react-bootstrap';
 
 const  UpdateGiochiPaziente = (props) => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
+  const [validated, setValidated] = useState(false);
+  const handleClose = () =>{
+    setShow(false);
+    setTitoloGioco('')
+    setDifficolta('')
+    
+    setValidated(false)
+  };
   const handleShow = () => setShow(true);
 
   const db = getDatabase();
@@ -33,13 +39,39 @@ const  UpdateGiochiPaziente = (props) => {
       difficoltaGioco: difficoltaGioco || 'Nessun dato'
       
     });
-
+    setTitoloGioco('')
+    setDifficolta('')
     setShow(false);
+    setValidated(false)
    
   };
 
 
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloGioco(e.target.value)
+  }
 
+
+  const handleChangeLivello = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setDifficolta(e.target.value)
+  }
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloGioco !== '' && tipologiaGioco !== '' && difficoltaGioco !== '';
+  };
 
 
   return (
@@ -53,14 +85,15 @@ const  UpdateGiochiPaziente = (props) => {
            </Modal.Header>
           <Modal.Body>
         
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Label className="labelForm">Tipologia: {props.tipologiaGioco} </Form.Label>
      
       <Form.Group className="mb-3" controlId="formDifficoltaGioco">
         <Form.Label className="labelForm">Livello di difficoltà</Form.Label>
         <Form.Select className="selectForm" 
-        defaultValue={props.difficoltaGioco} 
-        onChange={(e) => setDifficolta(e.target.value)}>
+        defaultValue={props.difficoltaGioco}
+        required 
+        onChange={handleChangeLivello}>
             <option> 1</option>
              <option> 2</option>
              <option> 3</option>
@@ -68,18 +101,20 @@ const  UpdateGiochiPaziente = (props) => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  
-        defaultValue={props.titoloGioco}  
-        onChange={(e) => setTitoloGioco(e.target.value)}/>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo del gioco" required value={titoloGioco}  onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Inserire Titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
-
     </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" className='formAnnulla' onClick={handleClose}>
            Annulla
           </Button>
-          <Button className='formAdd' variant="primary" type="submit" onClick={aggiorna}>
+          <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={aggiorna}>
            Aggiorna
           </Button>
         </Modal.Footer>

@@ -15,7 +15,14 @@ const UpdateCategorizzazionePaziente = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setCategoria('')
+      setParola1('')
+      setParola2('')
+      setParola3('')
+      setParola4('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -45,7 +52,13 @@ const UpdateCategorizzazionePaziente = (props) =>{
       });
 
       setShow(false);
-
+      setTitoloDomanda('')
+      setCategoria('')
+      setParola1('')
+      setParola2('')
+      setParola3('')
+      setParola4('')
+      setValidated(false)
     };
 
 

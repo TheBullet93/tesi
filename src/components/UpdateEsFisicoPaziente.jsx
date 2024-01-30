@@ -8,12 +8,17 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 import {FaPencilAlt} from "react-icons/fa"
-
+import { InputGroup } from 'react-bootstrap';
 
 const  UpdateEsFisicoPaziente = (props) => {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
+  const [validated, setValidated] = useState(false);
+  const handleClose = () =>{
+    setShow(false);
+    setTitoloEsercizio('')
+   
+    setValidated(false)
+  };
   const handleShow = () => setShow(true);
 
   const db = getDatabase();
@@ -33,14 +38,28 @@ const  UpdateEsFisicoPaziente = (props) => {
       
     });
 
+    setTitoloEsercizio('')
+    
     setShow(false);
+    setValidated(false)
  
   };
 
 
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloEsercizio(e.target.value)
+  }
 
-
-
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloEsercizio !== '' && tipologiaEsercizio !== '';
+  };
   return (
     <>
       <button title="Aggiorna Esercizio" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -52,13 +71,16 @@ const  UpdateEsFisicoPaziente = (props) => {
            </Modal.Header>
           <Modal.Body>
         
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Label className="labelForm">Tipologia: {props.tipologiaEsercizio} </Form.Label>
       <Form.Group className="mb-3" controlId="titoloGioco">
-        <Form.Label className="labelForm">Titolo</Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo del gioco"  
-        defaultValue={props.titoloEsercizio}  
-        onChange={(e) => setTitoloEsercizio(e.target.value)}/>
+      <Form.Label className="labelForm">Titolo </Form.Label>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo dell'esercizio"  required defaultValue={props.titoloEsercizio}  onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Inserire titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
 
     </Form>
@@ -67,7 +89,7 @@ const  UpdateEsFisicoPaziente = (props) => {
           <Button variant="danger" className='formAnnulla' onClick={handleClose}>
            Annulla
           </Button>
-          <Button className='formAdd' variant="primary" type="submit" onClick={aggiorna}>
+          <Button className='formAdd' variant="primary" type="submit" disabled={!isFormValid()} onClick={aggiorna}>
            Aggiorna
           </Button>
         </Modal.Footer>

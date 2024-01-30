@@ -17,7 +17,15 @@ const UpdateDomandaAudioAttivita = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setAudio(null)
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -83,7 +91,14 @@ const UpdateDomandaAudioAttivita = (props) =>{
         audio: audioUrls || 'Nessun dato',
       });
 
-      setShow(false);    }
+      setShow(false);  
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setAudio(null)
+      setValidated(false)   }
     }, [audioUrls]);
   
     const handleFileUpload = () => {

@@ -14,7 +14,14 @@ const UpdateDomandaPaziente = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setValidated(false)
+    }
     const handleShow = () => setShow(true);
 
 
@@ -41,7 +48,12 @@ const UpdateDomandaPaziente = (props) =>{
       });
   
       setShow(false);
-    
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setValidated(false)
     };const isFormValid = () => {
       // Verifica che tutti i campi siano stati inseriti
       return titoloDomanda !== '' && rispostaCorretta !== '' && rispostaErrata1 !== ''  && rispostaErrata2 !== '' && rispostaErrata3 !== '';

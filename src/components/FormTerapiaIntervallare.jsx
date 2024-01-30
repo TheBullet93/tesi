@@ -78,8 +78,14 @@ function FormTerapiaIntervallare(props) {
 
   const handleChange = (e) => {
     
-    setGiorni(e);
-   
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setGiorni(e.target.value)
   };
 
 
@@ -124,9 +130,20 @@ function FormTerapiaIntervallare(props) {
 
   const isFormValid = () => {
     // Verifica che tutti i campi siano stati inseriti
-    return farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
+    return patologia !== '' &&  farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
   };
 
+
+  const handleChangePatologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPatologia(e.target.value)
+  }
 
   const handleChangeFarmaco = (e)=>{
     const form = e.currentTarget;
@@ -198,7 +215,7 @@ function FormTerapiaIntervallare(props) {
            </Modal.Header>
           <Modal.Body>
         <Form noValidate validated={validated}>
-        <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
+        <Form.Select   className="selectFormGioco" required value={patologia} onChange={handleChangePatologia}>
                  <option>PATOLOGIE</option>
                    {patologie.map((item,index) =>  {
                        return(
@@ -250,6 +267,7 @@ function FormTerapiaIntervallare(props) {
       
       <Form.Group className="mb-3" controlId="formGiorni">
         <Form.Label className="labelForm">In quali giorni</Form.Label>
+        <InputGroup hasValidation>
         <Select
            isMulti
           name="giorni"
@@ -260,7 +278,8 @@ function FormTerapiaIntervallare(props) {
          required
         
          />
-        
+           <Form.Control.Feedback type="invalid">Inserire giorni</Form.Control.Feedback>
+        </InputGroup> 
       </Form.Group>
     </Form>
 

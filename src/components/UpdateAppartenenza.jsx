@@ -12,7 +12,10 @@ import { InputGroup } from 'react-bootstrap';
 const UpdateAppartenenza = (props) =>{
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -34,6 +37,9 @@ const UpdateAppartenenza = (props) =>{
       });
 
       setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)
     };
 
     const isFormValid = () => {

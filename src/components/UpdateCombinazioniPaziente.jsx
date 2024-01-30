@@ -14,7 +14,10 @@ const UpdateCombinazioniPaziente = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setLettere('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -35,6 +38,9 @@ const UpdateCombinazioniPaziente = (props) =>{
       });
   
       setShow(false);
+      setTitoloDomanda('')
+      setLettere('')
+      setValidated(false)
 
     };
 

@@ -13,7 +13,10 @@ const UpdateLetteraPaziente = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () =>{setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -36,6 +39,9 @@ const UpdateLetteraPaziente = (props) =>{
       });
   
       setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)
     };
 
     const isFormValid = () => {

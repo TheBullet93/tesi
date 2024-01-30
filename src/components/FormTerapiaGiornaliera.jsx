@@ -74,7 +74,7 @@ function FormTerapiaGiornaliera(props) {
 
   const isFormValid = () => {
     // Verifica che tutti i campi siano stati inseriti
-    return farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
+    return patologia !== '' && farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
   };
 
 
@@ -133,6 +133,16 @@ function FormTerapiaGiornaliera(props) {
     setDettagli(e.target.value)
   }
 
+  const handleChangePatologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPatologia(e.target.value)
+  }
 
 
 
@@ -149,7 +159,8 @@ function FormTerapiaGiornaliera(props) {
            </Modal.Header>
           <Modal.Body>
         <Form noValidate validated={validated}>
-        <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select   className="selectFormGioco" value={patologia} required onChange={handleChangePatologia}>
                  <option>PATOLOGIE</option>
                    {patologie.map((item,index) =>  {
                        return(
@@ -158,6 +169,8 @@ function FormTerapiaGiornaliera(props) {
                           }        
                      )} 
               </Form.Select>
+              <Form.Control.Feedback type="invalid">Scegliere patologia</Form.Control.Feedback>
+         </InputGroup> 
 
       <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>

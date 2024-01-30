@@ -7,7 +7,7 @@ import { set,push,ref,onValue } from 'firebase/database';
 
 import Form from 'react-bootstrap/Form';
 import {FaPencilAlt} from "react-icons/fa"
-
+import { InputGroup } from 'react-bootstrap';
 
 function UpdateBMI(props) {
   
@@ -18,10 +18,16 @@ function UpdateBMI(props) {
   const [circonferenza,setCirconferenza] = useState(props.circonferenza);
   const [dataMonitoraggio,setDataMonitoraggio] = useState(props.dataMonitoraggio);
   const [bmi, setBMI] = useState(null);
+  const [validated, setValidated] = useState(false);
 
 
+  const handleClose = () =>{ setShow(false);
+    setPeso('')
+    setAltezza('')
+    setCirconferenza('')
+    setDataMonitoraggio('')
+    setValidated(false)} ;
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const db = getDatabase();
@@ -49,9 +55,64 @@ function UpdateBMI(props) {
     } else {
       setBMI(null);
     }
-
+    setShow(false);
+    setPeso('')
+    setAltezza('')
+    setCirconferenza('')
+    setDataMonitoraggio('')
+    setValidated(false)
     
   };
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return peso !== '' && altezza !== '' && circonferenza !== '' &&  dataMonitoraggio !== '';
+  };
+
+
+  const handleChangePeso = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setPeso(e.target.value)
+  }
+
+  const handleChangeAltezza = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setAltezza(e.target.value)
+  }
+
+  const handleChangeCirconferenza = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCirconferenza(e.target.value)
+  }
+
+  const handleChangeData = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDataMonitoraggio(e.target.value)
+  }
 
 
   return (
@@ -62,30 +123,49 @@ function UpdateBMI(props) {
           <Modal.Title className='headerForm'>Aggiorna BMI del paziente</Modal.Title>
              </Modal.Header>
             <Modal.Body>
-              <Form>
+              <Form noValidate validated={validated}>
               <Form.Label className="labelForm">Peso </Form.Label>
-                 <Form.Control type="number" placeholder="Inserici peso corporeo (Kg)" 
+              <InputGroup hasValidation>
+                 <Form.Control type="number" required placeholder="Inserici peso corporeo (Kg)" 
                   defaultValue = {props.peso}  
-                  onChange = {(e) => setPeso(e.target.value)}
+                  onChange = {handleChangePeso}
                /> 
+                <Form.Control.Feedback type="invalid">
+                Inserire peso.
+               </Form.Control.Feedback>
+              </InputGroup> 
               <Form.Label className="labelForm">Altezza</Form.Label>
-                 <Form.Control type="number" placeholder="Inserici altezza (cm)" 
+              <InputGroup hasValidation>
+                 <Form.Control type="number" required placeholder="Inserici altezza (cm)" 
                   defaultValue = {props.altezza}   
-                  onChange = {(e) => setAltezza(e.target.value)}
+                  onChange = {handleChangeAltezza}
                /> 
+               <Form.Control.Feedback type="invalid">
+                Inserire altezza.
+               </Form.Control.Feedback>
+              </InputGroup>
             <Form.Label className="labelForm">Circonferenza Vita</Form.Label>
-            <Form.Control type="number" placeholder="Inserici valore" 
+            <InputGroup hasValidation>
+            <Form.Control type="number" required placeholder="Inserici valore" 
               defaultValue = {props.circonferenza}   
-              onChange={(e) => setCirconferenza(e.target.value)} />
+              onChange={handleChangeCirconferenza}  />
+               <Form.Control.Feedback type="invalid">
+                Inserire circonferenza vita.
+            </Form.Control.Feedback>
+            </InputGroup>
             <Form.Label className="labelForm">Data Monitoraggio</Form.Label>
-            <Form.Control type="date" placeholder="Inserici data" 
+            <InputGroup hasValidation>
+            <Form.Control type="date" required placeholder="Inserici data" 
               defaultValue = {props.dataMonitoraggio}    
-              onChange={(e) => setDataMonitoraggio(e.target.value)} />
- 
+              onChange={handleChangeData} />
+              <Form.Control.Feedback type="invalid">
+                Inserire data monitoraggio.
+            </Form.Control.Feedback> 
+            </InputGroup>
               </Form>
     </Modal.Body>
     <Modal.Footer>
-            <Button variant="primary" className='formAdd' type="submit" onClick={aggiorna}>Aggiorna</Button>
+            <Button variant="primary" className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiorna}>Aggiorna</Button>
    
     </Modal.Footer>
       </Modal>

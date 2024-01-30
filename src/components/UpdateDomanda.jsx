@@ -14,7 +14,14 @@ const UpdateDomanda = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -40,6 +47,12 @@ const UpdateDomanda = (props) =>{
       });
 
       setShow(false);
+      setTitoloDomanda('')
+      setRispCorretta('')
+      setRispErrata1('')
+      setRispErrata2('')
+      setRispErrata3('')
+      setValidated(false)
     };
 
     const isFormValid = () => {

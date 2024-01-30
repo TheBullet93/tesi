@@ -13,7 +13,10 @@ const UpdateDomandaMini = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setValidated(false)
+    }
     const handleShow = () => setShow(true);
 
 
@@ -30,6 +33,8 @@ const UpdateDomandaMini = (props) =>{
       });
 
       setShow(false);
+      setTitoloDomanda('')
+      setValidated(false)
     };
 
     const isFormValid = () => {

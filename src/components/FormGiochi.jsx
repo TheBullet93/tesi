@@ -217,7 +217,7 @@ function FormGiochi() {
         <InputGroup hasValidation>
         <Form.Control type="text" placeholder="Inserici titolo del gioco" required value={titoloGioco}  onChange={handleChangeTitolo}/>
         <Form.Control.Feedback type="invalid">
-                Scegliere difficoltà
+                Inserire Titolo
           </Form.Control.Feedback>
         </InputGroup>
       </Form.Group>

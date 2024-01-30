@@ -13,7 +13,10 @@ import { InputGroup } from 'react-bootstrap';
 const UpdateAppartenenzaPaziente = (props) =>{
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
 
@@ -35,6 +38,9 @@ const UpdateAppartenenzaPaziente = (props) =>{
       });
   
       setShow(false);
+      setTitoloDomanda('')
+      setParola('')
+      setValidated(false)
      
     };
 

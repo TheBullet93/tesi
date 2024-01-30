@@ -7,11 +7,17 @@ import {FaPencilAlt} from "react-icons/fa"
 
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
+import { InputGroup } from 'react-bootstrap';
 
 function UpdateEsFisico(props) {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
+  const [validated, setValidated] = useState(false);
+  const handleClose = () =>{
+    setShow(false);
+    setTitoloEsercizio('')
+    setTipologiaEsercizio('')
+    setValidated(false)
+  };
   const handleShow = () => setShow(true);
 
   
@@ -28,7 +34,11 @@ function UpdateEsFisico(props) {
       tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato', 
     });
 
+    setTitoloEsercizio('')
+    setTipologiaEsercizio('')
     setShow(false);
+    setValidated(false)
+    
   };
 
 
@@ -52,6 +62,31 @@ function UpdateEsFisico(props) {
     }
   }
 
+  const handleChangeTitolo= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }  
+    setValidated(true);
+    setTitoloEsercizio(e.target.value)
+  }
+
+  const handleChangeTipologia = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    setTipologiaEsercizio(e.target.value)
+  }
+
+  const isFormValid = () => {
+    // Verifica che tutti i campi siano stati inseriti
+    return titoloEsercizio !== '' && tipologiaEsercizio !== '';
+  };
+
   return (
     <>
      <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -60,10 +95,11 @@ function UpdateEsFisico(props) {
               <Modal.Title className='headerForm'>Aggiorna</Modal.Title>
            </Modal.Header>
           <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaEsercizio} onChange={(e) => setTipologiaEsercizio(e.target.value)}>
+        <InputGroup hasValidation>
+        <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaEsercizio} required onChange={handleChangeTipologia}>
         {options.map((option,index) =>  {
             return(
               <option key={index}> {option.label}</option>
@@ -72,6 +108,10 @@ function UpdateEsFisico(props) {
         
           )}    
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+                Scegliere Tipologia
+          </Form.Control.Feedback>
+          </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm">
@@ -80,7 +120,12 @@ function UpdateEsFisico(props) {
      
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo </Form.Label>
-        <Form.Control type="text" placeholder="Inserici titolo dell'esercizio"  defaultValue={props.titoloEsercizio}  onChange={(e) => setTitoloEsercizio(e.target.value)}/>
+        <InputGroup hasValidation>
+        <Form.Control type="text" placeholder="Inserici titolo dell'esercizio"  required defaultValue={props.titoloEsercizio}  onChange={handleChangeTitolo}/>
+        <Form.Control.Feedback type="invalid">
+                Inserire titolo
+          </Form.Control.Feedback>
+        </InputGroup>
       </Form.Group>
 
     </Form>
@@ -89,7 +134,7 @@ function UpdateEsFisico(props) {
           <Button variant="danger" onClick={handleClose}>
            Annulla
           </Button>
-          <Button variant="primary"  className='formAdd' type="submit" onClick={aggiorna}>
+          <Button variant="primary"  className='formAdd' type="submit" disabled={!isFormValid()} onClick={aggiorna}>
            Aggiorna
           </Button>
         </Modal.Footer>
