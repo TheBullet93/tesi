@@ -15,7 +15,13 @@ const AddParente = (props) =>{
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {setShow(false);
+    setNomeParente('');
+    setCognomeParente('');
+    setTelefonoParente('');
+    setEmailParente('');
+    setValidated(false);
+  }
   const handleShow = () => setShow(true);
 
   const [nomeParente, setNomeParente] = useState('');
@@ -42,6 +48,11 @@ const AddParente = (props) =>{
     );
    
       setShow(false);
+      setNomeParente('');
+      setCognomeParente('');
+      setTelefonoParente('');
+      setEmailParente('');
+      setValidated(false);
   };
 
   const isFormValid = () => {

@@ -18,7 +18,7 @@ const AggiungiDomandaCombinazioni = (props) =>{
     const handleClose = () =>{
       setTitoloDomanda(null)
       setLettere(null)
-   
+      setValidated(false)
       setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -41,6 +41,7 @@ const AggiungiDomandaCombinazioni = (props) =>{
       setTitoloDomanda(null)
       setLettere(null)
       setShow(false);
+      setValidated(false)
     };
 
     const isFormValid = () => {

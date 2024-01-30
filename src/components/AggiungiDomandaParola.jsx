@@ -16,7 +16,7 @@ const AggiungiDomandaParola = (props) =>{
     const handleClose = () =>{
       setTitoloDomanda(null)
       setParola(null)
-   
+      setValidated(false)
       setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -39,6 +39,7 @@ const AggiungiDomandaParola = (props) =>{
       setTitoloDomanda(null)
       setParola(null)
       setShow(false);
+      setValidated(false)
     };
 
     const isFormValid = () => {

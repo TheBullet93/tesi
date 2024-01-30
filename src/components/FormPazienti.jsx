@@ -72,6 +72,7 @@ function FormPazienti(props) {
     setData(null)
     setSesso(null)
     setCF(null)
+    setValidated(false)
     setShow(false);
   
   } ;
@@ -146,7 +147,7 @@ function FormPazienti(props) {
     setSesso(null);
     setCF(null);
     setShow(false);
-
+    setValidated(false)
     
   };
 

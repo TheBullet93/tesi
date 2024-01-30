@@ -15,7 +15,7 @@ const FormRacconti = (props) =>{
 
     const handleClose = () =>{
       setArgomento(null)
-
+      setValidated(false)
       setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -34,6 +34,7 @@ const FormRacconti = (props) =>{
       });
 
       setArgomento(null)
+      setValidated(false)
       setShow(false);
     };
 

@@ -67,6 +67,7 @@ const AggiungiDomandaAudio = (props) =>{
       setAudio(null)
       setAudioUrls(null)
       setShow(false);
+      setValidated(false)
     };
 
     const handleClose = () =>{
@@ -78,6 +79,7 @@ const AggiungiDomandaAudio = (props) =>{
       setAudio(null)
       setAudioUrls(null)
       setShow(false);
+      setValidated(false)
     };
     const handleShow = () => setShow(true);
 

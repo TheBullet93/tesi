@@ -76,8 +76,13 @@ function FormEsameStrum(props) {
   
       });
    
-    setShow(false); 
-    
+    setShow(false);
+    setPatologia('')
+    setTitolo('')
+    setValore('')
+    setNote('')
+    setDataMonitoraggio('')
+    setValidated(false)
   };
 
   const aggiungiFile = () => {
@@ -105,6 +110,9 @@ function FormEsameStrum(props) {
       });
   
       setShow(false);
+      setNomeFile('')
+      setDataInserimento('')
+      setValidated(false)
     }
   }, [fileUrls]);
   
@@ -116,7 +124,16 @@ function FormEsameStrum(props) {
 
   
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ setShow(false);
+    setPatologia('')
+    setTitolo('')
+    setValore('')
+    setNote('')
+    setDataMonitoraggio('')
+    setNomeFile('')
+    setDataInserimento('')
+    setValidated(false)
+  } ;
   
   const handleShow = () => setShow(true);
 

@@ -18,7 +18,10 @@ const AddPatologia = (props) =>{
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setPatologia('')
+    setValidated(false)}
   const handleShow = () => setShow(true);
 
   const [patologia, setPatologia] = useState('');
@@ -36,6 +39,8 @@ const AddPatologia = (props) =>{
     );
    
       setShow(false);
+      setPatologia('')
+      setValidated(false)
   };
 
   const isFormValid = () => {

@@ -75,13 +75,14 @@ function FormEsameLab(props) {
   
       });
    
-    
-    setPatologia(null);
-    setTitolo(null);
-    setValore(null);
-    setDataMonitoraggio(null);
-    setNote(null);
+   
     setShow(false); 
+    setPatologia('');
+    setTitolo('');
+    setValore('');
+    setDataMonitoraggio('');
+    setNote('');
+    setValidated(false)
     
   };
 
@@ -109,6 +110,9 @@ function FormEsameLab(props) {
         dataInserimento: dataInserimento || 'Nessun dato'
       });
       setShow(false);
+      setNomeFile('')
+    setDataInserimento('')
+    setValidated(false)
     }
   }, [fileUrls]);
   
@@ -121,7 +125,15 @@ function FormEsameLab(props) {
   
 
   const handleClose = () =>{ 
-    setShow(false);} ;
+    setShow(false);
+    setPatologia('');
+    setTitolo('');
+    setValore('');
+    setDataMonitoraggio('');
+    setNote('');
+    setNomeFile('')
+    setDataInserimento('')
+    setValidated(false)} ;
   
   const handleShow = () => setShow(true);
 

@@ -22,6 +22,7 @@ const AggiungiDomandaCategorizzazione = (props) =>{
       setParola3(null)
       setParola4(null)
       setShow(false);
+      setValidated(false)
     };
     const handleShow = () => setShow(true);
 
@@ -55,6 +56,7 @@ const AggiungiDomandaCategorizzazione = (props) =>{
       setParola3(null)
       setParola4(null)
       setShow(false);
+      setValidated(false)
     };
 
     

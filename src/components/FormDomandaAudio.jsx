@@ -68,7 +68,8 @@ const FormDomandaAudio = (props) =>{
       setRispErrata3(null)
       setAudio(null)
       setAudioUrls(null)
-      setShow(false);    }
+      setShow(false);  
+      setValidated(false)  }
     }, [audioUrls]);
   
     const handleFileUpload = () => {
@@ -88,6 +89,7 @@ const FormDomandaAudio = (props) =>{
       setAudio(null)
       setAudioUrls(null)
       setShow(false);
+      setValidated(false)
     };
     const handleShow = () => setShow(true);
 

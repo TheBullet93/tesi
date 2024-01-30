@@ -48,6 +48,11 @@ function FormBMI(props) {
       setBMI(null);
     }
     setShow(false);
+    setPeso('')
+    setAltezza('')
+    setCirconferenza('')
+    setDataMonitoraggio('')
+    setValidated(false)
   };
 
 
@@ -55,7 +60,12 @@ function FormBMI(props) {
 
   
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ setShow(false);
+    setPeso('')
+    setAltezza('')
+    setCirconferenza('')
+    setDataMonitoraggio('')
+    setValidated(false)} ;
   
   const handleShow = () => setShow(true);
 

@@ -15,7 +15,7 @@ const FormDomandaEsFisico= (props) =>{
 
     const handleClose = () =>{
       setTitoloDomanda(null)
-
+      setValidated(false)
       setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -34,6 +34,7 @@ const FormDomandaEsFisico= (props) =>{
       });
 
       setTitoloDomanda(null)
+      setValidated(false)
       setShow(false);
     };
 

@@ -84,12 +84,14 @@ function FormTerapiaIntervallare(props) {
 
 
   const handleClose = () =>{
-    setPatologia(null)
-    setFarmaco(null)
-    setDataInizio(null)
-    setDataFine(null)
-    setDettagli(null)
     setShow(false);
+    setPatologia('')
+    setFarmaco('')
+    setDataInizio('')
+    setDataFine('')
+    setDettagli('')
+    setGiorni('')
+    setValidated(false)
   };
   const handleShow = () => setShow(true);
 
@@ -110,12 +112,14 @@ function FormTerapiaIntervallare(props) {
       dettagli: dettagli || 'Nessun dato'
 
     });
-    setPatologia(null)
-    setFarmaco(null)
-    setDataInizio(null)
-    setDataFine(null)
-    setDettagli(null)
     setShow(false);
+    setPatologia('')
+    setFarmaco('')
+    setDataInizio('')
+    setDataFine('')
+    setDettagli('')
+    setGiorni('')
+    setValidated(false)
   };
 
   const isFormValid = () => {

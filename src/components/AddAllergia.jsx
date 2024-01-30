@@ -16,7 +16,10 @@ const AddAllergia = (props) =>{
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setAllergia('')
+    setValidated(false)}
   const handleShow = () => setShow(true);
 
   const [allergia, setAllergia] = useState('');
@@ -33,6 +36,8 @@ const AddAllergia = (props) =>{
     );
    
       setShow(false);
+      setAllergia('')
+      setValidated(false)
   };
 
   const isFormValid = () => {

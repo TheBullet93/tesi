@@ -80,6 +80,12 @@ function FormVisita(props) {
    
    
     setShow(false); 
+    setPatologia('')
+    setTitolo('')
+    setValore('')
+    setNote('')
+    setDataMonitoraggio('')
+    setValidated(false)
     
   };
   const aggiungiFile = () => {
@@ -107,6 +113,9 @@ function FormVisita(props) {
       });
 
       setShow(false);
+      setNomeFile('')
+      setDataInserimento('')
+      setValidated(false)
     }
   }, [fileUrls]);
   
@@ -119,7 +128,16 @@ function FormVisita(props) {
 
   
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ setShow(false);
+    setPatologia('')
+    setTitolo('')
+    setValore('')
+    setNote('')
+    setDataMonitoraggio('')
+    setNomeFile('')
+    setDataInserimento('')
+    setValidated(false)
+  } ;
   
   const handleShow = () => setShow(true);
 

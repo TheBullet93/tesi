@@ -15,7 +15,7 @@ const FormDomandaMini = (props) =>{
 
     const handleClose = () =>{
       setTitoloDomanda(null)
-
+      setValidated(false)
       setShow(false);
     };
     const handleShow = () => setShow(true);
@@ -34,6 +34,7 @@ const FormDomandaMini = (props) =>{
       });
 
       setTitoloDomanda(null)
+      setValidated(false)
       setShow(false);
     };
 

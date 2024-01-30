@@ -41,11 +41,13 @@ function FormTerapiaGiornaliera(props) {
   },[])
 
   const handleClose = () =>{
-    setFarmaco(null)
-    setDataInizio(null)
-    setDataFine(null)
-    setDettagli(null)
     setShow(false);
+    setPatologia('')
+    setFarmaco('')
+    setDataInizio('')
+    setDataFine('')
+    setDettagli('')
+    setValidated(false)
   };
   const handleShow = () => setShow(true);
 
@@ -60,12 +62,14 @@ function FormTerapiaGiornaliera(props) {
         numAssunzioni: numAssunzioni || 'Nessun dato',
         dettagli: dettagli || 'Nessun dato'
     });
-  
-    setFarmaco(null)
-    setDataInizio(null)
-    setDataFine(null)
-    setDettagli(null)
+
     setShow(false);
+    setPatologia('')
+    setFarmaco('')
+    setDataInizio('')
+    setDataFine('')
+    setDettagli('')
+    setValidated(false)
   };
 
   const isFormValid = () => {

@@ -21,6 +21,7 @@ const AggiungiDomande = (props) =>{
       setRispErrata2(null)
       setRispErrata3(null)
       setShow(false);
+      setValidated(false)
     };
     const handleShow = () => setShow(true);
 
@@ -51,6 +52,7 @@ const AggiungiDomande = (props) =>{
       setRispErrata2(null)
       setRispErrata3(null)
       setShow(false);
+      setValidated(false)
     };
 
     const isFormValid = () => {

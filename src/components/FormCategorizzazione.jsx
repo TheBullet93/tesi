@@ -21,6 +21,7 @@ const FormCategorizzazione = (props) =>{
       setParola3(null)
       setParola4(null)
       setShow(false);
+      setValidated(false)
     };
     const handleShow = () => setShow(true);
 
@@ -53,6 +54,7 @@ const FormCategorizzazione = (props) =>{
       setParola2(null)
       setParola3(null)
       setParola4(null)
+      setValidated(false)
       setShow(false);
     };
 
