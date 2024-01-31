@@ -13,8 +13,8 @@ const UpdateAppartenenza = (props) =>{
     const [show, setShow] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setTitoloDomanda('')
-      setParola('')
+      setTitoloDomanda(props.titoloDomanda)
+      setParola(props.parola)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -37,8 +37,8 @@ const UpdateAppartenenza = (props) =>{
       });
 
       setShow(false);
-      setTitoloDomanda('')
-      setParola('')
+      setTitoloDomanda(props.titoloDomanda)
+      setParola(props.parola)
       setValidated(false)
     };
 

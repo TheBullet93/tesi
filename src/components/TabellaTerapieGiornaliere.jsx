@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 import { getDatabase } from "firebase/database";
 import {ref,onValue} from 'firebase/database';
 
-import { ButtonGroup } from 'react-bootstrap';
+import { ButtonGroup ,Button} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -102,7 +102,6 @@ const sortingDSC = (col) =>{
     });
   
   },[auth?.currentUser?.uid])
-   
 
   return (
     <>
@@ -190,7 +189,6 @@ const sortingDSC = (col) =>{
                        textToast = {'Terapia eliminata'}
                        />
                   </ButtonGroup>
-               
                   </Td>
                 </Tr>
                 </React.Fragment>

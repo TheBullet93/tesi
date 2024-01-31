@@ -15,9 +15,9 @@ const  UpdateGiochiPaziente = (props) => {
   const [validated, setValidated] = useState(false);
   const handleClose = () =>{
     setShow(false);
-    setTitoloGioco('')
-    setDifficolta('')
-    
+    setTitoloGioco(props.titoloGioco)
+    setTipologia(props.tipologiaGioco)
+    setDifficolta(props.difficoltaGioco)
     setValidated(false)
   };
   const handleShow = () => setShow(true);
@@ -39,8 +39,9 @@ const  UpdateGiochiPaziente = (props) => {
       difficoltaGioco: difficoltaGioco || 'Nessun dato'
       
     });
-    setTitoloGioco('')
-    setDifficolta('')
+    setTitoloGioco(props.titoloGioco)
+    setTipologia(props.tipologiaGioco)
+    setDifficolta(props.difficoltaGioco)
     setShow(false);
     setValidated(false)
    

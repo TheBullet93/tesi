@@ -14,7 +14,7 @@ const UpdateDomandaEsFisico = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () =>{ setShow(false);
-      setTitoloDomanda('')
+      setTitoloDomanda(props.titoloDomanda)
       setValidated(false)
     }
     const handleShow = () => setShow(true);
@@ -33,7 +33,7 @@ const UpdateDomandaEsFisico = (props) =>{
       });
 
       setShow(false);
-      setTitoloDomanda('')
+      setTitoloDomanda(props.titoloDomanda)
       setValidated(false)
     };
 

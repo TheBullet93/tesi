@@ -14,7 +14,7 @@ const UpdateRacconti = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setArgomento('')
+      setArgomento(props.argomento)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -32,7 +32,7 @@ const UpdateRacconti = (props) =>{
       });
 
       setShow(false);
-      setArgomento('')
+      setArgomento(props.argomento)
       setValidated(false)
     };
 

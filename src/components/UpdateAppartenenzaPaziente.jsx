@@ -14,8 +14,8 @@ const UpdateAppartenenzaPaziente = (props) =>{
     const [show, setShow] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setTitoloDomanda('')
-      setParola('')
+      setTitoloDomanda(props.titoloDomanda)
+      setParola(props.parola)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -38,8 +38,8 @@ const UpdateAppartenenzaPaziente = (props) =>{
       });
   
       setShow(false);
-      setTitoloDomanda('')
-      setParola('')
+      setTitoloDomanda(props.titoloDomanda)
+      setParola(props.parola)
       setValidated(false)
      
     };

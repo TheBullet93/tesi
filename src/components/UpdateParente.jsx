@@ -19,10 +19,10 @@ const UpdateParente = (props) => {
 
   const handleClose = () => {
     setShow(false);
-    setNomeParente('')
-    setCognomeParente('')
-    setTelefonoParente('')
-    setEmailParente('')
+    setNomeParente(props.nomeParente)
+    setCognomeParente(props.cognomeParente)
+    setTelefonoParente(props.telefonoParente)
+    setEmailParente(props.emailParente)
     setValidated(false)}
   const handleShow = () => setShow(true);
 
@@ -45,10 +45,10 @@ const UpdateParente = (props) => {
 
     
       setShow(false);
-      setNomeParente('')
-      setCognomeParente('')
-      setTelefonoParente('')
-      setEmailParente('')
+      setNomeParente(props.nomeParente)
+    setCognomeParente(props.cognomeParente)
+    setTelefonoParente(props.telefonoParente)
+    setEmailParente(props.emailParente)
       setValidated(false)
   };
 

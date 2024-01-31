@@ -52,7 +52,19 @@ const UpdatePazienti = (props) =>{
   };
 
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+      setNome(props.nome)
+      setCognome(props.cognome)
+      setCitta(props.citta)
+      setData(props.data)
+      setSesso(props.sesso)
+      setCF(props.codiceFiscale)
+      setValutazioneCognitiva(props.valutazioneCognitiva)
+      setCapacitaFisiche(props.capacitaFisiche)
+      setDieta(props.dieta)
+      setValidated(false)
+  }
   const handleShow = () => setShow(true);
 
   const [patologie, setInputPatologia] = useState([
@@ -94,6 +106,16 @@ const UpdatePazienti = (props) =>{
       
     
       setShow(false);
+      setNome(props.nome)
+      setCognome(props.cognome)
+      setCitta(props.citta)
+      setData(props.data)
+      setSesso(props.sesso)
+      setCF(props.codiceFiscale)
+      setValutazioneCognitiva(props.valutazioneCognitiva)
+      setCapacitaFisiche(props.capacitaFisiche)
+      setDieta(props.dieta)
+      setValidated(false)
   };
 
   

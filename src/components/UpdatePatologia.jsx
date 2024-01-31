@@ -17,7 +17,7 @@ const UpdatePatologia = (props) =>{
   const [show, setShow] = useState(false);
 
   const handleClose = () => {setShow(false);
-    setPatologia('')
+    setPatologia(props.nomePatologia)
     setValidated(false)}
   const handleShow = () => setShow(true);
 
@@ -58,7 +58,7 @@ const UpdatePatologia = (props) =>{
     set(newRefPDTA,nodeData);
 
       setShow(false);
-      setPatologia('')
+      setPatologia(props.nomePatologia)
       setValidated(false)
   };
 

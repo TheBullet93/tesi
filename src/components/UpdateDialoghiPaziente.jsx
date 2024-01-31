@@ -14,8 +14,8 @@ function UpdateDialoghiPaziente(props) {
   const [validated, setValidated] = useState(false);
   const handleClose = () =>{
     setShow(false);
-    setTitoloDialogo('')
-    setTipologiaDialogo('')
+    setTitoloDialogo(props.titoloDialogo)
+    setTipologiaDialogo(props.tipologiaDialogo)
     setValidated(false)
     
   };
@@ -35,8 +35,8 @@ function UpdateDialoghiPaziente(props) {
       tipologiaDialogo: tipologiaDialogo || 'Nessun dato', 
     });
 
-    setTitoloDialogo('')
-    setTipologiaDialogo('')
+    setTitoloDialogo(props.titoloDialogo)
+    setTipologiaDialogo(props.tipologiaDialogo)
     setShow(false);
     setValidated(false)
   };
@@ -116,21 +116,7 @@ function UpdateDialoghiPaziente(props) {
           <Modal.Body>
         <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
-        <Form.Label className="labelForm">Tipologia</Form.Label>
-        <InputGroup hasValidation>
-        <Form.Select  className="selectForm" required defaultValue={props.tipologiaDialogo} onChange={handleChangeTipologia}>
-        {options.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}    
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-                Scegliere Tipologia
-          </Form.Control.Feedback>
-          </InputGroup>
+        <Form.Label className="labelForm">Tipologia: {props.tipologiaDialogo}</Form.Label>
       </Form.Group>
        
             <Form.Label className="labelForm">

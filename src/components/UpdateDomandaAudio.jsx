@@ -18,11 +18,11 @@ const UpdateDomandaAudio = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setTitoloDomanda('')
-      setRispCorretta('')
-      setRispErrata1('')
-      setRispErrata2('')
-      setRispErrata3('')
+      setTitoloDomanda(props.titoloDomanda)
+      setRispCorretta(props.rispostaCorretta)
+      setRispErrata1(props.rispostaErrata1)
+      setRispErrata2(props.rispostaErrata2)
+      setRispErrata3(props.rispostaErrata3)
       setAudio(null)
       setValidated(false)}
     const handleShow = () => setShow(true);
@@ -92,11 +92,11 @@ const UpdateDomandaAudio = (props) =>{
       });
 
       setShow(false);  
-      setTitoloDomanda('')
-      setRispCorretta('')
-      setRispErrata1('')
-      setRispErrata2('')
-      setRispErrata3('')
+      setTitoloDomanda(props.titoloDomanda)
+      setRispCorretta(props.rispostaCorretta)
+      setRispErrata1(props.rispostaErrata1)
+      setRispErrata2(props.rispostaErrata2)
+      setRispErrata3(props.rispostaErrata3)
       setAudio(null)
       setValidated(false)
     }

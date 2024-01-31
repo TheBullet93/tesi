@@ -16,11 +16,11 @@ const UpdateDomanda = (props) =>{
 
     const handleClose = () => {
       setShow(false);
-      setTitoloDomanda('')
-      setRispCorretta('')
-      setRispErrata1('')
-      setRispErrata2('')
-      setRispErrata3('')
+      setTitoloDomanda(props.titoloDomanda)
+      setRispCorretta(props.rispostaCorretta)
+      setRispErrata1(props.rispostaErrata1)
+      setRispErrata2(props.rispostaErrata2)
+      setRispErrata3(props.rispostaErrata3)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -47,11 +47,11 @@ const UpdateDomanda = (props) =>{
       });
 
       setShow(false);
-      setTitoloDomanda('')
-      setRispCorretta('')
-      setRispErrata1('')
-      setRispErrata2('')
-      setRispErrata3('')
+      setTitoloDomanda(props.titoloDomanda)
+      setRispCorretta(props.rispostaCorretta)
+      setRispErrata1(props.rispostaErrata1)
+      setRispErrata2(props.rispostaErrata2)
+      setRispErrata3(props.rispostaErrata3)
       setValidated(false)
     };
 

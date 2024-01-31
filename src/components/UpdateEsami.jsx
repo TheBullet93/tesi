@@ -57,11 +57,11 @@ function UpdateEsami(props) {
   
       });
       setShow(false)
-      setPatologia('')
-      setTitolo('')
-      setValore('')
-      setNote('')
-      setDataMonitoraggio('')
+      setPatologia(props.patologia)
+      setTitolo(props.titolo)
+      setValore(props.valore)
+      setNote(props.note)
+      setDataMonitoraggio(props.dataMonitoraggio)
       setValidated(false)
     
     
@@ -72,11 +72,11 @@ function UpdateEsami(props) {
   
 
   const handleClose = () =>{ setShow(false);
-    setPatologia('')
-    setTitolo('')
-    setValore('')
-    setNote('')
-    setDataMonitoraggio('')
+    setPatologia(props.patologia)
+      setTitolo(props.titolo)
+      setValore(props.valore)
+      setNote(props.note)
+      setDataMonitoraggio(props.dataMonitoraggio)
     setValidated(false)
   } ;
   

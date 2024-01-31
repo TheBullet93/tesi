@@ -15,8 +15,8 @@ const UpdateCombinazioni = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setTitoloDomanda('')
-      setLettere('')
+      setTitoloDomanda(props.titoloDomanda)
+      setLettere(props.lettere)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -39,8 +39,8 @@ const UpdateCombinazioni = (props) =>{
       });
 
       setShow(false);
-      setTitoloDomanda('')
-      setLettere('')
+      setTitoloDomanda(props.titoloDomanda)
+      setLettere(props.lettere)
       setValidated(false)
     };
 

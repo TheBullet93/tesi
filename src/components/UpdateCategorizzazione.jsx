@@ -14,12 +14,12 @@ const UpdateCategorizzazione = (props) =>{
     const [validated, setValidated] = useState(false);
 
     const handleClose = () => {setShow(false);
-      setTitoloDomanda('')
-      setCategoria('')
-      setParola1('')
-      setParola2('')
-      setParola3('')
-      setParola4('')
+      setTitoloDomanda(props.titoloDomanda)
+      setCategoria(props.categoria)
+      setParola1(props.parola1)
+      setParola2(props.parola2)
+      setParola3(props.parola3)
+      setParola4(props.parola4)
       setValidated(false)}
     const handleShow = () => setShow(true);
 
@@ -50,12 +50,12 @@ const UpdateCategorizzazione = (props) =>{
       });
 
       setShow(false);
-      setTitoloDomanda('')
-      setCategoria('')
-      setParola1('')
-      setParola2('')
-      setParola3('')
-      setParola4('')
+      setTitoloDomanda(props.titoloDomanda)
+      setCategoria(props.categoria)
+      setParola1(props.parola1)
+      setParola2(props.parola2)
+      setParola3(props.parola3)
+      setParola4(props.parola4)
       setValidated(false)
     };
 

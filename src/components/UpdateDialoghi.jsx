@@ -15,8 +15,8 @@ function UpdateDialoghi(props) {
 
   const handleClose = () =>{
     setShow(false);
-    setTitoloDialogo('')
-    setTipologiaDialogo('')
+    setTitoloDialogo(props.titoloDialogo)
+    setTipologiaDialogo(props.tipologiaDialogo)
     setValidated(false)
     
   };
@@ -36,8 +36,8 @@ function UpdateDialoghi(props) {
       tipologiaDialogo: tipologiaDialogo || 'Nessun dato', 
     });
 
-    setTitoloDialogo('')
-    setTipologiaDialogo('')
+    setTitoloDialogo(props.titoloDialogo)
+    setTipologiaDialogo(props.tipologiaDialogo)
     setShow(false);
     setValidated(false)
   };

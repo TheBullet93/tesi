@@ -28,11 +28,12 @@ const UpdateTerapieGiornaliere = (props) =>{
 
   const handleClose = () =>{
     setShow(false);
-    setPatologia('')
-    setFarmaco('')
-    setDataInizio('')
-    setDataFine('')
-    setDettagli('')
+    setPatologia(props.patologia)
+    setFarmaco(props.farmaco)
+    setDataInizio(props.dataInizio)
+    setDataFine(props.dataFine)
+    setNumAssunzioni(props.numAssunzioni)
+    setDettagli(props.dettagli)
     setValidated(false)
   };
   const handleShow = () => setShow(true);
@@ -69,12 +70,12 @@ const UpdateTerapieGiornaliere = (props) =>{
       });
       
       setShow(false);
-      setPatologia('')
-      setFarmaco('')
-      setDataInizio('')
-      setDataFine('')
-      setNumAssunzioni('')
-      setDettagli('')
+      setPatologia(props.patologia)
+      setFarmaco(props.farmaco)
+      setDataInizio(props.dataInizio)
+      setDataFine(props.dataFine)
+      setNumAssunzioni(props.numAssunzioni)
+      setDettagli(props.dettagli)
       setValidated(false)
   };
   const isFormValid = () => {

@@ -17,7 +17,7 @@ const UpdateAllergia = (props) =>{
   const [show, setShow] = useState(false);
 
   const handleClose = () => {setShow(false);
-    setAllergia('');
+    setAllergia(props.nomeAllergia);
     setValidated(false);}
   const handleShow = () => setShow(true);
 
@@ -33,7 +33,7 @@ const UpdateAllergia = (props) =>{
         nomeAllergia: allergia || 'Nessun dato',
       });
       setShow(false);
-      setAllergia('');
+      setAllergia(props.nomeAllergia);
       setValidated(false);
   };
 

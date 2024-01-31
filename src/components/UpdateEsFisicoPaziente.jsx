@@ -15,7 +15,8 @@ const  UpdateEsFisicoPaziente = (props) => {
   const [validated, setValidated] = useState(false);
   const handleClose = () =>{
     setShow(false);
-    setTitoloEsercizio('')
+    setTitoloEsercizio(props.titoloEsercizio)
+    setTipologiaEsercizio(props.tipologiaEsercizio)
    
     setValidated(false)
   };
@@ -38,7 +39,8 @@ const  UpdateEsFisicoPaziente = (props) => {
       
     });
 
-    setTitoloEsercizio('')
+    setTitoloEsercizio(props.titoloEsercizio)
+    setTipologiaEsercizio(props.tipologiaEsercizio)
     
     setShow(false);
     setValidated(false)

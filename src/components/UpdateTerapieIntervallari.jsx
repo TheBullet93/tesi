@@ -31,12 +31,13 @@ const UpdateTerapieIntervallari = (props) =>{
 
   const handleClose = () =>{
     setShow(false);
-    setPatologia('')
-    setFarmaco('')
-    setDataInizio('')
-    setDataFine('')
-    setDettagli('')
-    setGiorni('')
+    setPatologia(props.patologia)
+    setFarmaco(props.farmaco)
+    setDataInizio(props.dataInizio)
+    setDataFine(props.dataFine)
+    setNumAssunzioni(props.numAssunzioni)
+    setDettagli(props.dettagli)
+    setGiorni(props.giorni)
     setValidated(false)
   };
   const handleShow = () => setShow(true);
@@ -77,13 +78,13 @@ const UpdateTerapieIntervallari = (props) =>{
       });
     
       setShow(false);
-      setPatologia('')
-      setFarmaco('')
-      setDataInizio('')
-      setDataFine('')
-      setNumAssunzioni('')
-      setDettagli('')
-      setGiorni('')
+      setPatologia(props.patologia)
+      setFarmaco(props.farmaco)
+      setDataInizio(props.dataInizio)
+      setDataFine(props.dataFine)
+      setNumAssunzioni(props.numAssunzioni)
+      setDettagli(props.dettagli)
+      setGiorni(props.giorni)
       setValidated(false)
   };
 

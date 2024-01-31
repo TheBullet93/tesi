@@ -14,8 +14,8 @@ function UpdateEsFisico(props) {
   const [validated, setValidated] = useState(false);
   const handleClose = () =>{
     setShow(false);
-    setTitoloEsercizio('')
-    setTipologiaEsercizio('')
+    setTitoloEsercizio(props.titoloEsercizio)
+    setTipologiaEsercizio(props.tipologiaEsercizio)
     setValidated(false)
   };
   const handleShow = () => setShow(true);
@@ -34,8 +34,8 @@ function UpdateEsFisico(props) {
       tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato', 
     });
 
-    setTitoloEsercizio('')
-    setTipologiaEsercizio('')
+    setTitoloEsercizio(props.titoloEsercizio)
+    setTipologiaEsercizio(props.tipologiaEsercizio)
     setShow(false);
     setValidated(false)
     

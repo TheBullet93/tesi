@@ -22,10 +22,10 @@ function UpdateBMI(props) {
 
 
   const handleClose = () =>{ setShow(false);
-    setPeso('')
-    setAltezza('')
-    setCirconferenza('')
-    setDataMonitoraggio('')
+    setPeso(props.peso)
+    setAltezza(props.altezza)
+    setCirconferenza(props.circonferenza)
+    setDataMonitoraggio(props.dataMonitoraggio)
     setValidated(false)} ;
 
   const handleShow = () => setShow(true);
@@ -56,10 +56,10 @@ function UpdateBMI(props) {
       setBMI(null);
     }
     setShow(false);
-    setPeso('')
-    setAltezza('')
-    setCirconferenza('')
-    setDataMonitoraggio('')
+    setPeso(props.peso)
+    setAltezza(props.altezza)
+    setCirconferenza(props.circonferenza)
+    setDataMonitoraggio(props.dataMonitoraggio)
     setValidated(false)
     
   };
