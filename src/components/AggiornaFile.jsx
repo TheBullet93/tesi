@@ -82,7 +82,10 @@ function AggiornaFile(props) {
       dataInserimento: dataInserimento || 'Nessun dato'
     });
 
-    setShow(false);    }
+    setShow(false); 
+    setNomeFile(props.nomeFile)  
+  setDataInserimento(props.dataInserimento)
+  setValidated(false) }
   }, [fileUrls]);
 
   const handleFileUpload = () => {
@@ -92,7 +95,11 @@ function AggiornaFile(props) {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () =>{ setShow(false);} ;
+  const handleClose = () =>{ 
+    setShow(false); 
+    setNomeFile(props.nomeFile)  
+  setDataInserimento(props.dataInserimento)
+  setValidated(false)} ;
   
   const handleShow = () => setShow(true);
 

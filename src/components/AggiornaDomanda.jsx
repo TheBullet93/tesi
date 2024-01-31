@@ -14,7 +14,9 @@ const AggiornaDomanda = (props) =>{
     const [show, setShow] = useState(false);
     const [validated, setValidated] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false);
+      setTitoloDomanda(props.titoloDomanda)
+      setValidated(false)}
     const handleShow = () => setShow(true);
 
     
@@ -31,6 +33,8 @@ const AggiornaDomanda = (props) =>{
       });
 
       setShow(false);
+      setTitoloDomanda(props.titoloDomanda)
+      setValidated(false)
     };
 
 
