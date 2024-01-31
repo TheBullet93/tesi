@@ -237,7 +237,7 @@ function FormVisita(props) {
                label="Inserisci File"
                checked={useFile}
                onChange={handleToggle}
-               className="mb-3 custom-label-color"/>
+               className="mb-3 custom-label-color switch-file"/>
              {useFile ?  (
               <>
                   <Form noValidate validated={validated}>

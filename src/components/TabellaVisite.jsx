@@ -160,7 +160,7 @@ const sortingFileDSC = (col) =>{
                label="Visualizza Tabella File"
                checked={useFile}
                onChange={handleToggle}
-               className="mb-3"/>
+               className="mb-3 switch-file"/>
                {useFile ?  (
                 <>
                   <div>

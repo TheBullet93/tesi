@@ -612,3 +612,7 @@ text-align: center;
   color: green; /* or any color you prefer */
   margin-top: 10px;
 }
+
+.switch-file{
+  margin-left: 20px;
+}
