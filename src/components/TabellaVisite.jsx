@@ -173,6 +173,7 @@ const sortingFileDSC = (col) =>{
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
                      placeholder='Cerca...'
+                     className="search-border-color"
                   />
                 </InputGroup>
              </Form>}   className="toolBar"/>
@@ -251,6 +252,7 @@ const sortingFileDSC = (col) =>{
                   <Form.Control
                      onChange={(e) => setSearch(e.target.value)}
                      placeholder='Cerca...'
+                     className="search-border-color"
                   />
                 </InputGroup>
              </Form>}   className="toolBar"/>

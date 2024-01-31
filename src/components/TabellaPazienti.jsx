@@ -105,6 +105,7 @@ const endContent = (
                  <Form.Control
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder='Cerca...'
+                    className="search-border-color"
                 />
                </InputGroup>
              </Form>   
