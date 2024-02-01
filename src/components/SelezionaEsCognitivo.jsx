@@ -29,7 +29,7 @@ const SelezionaEsCognitivo = (props) =>{
    
 
     useEffect(() => {
-        const Ref = (ref(db, `/trattamenti/cognitivi/`));
+        const Ref = (ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/`));
         onValue(Ref, (snapshot) => {
           const data = snapshot.val();
           const newPosts = Object.keys(data || {}).map(key=>({

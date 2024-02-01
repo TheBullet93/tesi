@@ -213,9 +213,19 @@ function FormVisita(props) {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
+    } else {
+      const selectedFile = e.target.files[0];
+  
+      // Check if the selected file is an audio file
+      if (selectedFile.type.startsWith('audio/')) {
+        e.target.value = null;
+        setValidated(false);
+        setFile(null);
+      } else {
+        setValidated(true);
+        setFile(selectedFile);
+      }
     }
-    setValidated(true);
-    setFile(e.target.files[0])
   }
 
   return (
@@ -350,7 +360,7 @@ function FormVisita(props) {
     <Modal.Footer>
     {useFile ? (
       <>
-       <Button variant="primary" className='formAdd' type="submit" disabled={!isFormFileValid()} onClick={handleFileUpload}>Aggiungi</Button>
+       <Button variant="primary" className='formAdd' type="submit" disabled={!isFormFileValid() || !useFile || (file && file.type.startsWith('audio/'))} onClick={handleFileUpload}>Aggiungi</Button>
       </>
     ):(
     <>

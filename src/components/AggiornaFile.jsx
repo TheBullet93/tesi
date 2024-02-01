@@ -136,9 +136,19 @@ function AggiornaFile(props) {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
+    } else {
+      const selectedFile = e.target.files[0];
+  
+      // Check if the selected file is an audio file
+      if (selectedFile.type.startsWith('audio/')) {
+        e.target.value = null;
+        setValidated(false);
+        setFile(null);
+      } else {
+        setValidated(true);
+        setFile(selectedFile);
+      }
     }
-    setValidated(true);
-    setFile(e.target.files[0])
   }
 
   return (
@@ -193,7 +203,7 @@ function AggiornaFile(props) {
                 </Form>
     </Modal.Body>
     <Modal.Footer>
-       <Button variant="primary" className='formAdd' type="submit" disabled={!isFormFileValid()} onClick={handleFileUpload}>Aggiorna</Button>
+       <Button variant="primary" className='formAdd' type="submit" disabled={!isFormFileValid()  || (file && file.type.startsWith('audio/')) } onClick={handleFileUpload}>Aggiorna</Button>
     </Modal.Footer>
     </Modal> 
     </>

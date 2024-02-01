@@ -30,7 +30,7 @@ function UpdateDialoghi(props) {
 
   const aggiorna= () => {
    
-    const updateRef = ref(db, `trattamenti/dialoghi/${props.item}`);
+    const updateRef = ref(db, `terapisti/${props.idTerapista}/trattamenti/dialoghi/${props.item}`);
     update(updateRef, {
       titoloDialogo: titoloDialogo || 'Nessun dato',
       tipologiaDialogo: tipologiaDialogo || 'Nessun dato', 

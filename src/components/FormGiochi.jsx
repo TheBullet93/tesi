@@ -74,7 +74,7 @@ function FormGiochi() {
 
   const aggiungi = () => {
    
-    const postListRef = ref(db, `trattamenti/cognitivi`); 
+    const postListRef = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/cognitivi`); 
    
     
     const newPostRef = push(postListRef);

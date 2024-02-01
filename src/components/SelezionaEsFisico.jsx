@@ -26,7 +26,7 @@ const SelezionaEsFisico = (props) =>{
    
 
     useEffect(() => {
-        const Ref = (ref(db, `/trattamenti/fisici/`));
+        const Ref = (ref(db, `terapisti/${props.idTerapista}/trattamenti/fisici/`));
         onValue(Ref, (snapshot) => {
           const data = snapshot.val();
           const newPosts = Object.keys(data || {}).map(key=>({

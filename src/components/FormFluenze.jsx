@@ -29,7 +29,7 @@ const FormFluenze = (props) =>{
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
+      const postListRef= ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/parole/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda || 'Nessun dato',

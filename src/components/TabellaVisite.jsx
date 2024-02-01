@@ -27,6 +27,7 @@ import Delete from './Delete';
 import AggiornaFile from './AggiornaFile';
 import FormVisita from './FormVisita';
 import { Toolbar } from 'primereact/toolbar';
+import DeleteFile from './DeleteFile';
 
 function TabellaVisite(props){
 
@@ -224,12 +225,25 @@ const sortingFileDSC = (col) =>{
                       dataInserimento = {item.dataInserimento}
                       dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
                       />
-                    <Delete
+                      {/*
+                       <Delete
                       title = {item.nomeFile}
                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
                       textAlert = {' Sei sicuro di voler eliminare questo file?'}
                       textToast = {'File eliminato'}
-           />
+                      />
+                      */}
+                   
+                       <DeleteFile
+                                        title = {item.nomeFile}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/file`}
+                                        nomeFile={item.nomeFile}
+                                        tipoEsame={'Visite'}
+                                        file = {item.file}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/visite/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
                     </ButtonGroup>
             
                   </Td>

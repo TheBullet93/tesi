@@ -28,6 +28,7 @@ import Delete from './Delete';
 import AggiornaFile from './AggiornaFile';
 import { Toolbar } from 'primereact/toolbar';
 import FormEsameStrum from '../components/FormEsameStrum';
+import DeleteFile from './DeleteFile';
 
 function TabellaEsamiStrumentali(props){
   const db = getDatabase();
@@ -220,13 +221,25 @@ const sortingFileDSC = (col) =>{
                                   dataInserimento = {item.dataInserimento}
                                   dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
                                   />
-                                    <Delete
+                                  {/*
+                                  <Delete
                                   title = {item.nomeFile}
                                   dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
                                   textAlert = {' Sei sicuro di voler eliminare questo file?'}
                                   textToast = {'File eliminato'} />
+                                  */}  
+                                    <DeleteFile
+                                        title = {item.nomeFile}
+                                        dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/file`}
+                                        nomeFile={item.nomeFile}
+                                        tipoEsame={'Esame Strumentale'}
+                                        file = {item.file}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
+                                        textAlert = {' Sei sicuro di voler eliminare questi dati?'}
+                                        textToast = {'Dati Eliminati'}
+                                      />
                                     </ButtonGroup>
-                          
+                                  
                                   </Td>
                               </Tr>
                           </React.Fragment>

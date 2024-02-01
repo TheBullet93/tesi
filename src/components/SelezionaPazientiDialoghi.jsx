@@ -52,7 +52,7 @@ const SelezionaPazientiDialoghi = (props) =>{
       };
 
       useEffect(() => {
-        const Ref = ref(db, `trattamenti/dialoghi/${props.item}/domande/`);
+        const Ref = ref(db, `terapisti/${props.idTerapista}/trattamenti/dialoghi/${props.item}/domande/`);
         
         onValue(Ref, (snapshot) => {
           const data = snapshot.val();

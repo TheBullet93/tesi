@@ -55,7 +55,7 @@ function FormEsFisici() {
 
 
   const aggiungi = () => {
-    const postListRef = ref(db, 'trattamenti/fisici'); 
+    const postListRef = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/fisici`); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
       titoloEsercizio: titoloEsercizio || 'Nessun dato',

@@ -27,7 +27,7 @@ export default function TabellaDomandeEsFisici(props){
   });
 
   useEffect(() => {
-    const Ref = ref(db, `trattamenti/fisici/${props.item}/domande/`);
+    const Ref = ref(db, `terapisti/${props.idTerapista}/trattamenti/fisici/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -84,10 +84,11 @@ export default function TabellaDomandeEsFisici(props){
                     titoloDomanda = {item.titoloDomanda}
                     idCard = {props.item}
                     idDomanda = {item.id}
+                    idTerapista ={props.idTerapista}
                    />
                    <Delete
                        title = {item.titoloDomanda}
-                       dbPath = {`trattamenti/fisici/${props.item}/domande/${item.id}`}
+                       dbPath = {`terapisti/${props.idTerapista}/trattamenti/fisici/${props.item}/domande/${item.id}`}
                        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                        textToast = {'Domanda eliminata'}
                        />

@@ -15,9 +15,15 @@ const StoricoEsami = (props) =>{
     const db = getDatabase();
 
     const [todoData,setTodoData] = useState([]);
+    const [todoDataFile,setTodoDataFile] = useState([]);
     const [search, setSearch] = useState('');
     const [activeColumn, setActiveColumn] = useState(null);
-  
+    const [useFile, setUseFile] = useState(false);
+    const handleToggle = () => {
+      setUseFile(!useFile);
+    };
+
+
     const [order,setOrder] = useState({
       patologia: 'ASC',
       descrizione: 'ASC',
@@ -74,6 +80,23 @@ const StoricoEsami = (props) =>{
       });
     
     },[auth?.currentUser?.uid])
+
+    useEffect(() => {
+      const Ref = (ref(db, `/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/file`));
+      onValue(Ref, (snapshot) => {
+        const data = snapshot.val();
+        const newPosts = Object.keys(data || {}).map(key=>({
+          id:key,
+          ...data[key]
+        }));
+       
+        console.log(newPosts);
+        setTodoDataFile(newPosts);
+      
+      });
+    
+    },[auth?.currentUser?.uid])
+  
   
     const centerContent = (
       <React.Fragment>
@@ -89,12 +112,108 @@ const StoricoEsami = (props) =>{
       </React.Fragment>
   );
 
+  const [activeFileColumn, setActiveFileColumn] = useState(null);
 
+  const [orderFile,setOrderFile] = useState({
+    nomeFile: 'ASC',
+    tipoEsame: 'ASC',
+    giorno: 'ASC',
+  });
+
+  const sortingFileASC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() > b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'DSC' });
+    setActiveFileColumn(col);
+  
+
+}
+
+const sortingFileDSC = (col) =>{
+    const sorted = [...todoDataFile].sort((a,b) =>
+      a[col].toLowerCase() < b[col].toLowerCase()? 1:-1
+    );
+    setTodoDataFile(sorted);
+    setOrderFile({ ...orderFile, [col]: 'ASC' });
+    setActiveFileColumn(col);
+ 
+}
 
     return(
        
     <>
-     <Toolbar center={centerContent}  className="toolBar"/>
+     <Form.Check
+               type="switch"
+               id="custom-switch"
+               label="Visualizza Tabella File"
+               checked={useFile}
+               onChange={handleToggle}
+               className="mb-3 switch-file"/>
+
+      {
+        useFile ? (
+          <>
+           <Toolbar center={centerContent}  className="toolBar"/>
+    <Table className='tabella'>
+      <Thead>
+        <Tr>
+        <Th className={activeFileColumn === 'nomeFile' ? 'activeColumn' : ''}>Nome File {orderFile.nomeFile === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("nomeFile")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("nomeFile")}/> }</Th>
+        <Th className={activeFileColumn === 'tipoEsame' ? 'activeColumn' : ''}>Tipologia {orderFile.tipoEsame === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("tipoEsame")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("tipoEsame")}/> }</Th> 
+        <Th className={activeFileColumn === 'giorno' ? 'activeColumn' : ''}>Data Inserimento {orderFile.giorno === 'ASC' ? <IoMdArrowDropup className='arrow' onClick={() => sortingFileASC("giorno")}/>:<IoMdArrowDropdown className='arrow' onClick={() => sortingFileDSC("giorno")}/> }</Th>
+        <Th>File</Th>
+        <Th>Stato</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+          {!todoDataFile.length
+           ? 
+           <Tr>
+              <Td className="noData" colSpan="6">Nessun dato</Td>
+           </Tr>
+           
+            : todoDataFile
+            .filter((item) => {
+              return search.toLowerCase() === ''
+                ? item
+                : item.nomeFile.toLowerCase().includes(search) ||
+                item.tipoEsame.toLowerCase().includes(search) ||
+                item.giorno.toLowerCase().includes(search);            
+            })
+             .map((item) =>{
+              return (
+                
+                <React.Fragment key={item.id}>
+                <Tr >
+                  <Td>{item.nomeFile}</Td>
+                  <Td>{item.tipoEsame}</Td>
+                  <Td>{item.giorno}</Td>
+                  <Td>
+                     {item.file ? (
+                                     <a href={item.file} target="_blank" rel="noopener noreferrer">
+                                       Apri
+                                       </a>
+                                     ) : (
+                                        <span>File non presente</span>
+                                    )}
+                                  </Td>
+                  <Td>{item.stato}</Td>
+                </Tr>
+
+                </React.Fragment>
+                
+              
+              );
+             })
+          }
+      </Tbody>
+    </Table>
+  
+          </>
+        ):(
+          <>
+           <Toolbar center={centerContent}  className="toolBar"/>
     <Table className='tabella'>
       <Thead>
         <Tr>
@@ -142,6 +261,13 @@ const StoricoEsami = (props) =>{
       </Tbody>
     </Table>
   
+          
+          
+          </>
+        )
+
+      }         
+    
       
            </>  
            

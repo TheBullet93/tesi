@@ -27,7 +27,7 @@ const FormDomandaEsFisico= (props) =>{
 
      const aggiungi = () => {
       const db = getDatabase();
-      const postListRef= ref(db, `trattamenti/fisici/${props.item}/domande/`);
+      const postListRef= ref(db, `terapisti/${props.idTerapista}/trattamenti/fisici/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda || 'Nessun dato',

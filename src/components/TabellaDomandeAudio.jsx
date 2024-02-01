@@ -27,7 +27,7 @@ export default function TabellaDomandeAudio(props){
   useEffect(() => {
 
 
-    const Ref = ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
+    const Ref = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/domande/`);
     
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
@@ -117,10 +117,11 @@ export default function TabellaDomandeAudio(props){
                     audio = {item.audio}
                     idCard = {props.item}
                     idDomanda = {item.id}
+                    idTerapista = {props.idTerapista}
                    />
                  <Delete
                        title = {item.titoloDomanda}
-                       dbPath = {`trattamenti/cognitivi/${props.item}/domande/${item.id}`}
+                       dbPath = {`terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/domande/${item.id}`}
                        textAlert = {'Sei sicuro di voler eliminare questa domanda?'}
                        textToast = {'Domanda eliminata'}
                        />

@@ -25,7 +25,7 @@ const SelezionaEsDialogo= (props) =>{
    
 
     useEffect(() => {
-        const Ref = (ref(db, `/trattamenti/dialoghi/`));
+        const Ref = (ref(db, `terapisti/${props.idTerapista}/trattamenti/dialoghi/`));
         onValue(Ref, (snapshot) => {
           const data = snapshot.val();
           const newPosts = Object.keys(data || {}).map(key=>({

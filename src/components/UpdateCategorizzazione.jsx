@@ -38,7 +38,7 @@ const UpdateCategorizzazione = (props) =>{
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/parole/${props.idParola}`); 
+      const updateRef = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.idCard}/parole/${props.idParola}`); 
       
       update(updateRef, {
         titoloDomanda: titoloDomanda || 'Nessun dato',

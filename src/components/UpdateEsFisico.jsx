@@ -28,7 +28,7 @@ function UpdateEsFisico(props) {
 
   const aggiorna= () => {
    
-    const updateRef = ref(db, `trattamenti/fisici/${props.item}`);
+    const updateRef = ref(db, `terapisti/${props.idTerapista}/trattamenti/fisici/${props.item}`);
     update(updateRef, {
       titoloEsercizio: titoloEsercizio || 'Nessun dato',
       tipologiaEsercizio: tipologiaEsercizio || 'Nessun dato', 

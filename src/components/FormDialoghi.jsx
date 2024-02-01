@@ -60,7 +60,7 @@ function FormDialoghi() {
 
 
   const aggiungi = () => {
-    const postListRef = ref(db, 'trattamenti/dialoghi/'); 
+    const postListRef = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/dialoghi`); 
     const newPostRef = push(postListRef);
     set(newPostRef, {
       titoloDialogo: titoloDialogo || 'Nessun dato' ,

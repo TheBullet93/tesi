@@ -25,8 +25,8 @@ const SelezionaPazientiEsCognitivo = (props) =>{
     };
     const handleShow = () => setShow(true);
 
-    const RefDomande = ref(db, `trattamenti/cognitivi/${props.item}/domande/`);
-    const RefParole = ref(db, `trattamenti/cognitivi/${props.item}/parole/`);
+    const RefDomande = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/domande/`);
+    const RefParole = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/parole/`);
 
     useEffect(() => {
         const Ref = (ref(db, `/terapisti/${props.idTerapista}/pazienti/`));
@@ -85,7 +85,7 @@ const SelezionaPazientiEsCognitivo = (props) =>{
       const aggiungi = () => {  
         selezionati.forEach((idPaziente) =>{
             const db = getDatabase();
-            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}/${props.tipologia}`);
+            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}`);
             const newPostRef = push(postListRef);
 
             set(newPostRef, {

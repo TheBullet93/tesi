@@ -49,7 +49,7 @@ const FormDomandaAudio = (props) =>{
     useEffect(() => {
       if (audioUrls) {
 
-      const postListRef= ref_database(db, `trattamenti/cognitivi/${props.item}/domande/`);
+      const postListRef= ref_database(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}/domande/`);
       const newPostRef = push(postListRef);
       set(newPostRef, {
         titoloDomanda: titoloDomanda || 'Nessun dato' ,
@@ -156,8 +156,18 @@ const FormDomandaAudio = (props) =>{
         e.preventDefault();
         e.stopPropagation();
       }
-      setValidated(true);
-      setAudio(e.target.files[0])
+      const selectedFile = e.target.files[0];
+
+      // Check if the selected file is an audio file (you can add more audio formats if needed)
+      const allowedAudioTypes = ["audio/mp3", "audio/mpeg", "audio/wav"];
+      if (selectedFile && allowedAudioTypes.includes(selectedFile.type)) {
+        setValidated(true);
+        setAudio(selectedFile);
+      } else {
+        // If the selected file is not an allowed audio type, reset the input field
+        e.target.value = null;
+        setValidated(false); // You might want to show an error message here
+      }
     }
 
     return (

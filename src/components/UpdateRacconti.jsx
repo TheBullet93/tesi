@@ -25,7 +25,7 @@ const UpdateRacconti = (props) =>{
      const db = getDatabase();
 
      const aggiorna = () => {
-      const updateRef = ref(db, `trattamenti/cognitivi/${props.idCard}/domande/${props.idDomanda}`); 
+      const updateRef = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.idCard}/domande/${props.idDomanda}`); 
       
       update(updateRef, {
         titoloDomanda: argomento || 'Nessun dato',

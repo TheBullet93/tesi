@@ -34,7 +34,7 @@ const  UpdateGiochi = (props) => {
 
   const aggiorna= () => {
    
-    const updateRef = ref(db, `trattamenti/cognitivi/${props.item}`);
+    const updateRef = ref(db, `terapisti/${props.idTerapista}/trattamenti/cognitivi/${props.item}`);
     update(updateRef, {
       titoloGioco: titoloGioco || 'Nessun dato',
       tipologiaGioco: tipologiaGioco || 'Nessun dato',

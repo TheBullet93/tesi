@@ -84,7 +84,7 @@ export default function CardTrattamentoCognitivo() {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'trattamenti/cognitivi');
+    const Ref = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/cognitivi`);
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -104,39 +104,49 @@ export default function CardTrattamentoCognitivo() {
         case 'Appartenenza':
         return <TabellaAppartenenza
         item = {idParam}
+        idTerapista = {auth?.currentUser?.uid}
       />;
       case 'Categorizzazione':
         return <TabellaCategorizzazione
         item = {idParam}
+        idTerapista = {auth?.currentUser?.uid}
       />;
       case 'Combinazioni lettere':
         return <TabellaCombinazioni 
-                 item = {idParam}/>;
+                 item = {idParam}
+                 idTerapista = {auth?.currentUser?.uid}/>;
       case 'Fluenze Fonologiche':
         return <TabellaFluenze
                 item = {idParam}
+                idTerapista = {auth?.currentUser?.uid}
               />;
       case 'Fluenze Semantiche':
         return <TabellaFluenze
                  item = {idParam}
+                 idTerapista = {auth?.currentUser?.uid}
               />;
       case 'Fluenze Verbali':
         return <TabellaFluenze
                    item = {idParam}
+                   idTerapista = {auth?.currentUser?.uid}
                />;
       case 'Lettere Mancanti':
         return <TabellaFluenze
         item = {idParam}
+        idTerapista = {auth?.currentUser?.uid}
     />;
       case 'Quiz':
               return <TabellaDomande
-                  item = {idParam}/>;
+                  item = {idParam}
+                  idTerapista = {auth?.currentUser?.uid}/>;
       case 'Racconti':
         return <TabellaRacconti
-            item = {idParam}/>;
+            item = {idParam}
+            idTerapista = {auth?.currentUser?.uid}/>;
       case 'Suoni':
         return <TabellaDomandeAudio
-           item = {idParam}/>;
+           item = {idParam}
+           idTerapista = {auth?.currentUser?.uid}/>;
         default:
           return ' seleziona una tipologia';
       }
@@ -146,48 +156,58 @@ export default function CardTrattamentoCognitivo() {
       switch(param) {
         case 'Appartenenza':
           return <div className='btnDomanda'><FormAppartenenza
-          item = {idParam}/>
+          item = {idParam}
+          idTerapista = {auth?.currentUser?.uid}/>
           </div>
         case 'Categorizzazione':
           return <div className='btnDomanda'><FormCategorizzazione
-          item = {idParam}/></div>;
+          item = {idParam}
+          idTerapista = {auth?.currentUser?.uid}/></div>;
         case 'Combinazioni lettere':
           return <div className='btnDomanda'><FormCombinazioni
-          item = {idParam}/></div>;
+          item = {idParam}
+          idTerapista = {auth?.currentUser?.uid}/></div>;
         case 'Fluenze Fonologiche':
           return <div className='btnDomanda'>
                  <FormFluenze
-                    item = {idParam}/>
+                    item = {idParam}
+                    idTerapista = {auth?.currentUser?.uid}/>
                  </div>;
         case 'Fluenze Semantiche':
           return <div className='btnDomanda'>
           <FormFluenze
-             item = {idParam}/>
+             item = {idParam}
+             idTerapista = {auth?.currentUser?.uid}/>
           </div>;
         case 'Fluenze Verbali':
           return <div className='btnDomanda'>
           <FormFluenze
-             item = {idParam}/>
+             item = {idParam}
+             idTerapista = {auth?.currentUser?.uid}/>
           </div>;
         case 'Lettere Mancanti':
           return <div className='btnDomanda'>
           <FormFluenze
-             item = {idParam}/>
+             item = {idParam}
+             idTerapista = {auth?.currentUser?.uid}/>
           </div>;
         case 'Quiz':
           return <div className='btnDomanda'>
                  <FormDomanda
-                    item = {idParam}/>
+                    item = {idParam}
+                    idTerapista = {auth?.currentUser?.uid}/>
                  </div>;
         case 'Racconti':
           return <div className='btnDomanda'>
                <FormRacconti
-                  item = {idParam}/>
+                  item = {idParam}
+                  idTerapista = {auth?.currentUser?.uid}/>
               </div>;
         case 'Suoni':
           return  <div className='btnDomanda'>
                    <FormDomandaAudio
-                     item = {idParam}/>
+                     item = {idParam}
+                     idTerapista = {auth?.currentUser?.uid}/>
                   </div>;
         default:
           return ' seleziona una tipologia';
@@ -197,7 +217,8 @@ export default function CardTrattamentoCognitivo() {
     
     const startContent = (
       <React.Fragment>
-         <FormGiochi/>
+         <FormGiochi
+         />
         
       </React.Fragment>
   );
@@ -233,7 +254,7 @@ export default function CardTrattamentoCognitivo() {
     </div>
 
     {!todoData.length
-          ? <h2 className="noData">Nessun gioco</h2>
+          ? <h2 className="noData">Nessun Trattamento Cognitivo</h2>
           
  :todoData
  .filter((item) => {
@@ -273,11 +294,12 @@ export default function CardTrattamentoCognitivo() {
          tipologiaGioco = {item.tipologiaGioco}
          difficoltaGioco = {item.difficoltaGioco}
          item = {item.id}  
+         idTerapista = {auth?.currentUser?.uid}
        />
     
        <Delete
          title = {item.titoloGioco}
-        dbPath = {`trattamenti/cognitivi/${item.id}`}
+        dbPath = {`terapisti/${auth?.currentUser?.uid}/trattamenti/cognitivi/${item.id}`}
         textAlert = {' Sei sicuro di voler eliminare questo gioco?'}
          textToast = {'Gioco eliminato'}
                        />

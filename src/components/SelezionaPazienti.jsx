@@ -53,7 +53,7 @@ const SelezionaPazienti = (props) =>{
 
 
       useEffect(() => {
-        const Ref = ref(db, `trattamenti/fisici/${props.item}/domande/`);
+        const Ref = ref(db, `terapisti/${props.idTerapista}/trattamenti/fisici/${props.item}/domande/`);
         
         onValue(Ref, (snapshot) => {
           const data = snapshot.val();

@@ -53,7 +53,7 @@ export default function CardDialogo() {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'trattamenti/dialoghi/');
+    const Ref = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/dialoghi`);
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -125,20 +125,23 @@ export default function CardDialogo() {
          titoloDialogo = {item.titoloDialogo}
          tipologiaDialogo = {item.tipologiaDialogo}
          item = {item.id}  
+         idTerapista = {auth?.currentUser?.uid}
        />
               <Delete
                        title = {item.titoloDialogo}
-                       dbPath = {`trattamenti/dialoghi/${item.id}`}
+                       dbPath = {`terapisti/${auth?.currentUser?.uid}/trattamenti/dialoghi/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questo dialogo?'}
                        textToast = {'Dialogo eliminato'}
                        />
       </ButtonGroup>
     </div>
     <TabellaDomandeMini 
+    idTerapista = {auth?.currentUser?.uid}
      item = {item.id}/>
 
     <div className='btnDomanda'>
      <FormDomandaMini
+      idTerapista = {auth?.currentUser?.uid}
       item = {item.id}/>
      </div>
   </Card.Body>

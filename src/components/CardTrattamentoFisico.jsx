@@ -50,7 +50,7 @@ export default function CardTrattamentoFisico() {
 
 
   useEffect(() => {
-    const Ref = ref(db, 'trattamenti/fisici');
+    const Ref = ref(db, `terapisti/${auth?.currentUser?.uid}/trattamenti/fisici`);
     onValue(Ref, (snapshot) => {
       const data = snapshot.val();
       const newPosts = Object.keys(data || {}).map(key=>({
@@ -123,20 +123,23 @@ export default function CardTrattamentoFisico() {
          titoloEsercizio = {item.titoloEsercizio}
          tipologiaEsercizio = {item.tipologiaEsercizio}
          item = {item.id}  
+         idTerapista={auth?.currentUser?.uid}
        />
        <Delete
                        title = {item.titoloEsercizio}
-                       dbPath = {`trattamenti/fisici/${item.id}`}
+                       dbPath = {`terapisti/${auth?.currentUser?.uid}/trattamenti/fisici/${item.id}`}
                        textAlert = {' Sei sicuro di voler eliminare questo esercizio?'}
                        textToast = {'Esercizio eliminato'}
                        />
       </ButtonGroup>
     </div>
     <TabellaDomandeEsFisici
-     item = {item.id}/>
+     item = {item.id}
+     idTerapista={auth?.currentUser?.uid}/>
 
     <div className='btnDomanda'>
      <FormDomandaEsFisico
+     idTerapista={auth?.currentUser?.uid}
       item = {item.id}/>
      </div>
   </Card.Body>
