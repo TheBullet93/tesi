@@ -8,6 +8,9 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref } from 'firebase/database';
 import { InputGroup } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useMediaQuery } from 'react-responsive';
 
 function UpdateEsFisico(props) {
   const [show, setShow] = useState(false);
@@ -41,13 +44,8 @@ function UpdateEsFisico(props) {
     
   };
 
-
-  const options = [ 
-    {label:"TIPOLOGIE"} ,
-    {label:"Funzionali"} ,
-    {label:"Aerobici"} ,
-    {label:"Flessibilità"} ,
-  ] 
+  const options = [
+    'Aerobici','Flessibilità','Funzionali', ];
 
   const renderSwitch = (param)  =>{
     switch(param) {
@@ -87,6 +85,29 @@ function UpdateEsFisico(props) {
     return titoloEsercizio !== '' && tipologiaEsercizio !== '';
   };
 
+  const handleCheckboxChange = (option) => {
+    // Updated to allow only one tipologia to be selected
+    setTipologiaEsercizio(option === tipologiaEsercizio ? '' : option);
+  };
+
+  
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (optionsArray, selectedValue, onChangeHandler) => {
+    return optionsArray.map((option, index) => (
+       <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+      <Form.Check
+      className='cardTitle'
+        type="checkbox"
+        label={option}
+        checked={option === selectedValue}
+        onChange={() => onChangeHandler(option)}
+        isInvalid={validated && selectedValue === ''}
+      />
+    </Col>
+    ));
+  };
+
   return (
     <>
      <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -99,20 +120,30 @@ function UpdateEsFisico(props) {
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
         <InputGroup hasValidation>
-        <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaEsercizio} required onChange={handleChangeTipologia}>
-        {options.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}    
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-                Scegliere Tipologia
-          </Form.Control.Feedback>
-          </InputGroup>
-      </Form.Group>
+          <Row>
+          {renderCheckboxes(options, tipologiaEsercizio, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  tipologia
+                </Form.Control.Feedback>
+              </InputGroup>
+                       {/* 
+                         <InputGroup hasValidation>
+                           <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaEsercizio} required onChange={handleChangeTipologia}>
+                            {options.map((option,index) =>  {
+                                return(
+                                 <option key={index}> {option.label}</option>
+                                         )
+                                     }        
+                                      )}    
+                              </Form.Select>
+                                  <Form.Control.Feedback type="invalid">
+                                      Scegliere Tipologia
+                                 </Form.Control.Feedback>
+                            </InputGroup> */} 
+              </Form.Group>
        
             <Form.Label className="labelForm">
              {renderSwitch(tipologiaEsercizio)}

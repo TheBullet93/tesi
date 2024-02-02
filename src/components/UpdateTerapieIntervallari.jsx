@@ -9,7 +9,9 @@ import {FaPencilAlt} from "react-icons/fa"
 import { getDatabase } from "firebase/database";
 import { update,ref,onValue} from 'firebase/database';
 import { InputGroup } from 'react-bootstrap';
-
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useMediaQuery } from 'react-responsive';
 
 const UpdateTerapieIntervallari = (props) =>{
 
@@ -19,6 +21,7 @@ const UpdateTerapieIntervallari = (props) =>{
 
   const [farmaco,setFarmaco] = useState(props.farmaco);
   const [giorni,setGiorni] = useState(props.giorni);
+  const [selectedDays, setSelectedDays] = useState([]);
   const [dataInizio,setDataInizio] = useState(props.dataInizio);
   const [dataFine,setDataFine] = useState(props.dataFine);
   const [numAssunzioni,setNumAssunzioni] = useState(props.numAssunzioni);
@@ -59,18 +62,14 @@ const UpdateTerapieIntervallari = (props) =>{
       setPatologie(newPosts);
     });
   
-  },[])
+  },[patologie])
 
 
   const aggiorna = () => {
     const updateRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${props.idPaziente}/PDTA/terapieIntervallari/${props.idTerapia}`);
     update(updateRef,{
       farmaco: farmaco || 'Nessun dato',   
-      giorni:
-        {
-          giorno:  giorni || 'Nessun dato',
-        }
-         ,
+      giorni: selectedDays ,
       dataInizio: dataInizio || 'Nessun dato',
       dataFine: dataFine || 'Nessun dato',
       numAssunzioni: numAssunzioni || 'Nessun dato',
@@ -133,7 +132,7 @@ const UpdateTerapieIntervallari = (props) =>{
 
   const isFormValid = () => {
     // Verifica che tutti i campi siano stati inseriti
-    return patologia !== '' &&  farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '';
+    return patologia !== '' &&  farmaco !== '' && dataInizio!== '' &&   dataFine !== '' &&   numAssunzioni !== '' &&   dettagli !== '' && selectedDays.length > 0;
   };
 
   const handleChangePatologia = (e)=>{
@@ -202,6 +201,37 @@ const UpdateTerapieIntervallari = (props) =>{
     setValidated(true);
     setDettagli(e.target.value)
   }
+
+  const handleCheckboxChange = (patologiaId) => {
+    setPatologia(patologiaId);
+  };
+
+  
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (selectedValue, onChangeHandler) => {
+    return patologie.map((item, index) => (
+      <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+        <Form.Check
+        className='cardTitle'
+           type="checkbox"
+          id={`patologia-radio-${index}`}
+          label={item.nomePatologia}
+          checked={item.nomePatologia === selectedValue}
+          onChange={() => onChangeHandler(item.nomePatologia)}
+          isInvalid={validated && selectedValue === ''}
+        />
+      </Col>
+    ));
+  };
+
+  const handleSelectChange = (selectedOptions) => {
+    const selectedValues = selectedOptions.map(option => option.value);
+    setSelectedDays(selectedValues);
+    
+  };
+
+
   return (
     <>
          <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -213,18 +243,19 @@ const UpdateTerapieIntervallari = (props) =>{
            </Modal.Header>
           <Modal.Body>
         <Form noValidate validated={validated}>
+        <Form.Group className="mb-3" controlId="formTipologiaDialogo">
+        <Form.Label className="labelForm">Patologia</Form.Label>
         <InputGroup hasValidation>
-        <Form.Select   className="selectFormGioco" defaultValue={props.patologia}  required onChange={handleChangePatologia}>
-                 <option>PATOLOGIE</option>
-         {patologie.map((item,index) =>  {
-            return(
-              <option key={index}> {item.nomePatologia}</option>
-            )
-           }        
-        
-          )} 
-         </Form.Select>
-         </InputGroup> 
+          <Row>
+          {renderCheckboxes(patologia, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  patologia
+                </Form.Control.Feedback>
+              </InputGroup>
+      </Form.Group>
         <Form.Group className="mb-3" controlId="formFarmaco">
         <Form.Label className="labelForm">Farmaco</Form.Label>
         <InputGroup hasValidation>
@@ -279,7 +310,8 @@ const UpdateTerapieIntervallari = (props) =>{
          options={options}
           className="basic-multi-select"
          classNamePrefix="select"
-         onChange={handleChange}
+         onChange={handleSelectChange}
+         value={options.filter(option => selectedDays.includes(option.value))}
          required
          />  
           <Form.Control.Feedback type="invalid">Inserire giorni</Form.Control.Feedback>

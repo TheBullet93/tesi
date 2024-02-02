@@ -309,7 +309,7 @@ const sortingFileDSC = (col) =>{
                                        dataMonitoraggio = {item.dataMonitoraggio}
                                        note = {item.note}
                                        titoloForm = {'Esami di laboratorio'}
-                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio/${item.id}`}
+                                       dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali/${item.id}`}
                                        dbPatologie = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/patologie`}
                                       />
                                       <DeleteDatiPaziente
@@ -318,7 +318,7 @@ const sortingFileDSC = (col) =>{
                                         itemValue = {item.patologia}
                                         itemValue1 = {item.titolo}
                                         itemValue2 = {item.valore}
-                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiLaboratorio/${item.id}`}
+                                        dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/esamiStrumentali/${item.id}`}
                                         textAlert = {' Sei sicuro di voler eliminare questi dati?'}
                                         textToast = {'Dati Eliminati'}
                                       />

@@ -12,6 +12,9 @@ import { set,push,ref ,onValue} from 'firebase/database';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useMediaQuery } from 'react-responsive';
 
 function FormEsFisici() {
   const [show, setShow] = useState(false);
@@ -29,14 +32,9 @@ function FormEsFisici() {
   const [tipologiaEsercizio,setTipologiaEsercizio] = useState('');
 
   const db = getDatabase();
- 
 
-  const options = [ 
-    {label:"TIPOLOGIE"} ,
-    {label:"Funzionali"} ,
-    {label:"Aerobici"} ,
-    {label:"Flessibilità"} ,
-  ] 
+  const options = [
+    'Aerobici','Flessibilità','Funzionali', ];
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -106,6 +104,28 @@ function FormEsFisici() {
     return titoloEsercizio !== '' && tipologiaEsercizio !== '';
   };
 
+  const handleCheckboxChange = (option) => {
+    // Updated to allow only one tipologia to be selected
+    setTipologiaEsercizio(option === tipologiaEsercizio ? '' : option);
+  };
+
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (optionsArray, selectedValue, onChangeHandler) => {
+    return optionsArray.map((option, index) => (
+     <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+      <Form.Check
+      className='cardTitle'
+        type="checkbox"
+        label={option}
+        checked={option === selectedValue}
+        onChange={() => onChangeHandler(option)}
+        isInvalid={validated && selectedValue === ''}
+      />
+    </Col>
+    ));
+  };
+
   return (
     <>
 
@@ -125,19 +145,15 @@ function FormEsFisici() {
         <Form.Group className="mb-3" controlId="formTipologiaDialogo">
         <Form.Label className="labelForm">Tipologia</Form.Label>
         <InputGroup hasValidation>
-        <Form.Select  className="selectForm" value={tipologiaEsercizio} required onChange={handleChangeTipologia}>
-        {options.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )} 
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-                Scegliere Tipologia
-          </Form.Control.Feedback>
-          </InputGroup>
+          <Row>
+          {renderCheckboxes(options, tipologiaEsercizio, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  tipologia
+                </Form.Control.Feedback>
+              </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm">

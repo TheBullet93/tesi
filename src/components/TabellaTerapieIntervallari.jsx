@@ -153,9 +153,7 @@ const sortingDSC = (col) =>{
                   <Td>{item.farmaco}</Td>
                   
                   {
-                    item.giorni.giorno ? <Td> {item.giorni.giorno.map(i =>(
-                      i.value 
-                    ))}</Td>
+                    item.giorni ? <Td>{item.giorni}</Td>
 
                     :<Td>Nessun giorno inserito</Td>
                   }

@@ -16,7 +16,9 @@ import Form from 'react-bootstrap/Form';
 import { InputGroup } from 'react-bootstrap';
 import ButtonAdd from './ButtonAdd';
 import {FaPlus} from "react-icons/fa";
-
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useMediaQuery } from 'react-responsive';
 function FormEsameStrum(props) {
 
   const [titolo, setTitolo] = useState('');
@@ -58,7 +60,7 @@ function FormEsameStrum(props) {
       setPatologie(newPosts);
     });
   
-  },[])
+  },[patologie])
 
  
   const aggiungi = () => {
@@ -223,6 +225,28 @@ function FormEsameStrum(props) {
     }
   }
 
+  const handleCheckboxChange = (patologiaId) => {
+    setPatologia(patologiaId);
+  };
+
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (selectedValue, onChangeHandler) => {
+    return patologie.map((item, index) => (
+      <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+        <Form.Check
+        className='cardTitle'
+           type="checkbox"
+          id={`patologia-radio-${index}`}
+          label={item.nomePatologia}
+          checked={item.nomePatologia === selectedValue}
+          onChange={() => onChangeHandler(item.nomePatologia)}
+          isInvalid={validated && selectedValue === ''}
+        />
+      </Col>
+    ));
+  };
+
   return (
     <>
        <ButtonAdd
@@ -287,16 +311,19 @@ function FormEsameStrum(props) {
             ):(
               <>
               <Form noValidate validated={validated}>
-              <Form.Select   className="selectFormGioco" value={patologia} onChange={(e) => setPatologia(e.target.value)}>
-                 <option>PATOLOGIE</option>
-         {patologie.map((item,index) =>  {
-            return(
-              <option key={index}> {item.nomePatologia}</option>
-            )
-           }        
-        
-          )} 
-         </Form.Select>
+              <Form.Group className="mb-3" controlId="formTipologiaDialogo">
+        <Form.Label className="labelForm">Patologia</Form.Label>
+        <InputGroup hasValidation>
+          <Row>
+          {renderCheckboxes(patologia, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  patologia
+                </Form.Control.Feedback>
+              </InputGroup>
+      </Form.Group>
          <Form.Group className="mb-3" controlId="formDescrizione">
               <Form.Label className="labelForm">Descrizione </Form.Label>
               <InputGroup hasValidation>

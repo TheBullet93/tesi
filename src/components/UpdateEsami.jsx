@@ -11,6 +11,9 @@ import Form from 'react-bootstrap/Form';
 
 import { InputGroup } from 'react-bootstrap';
 import {FaPencilAlt} from "react-icons/fa"
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useMediaQuery } from 'react-responsive';
 
 function UpdateEsami(props) {
 
@@ -41,7 +44,7 @@ function UpdateEsami(props) {
       setPatologie(newPosts);
     });
   
-  },[])
+  },[patologie])
 
 
   const aggiorna = () => {
@@ -121,6 +124,29 @@ function UpdateEsami(props) {
     setDataMonitoraggio(e.target.value)
   }
 
+  const handleCheckboxChange = (patologiaId) => {
+    setPatologia(patologiaId);
+  };
+
+  
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (selectedValue, onChangeHandler) => {
+    return patologie.map((item, index) => (
+      <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+        <Form.Check
+        className='cardTitle'
+           type="checkbox"
+          id={`patologia-radio-${index}`}
+          label={item.nomePatologia}
+          checked={item.nomePatologia === selectedValue}
+          onChange={() => onChangeHandler(item.nomePatologia)}
+          isInvalid={validated && selectedValue === ''}
+        />
+      </Col>
+    ));
+  };
+
   return (
     <>
       <button title="Aggiorna" className='aggiorna' onClick={handleShow}><FaPencilAlt/></button>
@@ -130,16 +156,19 @@ function UpdateEsami(props) {
              </Modal.Header>
             <Modal.Body>
               <Form noValidate validated={validated}>
-              <Form.Select   className="selectFormGioco" defaultValue={props.patologia} onChange={(e) => setPatologia(e.target.value)}>
-                 <option>PATOLOGIE</option>
-         {patologie.map((item,index) =>  {
-            return(
-              <option key={index}> {item.nomePatologia}</option>
-            )
-           }        
-        
-          )} 
-         </Form.Select>
+             <Form.Group className="mb-3" controlId="formTipologiaDialogo">
+        <Form.Label className="labelForm">Patologia</Form.Label>
+        <InputGroup hasValidation>
+          <Row>
+          {renderCheckboxes(patologia, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  patologia
+                </Form.Control.Feedback>
+              </InputGroup>
+      </Form.Group>
          <Form.Group className="mb-3" controlId="formDescrizione">
               <Form.Label className="labelForm">Descrizione </Form.Label>
               <InputGroup hasValidation>

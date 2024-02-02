@@ -12,7 +12,10 @@ import { set,push,ref ,onValue} from 'firebase/database';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
+import { useMediaQuery } from 'react-responsive';
 function FormGiochi() {
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -21,41 +24,31 @@ function FormGiochi() {
   const handleClose = () =>{
     setShow(false);
     setTitoloGioco('')
-    setTipologia('')
-    setDifficolta('')
-    
+    setSelectedTipologia('')
+    setSelectedLivello('')   
     setValidated(false)
   };
   const handleShow = () => setShow(true);
  
   
   const [titoloGioco,setTitoloGioco] = useState('');
-  const [tipologiaGioco,setTipologia] = useState('');
-  const [difficoltaGioco,setDifficolta] = useState('');
- 
+  const [selectedTipologia, setSelectedTipologia] = useState('');
+  const [selectedLivello, setSelectedLivello] = useState('');
 
-  const options = [ 
-    {label:"TIPOLOGIE"} ,
-    {label:"Appartenenza"} ,
-    {label:"Categorizzazione"} ,
-    {label:"Combinazioni lettere"} ,
-    {label:"Fluenze Fonologiche"} ,
-    {label:"Fluenze Semantiche"} ,
-    {label:"Fluenze Verbali"} ,
-    {label:"Lettere Mancanti"} ,
-    {label:"Quiz"} ,
-    {label:"Racconti"} ,
-    {label:"Suoni"}
-  
-  ] 
+  const options = [
+    'Appartenenza',
+    'Categorizzazione',
+    'Combinazioni lettere',
+    'Fluenze Fonologiche',
+    'Fluenze Semantiche',
+    'Fluenze Verbali',
+    'Lettere Mancanti',
+    'Quiz',
+    'Racconti',
+    'Suoni',
+  ];
 
-  
-  const livelli = [ 
-    {label:"LIVELLI"} ,
-    {label:"1"} ,
-    {label:"2"} ,
-    {label:"3"} ,
-  ] 
+  const livelli = ['1', '2', '3'];
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -80,14 +73,14 @@ function FormGiochi() {
     const newPostRef = push(postListRef);
     set(newPostRef, {
       titoloGioco: titoloGioco || 'Nessun dato',
-      tipologiaGioco: tipologiaGioco || 'Nessun dato',
-      difficoltaGioco: difficoltaGioco || 'Nessun dato',
+      tipologiaGioco: selectedTipologia || 'Nessun dato',
+      difficoltaGioco: selectedLivello || 'Nessun dato',
     });
 
-    setTitoloGioco('')
-    setTipologia('')
-    setDifficolta('')
     setShow(false);
+    setTitoloGioco('')
+    setSelectedTipologia('')
+    setSelectedLivello('')   
     setValidated(false)
   };
 
@@ -131,31 +124,57 @@ function FormGiochi() {
     setTitoloGioco(e.target.value)
   }
 
-  const handleChangeTipologia = (e)=>{
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
-    setTipologia(e.target.value)
-  }
-
-  const handleChangeLivello = (e)=>{
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
-    setDifficolta(e.target.value)
-  }
-
   const isFormValid = () => {
     // Verifica che tutti i campi siano stati inseriti
-    return titoloGioco !== '' && tipologiaGioco !== '' && difficoltaGioco !== '';
+    return (
+      titoloGioco !== '' &&
+      selectedTipologia !== '' &&
+      selectedLivello !== '' 
+    );
   };
 
+  const handleCheckboxChange = (option) => {
+    // Updated to allow only one tipologia to be selected
+    setSelectedTipologia(option === selectedTipologia ? '' : option);
+  };
+
+  const handleLivelloCheckboxChange = (livello) => {
+    // Updated to allow only one livello to be selected
+    setSelectedLivello(livello === selectedLivello ? '' : livello);
+  };
+
+  const isMobile = useMediaQuery({ maxWidth: 500 }); 
+
+  const renderCheckboxes = (optionsArray, selectedValue, onChangeHandler) => {
+    return optionsArray.map((option, index) => (
+      <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
+      <Form.Check
+      className='cardTitle'
+        type="checkbox"
+        label={option}
+        checked={option === selectedValue}
+        onChange={() => onChangeHandler(option)}
+        isInvalid={validated && selectedValue === ''}
+      />
+    </Col>
+    ));
+  };
+
+  const renderCheckboxesLivelli = (optionsArray, selectedValue, onChangeHandler) => {
+    return optionsArray.map((option, index) => (
+      <Col key={index} sm={isMobile ? 12 : 4} md={4} lg={4} xl={4} style={{ marginBottom: '10px' }}>
+      <Form.Check
+      className='cardTitle'
+        type="checkbox"
+        label={option}
+        checked={option === selectedValue}
+        onChange={() => onChangeHandler(option)}
+        isInvalid={validated && selectedValue === ''}
+      />
+    </Col>
+    
+    ));
+  };
 
   return (
     <>
@@ -175,42 +194,36 @@ function FormGiochi() {
         <Form noValidate validated={validated}>
         <Form.Group className="mb-3" controlId="formTipologiaGioco">
         <Form.Label className="labelForm">Tipologia</Form.Label>
-        <InputGroup hasValidation>
-        <Form.Select  className="selectForm" required value={tipologiaGioco} onChange={handleChangeTipologia}>
-           {options.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}    
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-                Scegliere Tipologia
-          </Form.Control.Feedback>
-        </InputGroup>
+       <InputGroup hasValidation>
+          <Row>
+          {renderCheckboxes(options, selectedTipologia, handleCheckboxChange)}
+          </Row>
+                  
+                
+                <Form.Control.Feedback type="invalid">
+                  Selezionare  tipologia
+                </Form.Control.Feedback>
+              </InputGroup>
       </Form.Group>
        
             <Form.Label className="labelForm"><p>Descrizione esercizio:</p>
-             {renderSwitch(tipologiaGioco)}
+             {renderSwitch(selectedTipologia)}
             </Form.Label>
      
       <Form.Group className="mb-3" controlId="formDifficoltaGioco">
         <Form.Label className="labelForm">Livello di difficoltà</Form.Label>
         <InputGroup hasValidation>
-        <Form.Select className="selectForm" required value={difficoltaGioco} onChange={handleChangeLivello}>
-        {livelli.map((option,index) =>  {
-            return(
-              <option key={index}> {option.label}</option>
-            )
-           }        
-        
-          )}   
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-                Inserire titolo
-          </Form.Control.Feedback>
-        </InputGroup>
+        <Row>
+         
+          {renderCheckboxesLivelli(livelli, selectedLivello, handleLivelloCheckboxChange)}
+          
+          
+          </Row>
+              
+              <Form.Control.Feedback type="invalid">
+                Selezionare livello
+              </Form.Control.Feedback>
+            </InputGroup>
       </Form.Group>
       <Form.Group className="mb-3" controlId="titoloGioco">
         <Form.Label className="labelForm">Titolo</Form.Label>
