@@ -13,6 +13,19 @@ import { FaBookMedical } from "react-icons/fa";
 
 const NavigationBar = () => {
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
 
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -50,16 +63,17 @@ const NavigationBar = () => {
     }
 
   return (
-    <Navbar expand="md"     className={`navigation-bar ${window.innerWidth <= 767 ? 'mobile' : ''}`}
-    style={{ 
-      backgroundColor: window.innerWidth <= 767 ? 'transparent' : "#007bff", 
-      marginTop: window.innerWidth <= 767 ? '50px' : '0', 
-      marginBottom: window.innerWidth <= 767 ? '2px' : '0', 
+    <Navbar expand="md"        className={`navigation-bar ${windowWidth < 767 ? 'mobile' : ''}`}
+    style={{
+      backgroundColor:
+        windowWidth < 767 ? 'transparent' : "#007bff",
+      marginTop: windowWidth < 767 ? '50px' : '0',
+      marginBottom: windowWidth < 767 ? '2px' : '0',
       border: 'none', // Remove default border
-       }}>
+    }}>
       <Container fluid>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggle-button" >
-      {window.innerWidth <= 768 ? <FaBookMedical  style={{ color: "#007bff" }} /> : <FaBars style={{ color: "#007bff"}} />}
+      {window.innerWidth < 767 ? <FaBookMedical  style={{ color: "#007bff" }} /> : <FaBars style={{ color: "#007bff"}} />}
       </Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto nav-items-container">
