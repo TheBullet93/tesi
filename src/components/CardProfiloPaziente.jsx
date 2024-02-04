@@ -28,6 +28,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 
 import { useLocation } from "react-router-dom";
+import { isValid } from 'date-fns';
 
 export default function CardProfiloPaziente(props) {
 
@@ -151,10 +152,17 @@ console.log(state);
              </Col>
         </Row>
           <ListGroup.Item className=" border-primary"> 
-                  <span className='infoPaziente'>Data di nascita:  </span>{
-                    todoDataPaziente  && todoDataPaziente.data ? <span className='datiPaziente'>{format(new Date(todoDataPaziente  && todoDataPaziente.data),"dd/MM/yyyy")} </span>
-                    :<span className='datiPaziente'>Data non inserita </span>
-                  }
+                  <span className='infoPaziente'>Data di nascita:  </span>  {todoDataPaziente && todoDataPaziente.data ? (
+    isValid(new Date(todoDataPaziente.data)) ? (
+      <span className='datiPaziente'>
+        {format(new Date(todoDataPaziente.data), "dd/MM/yyyy")}
+      </span>
+    ) : (
+      <span className='datiPaziente'>Data non valida</span>
+    )
+  ) : (
+    <span className='datiPaziente'>Data non inserita </span>
+  )}
                  </ListGroup.Item>
               
                 <ListGroup.Item className=" border-primary"> 

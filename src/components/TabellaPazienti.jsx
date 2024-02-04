@@ -28,6 +28,8 @@ import Delete from './Delete';
 
 import { Toolbar } from 'primereact/toolbar';
 
+import { isValid } from 'date-fns';
+
 function TabellaPazienti() {
   const db = getDatabase();
 
@@ -157,9 +159,11 @@ const endContent = (
                   <Td>{item.nome}</Td>
                   <Td>{item.cognome}</Td>
                   <Td>{item.citta}</Td>
-                  {item.data ? <Td>{format(new Date(item.data),"dd/MM/yyyy")}</Td>
-                  :<Td>Nessuna data inserita</Td>
-                }
+                  {item.data && isValid(new Date(item.data)) ? (
+                <Td>{format(new Date(item.data), 'dd/MM/yyyy')}</Td>
+              ) : (
+                <Td>Data non valida</Td>
+              )}
                 
                   <Td><Link title="Informazioni" className='statistiche'
                          to={{

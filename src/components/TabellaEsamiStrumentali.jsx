@@ -29,6 +29,7 @@ import AggiornaFile from './AggiornaFile';
 import { Toolbar } from 'primereact/toolbar';
 import FormEsameStrum from '../components/FormEsameStrum';
 import DeleteFile from './DeleteFile';
+import { isValid } from 'date-fns';
 
 function TabellaEsamiStrumentali(props){
   const db = getDatabase();
@@ -201,8 +202,17 @@ const sortingFileDSC = (col) =>{
                           <React.Fragment key={item.id}>
                               <Tr>
                               <Td>{item.nomeFile}</Td>
-                              {item.dataInserimento ? <Td>{format(new Date(item.dataInserimento),"dd/MM/yyyy")}</Td>
-                                    :<Td>Nessuna data inserita</Td>}
+                              <Td>
+                                      {item.dataInserimento ? (
+                                        isValid(new Date(item.dataInserimento)) ? (
+                                         format(new Date(item.dataInserimento), "dd/MM/yyyy")
+                                           ) : (
+                                             `Data non valida`
+                                        )
+                                          ) : (
+                                             "Nessuna data inserita"
+                                              )}
+                                      </Td>
                               <Td>
                                    {item.file ? (
                                      <a href={item.file} target="_blank" rel="noopener noreferrer">
@@ -297,8 +307,17 @@ const sortingFileDSC = (col) =>{
                               <Td>{item.patologia}</Td>
                                    <Td>{item.titolo}</Td>
                                     <Td>{item.valore}</Td>
-                                    {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
-                                    :<Td>Nessuna data inserita</Td>}
+                                    <Td>
+                                      {item.dataMonitoraggio ? (
+                                        isValid(new Date(item.dataMonitoraggio)) ? (
+                                         format(new Date(item.dataMonitoraggio), "dd/MM/yyyy")
+                                           ) : (
+                                             `Data non valida`
+                                        )
+                                          ) : (
+                                             "Nessuna data inserita"
+                                              )}
+                                      </Td>
                                     <Td>{item.note}</Td>
                                     <Td>
                                     <ButtonGroup>

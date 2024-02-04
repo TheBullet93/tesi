@@ -24,6 +24,7 @@ import { ButtonGroup } from 'react-bootstrap';
 import DeleteDatiBMI from './DeleteDatiBMI';
 import { Toolbar } from 'primereact/toolbar';
 import FormBMI from '../components/FormBMI';
+import { isValid } from 'date-fns';
 
 function TabellaBMI(props){
 
@@ -149,8 +150,17 @@ function TabellaBMI(props){
                                     <Td>{item.altezza}</Td>
                                     <Td>{item.bmi}</Td>
                                     <Td>{item.circonferenzaVita}</Td>
-                                    {item.dataMonitoraggio ? <Td>{format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}</Td>
-                                    :<Td>Nessuna data inserita</Td>}
+                                    <Td>
+                                      {item.dataMonitoraggio ? (
+                                        isValid(new Date(item.dataMonitoraggio)) ? (
+                                         format(new Date(item.dataMonitoraggio), "dd/MM/yyyy")
+                                           ) : (
+                                             `Data non valida`
+                                        )
+                                          ) : (
+                                             "Nessuna data inserita"
+                                              )}
+                                      </Td>
                                     <Td>
                                     <ButtonGroup>
                                       <UpdateBMI
@@ -165,7 +175,7 @@ function TabellaBMI(props){
 
                                       />
                                       <DeleteDatiBMI
-                                        title = {'BMI ' + format(new Date(item.dataMonitoraggio),"dd/MM/yyyy")}
+                                       title={`BMI ${item.dataMonitoraggio ? (isValid(new Date(item.dataMonitoraggio)) ? format(new Date(item.dataMonitoraggio), "dd/MM/yyyy") : 'Data non valida') : 'Nessuna data'}`}
                                         dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/bmi`}
                                         itemValue ={item.peso}
                                         itemValue1={item.altezza}

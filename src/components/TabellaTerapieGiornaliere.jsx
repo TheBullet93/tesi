@@ -28,6 +28,8 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdArrowDropdown } from "react-icons/io";
 import FormTerapiaGiornaliera from './FormTerapiaGiornaliera';
 import { Toolbar } from 'primereact/toolbar';
+import { isValid } from 'date-fns';
+
 function TabellaTerapieGiornaliere(props) {
 
   const db = getDatabase();
@@ -153,13 +155,29 @@ const sortingDSC = (col) =>{
                 <Tr >
                 <Td>{item.patologia}</Td>
                   <Td>{item.farmaco}</Td>
-                  {item.dataInizio ? <Td>{format(new Date(item.dataInizio),"dd/MM/yyyy")}</Td>
-                  :<Td>Nessuna data inserita</Td>
-                }
+                  <Td>
+                                      {item.dataInizio ? (
+                                        isValid(new Date(item.dataInizio)) ? (
+                                         format(new Date(item.dataInizio), "dd/MM/yyyy")
+                                           ) : (
+                                             `Data non valida`
+                                        )
+                                          ) : (
+                                             "Nessuna data inserita"
+                                              )}
+                                      </Td>
                 
-                {item.dataFine ? <Td>{format(new Date(item.dataFine),"dd/MM/yyyy")}</Td>
-                  :<Td>Nessuna data inserita</Td>
-                }
+                                      <Td>
+                                      {item.dataFine ? (
+                                        isValid(new Date(item.dataFine)) ? (
+                                         format(new Date(item.dataFine), "dd/MM/yyyy")
+                                           ) : (
+                                             `Data non valida`
+                                        )
+                                          ) : (
+                                             "Nessuna data inserita"
+                                              )}
+                                      </Td>
                 
                   <Td>{item.numAssunzioni}</Td>
                   <Td>{item.dettagli}</Td>
