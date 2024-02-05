@@ -237,6 +237,9 @@ function FormVisita(props) {
   const isMobile = useMediaQuery({ maxWidth: 500 }); 
 
   const renderCheckboxes = (selectedValue, onChangeHandler) => {
+    if (patologie.length === 0) {
+      return <p>Nessuna Patologia</p>;
+    }
     return patologie.map((item, index) => (
       <Col key={index} sm={isMobile ? 12 : 6} md={6} lg={6} xl={6} style={{ marginBottom: '10px' }}>
         <Form.Check

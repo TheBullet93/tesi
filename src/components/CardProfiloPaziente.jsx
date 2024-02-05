@@ -214,18 +214,12 @@ console.log(state);
                  />
           </Card.Text>
           <ListGroup variant="flush">
-            {  !todoPatologie
-                 ?    
-                 <>
-                
-                  
-                       <ListGroup.Item className="border-primary listMargin">
-                         <span className='infoPaziente'>Patologia:  </span><span className='datiPaziente'>Nessuna patologia</span>
-                       </ListGroup.Item>
-                    
-                 </>
-                 
-                 :todoPatologie.map((item,index) => {
+            {  todoPatologie.length === 0 ? (
+                  <ListGroup.Item className="border-primary listMargin">
+                      <span className='infoPaziente'>Patologia:  </span>
+                       <span className='datiPaziente'>Nessuna patologia</span>
+                   </ListGroup.Item>
+                  ) : (todoPatologie.map((item,index) => {
                     return (
                         
                    <React.Fragment key={index}>         
@@ -256,17 +250,14 @@ console.log(state);
                
                  )
                })
-               }
+               )}
                
-            {  !todoData
-             ?    <>
-              
-              <ListGroup.Item className="border-primary listMargin">
-              <span className='infoPaziente'>Allergia:  </span><span className='datiPaziente'>Nessuna allergia</span>
-              </ListGroup.Item>
-
-          </>
-             :todoData.map((item,index) => {
+            { todoData.length === 0 ? (
+               <ListGroup.Item className="border-primary listMargin">
+                    <span className='infoPaziente'>Allergia:  </span>
+                    <span className='datiPaziente'>Nessuna allergia</span>
+               </ListGroup.Item>
+                ) : (todoData.map((item,index) => {
              return (
                <React.Fragment key={index}>
                  <ListGroup.Item className="border-primary">
@@ -293,7 +284,7 @@ console.log(state);
                </React.Fragment>      
              )
            })
-           }
+           )}
           </ListGroup>
         </Card.Body>
       </Card>
@@ -309,8 +300,8 @@ console.log(state);
           </Card.Text>
           <ListGroup variant="flush">
           {
-             !todoParenti
-             ?    <>
+             todoParenti.length === 0 ? (
+              <>
              <ListGroup.Item className="border-primary">
               <span className='infoPaziente'>Nome Caregiver:  </span><span className='datiPaziente'>Nessun nome</span>
              </ListGroup.Item>
@@ -325,8 +316,8 @@ console.log(state);
              </ListGroup.Item>
              <span className='btn-space1'>
              </span>
-          </>
-             :todoParenti.map((item,index) => {
+             </>
+            ) : (todoParenti.map((item,index) => {
              return (
               
                <React.Fragment key={index}>
@@ -366,7 +357,7 @@ console.log(state);
              )
            })
         
-           }
+           )}
           </ListGroup>
         </Card.Body>
       </Card>

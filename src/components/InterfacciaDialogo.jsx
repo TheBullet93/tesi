@@ -91,7 +91,7 @@ const activeQuestion = todoData[currentQuestion];
               <Card.Title>
                    <h2 className="avviso">Dialoghi terminati</h2>
                </Card.Title>
-               <Card.Img className="imgDialogo" variant="top" src={robot4}   alt="Fine Dialogo" />
+               <Card.Img className="imgDialogo" variant="top" src={robot4}  style={{ width: '100%', height: '400px' }} alt="Fine Dialogo" />
           </Card.Body >
         </Card>
     </> 

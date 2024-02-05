@@ -80,21 +80,16 @@ function FormPazienti(props) {
   const handleShow = () => setShow(true);
 
   const [patologie, setInputPatologia] = useState([
-    {  nomePatologia: ''}
+ 
   ])
 
   const [allergie, setInputAllergia] = useState([
-    {  nomeAllergia: ''}
+  
   ])
 
   const [parenti, setInputParente] = useState([
-    { nomeParente: '',
-      cognomeParente:'',
-      telefonoParente:'',
-      emailParente:'',
-    }
+   
   ])
-
 
   const aggiungi = () => {
     const db = getDatabase();
@@ -113,31 +108,46 @@ function FormPazienti(props) {
       dieta: dieta || 'Nessun dato',
     };
   
-    // Convert patologie, allergie, and parenti arrays to objects with Firebase-generated IDs
-    postData.patologie = patologie.reduce((acc, patologia) => {
-      const newPatologiaRef = push(ref(db, `terapisti/${props.item}/patologie/`));
-      acc[newPatologiaRef.key] = { nomePatologia: patologia.nomePatologia || 'Nessun dato' };
-      return acc;
-    }, {});
+    // Check if patologie array is non-empty before adding to postData
+    if (patologie && patologie.length > 0) {
+      postData.patologie = patologie.reduce((acc, patologia) => {
+        const newPatologiaRef = push(ref(db, `terapisti/${props.item}/patologie/`));
+        acc[newPatologiaRef.key] = { nomePatologia: patologia.nomePatologia };
+        return acc;
+      }, {});
+    }
   
-    postData.allergie = allergie.reduce((acc, allergia) => {
-      const newAllergiaRef = push(ref(db, `terapisti/${props.item}/allergie/`));
-      acc[newAllergiaRef.key] = { nomeAllergia: allergia.nomeAllergia || 'Nessun dato' };
-      return acc;
-    }, {});
+    // Check if allergie array is non-empty before adding to postData
+    if (allergie && allergie.length > 0) {
+      postData.allergie = allergie.reduce((acc, allergia) => {
+        const newAllergiaRef = push(ref(db, `terapisti/${props.item}/allergie/`));
+        acc[newAllergiaRef.key] = { nomeAllergia: allergia.nomeAllergia };
+        return acc;
+      }, {});
+    }
   
-    postData.parenti = parenti.reduce((acc, parente) => {
-      const newParenteRef = push(ref(db, `terapisti/${props.item}/parenti/`));
-      acc[newParenteRef.key] = {
-        nomeParente: parente.nomeParente || 'Nessun dato',
-        cognomeParente: parente.cognomeParente || 'Nessun dato',
-        telefonoParente: parente.telefonoParente || 'Nessun dato',
-        emailParente: parente.emailParente || 'Nessun dato',
-      };
-      return acc;
-    }, {});
+    // Check if parenti array is non-empty before adding to postData
+    if (parenti && parenti.length > 0) {
+      postData.parenti = parenti.reduce((acc, parente) => {
+        const newParenteRef = push(ref(db, `terapisti/${props.item}/parenti/`));
+        acc[newParenteRef.key] = {
+          nomeParente: parente.nomeParente,
+          cognomeParente: parente.cognomeParente,
+          telefonoParente: parente.telefonoParente,
+          emailParente: parente.emailParente,
+        };
+        return acc;
+      }, {});
+    }
   
-    set(newPostRef, postData);
+    // Check if any of the arrays are non-empty before adding to Firebase
+    if (
+      (postData.patologie && Object.keys(postData.patologie).length > 0) ||
+      (postData.allergie && Object.keys(postData.allergie).length > 0) ||
+      (postData.parenti && Object.keys(postData.parenti).length > 0)
+    ) {
+      set(newPostRef, postData);
+    }
   
     // Reset state
     setNome('');
@@ -147,8 +157,7 @@ function FormPazienti(props) {
     setSesso('');
     setCF('');
     setShow(false);
-    setValidated(false)
-    
+    setValidated(false);
   };
 
 
@@ -207,6 +216,43 @@ function FormPazienti(props) {
     setValidated(true);
     setCF(e.target.value)
   }
+
+  
+  const handleChangeValutazioneCognitiva= (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setValutazioneCognitiva(e.target.value)
+  }
+
+  
+  const handleChangeCapacitaFisiche = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setCapacitaFisiche(e.target.value)
+  }
+
+  
+  const handleChangeDieta = (e)=>{
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    setValidated(true);
+    setDieta(e.target.value)
+  }
+
 
   const addPatologia = () => {
     let newfield = { nomePatologia: ''}
@@ -461,15 +507,51 @@ const handleChangeEmailParente= (index,event) => {
            })}
          
               </Form>
-               <FormDatiSalute
-                   valutazioneCognitiva = {valutazioneCognitiva}
-                   onChangeValutazioneCognitiva = {(e) => setValutazioneCognitiva(e.target.value)}
-                   capacitaFisiche = {capacitaFisiche}
-                   onChangeCapacitaFisiche = {(e) => setCapacitaFisiche(e.target.value)}
-                   dieta = {dieta}
-                   onChangeDieta = {(e) => setDieta(e.target.value)}
-                 
-              />
+                  <Form noValidate validated={validated}>
+        <Form.Group className="mb-3" controlId="formValCognitiva">
+          <Form.Label className="labelForm">Valutazione Cognitiva</Form.Label>
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici valutazione cognitiva"
+             value={valutazioneCognitiva}
+             onChange={handleChangeValutazioneCognitiva}
+             required
+          />
+          <Form.Control.Feedback type="invalid">
+                Inserire valutazione cognitiva
+               </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formCapacita">
+          <Form.Label className="labelForm">Capacità Fisiche</Form.Label>
+          <InputGroup hasValidation>
+          <Form.Control type="text" placeholder="Inserici capacità fisiche"
+             value={capacitaFisiche}
+             onChange={handleChangeCapacitaFisiche}
+             required
+          />
+            <Form.Control.Feedback type="invalid">
+                    Inserire capacità fisiche
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formDieta">
+          <Form.Label className="labelForm">Dieta</Form.Label>
+          <InputGroup hasValidation>
+          <Form.Control
+          type="text"
+          placeholder="Inserisci dieta"
+          value={dieta}
+          onChange={handleChangeDieta}
+          required
+        />
+          <Form.Control.Feedback type="invalid">
+               Inserire dieta
+          </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+      </Form>
               </>,
               3: <>
               
