@@ -6,7 +6,7 @@ import {ref,update,onValue,increment,push,set} from 'firebase/database';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-
+import { Button} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 
 import {MdNavigateNext} from "react-icons/md";
@@ -15,6 +15,7 @@ import UpdateCategorizzazionePaziente from "./UpdateCategorizzazionePaziente";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import Delete from "./Delete";
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 const GiocoCognitivoCategorizzazione= (props) => {
 
@@ -25,6 +26,9 @@ const GiocoCognitivoCategorizzazione= (props) => {
    
     const  [categoriaPaziente,setCategoria] = useState('');
     const [risposte,setRisposte] = useState([]);
+
+    const [rispEsatte,setRispEsatte] = useState(0);
+    const [rispSbagliate,setRispSbagliate] = useState(0);
 
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${props.tipologia}`);
@@ -102,7 +106,7 @@ const handleNextQuestion = () =>{
         nRisposteEsatte:increment(1),
        
       });
-
+      setRispEsatte(rispEsatte+1);
    }
       
    else{
@@ -114,11 +118,22 @@ const handleNextQuestion = () =>{
         nRisposteSbagliate: increment(1),
         
       });
+      setRispSbagliate(rispSbagliate+1);
    }
         
   }
   
-
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const handleNext = () => {
+    // Update the state to move to the next index
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  };
+  
+  const handlePrevious = () => {
+    // Update the state to move to the previous index
+    setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
+  };
+  
 
     return (
      <>
@@ -182,29 +197,61 @@ const handleNextQuestion = () =>{
        </>
      : 
     <>
-        <Card className="cardAvviso">
+      <Card className="cardAvviso">
           <Card.Body >
               <Card.Title>
                    <h2 className="avviso">Domande termiante</h2>
                </Card.Title>
                <Card.Text>
-               <p className="score">LE TUE RISPOSTE </p>
+              
                {risposte.map((item, index) => {
+                if (index === currentIndex) {
                   return(
                     <>
                     <React.Fragment key={index}>
-                       <div>
-                         <p className="score" >Domanda {index +1} - {item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</p>
-                       </div>
+                    <p className="score">LE TUE RISPOSTE </p>
+                    <div className="d-flex justify-content-between mb-3">
+                <Button
+                  className="btn btnCard mr-2 "
+                  onClick={handlePrevious}
+                  disabled={currentIndex === 0}
+                >
+                  <GrPrevious />
+                </Button>
+                <span >Domanda {index + 1}</span>
+                <Button className="btn btnCard " onClick={handleNext}>
+                <GrNext/>
+                </Button>
+              </div>
+                     <Row style={{ marginBottom: '12px' }}>
+                      <Col>
+                      <div className="centered-question"> 
+                          </div>
+                          <div className="centered-answer">
+                            <span className="risposta">{item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</span>
+                          </div>
+                      </Col>
+                     </Row>
+                 
+           
                     </React.Fragment>
-                     
                     </>
                     
                      )
                }
-     
-                )}
-                  
+       return null; // Render nothing for other indices
+      }
+                )}  
+
+{currentIndex === risposte.length && (
+    <>
+      <p className="rispEsatte">RISPOSTE ESATTE</p>
+      <p className="score">{rispEsatte}</p>
+      <p className="rispErrate">RISPOSTE ERRATE</p>
+      <p className="score">{rispSbagliate}</p>
+    </>
+  )}
+                
                </Card.Text>
           </Card.Body >
         </Card>

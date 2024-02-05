@@ -19,6 +19,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import Delete from "./Delete";
 import Form from 'react-bootstrap/Form';
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 const GiocoCognitivoLettere = (props) => {
 
@@ -43,6 +44,9 @@ const GiocoCognitivoLettere = (props) => {
     const navigate = useNavigate();
 
     const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
+
+    const [rispEsatte,setRispEsatte] = useState(0);
+    const [rispSbagliate,setRispSbagliate] = useState(0);
 
     
     useEffect(()=>{
@@ -117,6 +121,8 @@ const handleCorretta= (index) =>{
     nRisposteEsatte:increment(1),
    
   });
+  
+  setRispEsatte(rispEsatte+1);
   setPulsantiCliccati((prev) => [...prev, index]);
 }
 
@@ -130,6 +136,7 @@ const handleErrata= (index) =>{
     nRisposteSbagliate: increment(1),
     
   });
+  setRispSbagliate(rispSbagliate+1);
   setPulsantiCliccati((prev) => [...prev, index]);
 }
 
@@ -156,6 +163,17 @@ const RenderInputWithRandomLetter = ({ parola, randomPosition, setLettera }) => 
       <Form.Label style={{fontSize: '40px'}}>{parte2}</Form.Label>
     </Form.Group>
   );
+};
+
+const [currentIndex, setCurrentIndex] = useState(0);
+const handleNext = () => {
+  // Update the state to move to the next index
+  setCurrentIndex((prevIndex) => prevIndex + 1);
+};
+
+const handlePrevious = () => {
+  // Update the state to move to the previous index
+  setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
 };
 
 
@@ -208,41 +226,64 @@ const RenderInputWithRandomLetter = ({ parola, randomPosition, setLettera }) => 
        </>
      : 
     <>
-        <Card className="cardAvviso">
+         <Card className="cardAvviso">
           <Card.Body >
               <Card.Title>
                    <h2 className="avviso">Domande termiante</h2>
                </Card.Title>
                <Card.Text>
-               <p className="score">LE TUE LETTERE INSERITE SONO </p>
-             
+              
                {risposte.map((item, index) => {
+                if (index === currentIndex) {
                   return(
                     <>
-                     <React.Fragment key={index}>
+                    <React.Fragment key={index}>
+                    <p className="score">LE TUE RISPOSTE </p>
+                    <div className="d-flex justify-content-between mb-3">
+                <Button
+                  className="btn btnCard mr-2 "
+                  onClick={handlePrevious}
+                  disabled={currentIndex === 0}
+                >
+                  <GrPrevious />
+                </Button>
+                <span >Domanda {index + 1}</span>
+                <Button className="btn btnCard " onClick={handleNext}>
+                <GrNext/>
+                </Button>
+              </div>
                      <Row style={{ marginBottom: '12px' }}>
                       <Col>
-                        <Button className = "btn btn-success btn-space"
-                         disabled={isPulsanteDisabilitato(index)}
-                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
-                      </Col>
-                      <Col>
-                        <span>Domanda {index +1} - {item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</span>
-                      </Col>
-                      <Col>
-                        <Button className = "btn btn-danger btn-space1" 
-                        disabled={isPulsanteDisabilitato(index)}
-                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
+                          <div className="centered-answer">
+                            <span className="risposta">{item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</span>
+                          </div>
                       </Col>
                      </Row>
+                     <div className="d-flex justify-content-between mb-3">
+                     <Button className = "btn btn-success btn-space"
+                         disabled={isPulsanteDisabilitato(index)}
+                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
+                     <Button className = "btn btn-danger btn-space1" 
+                        disabled={isPulsanteDisabilitato(index)}
+                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
+                     </div>
+           
                     </React.Fragment>
-                     
                     </>
                     
                      )
                }
-     
-                )}                  
+       return null; // Render nothing for other indices
+      }
+                )}  
+                {currentIndex === risposte.length && (
+    <>
+      <p className="rispEsatte">RISPOSTE ESATTE</p>
+      <p className="score">{rispEsatte}</p>
+      <p className="rispErrate">RISPOSTE ERRATE</p>
+      <p className="score">{rispSbagliate}</p>
+    </>
+  )}
                </Card.Text>
           </Card.Body >
         </Card>

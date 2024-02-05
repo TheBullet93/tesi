@@ -186,7 +186,7 @@ main {
 
 .score{
   text-align: center;
- 
+  color: #0155af;
 }
 
 .rispEsatte{
@@ -223,4 +223,23 @@ main {
   background-color: white;
   box-shadow: 0 3px #495057;
   transform: translateY(4px);
+}
+
+.centered-question {
+  text-align: center;
+}
+
+.centered-answer {
+  text-align: center;
+  margin-top: 3px; /* Adjust the margin as needed */
+}
+
+.white-icon {
+
+  color: white !important;
+
+}
+
+.risposta{
+  font-size: 80px;
 }
