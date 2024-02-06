@@ -82,21 +82,41 @@ const SelezionaPazientiEsCognitivo = (props) =>{
       
       },[])
 
-      const aggiungi = () => {  
-        selezionati.forEach((idPaziente) =>{
-            const db = getDatabase();
+      const aggiungi = () => {
+        const domandeObject = {};
+      
+        // Raccogli tutte le domande in un unico oggetto
+        domande.forEach((domanda) => {
+          if (domanda.id) {
+            domandeObject[domanda.id] = domanda;
+          }
+        });
+
+        const paroleObject = {};
+      
+        // Raccogli tutte le parole in un unico oggetto
+        parole.forEach((parola) => {
+          if (parola.id) {
+            paroleObject[parola.id] = parola;
+          }
+        });
+      
+        selezionati.forEach((idPaziente) => {
+          const db = getDatabase();
             const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}`);
             const newPostRef = push(postListRef);
 
-            set(newPostRef, {
-              titoloGioco: props.titolo,
-              tipologiaGioco: props.tipologia,
-              difficoltaGioco: props.difficolta,
-              domande: domande ,
-              parole: parole,
-            });
-        })
-        
+      
+          // Utilizzo dell'oggetto domande come chiave nel database
+          set(newPostRef, {
+            titoloGioco: props.titolo,
+            tipologiaGioco: props.tipologia,
+            difficoltaGioco: props.difficolta,
+            domande: domandeObject ,// Utilizzo dell'oggetto domande come chiave
+            parole: paroleObject,
+          });
+        });
+      
         setShow(false);
       };
   

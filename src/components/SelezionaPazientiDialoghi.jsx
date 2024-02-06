@@ -67,18 +67,28 @@ const SelezionaPazientiDialoghi = (props) =>{
       },[])
 
       const aggiungi = () => {
-        selezionati.forEach((idPaziente) =>{
-            const db = getDatabase();
-            const postListRef= ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}`);
-            const newPostRef = push(postListRef);
-
-            set(newPostRef, {
-              titoloDialogo: props.titolo,
-              tipologiaDialogo: props.tipologia,
-              domande: domande
-            });
-        })
-        
+        const domandeObject = {};
+      
+        // Raccogli tutte le domande in un unico oggetto
+        domande.forEach((domanda) => {
+          if (domanda.id) {
+            domandeObject[domanda.id] = domanda;
+          }
+        });
+      
+        selezionati.forEach((idPaziente) => {
+          const db = getDatabase();
+          const postListRef = ref(db, `/terapisti/${props.idTerapista}/pazienti/${idPaziente}/trattamenti/${props.trattamento}`);
+          const newPostRef = push(postListRef);
+      
+          // Utilizzo dell'oggetto domande come chiave nel database
+          set(newPostRef, {
+            titoloDialogo: props.titolo,
+            tipologiaDialogo: props.tipologia,
+            domande: domandeObject // Utilizzo dell'oggetto domande come chiave
+          });
+        });
+      
         setShow(false);
       };
   
