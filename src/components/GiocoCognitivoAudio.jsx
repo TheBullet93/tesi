@@ -19,7 +19,7 @@ import {ref as ref_storage, getDownloadURL, listAll, getStorage,} from "firebase
 import UpdateDomandaAudioAttivita from "./UpdateDomandaAudioAttivita";
 import { AudioPlayer } from 'react-audio-play';
 import Delete from "./Delete";
-import { GrPrevious, GrNext } from "react-icons/gr";
+import { FaAngleLeft,FaAngleRight } from "react-icons/fa";
 
 const GiocoCognitivoAudio = (props) => {
 
@@ -291,15 +291,15 @@ const handlePrevious = () => {
                     <p className="score">LE TUE RISPOSTE </p>
                     <div className="d-flex justify-content-between mb-3">
                 <Button
-                  className="btn btnCard mr-2 "
+                  className="btn btnCard mr-2"
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}
                 >
-                  <GrPrevious />
+                  <FaAngleLeft style={{ color: 'white' }}/>
                 </Button>
                 <span >Domanda {index + 1}</span>
                 <Button className="btn btnCard " onClick={handleNext}>
-                <GrNext/>
+                <FaAngleRight style={{ color: 'white' }}/>
                 </Button>
               </div>
                      <Row style={{ marginBottom: '12px' }}>

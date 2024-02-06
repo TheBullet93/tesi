@@ -14,7 +14,7 @@ import {useNavigate} from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import { GrPrevious, GrNext } from "react-icons/gr";
+import { FaAngleLeft,FaAngleRight } from "react-icons/fa";
 
 const GiocoCognitivoAppartenenza = (props) => {
 
@@ -214,11 +214,11 @@ const handlePrevious = () => {
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}
                 >
-                  <GrPrevious />
+                <FaAngleLeft style={{ color: 'white' }}/>
                 </Button>
                 <span >Domanda {index + 1}</span>
                 <Button className="btn btnCard " onClick={handleNext}>
-                <GrNext/>
+                <FaAngleRight style={{ color: 'white' }}/>
                 </Button>
               </div>
                      <Row style={{ marginBottom: '12px' }}>

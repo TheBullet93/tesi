@@ -16,6 +16,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import AggiornaDomanda from "./AggiornaDomanda";
 import Delete from "./Delete";
+import { FaAngleLeft,FaAngleRight } from "react-icons/fa";
 
 const GiocoFisico = (props) => {
 
@@ -29,6 +30,13 @@ const GiocoFisico = (props) => {
     const updateRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/Globali`);
     const updateTipologiaRef = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risultati/${props.tipologiaEsercizio}`);
     const refRispostePaziente = ref(db,`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/trattamenti/risposte`);
+
+
+    const [pulsantiCliccati, setPulsantiCliccati] = useState([]);
+    const [rispEsatte,setRispEsatte] = useState(0);
+    const [rispSbagliate,setRispSbagliate] = useState(0);
+
+    const [risposte,setRisposte] = useState([]);
 
     const navigate = useNavigate();
 
@@ -69,6 +77,8 @@ const handleNextQuestion = () =>{
     
   }
   setCurrentQuestion(nextQuestion);
+  setRisposte([...risposte,{risposta:'Esercizio Terminato' }]);
+
   const dbRispostaRef = refRispostePaziente;
   let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
   let dataRisposta = new Date().toLocaleString('it-IT', options);
@@ -77,14 +87,15 @@ const handleNextQuestion = () =>{
     titoloGioco: props.titoloEsercizio,
     tipologiaGioco: props.tipologiaEsercizio,
     domanda: todoData[currentQuestion].titoloDomanda,
-    rispostaPaziente: 'Non Eseguito',
+    rispostaPaziente: 'Esercizio Svolto',
     giorno:  dataRisposta,
+    
   });
 
 }
 
 
-const handleCorretta= () =>{
+const handleCorretta= (index) =>{
   update(updateRef,{
     nRisposteEsatte:increment(1),
    
@@ -95,28 +106,13 @@ const handleCorretta= () =>{
    
   });
 
-  const dbRispostaRef = refRispostePaziente;
-  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
-  let dataRisposta = new Date().toLocaleString('it-IT', options);
-  const newPostRef = push(dbRispostaRef);
-  set(newPostRef,{
-    titoloGioco: props.titoloEsercizio,
-    tipologiaGioco: props.tipologiaEsercizio,
-    domanda: todoData[currentQuestion].titoloDomanda,
-    rispostaPaziente: 'Corretto',
-    giorno:  dataRisposta,
-    
-  });
 
-  const nextQuestion = currentQuestion + 1;
-  if(nextQuestion < todoData.length){
-    setCurrentQuestion(nextQuestion);
-    
-  }
-  setCurrentQuestion(nextQuestion);
+
+  setRispEsatte(rispEsatte+1);
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
 
-const handleErrata= () =>{
+const handleErrata= (index) =>{
   update(updateRef,{
     nRisposteSbagliate: increment(1),
    
@@ -127,26 +123,26 @@ const handleErrata= () =>{
     
   });
 
-  const dbRispostaRef = refRispostePaziente;
-  let options = {'month': '2-digit', 'day': '2-digit','year':'numeric',};
-  let dataRisposta = new Date().toLocaleString('it-IT', options);
-  const newPostRef = push(dbRispostaRef);
-  set(newPostRef,{
-    titoloGioco: props.titoloEsercizio || 'Nessun dato',
-    tipologiaGioco: props.tipologiaEsercizio || 'Nessun dato',
-    domanda: todoData[currentQuestion].titoloDomanda || 'Nessun dato',
-    rispostaPaziente: 'Errato',
-    giorno:  dataRisposta || 'Nessun dato',
-    
-  });
+
    
-  const nextQuestion = currentQuestion + 1;
-  if(nextQuestion < todoData.length){
-    setCurrentQuestion(nextQuestion);
-    
-  }
-  setCurrentQuestion(nextQuestion);
+  setRispSbagliate(rispSbagliate+1);
+  setPulsantiCliccati((prev) => [...prev, index]);
 }
+
+const isPulsanteDisabilitato = (index) => {
+  return pulsantiCliccati.includes(index);
+};
+
+const [currentIndex, setCurrentIndex] = useState(0);
+const handleNext = () => {
+  // Update the state to move to the next index
+  setCurrentIndex((prevIndex) => prevIndex + 1);
+};
+
+const handlePrevious = () => {
+  // Update the state to move to the previous index
+  setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
+};
 
 
     return (
@@ -167,9 +163,9 @@ const handleErrata= () =>{
             </div>
        </Card.Text> 
          <Row>
-          <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} variant="success" block onClick={handleCorretta}>CORRETTO</Button></Col>
+        <Col></Col>
           <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} className="Next" block onClick={handleNextQuestion}>Es. successivo <MdNavigateNext/></Button></Col>
-          <Col xs={12} md={4} className="text-center"> <Button style={{ margin: '5px' }} variant="danger" block onClick={handleErrata}>ERRATO</Button></Col>
+          <Col></Col>
          </Row>
           
       
@@ -198,8 +194,64 @@ const handleErrata= () =>{
         <Card className="cardAvviso">
           <Card.Body >
               <Card.Title>
-                   <h2 className="avviso">ESERCIZIO FISICO TERMINATO</h2>
+                   <h2 className="avviso">Esercizio Fisico Terminato</h2>
                </Card.Title>
+               <Card.Text>
+              
+               {risposte.map((item, index) => {
+                if (index === currentIndex) {
+                  return(
+                    <>
+                    <React.Fragment key={index}>
+                    <div className="d-flex justify-content-between mb-3">
+                <Button
+                  className="btn btnCard mr-2 "
+                  onClick={handlePrevious}
+                  disabled={currentIndex === 0}
+                >
+                  <FaAngleLeft style={{ color: 'white' }}/>
+                </Button>
+                <span >Domanda {index + 1}</span>
+                <Button className="btn btnCard " onClick={handleNext}>
+                <FaAngleRight style={{ color: 'white' }}/>
+                </Button>
+              </div>
+                     <Row style={{ marginBottom: '12px' }}>
+                      <Col>
+                      <div className="centered-question">
+                          
+                          </div>
+                          <div className="centered-answer">
+                            <span className="risposta">{item.risposta.toLocaleUpperCase() || 'Nessuna Risposta'}</span>
+                          </div>
+                      </Col>
+                     </Row>
+                     <div className="d-flex justify-content-between mb-3">
+                     <Button className = "btn btn-success btn-space"
+                         disabled={isPulsanteDisabilitato(index)}
+                         onClick={()=>handleCorretta(index)}>CORRETTA</Button>
+                     <Button className = "btn btn-danger btn-space1" 
+                        disabled={isPulsanteDisabilitato(index)}
+                        onClick={()=>handleErrata(index)}>ERRATA</Button>  
+                     </div>
+           
+                    </React.Fragment>
+                    </>
+                    
+                     )
+               }
+       return null; // Render nothing for other indices
+      }
+                )}  
+                      {currentIndex === risposte.length && (
+    <>
+      <p className="rispEsatte">ESERCIZI CORRETTI</p>
+      <p className="score">{rispEsatte}</p>
+      <p className="rispErrate">ESERCIZI ERRATI</p>
+      <p className="score">{rispSbagliate}</p>
+    </>
+  )}
+               </Card.Text>
           </Card.Body >
         </Card>
     </>
