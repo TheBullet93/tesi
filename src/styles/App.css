@@ -366,7 +366,7 @@ p{color:#007bff;}
 .selectFormGioco{
   color:#007bff;
   border: 1px solid #007bff;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 100%;
   text-align: center;
   display: inline;
@@ -376,7 +376,7 @@ p{color:#007bff;}
 .selectFormAttivita{
   color:#007bff;
   border: 1px solid #007bff;
-  border-radius: 20px;
+  border-radius: 10px;
   width: 100%;
   text-align: center;
   display: inline;
@@ -395,11 +395,6 @@ p{color:#007bff;}
     font-size: 0;
   }
 
-  .selectFormAttivita{
-    height: 50px;
-    width: 50px;
-    
-  }
 
 
 }
