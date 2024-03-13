@@ -86,7 +86,7 @@ function UpdateEsFisico(props) {
   };
 
   const handleCheckboxChange = (option) => {
-    // Updated to allow only one tipologia to be selected
+    // Aggiornato per consentire la selezione di una sola tipologia
     setTipologiaEsercizio(option === tipologiaEsercizio ? '' : option);
   };
 
@@ -129,20 +129,6 @@ function UpdateEsFisico(props) {
                   Selezionare  tipologia
                 </Form.Control.Feedback>
               </InputGroup>
-                       {/* 
-                         <InputGroup hasValidation>
-                           <Form.Select  className="selectForm" defaultValuevalue={props.tipologiaEsercizio} required onChange={handleChangeTipologia}>
-                            {options.map((option,index) =>  {
-                                return(
-                                 <option key={index}> {option.label}</option>
-                                         )
-                                     }        
-                                      )}    
-                              </Form.Select>
-                                  <Form.Control.Feedback type="invalid">
-                                      Scegliere Tipologia
-                                 </Form.Control.Feedback>
-                            </InputGroup> */} 
               </Form.Group>
        
             <Form.Label className="labelForm">

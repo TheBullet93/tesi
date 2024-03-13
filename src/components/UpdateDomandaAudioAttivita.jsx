@@ -50,7 +50,7 @@ const UpdateDomandaAudioAttivita = (props) =>{
           setAudioUrls(url + v4());
         })
         .catch((error) => {
-          console.error('Error uploading file:', error);
+          console.error('Errore durante il caricamento del file:', error);
         });
     };
 
@@ -68,7 +68,7 @@ const UpdateDomandaAudioAttivita = (props) =>{
             aggiungiFile();
           })
           .catch((error) => {
-            console.error('Error deleting old audio file:', error);
+            console.error(`Errore durante l'eliminazione del vecchio file audio:`, error);
           });
       } else {
         // Se non c'è un file audio esistente, carica semplicemente il nuovo file
@@ -172,15 +172,15 @@ const UpdateDomandaAudioAttivita = (props) =>{
       }
       const selectedFile = e.target.files[0];
 
-      // Check if the selected file is an audio file (you can add more audio formats if needed)
+    
+      // Verifica che il file selezionato è un file audio
       const allowedAudioTypes = ["audio/mp3", "audio/mpeg", "audio/wav"];
       if (selectedFile && allowedAudioTypes.includes(selectedFile.type)) {
         setValidated(true);
         setAudio(selectedFile);
       } else {
-        // If the selected file is not an allowed audio type, reset the input field
         e.target.value = null;
-        setValidated(false); // You might want to show an error message here
+        setValidated(false);
       }
     }
   

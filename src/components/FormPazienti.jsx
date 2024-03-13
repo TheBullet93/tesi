@@ -108,7 +108,7 @@ function FormPazienti(props) {
       dieta: dieta || 'Nessun dato',
     };
   
-    // Check if patologie array is non-empty before adding to postData
+    // Controlla se l'array patologie non è vuoto prima di aggiungerlo a postData
     if (patologie && patologie.length > 0) {
       postData.patologie = patologie.reduce((acc, patologia) => {
         const newPatologiaRef = push(ref(db, `terapisti/${props.item}/patologie/`));
@@ -117,7 +117,7 @@ function FormPazienti(props) {
       }, {});
     }
   
-    // Check if allergie array is non-empty before adding to postData
+    // Controlla se l'array delle allergie non è vuoto prima di aggiungerlo a postData
     if (allergie && allergie.length > 0) {
       postData.allergie = allergie.reduce((acc, allergia) => {
         const newAllergiaRef = push(ref(db, `terapisti/${props.item}/allergie/`));
@@ -126,7 +126,7 @@ function FormPazienti(props) {
       }, {});
     }
   
-    // Check if parenti array is non-empty before adding to postData
+    // Controlla se l'array parenti non è vuoto prima di aggiungerlo a postData
     if (parenti && parenti.length > 0) {
       postData.parenti = parenti.reduce((acc, parente) => {
         const newParenteRef = push(ref(db, `terapisti/${props.item}/parenti/`));
@@ -140,7 +140,7 @@ function FormPazienti(props) {
       }, {});
     }
   
-    // Check if any of the arrays are non-empty before adding to Firebase
+    // Controlla se qualcuno degli array non è vuoto prima di aggiungerlo a Firebase
     if (
       (postData.patologie && Object.keys(postData.patologie).length > 0) ||
       (postData.allergie && Object.keys(postData.allergie).length > 0) ||
@@ -149,7 +149,7 @@ function FormPazienti(props) {
       set(newPostRef, postData);
     }
   
-    // Reset state
+    // Ripristina stato
     setNome('');
     setCognome('');
     setCitta('');

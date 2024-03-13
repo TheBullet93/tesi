@@ -20,12 +20,6 @@ export const Registrazione = () => {
 
         const text = 'Inserire Password [6 caratteri minimo]'
  
-      /*  const [nome, setNome] = useState('')
-        const [cognome, setCognome] = useState('');
-        const [citta, setCitta] = useState('')
-        const [indirizzo, setIndirizzo] = useState('');
-        const [telefono,setTelefono] = useState(''); */
-
         const [email, setEmail] = useState('')
         const [password, setPassword] = useState('');
 
@@ -53,23 +47,6 @@ export const Registrazione = () => {
                     
             })
             
-            /*
-            .then(()=>{
-                const db = getDatabase();
-                const postListRef = ref(db, 'terapisti/' + auth.currentUser.uid +'/profilo'); 
-               
-                set(postListRef, {
-                       nome: nome,
-                       cognome: cognome,
-                       citta: citta,
-                       indirizzo: indirizzo,
-                       telefono: telefono,
-                       email: email,
-                       password:password
-                       
-                     });
-             
-            } ) */
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -144,48 +121,6 @@ export const Registrazione = () => {
                </Form.Control.Feedback>
                 </InputGroup>
           </Form.Group>   
-          
-        { /*  <Row>
-            <Col>
-                <Form.Label className="labelForm">Nome</Form.Label>
-                  <Form.Control type="text" placeholder="Nome" 
-                     required
-                     value={nome}  
-                     onChange={(e)=>{setChanged(true);setNome(e.target.value)}} />
-            </Col>
-            <Col>
-                <Form.Label className="labelForm">Cognome</Form.Label>
-                  <Form.Control type="text" placeholder="Cognome" 
-                     required
-                     value={cognome}  
-                     onChange={(e)=>{setChanged(true);setCognome(e.target.value)}} />
-            </Col>
-           </Row>
-           <Row>
-            <Col>
-                <Form.Label className="labelForm">Città di nascita</Form.Label>
-                   <Form.Control type="text" placeholder="Città"
-                     value={citta}  
-                     onChange={(e)=>{setChanged(true);setCitta(e.target.value)}} 
-                     required/>
-            </Col>
-            <Col>
-                <Form.Label className="labelForm">Indirizzo</Form.Label>
-                   <Form.Control type="text" placeholder="Indirizzo"
-                     value={indirizzo}  
-                     onChange={(e)=>{setChanged(true);setIndirizzo(e.target.value)}} 
-                     required/>
-            </Col>
-           </Row>
-           <Row>
-            <Col>
-                 <Form.Label className="labelForm">Telefono</Form.Label>
-                   <Form.Control type="text" placeholder="Telefono/Cellulare"
-                     value={telefono}  
-                     onChange={(e)=>{setChanged(true);setTelefono(e.target.value)}} 
-                     required/>   
-            </Col>
-    </Row> */}
             <Button 
             disabled={!isFormValid()}
                 className="register-btn" 

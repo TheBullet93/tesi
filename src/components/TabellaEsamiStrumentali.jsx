@@ -231,13 +231,6 @@ const sortingFileDSC = (col) =>{
                                   dataInserimento = {item.dataInserimento}
                                   dbPath = {`terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
                                   />
-                                  {/*
-                                  <Delete
-                                  title = {item.nomeFile}
-                                  dbPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/PDTA/file/esamiStrumentali/${item.id}`}
-                                  textAlert = {' Sei sicuro di voler eliminare questo file?'}
-                                  textToast = {'File eliminato'} />
-                                  */}  
                                     <DeleteFile
                                         title = {item.nomeFile}
                                         dbStoricoPath = {`/terapisti/${auth?.currentUser?.uid}/pazienti/${props.idPaziente}/storico/file`}

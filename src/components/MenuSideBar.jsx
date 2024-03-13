@@ -54,7 +54,7 @@ export default function MenuSideBar() {
       }).catch((error) => {
       });
   }
-   // <MenuItem><Link className="linkMenu"to={'/profilo'}><FiUser/>Profilo</Link></MenuItem>
+   
 
   return (
     <>

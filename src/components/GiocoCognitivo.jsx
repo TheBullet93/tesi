@@ -293,7 +293,7 @@ const handlePrevious = () => {
                     
                      )
                }
-       return  null; // Render nothing for other indices
+       return  null; 
        
       }
                 )}  

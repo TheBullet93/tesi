@@ -42,7 +42,7 @@ const NavigationBar = () => {
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
         if (!user) {
-          // Redirect to the login page if the user is not authenticated
+          //Reindirizzamento alla pagina di login se l'utente non è autenticato
           navigate("/");
         }
       });
@@ -69,7 +69,7 @@ const NavigationBar = () => {
         windowWidth < 767 ? 'transparent' : "#007bff",
       marginTop: windowWidth < 767 ? '50px' : '0',
       marginBottom: windowWidth < 767 ? '2px' : '0',
-      border: 'none', // Remove default border
+      border: 'none', 
     }}>
       <Container fluid>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggle-button" >

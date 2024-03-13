@@ -131,12 +131,12 @@ const  UpdateGiochi = (props) => {
 
 
   const handleCheckboxChange = (option) => {
-    // Updated to allow only one tipologia to be selected
+    // Aggiornato per consentire la selezione di una sola tipologia
     setTipologia(option === tipologiaGioco ? '' : option);
   };
 
   const handleLivelloCheckboxChange = (livello) => {
-    // Updated to allow only one livello to be selected
+    // Aggiornato per consentire la selezione di un solo livello
     setDifficolta(livello === difficoltaGioco ? '' : livello);
   };
   const renderCheckboxes = (optionsArray, selectedValue, onChangeHandler) => {

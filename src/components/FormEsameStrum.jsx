@@ -45,7 +45,6 @@ function FormEsameStrum(props) {
 
   const handleToggle = () => {
     setUseFile(!useFile);
-    // Clear file state when toggling to prevent unexpected behavior
     setFile(null);
   };
 
@@ -212,8 +211,7 @@ function FormEsameStrum(props) {
       e.stopPropagation();
     } else {
       const selectedFile = e.target.files[0];
-  
-      // Check if the selected file is an audio file
+
       if (selectedFile.type.startsWith('audio/')) {
         e.target.value = null;
         setValidated(false);

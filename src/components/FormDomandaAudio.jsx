@@ -158,15 +158,14 @@ const FormDomandaAudio = (props) =>{
       }
       const selectedFile = e.target.files[0];
 
-      // Check if the selected file is an audio file (you can add more audio formats if needed)
+      // Verifica se il file selezioato è un file audio
       const allowedAudioTypes = ["audio/mp3", "audio/mpeg", "audio/wav"];
       if (selectedFile && allowedAudioTypes.includes(selectedFile.type)) {
         setValidated(true);
         setAudio(selectedFile);
       } else {
-        // If the selected file is not an allowed audio type, reset the input field
         e.target.value = null;
-        setValidated(false); // You might want to show an error message here
+        setValidated(false); 
       }
     }
 

@@ -134,12 +134,12 @@ function FormGiochi() {
   };
 
   const handleCheckboxChange = (option) => {
-    // Updated to allow only one tipologia to be selected
+    // Aggiorna per consentire la selezione di una sola tipologia
     setSelectedTipologia(option === selectedTipologia ? '' : option);
   };
 
   const handleLivelloCheckboxChange = (livello) => {
-    // Updated to allow only one livello to be selected
+    // Aggiorna per consentire la selezione di una solo livello
     setSelectedLivello(livello === selectedLivello ? '' : livello);
   };
 

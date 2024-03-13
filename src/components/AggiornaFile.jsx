@@ -139,7 +139,7 @@ function AggiornaFile(props) {
     } else {
       const selectedFile = e.target.files[0];
   
-      // Check if the selected file is an audio file
+      // Verifica che il file selezionato sia un audio
       if (selectedFile.type.startsWith('audio/')) {
         e.target.value = null;
         setValidated(false);

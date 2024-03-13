@@ -105,7 +105,7 @@ function FormEsFisici() {
   };
 
   const handleCheckboxChange = (option) => {
-    // Updated to allow only one tipologia to be selected
+    // Aggiorna per consentire la selezione di una sola tipologia
     setTipologiaEsercizio(option === tipologiaEsercizio ? '' : option);
   };
 

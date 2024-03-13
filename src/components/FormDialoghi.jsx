@@ -117,7 +117,7 @@ function FormDialoghi() {
   };
 
   const handleCheckboxChange = (option) => {
-    // Updated to allow only one tipologia to be selected
+    // Aggiorna per consentire la selezione di una sola tipologia
     setTipologiaDialogo(option === tipologiaDialogo ? '' : option);
   };
 

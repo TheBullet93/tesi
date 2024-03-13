@@ -44,7 +44,6 @@ function FormEsameLab(props) {
 
   const handleToggle = () => {
     setUseFile(!useFile);
-    // Clear file state when toggling to prevent unexpected behavior
     setFile(null);
   };
 

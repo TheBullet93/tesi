@@ -135,12 +135,12 @@ const isPulsanteDisabilitato = (index) => {
 
 const [currentIndex, setCurrentIndex] = useState(0);
 const handleNext = () => {
-  // Update the state to move to the next index
+  //Aggiorna lo stato per passare all'indice successivo
   setCurrentIndex((prevIndex) => prevIndex + 1);
 };
 
 const handlePrevious = () => {
-  // Update the state to move to the previous index
+  // Aggiorna lo stato per passare all'indice precedente
   setCurrentIndex((prevIndex) => Math.max(0, prevIndex - 1));
 };
 
@@ -240,7 +240,7 @@ const handlePrevious = () => {
                     
                      )
                }
-       return null; // Render nothing for other indices
+       return null; 
       }
                 )}  
                       {currentIndex === risposte.length && (

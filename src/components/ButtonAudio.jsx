@@ -6,7 +6,6 @@ export default function ButtonAudio(props) {
 
     const [playing, setPlaying] = useState(false);
 
-  //let audio = new Audio(props.audio);
   const audioRef = useRef(new Audio(props.audio));
 
   const play = () => {
